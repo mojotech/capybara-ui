@@ -4,8 +4,6 @@ module Cucumber
       class List < Widget
         DEFAULT_TYPE = Atom
 
-        extend Forwardable
-
         include Enumerable
 
         def_delegators :items, :size, :include?, :each, :empty?

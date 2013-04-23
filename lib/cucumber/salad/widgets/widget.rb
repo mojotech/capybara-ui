@@ -2,6 +2,8 @@ module Cucumber
   module Salad
     module Widgets
       class Widget
+        extend Forwardable
+
         include Salad::Conversions
 
         def self.root(selector)
