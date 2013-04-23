@@ -2,7 +2,7 @@ module Cucumber
   module Salad
     module Widgets
       class List < Widget
-        DEFAULT_TYPE = Text
+        DEFAULT_TYPE = Atom
 
         extend Forwardable
 

@@ -12,7 +12,7 @@ module Cucumber
           private :default_root_selector
         end
 
-        def self.widget(name, selector, type = Text, &block)
+        def self.widget(name, selector, type = Atom, &block)
           body = if block_given?
                    ->{ block.(find(selector)) }
                  else

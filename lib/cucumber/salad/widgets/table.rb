@@ -45,7 +45,7 @@ module Cucumber
         end
 
         class Row < Widget
-          def self.cell(name, selector, type = Text, &block)
+          def self.cell(name, selector, type = Atom, &block)
             widget name, selector, type, &block
 
             cells << name

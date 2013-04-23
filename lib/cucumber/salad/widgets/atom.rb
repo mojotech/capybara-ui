@@ -1,7 +1,7 @@
 module Cucumber
   module Salad
     module Widgets
-      class Text < Widget
+      class Atom < Widget
         def to_a
           [to_s]
         end
