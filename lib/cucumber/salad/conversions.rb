@@ -5,7 +5,7 @@ module Cucumber
         case val
         when 'yes', 'true', true
           true
-        when 'no', 'false', false, nil
+        when 'no', 'false', false, nil, ''
           false
         else
           raise ArgumentError, "can't convert #{val.inspect} to boolean"
