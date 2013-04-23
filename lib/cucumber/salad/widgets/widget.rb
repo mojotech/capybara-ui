@@ -14,14 +14,10 @@ module Cucumber
           private :default_root_selector
         end
 
-        def self.widget(name, selector, type = Atom, &block)
-          body = if block_given?
-                   ->{ block.(find(selector)) }
-                 else
-                   ->{ type.new(root: root.find(selector)) }
-                 end
-
-          define_method name, &body
+        def self.widget(name, selector, type = Atom)
+          define_method name do
+            type.new(root: root.find(selector))
+          end
         end
 
         def initialize(settings = {})
