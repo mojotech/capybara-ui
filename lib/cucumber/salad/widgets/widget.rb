@@ -14,9 +14,11 @@ module Cucumber
           private :default_root_selector
         end
 
-        def self.widget(name, selector, type = Atom)
+        def self.widget(name, selector, type = Atom, &block)
+          t = block_given? ? Class.new(type, &block) : type
+
           define_method name do
-            type.new(root: root.find(selector))
+            t.new(root: root.find(selector))
           end
         end
 
