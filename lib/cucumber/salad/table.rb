@@ -6,40 +6,54 @@ module Cucumber
       include Enumerable
       include Conversions
 
-      class << self
-        def header_mappings
-          @header_mappings ||=
-           with_parent_mappings(:header) { |h, k|
-             h[k] = k.squeeze(' ').strip.gsub(' ', '_').to_sym
-           }
+      class Mapping
+        def initialize(settings = {})
+          self.key       = settings[:key]
+          self.transform = settings[:transform]
         end
 
-        def map(name, options = {}, &block)
-          header_mappings[name.to_s] = options[:to].to_sym if options[:to]
-          value_mappings[name.to_s]  = block if block_given?
-        end
-
-        def value_mappings
-          @value_mappings ||=
-           with_parent_mappings(:value) { |h, k|
-             h[k] = ->(value) { value }
-           }
+        def set(instance, row, key, value)
+          row[transform_key(instance, key)] = transform_value(instance, value)
         end
 
         private
 
-        def with_parent_mappings(name, &init)
-          m = "#{name}_mappings"
+        attr_accessor :key, :transform
 
-          if superclass.respond_to?(m)
-            superclass.send(m).dup
+        def transform_key(_, key)
+          (self.key || key.squeeze(' ').strip.gsub(' ', '_')).to_sym
+        end
+
+        def transform_value(instance, value)
+          instance.instance_exec(value, &(transform || default_transform))
+        end
+
+        def default_transform
+          ->(val) { val }
+        end
+      end
+
+      class << self
+        def map(name, options = {}, &block)
+          mappings[name] = Mapping.new(key: options[:to], transform: block)
+        end
+
+        def mappings
+          @mappings ||= with_parent_mappings
+        end
+
+        private
+
+        def with_parent_mappings
+          if superclass.respond_to?(:mappings)
+            superclass.send(:mappings).dup
           else
-            Hash.new(&init)
+            {}
           end
         end
       end
 
-      def_delegators 'self.class', :header_mappings, :value_mappings
+      def_delegators 'self.class', :mappings
 
       def initialize(table)
         self.table = table
@@ -57,16 +71,18 @@ module Cucumber
 
       attr_accessor :table
 
-      def key_for(header)
-        header_mappings[header]
+      def default_mapper
+        Mapping.new
       end
 
       def new_row(hash)
-        hash.each_with_object({}) { |(k, v), h| h[key_for(k)] = value_for(k, v) }
+        hash.each_with_object({}) { |(k, v), h|
+          mapping_for(k).set(self, h, k, v)
+        }
       end
 
-      def value_for(key, value)
-        instance_exec(value, &value_mappings[key])
+      def mapping_for(header)
+        mappings[header] || default_mapper
       end
     end
   end
