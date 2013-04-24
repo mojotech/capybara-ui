@@ -18,7 +18,7 @@ module Cucumber
           body = if block_given?
                    ->{ block.(find(selector)) }
                  else
-                   ->{ lookup(type).new(root: root.find(selector)) }
+                   ->{ type.new(root: root.find(selector)) }
                  end
 
           define_method name, &body
@@ -42,14 +42,6 @@ module Cucumber
         def default_root_selector
           raise NotImplementedError,
                 "#{self.class.name}: default root selector undefined"
-        end
-
-        def lookup(type)
-          if Class === type
-            type
-          else
-            self.class.const_get(type.to_s.classify)
-          end
         end
 
         def page

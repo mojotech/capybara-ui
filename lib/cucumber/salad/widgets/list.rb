@@ -17,7 +17,7 @@ module Cucumber
             define_method :item_for, &item_for
           else
             define_method :item_factory do
-              lookup(type)
+              type
             end
           end
         end
