@@ -1,79 +1,68 @@
 module Cucumber
   module Salad
     module Widgets
-      class Table < Widget
-        def self.row_class
-          Row
+      class Table < BaseTable
+        class ColumnDefinition
+          attr_reader :header
+
+          def initialize(selector, header, transform)
+            self.selector  = selector
+            self.header    = header
+            self.transform = transform
+          end
+
+          def ensure_loaded(container)
+            container.find(selector)
+          rescue Capybara::Ambiguous
+          end
+
+          def values(container)
+            container.all(selector).map { |n| transform.(node_text(n)).to_s }
+          end
+
+          private
+
+          attr_accessor :selector
+          attr_writer :header, :transform
+
+          def node_text(node)
+            NodeText.new(node)
+          end
+
+          def transform
+            @transform ||= ->(v) { v }
+          end
         end
 
-        def to_table
-          [headers, *rows.map { |r| Array(r) }]
+        class << self
+          attr_accessor :column_selector, :header_selector
+        end
+
+        def self.column(selector, header = nil, &transform)
+          column_definitions << ColumnDefinition.new(selector, header, transform)
+        end
+
+        def self.column_definitions
+          @column_definitions ||= []
+        end
+
+        protected
+
+        def ensure_table_loaded
+          column_definitions.first.ensure_loaded(self)
         end
 
         private
 
-        def header_for(node)
-          node.text.strip.downcase
-        end
-
-        def header_selector
-          'thead th'
-        end
+        def_delegators 'self.class', :column_selector, :column_definitions,
+                                     :header_selector
 
         def headers
-          items(header_selector, :header_for)
+          @headers ||= column_definitions.map(&:header)
         end
 
-        def items(selector, builder)
-          root.all(selector).map { |e| send(builder, e) }
-        end
-
-        def row_factory
-          self.class.row_class
-        end
-
-        def row_for(node)
-          row_factory.new(root: node)
-        end
-
-        def row_selector
-          'tbody tr'
-        end
-
-        def rows
-          items(row_selector, :row_for)
-        end
-
-        class Row < Widget
-          def self.cell(name, selector, type = Atom, &block)
-            widget name, selector, type, &block
-
-            cells << name
-          end
-
-          def self.cells
-            @cells ||= []
-          end
-
-          def to_a
-            declared_row || generated_row
-          end
-
-          protected
-
-          def cell_selector
-            'td'
-          end
-
-          def declared_row
-            cells = self.class.cells
-
-            cells.map { |c| send(c).to_s } if cells.present?
-          end
-
-          def generated_row
-            root.all(cell_selector).map { |c| c.text.strip }
-          end
+        def values
+          @values ||= column_definitions.map { |d| d.values(root) }.transpose
         end
       end
     end
