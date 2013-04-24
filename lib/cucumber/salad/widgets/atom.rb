@@ -11,7 +11,7 @@ module Cucumber
         end
 
         def to_s
-          root.text.strip
+          node_text(root)
         end
       end
     end

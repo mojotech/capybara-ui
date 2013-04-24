@@ -33,6 +33,12 @@ module Cucumber
            Nokogiri::XML(xml, &:noblanks).to_xhtml
         end
 
+        protected
+
+        def node_text(node)
+          NodeText.new(node)
+        end
+
         private
 
         attr_writer :root_selector
