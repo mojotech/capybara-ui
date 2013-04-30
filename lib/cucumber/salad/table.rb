@@ -15,7 +15,7 @@ module Cucumber
       class Mapping
         def initialize(settings = {})
           self.key               = settings[:key]
-          self.value_transformer = settings[:value_transformer] || default_value_transformer
+          self.value_transformer = transformer(settings[:value_transformer], :pass)
         end
 
         def set(instance, row, key, value)
@@ -34,8 +34,8 @@ module Cucumber
           instance.instance_exec(value, &value_transformer)
         end
 
-        def default_value_transformer
-          Transformations.pass
+        def transformer(set, fallback)
+          set || Transformations.send(fallback)
         end
       end
 
