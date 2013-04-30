@@ -7,6 +7,10 @@ module Cucumber
       include Conversions
 
       module Transformations
+        def self.keyword
+          ->(val) { val.squeeze(' ').strip.gsub(' ', '_').to_sym }
+        end
+
         def self.pass
           ->(val) { val }
         end
@@ -27,7 +31,7 @@ module Cucumber
         attr_accessor :key, :value_transformer
 
         def transform_key(_, key)
-          (self.key || key.squeeze(' ').strip.gsub(' ', '_')).to_sym
+          (self.key || Transformations.keyword.(key))
         end
 
         def transform_value(instance, value)
