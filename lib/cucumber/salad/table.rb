@@ -6,6 +6,12 @@ module Cucumber
       include Enumerable
       include Conversions
 
+      module Transformations
+        def self.pass
+          ->(val) { val }
+        end
+      end
+
       class Mapping
         def initialize(settings = {})
           self.key               = settings[:key]
@@ -29,7 +35,7 @@ module Cucumber
         end
 
         def default_value_transformer
-          ->(val) { val }
+          Transformations.pass
         end
       end
 
