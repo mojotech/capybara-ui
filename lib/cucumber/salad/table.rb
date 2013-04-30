@@ -8,8 +8,8 @@ module Cucumber
 
       class Mapping
         def initialize(settings = {})
-          self.key       = settings[:key]
-          self.transform = settings[:transform]
+          self.key               = settings[:key]
+          self.value_transformer = settings[:value_transformer]
         end
 
         def set(instance, row, key, value)
@@ -18,24 +18,24 @@ module Cucumber
 
         private
 
-        attr_accessor :key, :transform
+        attr_accessor :key, :value_transformer
 
         def transform_key(_, key)
           (self.key || key.squeeze(' ').strip.gsub(' ', '_')).to_sym
         end
 
         def transform_value(instance, value)
-          instance.instance_exec(value, &(transform || default_transform))
+          instance.instance_exec(value, &(value_transformer || default_value_transformer))
         end
 
-        def default_transform
+        def default_value_transformer
           ->(val) { val }
         end
       end
 
       class << self
         def map(name, options = {}, &block)
-          mappings[name] = Mapping.new(key: options[:to], transform: block)
+          mappings[name] = Mapping.new(key: options[:to], value_transformer: block)
         end
 
         def mappings
