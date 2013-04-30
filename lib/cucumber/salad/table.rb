@@ -44,6 +44,11 @@ module Cucumber
         end
       end
 
+      class VoidMapping
+        def set(*)
+        end
+      end
+
       class << self
         def map(name, options = {}, &block)
           case name
@@ -60,12 +65,28 @@ module Cucumber
            merge(with_parent_mappings)
         end
 
+        def skip(name)
+          case name
+          when :*
+            set_default_mapping VoidMapping
+          else
+            raise ArgumentError, "can't convert #{name.inspect} to name"
+          end
+        end
+
         private
 
         def set_default_mapping(options)
-          @mappings = Hash.
-           new { |h, k| h[k] = Mapping.new(key_transformer: options[:to]) }.
-           merge(mappings)
+          case options
+          when Hash
+            @mappings = Hash.
+             new { |h, k| h[k] = Mapping.new(key_transformer: options[:to]) }.
+             merge(mappings)
+          when Class
+            @mappings = Hash.new { |h, k| h[k] = options.new }.merge(mappings)
+          else
+            raise ArgumentError, "can't convert #{options.inspect} to mapping"
+          end
         end
 
         def set_mapping(name, options, &block)
