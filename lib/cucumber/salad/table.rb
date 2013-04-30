@@ -46,14 +46,32 @@ module Cucumber
 
       class << self
         def map(name, options = {}, &block)
-          mappings[name] = Mapping.new(key: options[:to], value_transformer: block)
+          case name
+          when :*
+            set_default_mapping options
+          else
+            set_mapping name, options, &block
+          end
         end
 
         def mappings
-          @mappings ||= with_parent_mappings
+          @mappings ||= Hash.
+           new { |h, k| h[k] = Mapping.new }.
+           merge(with_parent_mappings)
         end
 
         private
+
+        def set_default_mapping(options)
+          @mappings = Hash.
+           new { |h, k| h[k] = Mapping.new(key_transformer: options[:to]) }.
+           merge(mappings)
+        end
+
+        def set_mapping(name, options, &block)
+          mappings[name] = Mapping.
+           new(key: options[:to], value_transformer: block)
+        end
 
         def with_parent_mappings
           if superclass.respond_to?(:mappings)
@@ -82,10 +100,6 @@ module Cucumber
 
       attr_accessor :table
 
-      def default_mapper
-        Mapping.new
-      end
-
       def new_row(hash)
         hash.each_with_object({}) { |(k, v), h|
           mapping_for(k).set(self, h, k, v)
@@ -93,7 +107,7 @@ module Cucumber
       end
 
       def mapping_for(header)
-        mappings[header] || default_mapper
+        mappings[header]
       end
     end
   end
