@@ -20,6 +20,7 @@ module Cucumber
         def initialize(settings = {})
           self.key               = settings[:key]
           self.value_transformer = transformer(settings[:value_transformer], :pass)
+          self.key_transformer   = transformer(settings[:key_transformer], :keyword)
         end
 
         def set(instance, row, key, value)
@@ -28,10 +29,10 @@ module Cucumber
 
         private
 
-        attr_accessor :key, :value_transformer
+        attr_accessor :key, :value_transformer, :key_transformer
 
-        def transform_key(_, key)
-          (self.key || Transformations.keyword.(key))
+        def transform_key(_, k)
+          key || key_transformer.(k)
         end
 
         def transform_value(instance, value)
