@@ -62,7 +62,7 @@ module Cucumber
         def map(name, options = {}, &block)
           case name
           when :*
-            set_default_mapping options
+            set_default_mapping options, &block
           else
             set_mapping name, options, &block
           end
@@ -85,11 +85,13 @@ module Cucumber
 
         private
 
-        def set_default_mapping(options)
+        def set_default_mapping(options, &block)
           case options
           when Hash
             @mappings = Hash.
-             new { |h, k| h[k] = Mapping.new(key_transformer: options[:to]) }.
+             new { |h, k|
+              h[k] = Mapping.new(key_transformer:   options[:to],
+                                 value_transformer: block) }.
              merge(mappings)
           when Class
             @mappings = Hash.new { |h, k| h[k] = options.new }.merge(mappings)
