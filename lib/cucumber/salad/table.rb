@@ -126,6 +126,8 @@ module Cucumber
         @rows ||= table.hashes.map { |h| new_row(h) }
       end
 
+      alias_method :to_a, :rows
+
       private
 
       attr_accessor :table
