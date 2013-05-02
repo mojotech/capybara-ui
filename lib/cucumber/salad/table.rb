@@ -40,7 +40,16 @@ module Cucumber
         end
 
         def transformer(set, fallback)
-          set || Transformations.send(fallback)
+          case set
+          when Symbol
+            Transformations.send(set)
+          when Proc
+            set
+          when nil
+            Transformations.send(fallback)
+          else
+            raise ArgumentError, "can't convert #{set.inspect} to transformer"
+          end
         end
       end
 
