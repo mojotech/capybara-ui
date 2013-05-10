@@ -141,7 +141,7 @@ module Cucumber
 
       def new_row(hash)
         hash.each_with_object({}) { |(k, v), h|
-          mapping_for(k).set(self, h, k, v)
+          mapping_for(k).set(self, h, k, CellText.new(v))
         }
       end
 
