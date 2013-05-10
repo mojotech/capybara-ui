@@ -6,6 +6,16 @@ module Cucumber
 
         include Salad::Conversions
 
+        def self.action(name, selector)
+          wname = "#{name}_action"
+
+          widget wname, selector, Action
+
+          define_method name do
+            send(wname).click
+          end
+        end
+
         def self.root(selector)
           define_method :default_root_selector do
             selector
