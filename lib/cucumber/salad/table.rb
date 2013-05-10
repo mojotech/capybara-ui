@@ -8,7 +8,7 @@ module Cucumber
 
       module Transformations
         def self.keyword
-          ->(val) { val.squeeze(' ').strip.gsub(' ', '_').to_sym }
+          ->(val) { val.squeeze(' ').strip.gsub(' ', '_').sub(/\?$/, '').to_sym }
         end
 
         def self.pass
