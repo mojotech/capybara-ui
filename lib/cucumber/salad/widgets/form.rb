@@ -57,7 +57,7 @@ module Cucumber
         end
 
         def submit
-          root.find('[name = "commit"]').click
+          root.find('[type = "submit"]').click
 
           self
         end
