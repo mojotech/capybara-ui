@@ -6,10 +6,10 @@ module Cucumber
 
         include Salad::Conversions
 
-        def self.action(name, selector)
+        def self.action(name, selector, options = {})
           wname = "#{name}_action"
 
-          widget wname, selector, Action
+          widget wname, selector, type: Action
 
           define_method name do
             send(wname).click
@@ -24,8 +24,9 @@ module Cucumber
           private :default_root_selector
         end
 
-        def self.widget(name, selector, type = Atom, &block)
-          t = block_given? ? Class.new(type, &block) : type
+        def self.widget(name, selector, options = {}, &block)
+          type = options.fetch(:type, Atom)
+          t    = block_given? ? Class.new(type, &block) : type
 
           define_method name do
             t.new(root: root.find(selector))
