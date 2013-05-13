@@ -9,7 +9,7 @@ module Cucumber
         def self.action(name, selector, options = {})
           wname = "#{name}_action"
 
-          widget wname, selector, type: Action
+          widget wname, selector, type: options[:type] || Action
 
           define_method name do
             send(wname).click
