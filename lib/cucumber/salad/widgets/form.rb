@@ -38,8 +38,8 @@ module Cucumber
           end
         end
 
-        def initialize(*super_args)
-          super(*super_args)
+        def initialize(settings = {})
+          super
 
           if block_given?
             yield self
