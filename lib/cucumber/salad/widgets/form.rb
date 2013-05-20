@@ -2,6 +2,12 @@ module Cucumber
   module Salad
     module Widgets
       class Form < Widget
+        def self.default_locator(type = nil, &block)
+          alias_method :name_to_locator, type if type
+
+          define_method :name_to_locator, &block if block
+        end
+
         def self.check_box(name, label = nil)
           define_method "#{name}=" do |val|
             l = label || name_to_locator(name)
@@ -69,8 +75,12 @@ module Cucumber
 
         private
 
-        def name_to_locator(name)
+        def label(name)
           name.to_s.humanize
+        end
+
+        def name_to_locator(name)
+          label(name)
         end
       end
     end
