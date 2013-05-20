@@ -4,7 +4,7 @@ module Cucumber
       class Form < Widget
         def self.check_box(name, label = nil)
           define_method "#{name}=" do |val|
-            l = label || name_to_label(name)
+            l = label || name_to_locator(name)
 
             if val
               root.check l
@@ -19,7 +19,7 @@ module Cucumber
           label, = args
 
           define_method "#{name}=" do |val|
-            l = label || name_to_label(name)
+            l = label || name_to_locator(name)
             w = opts.fetch(:writer) { ->(v) { v } }
 
             root.select w.(val).to_s, from: l
@@ -32,7 +32,7 @@ module Cucumber
 
         def self.text(name, label = nil)
           define_method "#{name}=" do |val|
-            l = label || name_to_label(name)
+            l = label || name_to_locator(name)
 
             root.fill_in l, with: val.to_s
           end
@@ -69,7 +69,7 @@ module Cucumber
 
         private
 
-        def name_to_label(name)
+        def name_to_locator(name)
           name.to_s.humanize
         end
       end
