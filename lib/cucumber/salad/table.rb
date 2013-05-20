@@ -7,6 +7,14 @@ module Cucumber
       include Conversions
 
       class << self
+        def Array(table)
+          new(table).to_a
+        end
+
+        def Hash(table)
+          new(table).to_h
+        end
+
         def map(name, options = {}, &block)
           case name
           when :*
