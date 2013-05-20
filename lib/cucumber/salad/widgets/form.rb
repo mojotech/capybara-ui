@@ -39,7 +39,12 @@ module Cucumber
         end
 
         def initialize(settings = {})
-          super
+          s    = settings.dup
+          data = s.delete(:data) || {}
+
+          super s
+
+          fill_all data
 
           if block_given?
             yield self
