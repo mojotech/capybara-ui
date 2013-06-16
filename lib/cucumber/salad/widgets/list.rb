@@ -6,7 +6,7 @@ module Cucumber
 
         include Enumerable
 
-        def_delegators :items, :size, :include?, :each, :empty?, :first
+        def_delegators :items, :size, :include?, :each, :empty?, :first, :last
 
         def self.item(selector, type = DEFAULT_TYPE, &item_for)
           define_method :item_selector do
