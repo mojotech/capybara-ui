@@ -7,12 +7,17 @@ module Cucumber
         include Salad::Conversions
 
         def self.action(name, selector, options = {})
-          wname = "#{name}_action"
+          wname = "#{name}_widget"
 
           widget wname, selector, type: options[:type] || Action
 
           define_method name do
             send(wname).click
+          end
+
+          define_method "#{name}_action" do
+            warn "[DEPRECATED] Call `#{name}_widget' instead."
+            send("#{name}_widget")
           end
         end
 
