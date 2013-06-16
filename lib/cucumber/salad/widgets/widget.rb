@@ -31,6 +31,10 @@ module Cucumber
           define_method name do
             t.new(root: root.find(selector))
           end
+
+          define_method "has_#{name}?" do
+            root.has_css?(selector)
+          end
         end
 
         def initialize(settings = {})
