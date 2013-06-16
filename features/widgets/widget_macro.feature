@@ -44,6 +44,7 @@ Feature: "widget" macro
       <span id="name">Guybrush Threepwood</span>
       """
 
+  @has-widget
   Scenario: testing whether a sub-widget exists
 
     If you want to test whether the parent widget contains a given sub-widget,
