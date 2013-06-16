@@ -22,6 +22,10 @@ When(/^I execute the following code:$/) do |code|
   eval code
 end
 
+When(/^I execute "(.*?)"$/) do |code|
+  step "I execute the following code:", code
+end
+
 When(/^I evaluate the following code:$/) do |code|
   @retval = eval(code)
 end
@@ -40,4 +44,9 @@ end
 
 Then(/^the following should raise an exception:$/) do |code|
   expect { eval code }.to raise_error
+end
+
+Then(/^I should be on "(.*?)"$/) do |path|
+
+  expect(URI.parse(page.current_url).path).to eq path
 end
