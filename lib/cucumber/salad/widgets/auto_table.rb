@@ -32,12 +32,20 @@ module Cucumber
         end
 
         def headers
-          @headers ||= root.all(header_selector).map { |n| node_text(n).downcase }
+          @headers ||= root.all(header_selector).map { |n| header_text(n) }
         end
 
         def values
           @values ||= data_rows.map(&:values)
         end
+
+        def header_text(node)
+          (node_text(node).presence ||
+           node.first('[title]').try(:[], :title) ||
+           node.first('[alt]').try(:[], :alt) ||
+           "").downcase
+        end
+
 
         class Row < Widget
           def initialize(settings)
