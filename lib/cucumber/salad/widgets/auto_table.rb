@@ -2,6 +2,13 @@ module Cucumber
   module Salad
     module Widgets
       class AutoTable < BaseTable
+
+        # don't include footer in to_table, because footer column configuration is very
+        # often different from the headers & values.
+        def footers
+          @footers ||= root.all(footer_selector).map { |n| node_text(n) }
+        end
+
         protected
 
         def ensure_table_loaded
@@ -33,6 +40,10 @@ module Cucumber
 
         def headers
           @headers ||= root.all(header_selector).map { |n| node_text(n).downcase }
+        end
+
+        def footer_selector
+          'tfoot td'
         end
 
         def values
