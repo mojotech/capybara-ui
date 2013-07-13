@@ -30,16 +30,18 @@ Feature: "widget" macro
       """
 
   Scenario: using a different `widget` class
-    Given the following widget:
+    Given the following widgets:
       """
+      class PirateName < Widget; end
+
       class PirateProfile < Widget
-        widget :name, '#name', type: Cucumber::Salad::Widgets::Action
+        widget :name, '#name', type: PirateName
       end
       """
     When I evaluate "PirateProfile.new.w(:name)"
     Then it should return the following:
       """
-      <!-- Cucumber::Salad::Widgets::Action: -->
+      <!-- PirateName: -->
       <span id="name">Guybrush Threepwood</span>
       """
 

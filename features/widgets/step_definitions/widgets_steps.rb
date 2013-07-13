@@ -14,7 +14,7 @@ Given(/^the page (.+) includes the following HTML:$/) do |path, body|
   visit path
 end
 
-Given(/^the following widget:$/) do |code|
+Given(/^the following widgets?:$/) do |code|
   step 'I execute the following code:', code
 end
 

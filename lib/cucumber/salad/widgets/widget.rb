@@ -7,7 +7,7 @@ module Cucumber
         include Salad::Conversions
 
         def self.action(name, selector, options = {})
-          widget name, selector, type: options[:type] || Action
+          widget name, selector, type: options[:type] || Widget
 
           define_method name do
             widget(name).click
@@ -34,6 +34,8 @@ module Cucumber
             root.has_css?(selector)
           end
         end
+
+        def_delegators :root, :click
 
         def initialize(settings = {})
           self.root = settings[:root] if settings[:root]

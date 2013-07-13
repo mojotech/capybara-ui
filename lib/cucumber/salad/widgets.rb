@@ -1,5 +1,4 @@
 require 'cucumber/salad/widgets/widget'
-require 'cucumber/salad/widgets/action'
 require 'cucumber/salad/widgets/list'
 require 'cucumber/salad/widgets/base_table'
 require 'cucumber/salad/widgets/auto_table'
