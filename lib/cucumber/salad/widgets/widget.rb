@@ -54,6 +54,10 @@ module Cucumber
           @root || page.find(root_selector)
         end
 
+        def to_s
+          node_text(root)
+        end
+
         def widget(name)
           send("#{name}_widget")
         end
