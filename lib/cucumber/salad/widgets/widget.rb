@@ -7,17 +7,15 @@ module Cucumber
         include Salad::Conversions
 
         def self.action(name, selector, options = {})
-          wname = "#{name}_widget"
-
-          widget wname, selector, type: options[:type] || Action
+          widget name, selector, type: options[:type] || Action
 
           define_method name do
-            send(wname).click
+            widget(name).click
           end
 
           define_method "#{name}_action" do
-            warn "[DEPRECATED] Call `#{name}_widget' instead."
-            send("#{name}_widget")
+            warn "[DEPRECATED] Call #widget(:#{name}) or #w(:#{name}) instead."
+            widget(name)
           end
         end
 
@@ -33,11 +31,11 @@ module Cucumber
           type = options.fetch(:type, Atom)
           t    = block_given? ? Class.new(type, &block) : type
 
-          define_method name do
+          define_method "#{name}_widget" do
             t.new(root: root.find(selector))
           end
 
-          define_method "has_#{name}?" do
+          define_method "has_#{name}_widget?" do
             root.has_css?(selector)
           end
         end
@@ -46,12 +44,22 @@ module Cucumber
           self.root = settings[:root] if settings[:root]
         end
 
+        def has_widget?(name)
+          send("has_#{name}_widget?")
+        end
+
         def inspect
           xml = Nokogiri::HTML(page.body).at(root.path).to_xml
 
           "<!-- #{self.class.name}: -->\n" <<
            Nokogiri::XML(xml, &:noblanks).to_xhtml
         end
+
+        def widget(name)
+          send("#{name}_widget")
+        end
+
+        alias_method :w, :widget
 
         protected
 

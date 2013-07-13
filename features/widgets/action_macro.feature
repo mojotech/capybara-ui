@@ -33,9 +33,9 @@ Feature: "action" macro
   @has-widget
   Scenario: accessing the action widget
 
-    You can access the underlying widget by calling `<name>_widget`.
+    You can access the underlying widget by calling `widget(<name>)`.
 
-    When I evaluate "PirateJournal.new.new_entry_widget"
+    When I evaluate "PirateJournal.new.widget(:new_entry)"
     Then it should return the following:
       """
       <!-- Cucumber::Salad::Widgets::Action: -->

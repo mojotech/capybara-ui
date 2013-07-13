@@ -4,8 +4,8 @@ Feature: "widget" macro
 
     widget <widget_name>, <selector>, <options>
 
-  This creates a method <widget_name> on the parent widget, which, when called,
-  returns a Widget instance.
+  You can then access widgets using `widget(<widget_name>)`, or the slightly
+  shorter `w(<widget_name)`.
 
   Background:
     Given the page /profile includes the following HTML:
@@ -23,7 +23,7 @@ Feature: "widget" macro
         widget :name, '#name'
       end
       """
-    When I evaluate "PirateProfile.new.name"
+    When I evaluate "PirateProfile.new.widget(:name)"
     Then it should return the following:
       """
       <!-- Cucumber::Salad::Widgets::Atom: -->
@@ -37,7 +37,7 @@ Feature: "widget" macro
         widget :name, '#name', type: Cucumber::Salad::Widgets::Action
       end
       """
-    When I evaluate "PirateProfile.new.name"
+    When I evaluate "PirateProfile.new.w(:name)"
     Then it should return the following:
       """
       <!-- Cucumber::Salad::Widgets::Action: -->
@@ -48,8 +48,9 @@ Feature: "widget" macro
   Scenario: testing whether a sub-widget exists
 
     If you want to test whether the parent widget contains a given sub-widget,
-    you can't send the <widget_name> message to the parent widget, as that
-    will raise an exception. Instead, you can send `has_<widget_name>?`.
+    you can't send the widget(<widget_name>) message to the parent widget, as
+    that will raise an exception. Instead, you can send
+    `has_widget?(<widget_name>)`.
 
     Given the following widget:
       """
@@ -58,11 +59,11 @@ Feature: "widget" macro
         widget :occupation, '#occupation'
       end
       """
-    When I evaluate "PirateProfile.new.has_name?"
+    When I evaluate "PirateProfile.new.has_widget?(:name)"
     Then it should return "true"
-    When I evaluate "PirateProfile.new.has_occupation?"
+    When I evaluate "PirateProfile.new.has_widget?(:occupation)"
     Then it should return "false"
     And the following should raise an exception:
       """
-      PirateProfile.new.occupation
+      PirateProfile.new.widget(:occupation)
       """
