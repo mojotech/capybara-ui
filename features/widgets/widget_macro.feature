@@ -15,7 +15,6 @@ Feature: "widget" macro
       </div>
       """
 
-  @atom-widget
   Scenario: using "widget"
     Given the following widget:
       """
@@ -26,7 +25,7 @@ Feature: "widget" macro
     When I evaluate "PirateProfile.new.widget(:name)"
     Then it should return the following:
       """
-      <!-- Cucumber::Salad::Widgets::Atom: -->
+      <!-- Cucumber::Salad::Widgets::Widget: -->
       <span id="name">Guybrush Threepwood</span>
       """
 

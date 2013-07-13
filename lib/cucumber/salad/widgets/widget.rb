@@ -23,7 +23,7 @@ module Cucumber
         end
 
         def self.widget(name, selector, options = {}, &block)
-          type = options.fetch(:type, Atom)
+          type = options.fetch(:type, Widget)
           t    = block_given? ? Class.new(type, &block) : type
 
           define_method "#{name}_widget" do

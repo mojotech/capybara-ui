@@ -2,7 +2,7 @@ module Cucumber
   module Salad
     module Widgets
       class List < Widget
-        DEFAULT_TYPE = Atom
+        DEFAULT_TYPE = Widget
 
         include Enumerable
 
