@@ -12,11 +12,6 @@ module Cucumber
           define_method name do
             widget(name).click
           end
-
-          define_method "#{name}_action" do
-            warn "[DEPRECATED] Call #widget(:#{name}) or #w(:#{name}) instead."
-            widget(name)
-          end
         end
 
         def self.root(selector)
