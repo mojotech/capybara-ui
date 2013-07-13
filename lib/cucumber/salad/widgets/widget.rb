@@ -50,6 +50,10 @@ module Cucumber
            Nokogiri::XML(xml, &:noblanks).to_xhtml
         end
 
+        def root
+          @root || page.find(root_selector)
+        end
+
         def widget(name)
           send("#{name}_widget")
         end
@@ -73,10 +77,6 @@ module Cucumber
 
         def page
           Capybara.current_session
-        end
-
-        def root
-          @root || page.find(root_selector)
         end
 
         def root=(selector_or_node)
