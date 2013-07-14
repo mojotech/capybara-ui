@@ -5,6 +5,10 @@ module Cucumber
         widget_class(name).has_instance?(root)
       end
 
+      def widget(name)
+        widget_class(name).in_node(root)
+      end
+
       private
 
       attr_writer :widget_lookup_scope

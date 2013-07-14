@@ -58,10 +58,6 @@ module Cucumber
           node_text(root)
         end
 
-        def widget(name)
-          widget_class(name).in_node(root)
-        end
-
         alias_method :w, :widget
 
         protected
