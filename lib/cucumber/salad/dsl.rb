@@ -9,6 +9,12 @@ module Cucumber
         Widgets::Document.new(widget_lookup_scope: widget_lookup_scope)
       end
 
+      # @return [Boolean] Whether one or more widgets exist in the current
+      #   document.
+      def has_widget?(name)
+        document.has_widget?(name)
+      end
+
       # Returns a widget instance for the given name.
       #
       # @param name [String, Symbol]

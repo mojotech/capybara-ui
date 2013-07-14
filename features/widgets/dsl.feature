@@ -2,7 +2,10 @@ Feature: DSL
 
   The Salad Widget DSL exposes a few methods to make it easier for you to work
   with widgets. When you include the module `Cucumber::Salad::DSL`, you get
-  access to the `widget(<name>)` method.
+  access to the following methods:
+
+  * `widget(<name>)`
+  * `has_widget?(<name>)`
 
   This module is automatically included for you when you're inside cucumber
   steps.
@@ -31,3 +34,13 @@ Feature: DSL
 
   Scenario: Unknown widgets
     Then "widget(:unknown)" should raise "UnknownWidgetError":
+
+  Scenario: Check whether a widget exists in the page
+    Given the following widget:
+      """
+      class Back < Widget
+        root 'a'
+      end
+      """
+    Then "has_widget?(:name)" should return "true"
+    And "has_widget?(:back)" should return "false"

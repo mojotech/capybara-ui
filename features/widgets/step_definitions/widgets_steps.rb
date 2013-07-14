@@ -53,3 +53,7 @@ end
 Then(/^I should be on "(.*?)"$/) do |path|
   expect(URI.parse(page.current_url).path).to eq path
 end
+
+Then(/^"(.*?)" should return "(.*?)"$/) do |code, retval|
+  expect(eval(code).inspect).to eq retval
+end
