@@ -6,8 +6,6 @@ $:.unshift File.expand_path lib_dir
 
 require 'cucumber/salad'
 
-include Cucumber::Salad::Widgets
-
 class Widget
   root 'div'
 end

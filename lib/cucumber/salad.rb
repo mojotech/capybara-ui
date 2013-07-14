@@ -16,3 +16,5 @@ require 'cucumber/salad/dsl'
 class UnknownWidgetError < StandardError; end
 
 World(Cucumber::Salad::DSL)
+
+include Cucumber::Salad::Widgets
