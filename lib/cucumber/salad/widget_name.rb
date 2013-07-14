@@ -26,6 +26,10 @@ module Cucumber
               "couldn't find `#{@name}' widget in this scope"
       end
 
+      def to_sym
+        @canonical.to_sym
+      end
+
       private
 
       def canonical(name)

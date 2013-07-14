@@ -42,6 +42,6 @@ Feature: "action" macro
     When I evaluate "PirateJournal.new.widget(:new_entry)"
     Then it should return the following:
       """
-      <!-- Cucumber::Salad::Widgets::Widget: -->
+      <!-- PirateJournal::NewEntry: -->
       <a href="/entries/new" rel="new-entry">New Entry</a>
       """

@@ -5,6 +5,7 @@ module Cucumber
         extend Forwardable
 
         include Salad::Conversions
+        include WidgetContainer
 
         def self.action(name, selector, options = {})
           widget name, selector, type: options[:type] || Widget
@@ -16,6 +17,10 @@ module Cucumber
 
         def self.has_instance?(parent_node)
           parent_node.has_selector?(selector)
+        end
+
+        def self.in_node(node)
+          new(root: node.find(selector))
         end
 
         def self.root(selector)
@@ -33,26 +38,20 @@ module Cucumber
         end
 
         def self.widget(name, selector, options = {}, &block)
-          type = options.fetch(:type, Widget)
-          t    = block_given? ? Class.new(type, &block) : type
+          parent = options.fetch(:type, Widget)
+          type   = Class.new(parent) {
+            root selector
 
-          define_method "#{name}_widget" do
-            t.new(root: root.find(selector))
-          end
+            instance_eval(&block) if block
+          }
 
-          define_method "has_#{name}_widget?" do
-            root.has_css?(selector)
-          end
+          const_set(Salad::WidgetName.new(name).to_sym, type)
         end
 
         def_delegators :root, :click
 
         def initialize(settings = {})
           self.root = settings[:root] if settings[:root]
-        end
-
-        def has_widget?(name)
-          send("has_#{name}_widget?")
         end
 
         def inspect
@@ -71,7 +70,7 @@ module Cucumber
         end
 
         def widget(name)
-          send("#{name}_widget")
+          widget_class(name).in_node(root)
         end
 
         alias_method :w, :widget

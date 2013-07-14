@@ -12,6 +12,7 @@ Feature: "widget" macro
       """
       <div>
         <span id="name">Guybrush Threepwood</span>
+        <span id="favorite_drink">Grog</span>
       </div>
       """
 
@@ -25,24 +26,29 @@ Feature: "widget" macro
     When I evaluate "PirateProfile.new.widget(:name)"
     Then it should return the following:
       """
-      <!-- Cucumber::Salad::Widgets::Widget: -->
+      <!-- PirateProfile::Name: -->
       <span id="name">Guybrush Threepwood</span>
       """
 
   Scenario: using a different `widget` class
     Given the following widgets:
       """
-      class PirateName < Widget; end
+      class PirateDrink < Widget
+        def inspect
+          "<!-- #{self.class.superclass.name}: -->\n#{super}"
+        end
+      end
 
       class PirateProfile < Widget
-        widget :name, '#name', type: PirateName
+        widget :drink, '#favorite_drink', type: PirateDrink
       end
       """
-    When I evaluate "PirateProfile.new.w(:name)"
+    When I evaluate "PirateProfile.new.widget(:drink)"
     Then it should return the following:
       """
-      <!-- PirateName: -->
-      <span id="name">Guybrush Threepwood</span>
+      <!-- PirateDrink: -->
+      <!-- PirateProfile::Drink: -->
+      <span id="favorite_drink">Grog</span>
       """
 
   @has-widget
