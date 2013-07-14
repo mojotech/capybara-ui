@@ -2,7 +2,7 @@ Feature: Sub-widgets
 
   You can also declare sub-widgets using the `widget` macro.
 
-    widget <widget_name>, <selector>, <options>
+    widget <widget_name>, <selector>, <type>
 
   You can then access widgets using `widget(<widget_name>)`, or the slightly
   shorter `w(<widget_name)`.

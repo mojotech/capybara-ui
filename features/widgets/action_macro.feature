@@ -2,7 +2,7 @@ Feature: "action" macro
 
   Widget actions are declared using the `action` macro.
 
-    action <name>, <selector>, <options>
+    action <name>, <selector>, <type>
 
   This creates a method `<name>` on the parent widget, which, when called, will
   click on that particular widget.
