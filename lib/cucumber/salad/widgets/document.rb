@@ -2,27 +2,19 @@ module Cucumber
   module Salad
     module Widgets
       class Document < Widget
+        include WidgetContainer
+
         root 'body'
 
         def initialize(options)
-          @widget_lookup_scope = options.delete(:widget_lookup_scope) or
-            raise "No scope given"
+          self.widget_lookup_scope =
+            options.delete(:widget_lookup_scope) or raise "No scope given"
 
           super options
         end
 
-        def has_widget?(name)
-          widget_class(name).has_instance?(root)
-        end
-
         def widget(name)
           widget_class(name).new
-        end
-
-        private
-
-        def widget_class(name)
-          WidgetName.new(name).to_class(@widget_lookup_scope)
         end
       end
     end

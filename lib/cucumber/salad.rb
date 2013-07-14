@@ -1,5 +1,6 @@
 require 'chronic'
 
+require 'cucumber/salad/widget_container'
 require 'cucumber/salad/conversions'
 require 'cucumber/salad/instance_conversions'
 require 'cucumber/salad/node_text'
