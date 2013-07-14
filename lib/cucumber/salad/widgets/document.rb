@@ -10,11 +10,13 @@ module Cucumber
           self.widget_lookup_scope =
             options.delete(:widget_lookup_scope) or raise "No scope given"
 
+          options[:root] ||= Capybara.current_session
+
           super options
         end
 
         def widget(name)
-          widget_class(name).new
+          widget_class(name).in_node(root)
         end
       end
     end

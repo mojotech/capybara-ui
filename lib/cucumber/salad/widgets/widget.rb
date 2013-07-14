@@ -25,12 +25,6 @@ module Cucumber
 
         def self.root(selector)
           @selector = selector
-
-          define_method :default_root_selector do
-            selector
-          end
-
-          private :default_root_selector
         end
 
         def self.selector
@@ -50,7 +44,7 @@ module Cucumber
         def_delegators :root, :click
 
         def initialize(settings = {})
-          self.root = settings[:root] if settings[:root]
+          self.root = settings.fetch(:root)
         end
 
         def inspect
@@ -58,10 +52,6 @@ module Cucumber
 
           "<!-- #{self.class.name}: -->\n" <<
            Nokogiri::XML(xml, &:noblanks).to_xhtml
-        end
-
-        def root
-          @root || page.find(root_selector)
         end
 
         def to_s
@@ -82,32 +72,10 @@ module Cucumber
 
         private
 
-        attr_writer :root_selector
-
-        def default_root_selector
-          raise NotImplementedError,
-                "#{self.class.name}: default root selector undefined"
-        end
+        attr_accessor :root
 
         def page
           Capybara.current_session
-        end
-
-        def root=(selector_or_node)
-          case selector_or_node
-          when String
-            self.root_selector = selector_or_node
-          when Capybara::Node::Element, Capybara::Node::Simple
-            @root = selector_or_node
-          else
-            msg = "can't convert #{selector_or_node.inspect} to root node"
-
-            raise ArgumentError, msg
-          end
-        end
-
-        def root_selector
-          @root_selector || default_root_selector
         end
       end
     end

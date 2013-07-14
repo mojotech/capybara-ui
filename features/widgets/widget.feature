@@ -15,5 +15,5 @@ Feature: Widget
       """
 
   Scenario: A widget is clickable
-    When I execute "JournalEntryAction.new.click"
+    When I execute "widget(:journal_entry_action).click"
     Then I should be on "/entries/new"

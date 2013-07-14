@@ -31,7 +31,7 @@ Feature: "action" macro
       """
 
   Scenario: using `action`
-    When I execute "PirateJournal.new.new_entry"
+    When I execute "widget(:pirate_journal).new_entry"
     Then I should be on "/entries/new"
 
   @has-widget
@@ -39,7 +39,7 @@ Feature: "action" macro
 
     You can access the underlying widget by calling `widget(<name>)`.
 
-    When I evaluate "PirateJournal.new.widget(:new_entry)"
+    When I evaluate "widget(:pirate_journal).widget(:new_entry)"
     Then it should return the following:
       """
       <!-- PirateJournal::NewEntry: -->

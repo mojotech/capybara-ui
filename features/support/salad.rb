@@ -7,5 +7,7 @@ $:.unshift File.expand_path lib_dir
 require 'cucumber/salad'
 
 class Widget
-  root 'div'
+  def self.selector
+    @selector || 'div'
+  end
 end

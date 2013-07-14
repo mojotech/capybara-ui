@@ -23,7 +23,7 @@ Feature: Sub-widgets
         widget :name, '#name'
       end
       """
-    When I evaluate "PirateProfile.new.widget(:name)"
+    When I evaluate "widget(:pirate_profile).widget(:name)"
     Then it should return the following:
       """
       <!-- PirateProfile::Name: -->
@@ -43,7 +43,7 @@ Feature: Sub-widgets
         widget :drink, '#favorite_drink', PirateDrink
       end
       """
-    When I evaluate "PirateProfile.new.widget(:drink)"
+    When I evaluate "widget(:pirate_profile).widget(:drink)"
     Then it should return the following:
       """
       <!-- PirateDrink: -->
@@ -66,11 +66,11 @@ Feature: Sub-widgets
         widget :occupation, '#occupation'
       end
       """
-    When I evaluate "PirateProfile.new.has_widget?(:name)"
+    When I evaluate "widget(:pirate_profile).has_widget?(:name)"
     Then it should return "true"
-    When I evaluate "PirateProfile.new.has_widget?(:occupation)"
+    When I evaluate "widget(:pirate_profile).has_widget?(:occupation)"
     Then it should return "false"
     And the following should raise an exception:
       """
-      PirateProfile.new.widget(:occupation)
+      widget(:pirate_profile).widget(:occupation)
       """
