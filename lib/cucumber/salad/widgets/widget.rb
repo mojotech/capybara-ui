@@ -14,6 +14,10 @@ module Cucumber
           end
         end
 
+        def self.has_instance?(parent_node)
+          parent_node.has_selector?(selector)
+        end
+
         def self.root(selector)
           @selector = selector
 

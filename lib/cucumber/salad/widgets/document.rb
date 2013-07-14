@@ -11,6 +11,10 @@ module Cucumber
           super options
         end
 
+        def has_widget?(name)
+          widget_class(name).has_instance?(root)
+        end
+
         def widget(name)
           widget_class(name).new
         end
