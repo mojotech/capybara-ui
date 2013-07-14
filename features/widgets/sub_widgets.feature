@@ -1,18 +1,30 @@
 Feature: Sub-widgets
 
+  You declare sub-widgets by declaring inner widget classes. The inner class's
+  root selector will be considered relative to the node of the parent widget
+  class.
+
   You can also declare sub-widgets using the `widget` macro.
 
     widget <widget_name>, <selector>, <type>
 
-  You can then access widgets using `widget(<widget_name>)`, or the slightly
+  Sub-widgets will be accessible using `widget(<widget_name>)`, or the slightly
   shorter `w(<widget_name)`.
 
   Background:
     Given the page /profile includes the following HTML:
       """
+      <section class="pirate-profile">
+        <span class="name">Ghost Pirate LeChuck</span>
+      </section>
+
       <div>
-        <span id="name">Guybrush Threepwood</span>
+        <span class="name" id="name">Guybrush Threepwood</span>
         <span id="favorite_drink">Grog</span>
+
+        <section id="love-interest" class="pirate-profile">
+          <span class="name">Elaine Marley</span>
+        </section>
       </div>
       """
 
@@ -27,7 +39,7 @@ Feature: Sub-widgets
     Then it should return the following:
       """
       <!-- PirateProfile::Name: -->
-      <span id="name">Guybrush Threepwood</span>
+      <span class="name" id="name">Guybrush Threepwood</span>
       """
 
   Scenario: using a different `widget` class
@@ -49,6 +61,24 @@ Feature: Sub-widgets
       <!-- PirateDrink: -->
       <!-- PirateProfile::Drink: -->
       <span id="favorite_drink">Grog</span>
+      """
+
+  Scenario: keeping sub-widgets to the parent widget scope
+    Given the following widget:
+      """
+      class PirateProfile < Widget
+        class LoveInterest < Widget
+          root '.pirate-profile'
+        end
+      end
+      """
+    When I evaluate "widget(:pirate_profile).widget(:love_interest)"
+    Then it should return the following:
+      """
+      <!-- PirateProfile::LoveInterest: -->
+      <section id="love-interest" class="pirate-profile">
+        <span class="name">Elaine Marley</span>
+      </section>
       """
 
   @has-widget
