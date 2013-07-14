@@ -12,7 +12,11 @@ Feature: "action" macro
   * Let an action point to the next widget, to ease chaining.
 
   Background:
-    Given the page /entries includes the following HTML:
+    Given a page /entries/new includes the following HTML:
+      """
+      <span>Nice!</span>
+      """
+    And the current page /entries includes the following HTML:
       """
       <div>
         <a href="/entries/new" rel="new-entry">New Entry</a>

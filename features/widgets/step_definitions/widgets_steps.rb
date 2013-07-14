@@ -1,4 +1,4 @@
-Given(/^the page (.+) includes the following HTML:$/) do |path, body|
+Given(/^a page (.+) includes the following HTML:$/) do |path, body|
   SaladApp.class_eval do
     get path do
       <<-HTML
@@ -10,6 +10,10 @@ Given(/^the page (.+) includes the following HTML:$/) do |path, body|
       HTML
     end
   end
+end
+
+Given(/^the (?:current )?page (.+) includes the following HTML:$/) do |path, body|
+  step "a page #{path} includes the following HTML:", body
 
   visit path
 end
