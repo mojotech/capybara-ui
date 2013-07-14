@@ -11,5 +11,8 @@ require 'cucumber/salad/table/void_mapping'
 require 'cucumber/salad/table/transformations'
 require 'cucumber/salad/table/cell_text'
 require 'cucumber/salad/widgets/document'
+require 'cucumber/salad/dsl'
 
 class UnknownWidgetError < StandardError; end
+
+World(Cucumber::Salad::DSL)
