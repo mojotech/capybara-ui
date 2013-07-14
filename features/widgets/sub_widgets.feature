@@ -1,6 +1,6 @@
-Feature: "widget" macro
+Feature: Sub-widgets
 
-  You can declare sub-widgets using the `widget` macro.
+  You can also declare sub-widgets using the `widget` macro.
 
     widget <widget_name>, <selector>, <options>
 
