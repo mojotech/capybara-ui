@@ -7,8 +7,8 @@ module Cucumber
         include Salad::Conversions
         include WidgetContainer
 
-        def self.action(name, selector, options = {})
-          widget name, selector, type: options[:type] || Widget
+        def self.action(name, selector, parent = Widget)
+          widget name, selector, parent
 
           define_method name do
             widget(name).click
@@ -37,9 +37,8 @@ module Cucumber
           @selector
         end
 
-        def self.widget(name, selector, options = {}, &block)
-          parent = options.fetch(:type, Widget)
-          type   = Class.new(parent) {
+        def self.widget(name, selector, parent = Widget, &block)
+          type = Class.new(parent) {
             root selector
 
             instance_eval(&block) if block

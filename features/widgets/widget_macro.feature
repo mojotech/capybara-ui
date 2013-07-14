@@ -40,7 +40,7 @@ Feature: "widget" macro
       end
 
       class PirateProfile < Widget
-        widget :drink, '#favorite_drink', type: PirateDrink
+        widget :drink, '#favorite_drink', PirateDrink
       end
       """
     When I evaluate "PirateProfile.new.widget(:drink)"
