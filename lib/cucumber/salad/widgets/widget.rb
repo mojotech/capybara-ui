@@ -15,11 +15,17 @@ module Cucumber
         end
 
         def self.root(selector)
+          @selector = selector
+
           define_method :default_root_selector do
             selector
           end
 
           private :default_root_selector
+        end
+
+        def self.selector
+          @selector
         end
 
         def self.widget(name, selector, options = {}, &block)
