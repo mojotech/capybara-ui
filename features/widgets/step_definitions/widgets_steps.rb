@@ -46,7 +46,10 @@ Then(/^the following should raise an exception:$/) do |code|
   expect { eval code }.to raise_error
 end
 
-Then(/^I should be on "(.*?)"$/) do |path|
+Then(/^"(.*?)" should raise "(.*?)":$/) do |code, exception_name|
+  expect { eval code }.to raise_error(Cucumber::Salad.const_get(exception_name))
+end
 
+Then(/^I should be on "(.*?)"$/) do |path|
   expect(URI.parse(page.current_url).path).to eq path
 end
