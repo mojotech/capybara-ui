@@ -2,4 +2,8 @@ require 'cucumber/salad'
 
 World(Cucumber::Salad::DSL)
 
-include Cucumber::Salad::Widgets
+module Salad
+  include Cucumber::Salad::Widgets
+
+  DSL = Cucumber::Salad::DSL
+end

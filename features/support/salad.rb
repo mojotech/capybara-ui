@@ -6,7 +6,7 @@ $:.unshift File.expand_path lib_dir
 
 require 'cucumber/salad/boot'
 
-class Widget
+class Widget < Salad::Widget
   def self.selector
     @selector || 'div'
   end
