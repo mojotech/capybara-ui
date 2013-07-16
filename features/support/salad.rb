@@ -4,7 +4,7 @@ lib_dir     = File.join(project_dir, 'lib')
 
 $:.unshift File.expand_path lib_dir
 
-require 'cucumber/salad'
+require 'cucumber/salad/boot'
 
 class Widget
   def self.selector
