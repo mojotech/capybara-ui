@@ -20,7 +20,7 @@ module Cucumber
           end
         end
 
-        def self.select_box(name, *args)
+        def self.select(name, *args)
           opts   = args.extract_options!
           label, = args
 
@@ -36,7 +36,7 @@ module Cucumber
           new.fill_all(attrs).submit
         end
 
-        def self.text(name, label = nil)
+        def self.text_field(name, label = nil)
           define_method "#{name}=" do |val|
             l = label || name_to_locator(name)
 
