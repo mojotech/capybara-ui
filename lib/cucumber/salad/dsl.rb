@@ -23,7 +23,13 @@ module Cucumber
       end
 
       def widget_lookup_scope
-        @widget_lookup_scope || self.class
+        @widget_lookup_scope ||= default_widget_lookup_scope
+      end
+
+      private
+
+      def default_widget_lookup_scope
+        Module === self ? self : self.class
       end
     end
   end
