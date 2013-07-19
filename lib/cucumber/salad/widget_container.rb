@@ -5,8 +5,8 @@ module Cucumber
         widget_class(name).has_instance?(root)
       end
 
-      def widget(name)
-        widget_class(name).in_node(root)
+      def widget(name, options = {})
+        widget_class(name).in_node(root, options)
       end
 
       private

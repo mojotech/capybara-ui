@@ -18,8 +18,8 @@ module Cucumber
       # Returns a widget instance for the given name.
       #
       # @param name [String, Symbol]
-      def widget(name)
-        document.widget(name)
+      def widget(name, options = {})
+        document.widget(name, options)
       end
 
       def widget_lookup_scope
