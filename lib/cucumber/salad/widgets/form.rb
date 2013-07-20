@@ -73,6 +73,16 @@ module Cucumber
           self
         end
 
+        # Submit form with +attrs+.
+        #
+        # @param attrs [Hash] the form fields and their values
+        #
+        # @return self
+        def submit_with(attrs)
+          fill_all attrs
+          submit
+        end
+
         private
 
         def label(name)
