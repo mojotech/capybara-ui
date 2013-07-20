@@ -7,8 +7,8 @@ module Cucumber
         include Salad::Conversions
         include WidgetContainer
 
-        def self.action(name, selector, parent = Widget)
-          widget name, selector, parent
+        def self.action(name, selector)
+          widget name, selector
 
           define_method name do
             widget(name).click
