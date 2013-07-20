@@ -40,16 +40,12 @@ module Cucumber
           end
         end
 
+        action :submit, '[type = submit]'
+
         def fill_all(attrs)
           attrs.each do |k, v|
             send "#{k}=", v
           end
-
-          self
-        end
-
-        def submit
-          root.find('[type = "submit"]').click
 
           self
         end
