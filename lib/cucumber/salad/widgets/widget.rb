@@ -12,6 +12,8 @@ module Cucumber
 
           define_method name do
             widget(name).click
+
+            self
           end
         end
 
