@@ -4,7 +4,6 @@ module Cucumber
       class Widget
         extend Forwardable
 
-        include Salad::Conversions
         include WidgetContainer
 
         # Defines a new action.
