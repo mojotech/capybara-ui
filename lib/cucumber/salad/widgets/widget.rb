@@ -19,7 +19,7 @@ module Cucumber
           parent_node.has_selector?(selector)
         end
 
-        def self.in_node(node, options = {})
+        def self.find_in(node, options = {})
           new(options.merge(root: node.find(selector)))
         end
 

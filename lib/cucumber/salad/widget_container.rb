@@ -6,7 +6,7 @@ module Cucumber
       end
 
       def widget(name, options = {})
-        widget_class(name).in_node(root, options)
+        widget_class(name).find_in(root, options)
       end
 
       private
