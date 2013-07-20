@@ -90,6 +90,9 @@ module Cucumber
           const_set(Salad::WidgetName.new(name).to_sym, type)
         end
 
+        # @return The root node of the current widget
+        attr_reader :root
+
         def_delegators :root, :click
 
         def initialize(settings = {})
@@ -117,7 +120,7 @@ module Cucumber
 
         private
 
-        attr_accessor :root
+        attr_writer :root
 
         def page
           Capybara.current_session
