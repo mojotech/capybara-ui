@@ -32,10 +32,6 @@ module Cucumber
           end
         end
 
-        def self.submit(attrs)
-          new.fill_all(attrs).submit
-        end
-
         def self.text_field(name, label = nil)
           define_method "#{name}=" do |val|
             l = label || name_to_locator(name)
