@@ -40,21 +40,6 @@ module Cucumber
           end
         end
 
-        def initialize(settings = {})
-          s    = settings.dup
-          data = s.delete(:data) || {}
-
-          super s
-
-          fill_all data
-
-          if block_given?
-            yield self
-
-            submit
-          end
-        end
-
         def fill_all(attrs)
           attrs.each do |k, v|
             send "#{k}=", v
