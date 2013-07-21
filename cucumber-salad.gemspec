@@ -21,6 +21,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'chronic'
   s.add_dependency 'capybara', '>= 2.0'
 
-  s.add_development_dependency 'rspec', '>= 2.11.0'
+  s.add_development_dependency 'rspec-given', '~> 3.0.0'
   s.add_development_dependency 'sinatra'
 end
