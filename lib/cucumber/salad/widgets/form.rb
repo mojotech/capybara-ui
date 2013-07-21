@@ -50,13 +50,13 @@ module Cucumber
           self
         end
 
-        # Submit form with +attrs+.
+        # Submit form with +attributes+.
         #
         # @param attrs [Hash] the form fields and their values
         #
-        # @return self
-        def submit_with(attrs)
-          fill_all attrs
+        # @return the current widget
+        def submit_with(attributes)
+          fill_all attributes
           submit
         end
 
