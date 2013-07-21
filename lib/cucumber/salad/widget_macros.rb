@@ -56,6 +56,29 @@ module Cucumber
 
         const_set(Salad::WidgetName.new(name).to_sym, type)
       end
+
+      # Creates a delegator for one sub-widget message.
+      #
+      # Since widgets are accessed through {WidgetContainer#widget}, we can't
+      # use {Forwardable} to delegate messages to widgets.
+      #
+      # @param name the name of the receiver sub-widget
+      # @param widget_message the name of the message to be sent to the sub-widget
+      # @param method_name the name of the delegator. If +nil+ the method will
+      #   have the same name as the message it will send.
+      def widget_delegator(name, widget_message, method_name = nil)
+        method_name = method_name || widget_message
+
+        class_eval <<-RUBY
+          def #{method_name}(*args)
+            if args.size == 1
+              widget(:#{name}).#{widget_message} args.first
+            else
+              widget(:#{name}).#{widget_message} *args
+            end
+          end
+        RUBY
+      end
     end
   end
 end
