@@ -7,6 +7,30 @@ module Cucumber
         include Salad::Conversions
         include WidgetContainer
 
+        # Defines a new action.
+        #
+        # This is a shortcut to help defining a widget and a method that clicks
+        # on that widget. You can then send a widget instance the message given
+        # by +name+.
+        #
+        # @example
+        #   # Consider the widget will encapsulate the following HTML
+        #   #
+        #   # <div id="profile">
+        #   #  <a href="/profiles/1/edit" rel="edit">Edit</a>
+        #   # </div>
+        #   class PirateProfile < Salad::Widget
+        #     root "#profile"
+        #
+        #     # Declare the action
+        #     action :edit, '[rel = edit]'
+        #   end
+        #
+        #   # Click the link
+        #   widget(:pirate_profile).edit
+        #
+        # @param name the name of the action
+        # @param selector the selector for the widget that will be clicked
         def self.action(name, selector)
           widget name, selector
 
