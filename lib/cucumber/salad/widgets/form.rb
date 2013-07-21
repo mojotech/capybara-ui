@@ -42,8 +42,13 @@ module Cucumber
 
         action :submit, '[type = submit]'
 
-        def fill_all(attrs)
-          attrs.each do |k, v|
+        # Sets the given form attributes.
+        #
+        # @param attributes [Hash] the attributes and values we want to set.
+        #
+        # @return the current widget.
+        def set(attributes)
+          attributes.each do |k, v|
             send "#{k}=", v
           end
 
@@ -56,7 +61,7 @@ module Cucumber
         #
         # @return the current widget
         def submit_with(attributes)
-          fill_all attributes
+          set attributes
           submit
         end
 
