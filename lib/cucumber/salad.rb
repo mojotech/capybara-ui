@@ -1,4 +1,5 @@
 require 'chronic'
+require 'nokogiri'
 
 require 'cucumber/salad/widget_container'
 require 'cucumber/salad/widget_macros'
