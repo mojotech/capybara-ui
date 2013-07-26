@@ -16,4 +16,8 @@ require 'cucumber/salad/table/cell_text'
 require 'cucumber/salad/widgets/document'
 require 'cucumber/salad/dsl'
 
-class UnknownWidgetError < StandardError; end
+module Cucumber
+  module Salad
+    class UnknownWidgetError < StandardError; end
+  end
+end
