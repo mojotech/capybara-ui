@@ -22,7 +22,7 @@ describe Cucumber::Salad::Widgets::Widget do
     context "when widget is undefined" do
       When(:error) { container.has_widget?(:undefined) }
 
-      Then { error == Failure(Cucumber::Salad::UnknownWidgetError, /`undefined' widget/) }
+      Then { error == Failure(Cucumber::Salad::Missing, /`undefined' widget/) }
     end
   end
 end

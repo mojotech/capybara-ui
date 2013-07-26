@@ -18,6 +18,7 @@ require 'cucumber/salad/dsl'
 
 module Cucumber
   module Salad
-    class UnknownWidgetError < StandardError; end
+    # An exception that signals that something is missing.
+    class Missing < StandardError; end
   end
 end

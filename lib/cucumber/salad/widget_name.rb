@@ -22,8 +22,7 @@ module Cucumber
 
         const
       rescue NameError
-        raise UnknownWidgetError,
-              "couldn't find `#{@name}' widget in this scope"
+        raise Missing, "couldn't find `#{@name}' widget in this scope"
       end
 
       def to_sym
