@@ -7,7 +7,7 @@ module Cucumber
 
         include WidgetContainer
 
-        def self.has_instance?(parent_node)
+        def self.present_in?(parent_node)
           parent_node.has_selector?(selector)
         end
 

@@ -2,7 +2,7 @@ module Cucumber
   module Salad
     module WidgetContainer
       def has_widget?(name)
-        widget_class(name).has_instance?(root)
+        widget_class(name).present_in?(root)
       end
 
       def widget(name, options = {})
