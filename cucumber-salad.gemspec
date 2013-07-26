@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.homepage      = "https://github.com/mojotech/cucumber-salad"
   s.summary       = "A set of helpers to ease writing cucumber features"
   s.description   = "See https://github.com/mojotech/cucumber-salad/README.md"
+  s.license       = "MIT"
 
   s.files         = `git ls-files app lib`.split("\n")
   s.platform      = Gem::Platform::RUBY
