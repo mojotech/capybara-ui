@@ -7,6 +7,12 @@ module Cucumber
 
         include WidgetContainer
 
+        # Determines if an instance of this widget class exists in
+        # +parent_node+.
+        #
+        # @param parent_node [Capybara::Node] the node we want to search in
+        #
+        # @return +true+ if a widget instance is found, +false+ otherwise.
         def self.present_in?(parent_node)
           parent_node.has_selector?(selector)
         end
@@ -49,7 +55,8 @@ module Cucumber
         #
         # @raise Missing if an action with +name+ can't be found.
         #
-        # @return [Boolean] +true+ if the action widget is found, else, +false+.
+        # @return [Boolean] +true+ if the action widget is found, +false+
+        #   otherwise.
         def has_action?(name)
           raise Missing, "couldn't find `#{name}' action" unless respond_to?(name)
 
