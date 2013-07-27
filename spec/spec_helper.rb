@@ -4,9 +4,12 @@ require 'cucumber/salad'
 require 'rspec/given'
 require 'sinatra/base'
 require 'capybara/rspec'
+require 'capybara/webkit'
 
 class SaladApp < Sinatra::Base; end
 Capybara.app = SaladApp
+
+Capybara.javascript_driver = :webkit
 
 module WidgetSpecDSL
   def GivenHTML(body_html, path = "/test")
