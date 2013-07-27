@@ -43,6 +43,19 @@ module Cucumber
           self.root = settings.fetch(:root)
         end
 
+        # Determines if the widget underlying an action exists.
+        #
+        # @param name the name of the action
+        #
+        # @raise Missing if an action with +name+ can't be found.
+        #
+        # @return [Boolean] +true+ if the action widget is found, else, +false+.
+        def has_action?(name)
+          raise Missing, "couldn't find `#{name}' action" unless respond_to?(name)
+
+          has_widget?(name)
+        end
+
         def inspect
           xml = Nokogiri::HTML(page.body).at(root.path).to_xml
 
