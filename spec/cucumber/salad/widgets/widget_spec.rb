@@ -50,4 +50,38 @@ describe Cucumber::Salad::Widgets::Widget do
       Then { error == Failure(Cucumber::Salad::Missing, /`undefined' action/) }
     end
   end
+
+  describe "#reload" do
+    context "when widget content changes", js: true do
+      GivenHTML <<-HTML
+        <script>
+          function removeNode() {
+            document.getElementById('remove').remove();
+          }
+
+          setInterval(removeNode, 500);
+        </script>
+
+        <span id="remove">Guybrush Threepwood</span>
+      HTML
+
+      class Container < Cucumber::Salad::Widgets::Widget
+        widget :removed, '#remove'
+      end
+
+      Then { ! container.reload.has_widget?(:removed) }
+    end
+
+    context "when widget remains the same", js: true do
+      GivenHTML <<-HTML
+        <span id="present">Guybrush Threepwood</span>
+      HTML
+
+      class Container < Cucumber::Salad::Widgets::Widget
+        widget :present, '#present'
+      end
+
+      Then { container.reload.has_widget?(:present) }
+    end
+  end
 end

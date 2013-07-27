@@ -70,6 +70,45 @@ module Cucumber
            Nokogiri::XML(xml, &:noblanks).to_xhtml
         end
 
+        class Reload < Capybara::ElementNotFound; end
+
+        # Reloads the widget, waiting for its contents to change (by default),
+        # or until +wait_time+ expires.
+        #
+        # Call this method to make sure a widget has enough time to update
+        # itself.
+        #
+        # You can pass a block to this method to control what it means for the
+        # widget to be reloaded.
+        #
+        # *Note: does not account for multiple changes to the widget yet.*
+        #
+        # @param wait_time [Numeric] how long we should wait for changes, in
+        #   seconds.
+        #
+        # @yield A block that determines what it means for a widget to be
+        #   reloaded.
+        # @yieldreturn [Boolean] +true+ if the widget is considered to be
+        #   reloaded, +false+ otherwise.
+        #
+        # @return the current widget
+        def reload(wait_time = Capybara.default_wait_time, &test)
+          unless test
+            old_inspect = inspect
+            test        = ->{ old_inspect != inspect }
+          end
+
+          root.synchronize(wait_time) do
+            raise Reload unless test.()
+          end
+
+          self
+        rescue Reload
+          # raised on timeout
+
+          self
+        end
+
         def to_s
           node_text(root)
         end
