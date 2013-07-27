@@ -32,9 +32,6 @@ Feature: DSL
       <span id="name">Guybrush Threepwood</span>
       """
 
-  Scenario: Unknown widgets
-    Then "widget(:unknown)" should raise "UnknownWidgetError":
-
   Scenario: Check whether a widget exists in the page
     Given the following widget:
       """
