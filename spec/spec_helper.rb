@@ -41,5 +41,4 @@ RSpec.configure do |config|
 
   config.include Capybara::DSL
   config.include Cucumber::Salad::DSL
-
 end
