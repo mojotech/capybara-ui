@@ -11,9 +11,23 @@ module Cucumber
           define_method :name_to_locator, &block if block
         end
 
+        # The names of all the fields that belong to this field group.
+        #
+        # Field names are automatically added to this group as long as you use
+        # the field definition macros.
+        #
+        # @return [Set] the field names.
+        #
+        # @see field
+        def self.field_names
+          @field_names ||= Set.new
+        end
+
         # @!group Field definition macros
 
         def self.check_box(name, label = nil)
+          field name
+
           define_method "#{name}=" do |val|
             l = label || name_to_locator(name)
 
@@ -25,7 +39,21 @@ module Cucumber
           end
         end
 
+        # Defines a new field.
+        #
+        # For now, this is only used to add a name to {field_names}.
+        #
+        # @api private
+        def self.field(name)
+          raise TypeError, "can't convert `#{name}' to Symbol" \
+            unless name.respond_to?(:to_sym)
+
+          field_names << name.to_sym
+        end
+
         def self.select(name, *args)
+          field name
+
           opts   = args.last.is_a?(Hash) ? args.pop : {}
           label, = args
 
@@ -38,6 +66,8 @@ module Cucumber
         end
 
         def self.text_field(name, label = nil)
+          field name
+
           define_method "#{name}=" do |val|
             l = label || name_to_locator(name)
 
