@@ -79,6 +79,12 @@ module Cucumber
 
             root.fill_in l, with: val.to_s
           end
+
+          define_method name do
+            l = label || name_to_locator(name)
+
+            root.find_field(l).value
+          end
         end
 
         # @!endgroup
