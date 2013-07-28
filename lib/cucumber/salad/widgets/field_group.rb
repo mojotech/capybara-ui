@@ -11,6 +11,8 @@ module Cucumber
           define_method :name_to_locator, &block if block
         end
 
+        # @!group Field definition macros
+
         def self.check_box(name, label = nil)
           define_method "#{name}=" do |val|
             l = label || name_to_locator(name)
@@ -42,6 +44,8 @@ module Cucumber
             root.fill_in l, with: val.to_s
           end
         end
+
+        # @!endgroup
 
         # Sets the given form attributes.
         #
