@@ -37,6 +37,12 @@ module Cucumber
               root.uncheck l
             end
           end
+
+          define_method name do
+            l = label || name_to_locator(name)
+
+            !! root.find_field(l).checked?
+          end
         end
 
         # Defines a new field.
