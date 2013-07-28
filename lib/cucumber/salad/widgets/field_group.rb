@@ -26,7 +26,7 @@ module Cucumber
         end
 
         def self.select(name, *args)
-          opts   = args.extract_options!
+          opts   = args.last.is_a?(Hash) ? args.pop : {}
           label, = args
 
           define_method "#{name}=" do |val|
