@@ -88,7 +88,11 @@ module Cucumber
 
           field_names << name.to_sym
 
-          widget name, locator, type
+          widget name, locator, type do
+            define_method :label do
+              name.to_s.gsub(/_/, ' ').capitalize
+            end
+          end
 
           define_method "#{name}=" do |val|
             widget(name).set val
@@ -204,6 +208,11 @@ module Cucumber
 
         # @!endgroup
 
+        # @return This field group's field widgets.
+        def fields
+          self.class.field_names.map { |name| widget(name) }
+        end
+
         # Sets the given form attributes.
         #
         # @param attributes [Hash] the attributes and values we want to set.
@@ -215,6 +224,21 @@ module Cucumber
           end
 
           self
+        end
+
+        # Converts the current field group into a table suitable for diff'ing
+        # with Cucumber::Ast::Table.
+        #
+        # Field labels are determined by the widget name.
+        #
+        # Field values correspond to the return value of each field's +to_s+.
+        #
+        # @return [Array<Array>] the table.
+        def to_table
+          headers = fields.map { |field| field.label.downcase }
+          body    = fields.map { |field| field.to_s.downcase }
+
+          [headers, body]
         end
 
         # A form field.
@@ -256,6 +280,11 @@ module Cucumber
           def get
             !! root.checked?
           end
+
+          # @return +"yes"+ if the checkbox is checked, +"no"+ otherwise.
+          def to_s
+            get ? 'yes' : 'no'
+          end
         end
 
         # A select.
@@ -273,6 +302,11 @@ module Cucumber
           def set(option)
             root.find('option', text: option).select_option
           end
+
+          # @!method to_s
+          #   @return the text of the selected option, or the empty string if
+          #     no option is selected.
+          def_delegator :get, :to_s
         end
 
         # A text field.
@@ -286,6 +320,11 @@ module Cucumber
           #
           #   @param value [String] the value to set.
           def_delegator :root, :set
+
+          # @!method to_s
+          #   @return the text field value, or the empty string if the field is
+          #     empty.
+          def_delegator :get, :to_s
         end
 
         private

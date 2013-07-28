@@ -106,4 +106,13 @@ describe Cucumber::Salad::Widgets::FieldGroup do
       Then { group.filled_field == "" }
     end
   end
+
+  describe '#to_table' do
+    Given(:table)   { group.to_table }
+    Given(:headers) {['unchecked box', 'deselected', 'empty field',
+                      'checked box', 'selected', 'filled field']}
+    Given(:values)  {['no', '', '', 'yes', 'selected option', 'field contents']}
+
+    Then { table == [headers, values] }
+  end
 end
