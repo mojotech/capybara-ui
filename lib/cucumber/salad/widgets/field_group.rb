@@ -69,6 +69,12 @@ module Cucumber
 
             root.select w.(val).to_s, from: l
           end
+
+          define_method name do
+            l = label || name_to_locator(name)
+
+            option = root.find_field(l).first('[selected]') and option.text
+          end
         end
 
         def self.text_field(name, label = nil)
