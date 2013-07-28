@@ -72,35 +72,31 @@ module Cucumber
         # @todo Handle checkbox access when the field is disabled (raise an
         #   exception?)
         def self.check_box(name, locator = nil)
-          field name
-
-          define_method "#{name}=" do |val|
-            l = locator || name_to_locator(name)
-
-            if val
-              root.check l
-            else
-              root.uncheck l
-            end
-          end
-
-          define_method name do
-            l = locator || name_to_locator(name)
-
-            !! root.find_field(l).checked?
-          end
+          field name, locator || name_to_locator(name), CheckBox
         end
 
         # Defines a new field.
         #
-        # For now, this is only used to add a name to {field_names}.
+        # @param name the name of the field accessor.
+        # @param locator the field locator.
+        # @param type the field class name.
         #
         # @api private
-        def self.field(name)
+        def self.field(name, locator, type)
           raise TypeError, "can't convert `#{name}' to Symbol" \
             unless name.respond_to?(:to_sym)
 
           field_names << name.to_sym
+
+          widget name, locator, type
+
+          define_method "#{name}=" do |val|
+            widget(name).set val
+          end
+
+          define_method name do
+            widget(name).get
+          end
         end
 
         # Creates a new select accessor.
@@ -157,19 +153,7 @@ module Cucumber
         # @todo Ensure an option with no text returns the empty string.
         # @todo What to do when +nil+ is passed to the writer?
         def self.select(name, locator = nil)
-          field name
-
-          define_method "#{name}=" do |val|
-            l = locator || name_to_locator(name)
-
-            root.select val.to_s, from: l
-          end
-
-          define_method name do
-            l = locator || name_to_locator(name)
-
-            option = root.find_field(l).first('[selected]') and option.text
-          end
+          field name, locator || name_to_locator(name), Select
         end
 
         # Creates a new text field accessor.
@@ -215,19 +199,7 @@ module Cucumber
         # @todo Handle text field access when the field is disabled (raise an
         #   exception?)
         def self.text_field(name, locator = nil)
-          field name
-
-          define_method "#{name}=" do |val|
-            l = locator || name_to_locator(name)
-
-            root.fill_in l, with: val.to_s
-          end
-
-          define_method name do
-            l = locator || name_to_locator(name)
-
-            root.find_field(l).value
-          end
+          field name, locator || name_to_locator(name), TextField
         end
 
         # @!endgroup
@@ -243,6 +215,77 @@ module Cucumber
           end
 
           self
+        end
+
+        # A form field.
+        class Field < Widget
+          def self.find_in(parent, options)
+            new({root: parent.find_field(selector)}.merge(options))
+          end
+
+          def self.present_in?(parent)
+            parent.has_field?(selector)
+          end
+
+          # @return This field's value.
+          #
+          # Override this to get the actual value.
+          def get
+            raise NotImplementedError
+          end
+
+          # Sets the field value.
+          #
+          # Override this to set the value.
+          def set(value)
+            raise NotImplementedError
+          end
+        end
+
+        # A check box.
+        class CheckBox < Field
+          # @!method set(value)
+          #   Checks or unchecks the current checkbox.
+          #
+          #   @param value [Boolean] +true+ to check the checkbox, +false+
+          #     otherwise.
+          def_delegator :root, :set
+
+          # @return [Boolean] +true+ if the checkbox is checked, +false+
+          #   otherwise.
+          def get
+            !! root.checked?
+          end
+        end
+
+        # A select.
+        class Select < Field
+          # @return [String] The text of the selected option.
+          def get
+            option = root.find('[selected]') rescue nil
+
+            option && option.text
+          end
+
+          # Selects the given option.
+          #
+          # @param option [String] The text of the option to select.
+          def set(option)
+            root.find('option', text: option).select_option
+          end
+        end
+
+        # A text field.
+        class TextField < Field
+          # @!method get
+          #   @return The text field value.
+          def_delegator :root, :value, :get
+
+          # @!method set(value)
+          #   Sets the text field value.
+          #
+          #   @param value [String] the value to set.
+          def_delegator :root, :set
         end
 
         private
