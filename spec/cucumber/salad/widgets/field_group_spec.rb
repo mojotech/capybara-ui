@@ -15,6 +15,7 @@ describe Cucumber::Salad::Widgets::FieldGroup do
         <label for="d">Deselected</label>
         <select name="d" id="d">
           <option>One</option>
+          <option>Two</option>
         </select>
       </p>
       <p>
@@ -58,6 +59,14 @@ describe Cucumber::Salad::Widgets::FieldGroup do
       Then { group.checked_box == true }
       Then { group.unchecked_box == false }
     end
+
+    context "when setting" do
+      When { group.checked_box   = false }
+      When { group.unchecked_box = true }
+
+      Then { group.checked_box   == false }
+      Then { group.unchecked_box == true }
+    end
   end
 
   describe '.select' do
@@ -69,6 +78,14 @@ describe Cucumber::Salad::Widgets::FieldGroup do
       Then { group.deselected.nil? }
       Then { group.selected == "Selected option" }
     end
+
+    context "when setting" do
+      When { group.selected   = "Unselected option" }
+      When { group.deselected = "One" }
+
+      Then { group.selected   == "Unselected option" }
+      Then { group.deselected == "One" }
+    end
   end
 
   describe '.text_field' do
@@ -79,6 +96,14 @@ describe Cucumber::Salad::Widgets::FieldGroup do
     context "when querying" do
       Then { group.empty_field.nil? }
       Then { group.filled_field == "Field contents" }
+    end
+
+    context "when setting" do
+      When { group.empty_field  = "Some text" }
+      When { group.filled_field = nil }
+
+      Then { group.empty_field  == "Some text" }
+      Then { group.filled_field == "" }
     end
   end
 end
