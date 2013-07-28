@@ -103,17 +103,70 @@ module Cucumber
           field_names << name.to_sym
         end
 
-        def self.select(name, label = nil)
+        # Creates a new select accessor.
+        #
+        # Adds the following methods to the widget:
+        #
+        # <name>:: Gets the current selected option. Returns the label of the
+        #          selected option, or +nil+, if no option is selected.
+        # <name>=:: Selects an option on the current select. Pass the label of
+        #           the option you want to select.
+        #
+        # @example
+        #   # Given the following HTML:
+        #   #
+        #   # <form>
+        #   #   <p>
+        #   #     <label for="selected">
+        #   #     <select id="selected">
+        #   #       <option selected>Selected option</option>
+        #   #       <option>Another option</option>
+        #   #     </select>
+        #   #   </p>
+        #   #   <p>
+        #   #     <label for="deselected">
+        #   #     <select id="deselected">
+        #   #       <option>Deselected option</option>
+        #   #       <option>Another option</option>
+        #   #     </select>
+        #   #   </p>
+        #   # </form>
+        #   class MyFieldGroup < Cucumber::Salad::Widgets::FieldGroup
+        #     root 'form'
+        #
+        #     select :selected, 'selected'
+        #     select :deselected, 'deselected'
+        #   end
+        #
+        #   form = widget(:my_field_group)
+        #
+        #   form.selected                         #=> "Selected option"
+        #   form.deselected                       #=> nil
+        #
+        #   form.deselected = "Deselected option"
+        #   form.unchecked_box                    #=> "Deselected option"
+        #
+        # @param name the name of the select accessor.
+        # @param locator the locator for the select. If +nil+ the locator will
+        #   be derived from +name+.
+        #
+        # @todo Handle select access when the field is disabled (raise an
+        #   exception?)
+        # @todo Raise an exception when an option doesn't exist.
+        # @todo Allow passing the option value to set an option.
+        # @todo Ensure an option with no text returns the empty string.
+        # @todo What to do when +nil+ is passed to the writer?
+        def self.select(name, locator = nil)
           field name
 
           define_method "#{name}=" do |val|
-            l = label || name_to_locator(name)
+            l = locator || name_to_locator(name)
 
             root.select val.to_s, from: l
           end
 
           define_method name do
-            l = label || name_to_locator(name)
+            l = locator || name_to_locator(name)
 
             option = root.find_field(l).first('[selected]') and option.text
           end
