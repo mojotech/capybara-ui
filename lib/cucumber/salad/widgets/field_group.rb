@@ -2,6 +2,9 @@ module Cucumber
   module Salad
     module Widgets
       # A group of form fields.
+      #
+      # @todo Explain how to use locators when defining fields, including what
+      #   happens when locators are omitted.
       class FieldGroup < Widget
         root 'fieldset'
 
@@ -25,11 +28,54 @@ module Cucumber
 
         # @!group Field definition macros
 
-        def self.check_box(name, label = nil)
+        # Creates a new checkbox accessor.
+        #
+        # Adds the following methods to the widget:
+        #
+        # <name>:: Gets the current checkbox state, as a boolean. Returns +true+
+        #          if the corresponding check box is checked, +false+ otherwise.
+        # <name>=:: Sets the current checkbox state. Pass +true+ to check the
+        #           checkbox, +false+ otherwise.
+        #
+        # @example
+        #   # Given the following HTML:
+        #   #
+        #   # <form>
+        #   #   <p>
+        #   #     <label for="checked-box">
+        #   #     <input type="checkbox" value="1" id="checked-box" checked>
+        #   #   </p>
+        #   #   <p>
+        #   #     <label for="unchecked-box">
+        #   #     <input type="checkbox" value="1" id="unchecked-box">
+        #   #   </p>
+        #   # </form>
+        #   class MyFieldGroup < Cucumber::Salad::Widgets::FieldGroup
+        #     root 'form'
+        #
+        #     check_box :checked_box, 'checked-box'
+        #     check_box :unchecked_box, 'unchecked-box'
+        #   end
+        #
+        #   form = widget(:my_field_group)
+        #
+        #   form.checked_box          #=> true
+        #   form.unchecked_box        #=> false
+        #
+        #   form.unchecked_box = true
+        #   form.unchecked_box        #=> true
+        #
+        # @param name the name of the checkbox accessor.
+        # @param locator the locator for the checkbox. If +nil+ the locator will
+        #   be derived from +name+.
+        #
+        # @todo Handle checkbox access when the field is disabled (raise an
+        #   exception?)
+        def self.check_box(name, locator = nil)
           field name
 
           define_method "#{name}=" do |val|
-            l = label || name_to_locator(name)
+            l = locator || name_to_locator(name)
 
             if val
               root.check l
@@ -39,7 +85,7 @@ module Cucumber
           end
 
           define_method name do
-            l = label || name_to_locator(name)
+            l = locator || name_to_locator(name)
 
             !! root.find_field(l).checked?
           end
