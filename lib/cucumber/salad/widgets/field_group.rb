@@ -103,17 +103,13 @@ module Cucumber
           field_names << name.to_sym
         end
 
-        def self.select(name, *args)
+        def self.select(name, label = nil)
           field name
-
-          opts   = args.last.is_a?(Hash) ? args.pop : {}
-          label, = args
 
           define_method "#{name}=" do |val|
             l = label || name_to_locator(name)
-            w = opts.fetch(:writer) { ->(v) { v } }
 
-            root.select w.(val).to_s, from: l
+            root.select val.to_s, from: l
           end
 
           define_method name do
