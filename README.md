@@ -1,8 +1,5 @@
 Tasty APIs to help you with your cucumbers.
 
-**Note: This documentation reflects the current state of master. These changes
-haven't been released yet.**
-
 ## Installation
 
 Add `cucumber-salad` to your `Gemfile`. Then add
