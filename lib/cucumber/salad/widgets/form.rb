@@ -6,7 +6,7 @@ module Cucumber
 
         # Submit form with +attributes+.
         #
-        # @param attrs [Hash] the form fields and their values
+        # @param attributes [Hash] the form fields and their values
         #
         # @return the current widget
         def submit_with(attributes)
