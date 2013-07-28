@@ -172,17 +172,59 @@ module Cucumber
           end
         end
 
-        def self.text_field(name, label = nil)
+        # Creates a new text field accessor.
+        #
+        # Adds the following methods to the widget:
+        #
+        # <name>:: Returns the current text field value, or +nil+ if no value
+        #          has been set.
+        # <name>=:: Sets the current text field value.
+        #
+        # @example
+        #   # Given the following HTML:
+        #   #
+        #   # <form>
+        #   #   <p>
+        #   #     <label for="text-field">
+        #   #     <input type="text" value="Content" id="text-field">
+        #   #   </p>
+        #   #   <p>
+        #   #     <label for="empty-field">
+        #   #     <input type="text" id="empty-field">
+        #   #   </p>
+        #   # </form>
+        #   class MyFieldGroup < Cucumber::Salad::Widgets::FieldGroup
+        #     root 'form'
+        #
+        #     text_field :filled_field, 'text-field'
+        #     text_field :empty_field, 'empty-field'
+        #   end
+        #
+        #   form = widget(:my_field_group)
+        #
+        #   form.filled_field                #=> "Content"
+        #   form.empty_field                 #=> nil
+        #
+        #   form.empty_field = "Not anymore"
+        #   form.empty_field                 #=> "Not anymore"
+        #
+        # @param name the name of the text field accessor.
+        # @param locator the locator for the text field. If +nil+ the locator
+        #   will be derived from +name+.
+        #
+        # @todo Handle text field access when the field is disabled (raise an
+        #   exception?)
+        def self.text_field(name, locator = nil)
           field name
 
           define_method "#{name}=" do |val|
-            l = label || name_to_locator(name)
+            l = locator || name_to_locator(name)
 
             root.fill_in l, with: val.to_s
           end
 
           define_method name do
-            l = label || name_to_locator(name)
+            l = locator || name_to_locator(name)
 
             root.find_field(l).value
           end
