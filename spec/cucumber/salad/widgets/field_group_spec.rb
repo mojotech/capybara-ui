@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe Cucumber::Salad::Widgets::FieldGroup do
+  shared_examples_for 'a field' do
+    context "when using an auto locator" do
+      Then { container.has_widget?(:auto_locator) }
+    end
+  end
+
   describe '.check_box' do
     GivenHTML <<-HTML
       <p>
@@ -11,6 +17,10 @@ describe Cucumber::Salad::Widgets::FieldGroup do
         <label for="cb">Checked box</label>
         <input type="checkbox" name="cb" id="cb" checked>
       </p>
+      <p>
+        <label for="al">Auto locator</label>
+        <input type="checkbox" name="al" id="al">
+      </p>
     HTML
 
     Given(:container_class) { CheckBoxGroup }
@@ -18,6 +28,7 @@ describe Cucumber::Salad::Widgets::FieldGroup do
     class CheckBoxGroup < Cucumber::Salad::Widgets::FieldGroup
       check_box :unchecked_box, 'ub'
       check_box :checked_box, 'cb'
+      check_box :auto_locator
     end
 
     context "when defining" do
@@ -38,13 +49,15 @@ describe Cucumber::Salad::Widgets::FieldGroup do
     end
 
     context 'when transforming to table' do
-      Given(:headers) {['unchecked box', 'checked box']}
-      Given(:values)  {['no', 'yes']}
+      Given(:headers) {['unchecked box', 'checked box', 'auto locator']}
+      Given(:values)  {['no', 'yes', 'no']}
 
       When(:table)   { container.to_table }
 
       Then { table == [headers, values] }
     end
+
+    it_should_behave_like 'a field'
   end
 
   describe '.select' do
@@ -63,6 +76,11 @@ describe Cucumber::Salad::Widgets::FieldGroup do
           <option>Unselected option</option>
         </select>
       </p>
+      <p>
+        <label for="al">Auto locator</label>
+        <select name="al" id="al">
+        </select>
+      </p>
     HTML
 
     Given(:container_class) { SelectGroup }
@@ -70,6 +88,7 @@ describe Cucumber::Salad::Widgets::FieldGroup do
     class SelectGroup < Cucumber::Salad::Widgets::FieldGroup
       select :deselected, 'd'
       select :selected, 's'
+      select :auto_locator
     end
 
     context "when defining" do
@@ -90,13 +109,15 @@ describe Cucumber::Salad::Widgets::FieldGroup do
     end
 
     context 'when transforming to table' do
-      Given(:headers) {['deselected', 'selected']}
-      Given(:values)  {['', 'selected option']}
+      Given(:headers) {['deselected', 'selected', 'auto locator']}
+      Given(:values)  {['', 'selected option', '']}
 
       When(:table)   { container.to_table }
 
       Then { table == [headers, values] }
     end
+
+    it_should_behave_like 'a field'
   end
 
   describe '.text_field' do
@@ -109,6 +130,10 @@ describe Cucumber::Salad::Widgets::FieldGroup do
         <label for="ff">Filled field</label>
         <input type="text" name="ff" id="ff" value="Field contents">
       </p>
+      <p>
+        <label for="al">Auto locator</label>
+        <input type="text" name="al" id="al">
+      </p>
     HTML
 
     Given(:container_class) { TextGroup }
@@ -116,6 +141,7 @@ describe Cucumber::Salad::Widgets::FieldGroup do
     class TextGroup < Cucumber::Salad::Widgets::FieldGroup
       text_field :empty_field, 'ef'
       text_field :filled_field, 'ff'
+      text_field :auto_locator
     end
 
     context "when defining" do
@@ -137,10 +163,12 @@ describe Cucumber::Salad::Widgets::FieldGroup do
 
     describe '#to_table' do
       Given(:table)   { container.to_table }
-      Given(:headers) {['empty field', 'filled field']}
-      Given(:values)  {['', 'field contents']}
+      Given(:headers) {['empty field', 'filled field', 'auto locator']}
+      Given(:values)  {['', 'field contents', '']}
 
       Then { table == [headers, values] }
     end
+
+    it_should_behave_like 'a field'
   end
 end

@@ -72,7 +72,7 @@ module Cucumber
         # @todo Handle checkbox access when the field is disabled (raise an
         #   exception?)
         def self.check_box(name, locator = nil)
-          field name, locator || name_to_locator(name), CheckBox
+          field name, locator, CheckBox
         end
 
         # Defines a new field.
@@ -88,9 +88,12 @@ module Cucumber
 
           field_names << name.to_sym
 
+          label     = name.to_s.gsub(/_/, ' ').capitalize
+          locator ||= label
+
           widget name, locator, type do
             define_method :label do
-              name.to_s.gsub(/_/, ' ').capitalize
+              label
             end
           end
 
@@ -157,7 +160,7 @@ module Cucumber
         # @todo Ensure an option with no text returns the empty string.
         # @todo What to do when +nil+ is passed to the writer?
         def self.select(name, locator = nil)
-          field name, locator || name_to_locator(name), Select
+          field name, locator, Select
         end
 
         # Creates a new text field accessor.
@@ -203,7 +206,7 @@ module Cucumber
         # @todo Handle text field access when the field is disabled (raise an
         #   exception?)
         def self.text_field(name, locator = nil)
-          field name, locator || name_to_locator(name), TextField
+          field name, locator, TextField
         end
 
         # @!endgroup
@@ -325,16 +328,6 @@ module Cucumber
           #   @return the text field value, or the empty string if the field is
           #     empty.
           def_delegator :get, :to_s
-        end
-
-        private
-
-        def label(name)
-          name.to_s.humanize
-        end
-
-        def name_to_locator(name)
-          label(name)
         end
       end
     end
