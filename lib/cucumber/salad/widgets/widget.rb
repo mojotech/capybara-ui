@@ -57,9 +57,9 @@ module Cucumber
           def self.widget(name, selector, parent = Widgets::Widget, &block)
             type = Class.new(parent) {
               root selector
-
-              instance_eval(&block) if block
             }
+
+            type.class_eval(&block) if block_given?
 
             const_set(Salad::WidgetName.new(name).to_sym, type)
           end

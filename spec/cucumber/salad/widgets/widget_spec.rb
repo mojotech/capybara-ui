@@ -1,6 +1,28 @@
 require 'spec_helper'
 
 describe Cucumber::Salad::Widgets::Widget do
+  describe '.widget' do
+    context "defining new behavior inline" do
+      GivenHTML <<-HTML
+        <span id="inline">Guybrush Threepwood</span>
+      HTML
+
+      Given(:container_class) { WidgetMacro }
+
+      class WidgetMacro < Cucumber::Salad::Widgets::Widget
+        widget :inline, '#inline' do
+          def inline!
+            'yay'
+          end
+        end
+      end
+
+      When(:inline) { container.widget(:inline) }
+
+      Then { inline.respond_to?(:inline!) == true }
+    end
+  end
+
   describe "#has_widget?" do
     GivenHTML <<-HTML
       <span id="present">Guybrush Threepwood</span>
