@@ -27,11 +27,12 @@ module WidgetSpecDSL
       end
     end
 
-    Given(:container_root) { find('body') }
-    Given(:container)      { Container.new(root: container_root) }
+    Given(:container_class) { Container }
+    Given(:container_root)  { find('body') }
+    Given(:container)       { container_class.new(root: container_root) }
 
-    Given(:path)           { path }
-    Given                  { visit path }
+    Given(:path)            { path }
+    Given                   { visit path }
 
     after :all do
       SaladApp.reset!
