@@ -18,7 +18,6 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.rubyforge_project = '[none]'
 
-  s.add_dependency 'cucumber'
   s.add_dependency 'chronic'
   s.add_dependency 'capybara', '>= 2.0'
 
