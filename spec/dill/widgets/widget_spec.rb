@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Dill::Widgets::Widget do
+describe Dill::Widget do
   describe '.widget' do
     context "defining new behavior inline" do
       GivenHTML <<-HTML
@@ -9,7 +9,7 @@ describe Dill::Widgets::Widget do
 
       Given(:container_class) { WidgetMacro }
 
-      class WidgetMacro < Dill::Widgets::Widget
+      class WidgetMacro < Dill::Widget
         widget :inline, '#inline' do
           def inline!
             'yay'
@@ -28,7 +28,7 @@ describe Dill::Widgets::Widget do
       <span id="present">Guybrush Threepwood</span>
     HTML
 
-    class Container < Dill::Widgets::Widget
+    class Container < Dill::Widget
       widget :present, '#present'
       widget :absent, '#absent'
     end
@@ -53,7 +53,7 @@ describe Dill::Widgets::Widget do
       <a href="#" id="present">Edit</a>
     HTML
 
-    class Container < Dill::Widgets::Widget
+    class Container < Dill::Widget
       action :present, '#present'
       action :absent, '#absent'
     end
@@ -87,7 +87,7 @@ describe Dill::Widgets::Widget do
         <span id="remove">Guybrush Threepwood</span>
       HTML
 
-      class Container < Dill::Widgets::Widget
+      class Container < Dill::Widget
         widget :removed, '#remove'
       end
 
@@ -99,7 +99,7 @@ describe Dill::Widgets::Widget do
         <span id="present">Guybrush Threepwood</span>
       HTML
 
-      class Container < Dill::Widgets::Widget
+      class Container < Dill::Widget
         widget :present, '#present'
       end
 

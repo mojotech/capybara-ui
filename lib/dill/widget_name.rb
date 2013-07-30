@@ -17,7 +17,7 @@ module Dill
       const = scope.const_get(@canonical)
 
       raise TypeError, "`#{@canonical}' is not a widget in this scope" \
-        unless const < Widgets::Widget
+        unless const < Widget
 
       const
     rescue NameError

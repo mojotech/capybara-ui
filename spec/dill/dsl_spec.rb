@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-class Top < Dill::Widgets::Widget
+class Top < Dill::Widget
   root '#top'
 end
 
 module WidgetNS
-  class Inner < Dill::Widgets::Widget
+  class Inner < Dill::Widget
   end
 end
 

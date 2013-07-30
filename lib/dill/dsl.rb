@@ -2,10 +2,10 @@ module Dill
   module DSL
     attr_writer :widget_lookup_scope
 
-    # @return [Widgets::Document] the current document with the class of the
+    # @return [Document] the current document with the class of the
     #   current object set as the widget lookup scope.
     def document
-      Widgets::Document.new(widget_lookup_scope: widget_lookup_scope)
+      Document.new(widget_lookup_scope: widget_lookup_scope)
     end
 
     # @return [Boolean] Whether one or more widgets exist in the current

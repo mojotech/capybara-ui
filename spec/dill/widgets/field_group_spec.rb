@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Dill::Widgets::FieldGroup do
+describe Dill::FieldGroup do
   shared_examples_for 'a field' do
     context "when using an auto locator" do
       Then { container.has_widget?(:auto_locator) }
@@ -25,7 +25,7 @@ describe Dill::Widgets::FieldGroup do
 
     Given(:container_class) { CheckBoxGroup }
 
-    class CheckBoxGroup < Dill::Widgets::FieldGroup
+    class CheckBoxGroup < Dill::FieldGroup
       check_box :unchecked_box, 'ub'
       check_box :checked_box, 'cb'
       check_box :auto_locator
@@ -85,7 +85,7 @@ describe Dill::Widgets::FieldGroup do
 
     Given(:container_class) { SelectGroup }
 
-    class SelectGroup < Dill::Widgets::FieldGroup
+    class SelectGroup < Dill::FieldGroup
       select :deselected, 'd'
       select :selected, 's'
       select :auto_locator
@@ -138,7 +138,7 @@ describe Dill::Widgets::FieldGroup do
 
     Given(:container_class) { TextGroup }
 
-    class TextGroup < Dill::Widgets::FieldGroup
+    class TextGroup < Dill::FieldGroup
       text_field :empty_field, 'ef'
       text_field :filled_field, 'ff'
       text_field :auto_locator
