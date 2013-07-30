@@ -1,5 +1,5 @@
 module Dill
-  class Table
+  class TextTable
     class CellText < String
       include InstanceConversions
     end

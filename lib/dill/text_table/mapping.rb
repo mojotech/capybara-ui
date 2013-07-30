@@ -1,5 +1,5 @@
 module Dill
-  class Table
+  class TextTable
     class Mapping
       def initialize(settings = {})
         self.key               = settings[:key]

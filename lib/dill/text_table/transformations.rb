@@ -1,5 +1,5 @@
 module Dill
-  class Table
+  class TextTable
     module Transformations
       def self.keyword
         ->(val) { val.squeeze(' ').strip.gsub(' ', '_').sub(/\?$/, '').to_sym }

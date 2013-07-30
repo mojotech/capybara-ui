@@ -1,8 +1,8 @@
 require 'spec_helper'
 require 'ostruct'
 
-describe Dill::Table do
-  class ATable < Dill::Table
+describe Dill::TextTable do
+  class ATable < Dill::TextTable
     map 'passthrough'
     map 'convert header', to: :a_symbol
     map 'full' do |v|

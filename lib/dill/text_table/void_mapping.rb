@@ -1,5 +1,5 @@
 module Dill
-  class Table
+  class TextTable
     class VoidMapping
       def set(*)
       end
