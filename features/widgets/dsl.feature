@@ -1,7 +1,7 @@
 Feature: DSL
 
-  The Salad Widget DSL exposes a few methods to make it easier for you to work
-  with widgets. When you include the module `Cucumber::Salad::DSL`, you get
+  The Dill Widget DSL exposes a few methods to make it easier for you to work
+  with widgets. When you include the module `Dill::DSL`, you get
   access to the following methods:
 
   * `widget(<name>)`

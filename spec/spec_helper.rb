@@ -1,20 +1,20 @@
 $:.unshift File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
 
-require 'cucumber/salad'
+require 'dill'
 require 'rspec/given'
 require 'sinatra/base'
 require 'capybara/rspec'
 require 'capybara/webkit'
 
-class SaladApp < Sinatra::Base; end
-Capybara.app = SaladApp
+class DillApp < Sinatra::Base; end
+Capybara.app = DillApp
 
 Capybara.javascript_driver = :webkit
 
 module WidgetSpecDSL
   def GivenHTML(body_html, path = "/test")
     before :all do
-      SaladApp.class_eval do
+      DillApp.class_eval do
         get path do
           <<-HTML
           <html>
@@ -35,7 +35,7 @@ module WidgetSpecDSL
     Given                   { visit path }
 
     after :all do
-      SaladApp.reset!
+      DillApp.reset!
     end
   end
 end
@@ -44,5 +44,5 @@ RSpec.configure do |config|
   config.extend WidgetSpecDSL
 
   config.include Capybara::DSL
-  config.include Cucumber::Salad::DSL
+  config.include Dill::DSL
 end

@@ -1,5 +1,5 @@
 Given(/^a page (.+) includes the following HTML:$/) do |path, body|
-  SaladApp.class_eval do
+  DillApp.class_eval do
     get path do
       <<-HTML
       <html>
@@ -51,7 +51,7 @@ Then(/^the following should raise an exception:$/) do |code|
 end
 
 Then(/^"(.*?)" should raise "(.*?)":$/) do |code, exception_name|
-  expect { eval code }.to raise_error(Cucumber::Salad.const_get(exception_name))
+  expect { eval code }.to raise_error(Dill.const_get(exception_name))
 end
 
 Then(/^I should be on "(.*?)"$/) do |path|

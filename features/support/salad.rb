@@ -4,9 +4,9 @@ lib_dir     = File.join(project_dir, 'lib')
 
 $:.unshift File.expand_path lib_dir
 
-require 'cucumber/salad/boot'
+require 'dill/cucumber'
 
-class Widget < Salad::Widget
+class Widget < Dill::Widget
   def self.selector
     @selector || 'div'
   end

@@ -1,7 +1,0 @@
-require 'cucumber/salad/widgets/widget'
-require 'cucumber/salad/widgets/list'
-require 'cucumber/salad/widgets/base_table'
-require 'cucumber/salad/widgets/auto_table'
-require 'cucumber/salad/widgets/table'
-require 'cucumber/salad/widgets/field_group'
-require 'cucumber/salad/widgets/form'

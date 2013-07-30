@@ -1,10 +1,10 @@
 require 'capybara/cucumber'
 require 'sinatra/base'
 
-class SaladApp < Sinatra::Base; end
+class DillApp < Sinatra::Base; end
 
-Capybara.app = SaladApp
+Capybara.app = DillApp
 
 After do
-  SaladApp.reset!
+  DillApp.reset!
 end

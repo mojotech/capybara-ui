@@ -1,16 +1,16 @@
 # encoding: utf-8
 
 $:.unshift File.expand_path('../lib', __FILE__)
-require 'cucumber/salad/version'
+require 'dill/version'
 
 Gem::Specification.new do |s|
-  s.name          = "cucumber-salad"
-  s.version       = Cucumber::Salad::VERSION
+  s.name          = "dill"
+  s.version       = Dill::VERSION
   s.authors       = ["David Leal"]
   s.email         = ["dleal@mojotech.com"]
-  s.homepage      = "https://github.com/mojotech/cucumber-salad"
-  s.summary       = "A set of helpers to ease writing cucumber features"
-  s.description   = "See https://github.com/mojotech/cucumber-salad/README.md"
+  s.homepage      = "https://github.com/mojotech/dill"
+  s.summary       = "A set of helpers to ease integration testing"
+  s.description   = "See https://github.com/mojotech/dill/README.md"
   s.license       = "MIT"
 
   s.files         = `git ls-files app lib`.split("\n")

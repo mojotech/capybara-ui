@@ -1,10 +1,12 @@
-Tasty APIs to help you with your cucumbers.
+# Dill
+
+Write tastier tests.
 
 ## Installation
 
-Add `cucumber-salad` to your `Gemfile`. Then add
+Add `dill` to your `Gemfile`. Then add
 
-    require 'cucumber/salad/boot'
+    require 'dill/cucumber'
 
 to your `env.rb`.
 
@@ -34,7 +36,7 @@ So let's say you have the following HTML:
 
 You could define the following widget:
 
-    class CharacterProfile < Salad::Widget
+    class CharacterProfile < Dill::Widget
       root ".character-profile"
 
       widget :name, '.name'
@@ -62,10 +64,10 @@ And then use it in a cucumber step:
 
 ### Basic Widgets
 
-You can define new widgets by extending `Salad::Widget`. If you will be calling
+You can define new widgets by extending `Dill::Widget`. If you will be calling
 the widget directly, you should also define its selector.
 
-    class CharacterProfile < Salad::Widget
+    class CharacterProfile < Dill::Widget
       root '.character-profile'
 
       def some_method
@@ -80,7 +82,7 @@ message:
 
 If you want to access the root node inside a widget, send the `#root` message:
 
-    class CharacterProfile < Salad::Widget
+    class CharacterProfile < Dill::Widget
       root '.character-profile'
 
       def protagonist?
@@ -96,10 +98,10 @@ obviously not recommended (but if you must, you must).
 
 You can define sub-widgets as well:
 
-    class CharacterProfile < Salad::Widget
+    class CharacterProfile < Dill::Widget
       root '.character-profile'
 
-      class Name < Salad::Widget
+      class Name < Dill::Widget
         root '.name'
       end
     end
@@ -109,10 +111,10 @@ You can define sub-widgets as well:
 but this is a major hassle sometimes, so you may want to use the `widget` macro
 instead:
 
-    class CharacterProfile < Salad::Widget
+    class CharacterProfile < Dill::Widget
       root '.character-profile'
 
-      # by default this will be a Salad::Widget
+      # by default this will be a Dill::Widget
       widget :name, '.name'
 
       # use a different class instead
@@ -124,10 +126,10 @@ instead:
 
 You can even give it some behavior inline:
 
-    class CharacterProfile < Salad::Widget
+    class CharacterProfile < Dill::Widget
       root '.character-profile'
 
-      # the default parent class is Salad::Widget
+      # the default parent class is Dill::Widget
       widget :name, '.name' do
         def metaprogramming!
           "yay!"
