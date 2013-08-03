@@ -40,14 +40,14 @@ module Dill
         end
       end
 
-      # Declares a new sub-widget.
+      # Declares a new child widget.
       #
-      # Sub-widgets are accessible inside the container widget using the
+      # Child widgets are accessible inside the container widget using the
       # +widget+ message.
       #
-      # @param name the name of the sub-widget
-      # @param selector the sub-widget selector
-      # @param parent [Class] the parent class of the new sub-widget
+      # @param name the name of the child widget
+      # @param selector the child widget selector
+      # @param parent [Class] the parent class of the new child widget
       #
       # @yield A block allowing you to further customize the widget behavior.
       #
@@ -62,13 +62,13 @@ module Dill
         const_set(Dill::WidgetName.new(name).to_sym, type)
       end
 
-      # Creates a delegator for one sub-widget message.
+      # Creates a delegator for one child widget message.
       #
       # Since widgets are accessed through {WidgetContainer#widget}, we can't
       # use {Forwardable} to delegate messages to widgets.
       #
-      # @param name the name of the receiver sub-widget
-      # @param widget_message the name of the message to be sent to the sub-widget
+      # @param name the name of the receiver child widget
+      # @param widget_message the name of the message to be sent to the child widget
       # @param method_name the name of the delegator. If +nil+ the method will
       #   have the same name as the message it will send.
       def self.widget_delegator(name, widget_message, method_name = nil)
