@@ -20,6 +20,100 @@ describe Dill::Widget do
       end
     end
 
+    context "declaring a new widget with name and type" do
+      GivenHTML <<-HTML
+        <span class="widget">Outer Widget</span>
+
+        <div id="container">
+          <span class="widget">Inner Widget</span>
+        </div>
+      HTML
+
+      context "when type has valid selector" do
+        Given(:container_class) { WidgetMacroNameTypeValid }
+
+        class ChildWithSelector < Dill::Widget
+          root '.widget'
+        end
+
+        When {
+          class WidgetMacroNameTypeValid < Dill::Widget
+            root '#container'
+
+            widget :widget, ChildWithSelector
+          end
+        }
+
+        When(:widget) { container.widget(:widget) }
+
+        Then { widget.to_s == 'Inner Widget' }
+      end
+
+      context "when type has no selector" do
+        class ChildWithoutSelector < Dill::Widget
+        end
+
+        When(:error) {
+          class WidgetMacroNameTypeInvalid < Dill::Widget
+            root '#container'
+
+            widget :widget, ChildWithoutSelector
+          end
+        }
+
+        Then { error == Failure(ArgumentError, /missing root selector/) }
+      end
+    end
+
+    context "declaring a new widget with name, selector and type" do
+      GivenHTML <<-HTML
+        <span class="widget">Outer Widget</span>
+
+        <div id="container">
+          <span class="widget">Inner Widget</span>
+        </div>
+      HTML
+
+      context "when child has a selector" do
+        Given(:container_class) { WidgetMacroNameSelectorTypeSelector }
+
+        class ChildWithOuterSelector < Dill::Widget
+          root 'body > .widget'
+        end
+
+        When {
+          class WidgetMacroNameSelectorTypeSelector < Dill::Widget
+            root '#container'
+
+            widget :widget, '.widget', ChildWithOuterSelector
+          end
+        }
+
+        When(:widget) { container.widget(:widget) }
+
+        Then { widget.to_s == 'Inner Widget' }
+      end
+
+      context "when type has no selector" do
+        Given(:container_class) { WidgetMacroNameSelectorTypeNoSelector }
+
+        class ChildNoSelector < Dill::Widget
+        end
+
+        When {
+          class WidgetMacroNameSelectorTypeNoSelector < Dill::Widget
+            root '#container'
+
+            widget :widget, '.widget', ChildNoSelector
+          end
+        }
+
+        When(:widget) { container.widget(:widget) }
+
+        Then { widget.to_s == 'Inner Widget' }
+      end
+    end
+
     context "defining new behavior inline" do
       GivenHTML <<-HTML
         <span id="inline">Guybrush Threepwood</span>

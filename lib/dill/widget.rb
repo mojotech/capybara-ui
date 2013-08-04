@@ -46,21 +46,67 @@ module Dill
       # {#widget} message. They are automatically scoped to the parent widget's
       # root node.
       #
-      # @param name the name of the child widget.
-      # @param selector the child widget selector.
-      # @param parent [Class] the parent class of the new child widget.
+      # @overload widget(name, selector, type = Widget)
+      #
+      #   The most common form, it allows you to pass in a selector as well as a
+      #   type for the child widget. The selector will override +type+'s
+      #   root selector, if +type+ has one defined.
+      #
+      #   @param name the child widget's name.
+      #   @param selector the child widget's selector.
+      #   @param type the child widget's parent class.
+      #
+      # @overload widget(name, type)
+      #
+      #   This form allows you to omit +selector+ from the arguments. It will
+      #   reuse +type+'s root selector.
+      #
+      #   @param name the child widget's name.
+      #   @param type the child widget's parent class.
+      #
+      #   @raise ArgumentError if +type+ has no root selector defined.
       #
       # @yield A block allowing you to further customize the widget behavior.
       #
       # @see #widget
-      def self.widget(name, selector, parent = Widget, &block)
-        type = Class.new(parent) {
-          root selector
-        }
+      def self.widget(name, *rest, &block)
+        case rest.first
+        when Class
+          arg_count = rest.size + 1
+          raise ArgumentError, "wrong number of arguments (#{arg_count} for 2)" \
+            unless arg_count == 2
 
-        type.class_eval(&block) if block_given?
+          type = rest.first
+          raise TypeError, "can't convert `#{type}' to Widget" \
+            unless type.methods.include?(:selector)
+          raise ArgumentError, "missing root selector for `#{type}'" \
+            unless type.selector
 
-        const_set(Dill::WidgetName.new(name).to_sym, type)
+          selector = type.selector
+        when String
+          arg_count = rest.size + 1
+
+          case arg_count
+          when 0, 1
+            raise ArgumentError, "wrong number of arguments (#{arg_count} for 2)"
+          when 2
+            selector, type = [*rest, Widget]
+          when 3
+            selector, type = rest
+
+            raise TypeError, "can't convert `#{type}' to Widget" \
+              unless Class === type
+          else
+            raise ArgumentError, "wrong number of arguments (#{arg_count} for 3)"
+          end
+        else
+          raise ArgumentError, "unknown method signature: #{rest.inspect}"
+        end
+
+        child = Class.new(type) { root selector }
+        child.class_eval(&block) if block_given?
+
+        const_set(Dill::WidgetName.new(name).to_sym, child)
       end
 
       # Creates a delegator for one child widget message.
