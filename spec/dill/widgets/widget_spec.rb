@@ -2,6 +2,24 @@ require 'spec_helper'
 
 describe Dill::Widget do
   describe '.widget' do
+    context "declaring a new widget with name and selector" do
+      GivenHTML <<-HTML
+        <span id="widget">Widget</span>
+      HTML
+
+      Given(:container_class) { WidgetMacro }
+
+      class WidgetMacro < Dill::Widget
+        widget :widget, '#widget'
+      end
+
+      context "accessing using #widget" do
+        When(:widget) { container.widget(:widget) }
+
+        Then { widget.is_a?(Dill::Widget) }
+      end
+    end
+
     context "defining new behavior inline" do
       GivenHTML <<-HTML
         <span id="inline">Guybrush Threepwood</span>
