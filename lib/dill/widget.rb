@@ -172,16 +172,6 @@ module Dill
 
     # @!endgroup
 
-    # Determines if an instance of this widget class exists in
-    # +parent_node+.
-    #
-    # @param parent_node [Capybara::Node] the node we want to search in
-    #
-    # @return +true+ if a widget instance is found, +false+ otherwise.
-    def self.present_in?(parent_node)
-      parent_node.has_selector?(selector)
-    end
-
     # Finds a single instance of the current widget in +node+.
     #
     # @param node the node we want to search in
@@ -191,6 +181,16 @@ module Dill
     # @raise [Capybara::ElementNotFoundError] if the widget can't be found
     def self.find_in(node, options = {})
       new(options.merge(root: node.find(selector)))
+    end
+
+    # Determines if an instance of this widget class exists in
+    # +parent_node+.
+    #
+    # @param parent_node [Capybara::Node] the node we want to search in
+    #
+    # @return +true+ if a widget instance is found, +false+ otherwise.
+    def self.present_in?(parent_node)
+      parent_node.has_selector?(selector)
     end
 
     # Sets this widget's default selector.
