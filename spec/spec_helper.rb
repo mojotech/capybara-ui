@@ -28,7 +28,7 @@ module WidgetSpecDSL
     end
 
     Given(:container_class) { Container }
-    Given(:container_root)  { find('body') }
+    Given(:container_root)  { find(container_class.selector || 'body') }
     Given(:container)       { container_class.new(root: container_root) }
 
     Given(:path)            { path }
