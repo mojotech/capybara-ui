@@ -12,6 +12,9 @@ module Dill
       # on that widget. You can then send a widget instance the message given
       # by +name+.
       #
+      # You can access the underlying widget by appending "_widget" to the
+      # action name.
+      #
       # @example
       #   # Consider the widget will encapsulate the following HTML
       #   #
@@ -25,16 +28,24 @@ module Dill
       #     action :edit, '[rel = edit]'
       #   end
       #
+      #   pirate_profile = widget(:pirate_profile)
+      #
+      #   # Access the action widget
+      #   action_widget = pirate_profile.widget(:edit_widget)
+      #   action_widget = pirate_profile.edit_widget
+      #
       #   # Click the link
-      #   widget(:pirate_profile).edit
+      #   pirate_profile.edit
       #
       # @param name the name of the action
       # @param selector the selector for the widget that will be clicked
       def self.action(name, selector)
-        widget name, selector
+        wname = :"#{name}_widget"
+
+        widget wname, selector
 
         define_method name do
-          widget(name).click
+          widget(wname).click
 
           self
         end
@@ -43,8 +54,28 @@ module Dill
       # Declares a new child widget.
       #
       # Child widgets are accessible inside the container widget using the
-      # {#widget} message. They are automatically scoped to the parent widget's
-      # root node.
+      # {#widget} message, or by sending a message +name+. They
+      # are automatically scoped to the parent widget's root node.
+      #
+      # @example Defining a widget
+      #   # Given the following HTML:
+      #   #
+      #   # <div id="root">
+      #   #   <span id="child">Child</span>
+      #   # </div>
+      #   class Container < Dill::Widget
+      #     root '#root'
+      #
+      #     widget :my_widget, '#child'
+      #   end
+      #
+      #   container = widget(:container)
+      #
+      #   # accessing using #widget
+      #   my_widget = container.widget(:my_widget)
+      #
+      #   # accessing using #my_widget
+      #   my_widget = container.my_widget
       #
       # @overload widget(name, selector, type = Widget)
       #
@@ -70,6 +101,9 @@ module Dill
       #
       # @see #widget
       def self.widget(name, *rest, &block)
+        raise ArgumentError, "`#{name}' is a reserved name" \
+          if WidgetContainer.instance_methods.include?(name.to_sym)
+
         case rest.first
         when Class
           arg_count = rest.size + 1
@@ -107,6 +141,10 @@ module Dill
         child.class_eval(&block) if block_given?
 
         const_set(Dill::WidgetName.new(name).to_sym, child)
+
+        define_method name do
+          widget(name)
+        end
       end
 
       # Creates a delegator for one child widget message.
@@ -187,7 +225,7 @@ module Dill
     def has_action?(name)
       raise Missing, "couldn't find `#{name}' action" unless respond_to?(name)
 
-      has_widget?(name)
+      has_widget?(:"#{name}_widget")
     end
 
     def inspect

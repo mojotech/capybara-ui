@@ -10,11 +10,17 @@ describe Dill::Widget do
       Given(:container_class) { WidgetMacroNameSelector }
 
       class WidgetMacroNameSelector < Dill::Widget
-        widget :widget, '#widget'
+        widget :the_widget, '#widget'
       end
 
       context "accessing using #widget" do
-        When(:widget) { container.widget(:widget) }
+        When(:widget) { container.widget(:the_widget) }
+
+        Then { widget.is_a?(Dill::Widget) }
+      end
+
+      context "accessing using #<name>" do
+        When(:widget) { container.the_widget }
 
         Then { widget.is_a?(Dill::Widget) }
       end
@@ -40,11 +46,11 @@ describe Dill::Widget do
           class WidgetMacroNameTypeValid < Dill::Widget
             root '#container'
 
-            widget :widget, ChildWithSelector
+            widget :the_widget, ChildWithSelector
           end
         }
 
-        When(:widget) { container.widget(:widget) }
+        When(:widget) { container.widget(:the_widget) }
 
         Then { widget.to_s == 'Inner Widget' }
       end
@@ -57,7 +63,7 @@ describe Dill::Widget do
           class WidgetMacroNameTypeInvalid < Dill::Widget
             root '#container'
 
-            widget :widget, ChildWithoutSelector
+            widget :the_widget, ChildWithoutSelector
           end
         }
 
@@ -85,11 +91,11 @@ describe Dill::Widget do
           class WidgetMacroNameSelectorTypeSelector < Dill::Widget
             root '#container'
 
-            widget :widget, '.widget', ChildWithOuterSelector
+            widget :the_widget, '.widget', ChildWithOuterSelector
           end
         }
 
-        When(:widget) { container.widget(:widget) }
+        When(:widget) { container.widget(:the_widget) }
 
         Then { widget.to_s == 'Inner Widget' }
       end
@@ -104,11 +110,11 @@ describe Dill::Widget do
           class WidgetMacroNameSelectorTypeNoSelector < Dill::Widget
             root '#container'
 
-            widget :widget, '.widget', ChildNoSelector
+            widget :the_widget, '.widget', ChildNoSelector
           end
         }
 
-        When(:widget) { container.widget(:widget) }
+        When(:widget) { container.widget(:the_widget) }
 
         Then { widget.to_s == 'Inner Widget' }
       end
