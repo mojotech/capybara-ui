@@ -214,6 +214,10 @@ module Dill
       self.root = settings.fetch(:root)
     end
 
+    def checkpoint(wait_time)
+      Checkpoint.new(wait_time)
+    end
+
     # Determines if the widget underlying an action exists.
     #
     # @param name the name of the action
@@ -257,19 +261,15 @@ module Dill
     #   reloaded, +false+ otherwise.
     #
     # @return the current widget
+    #
+    # @see Checkpoint
     def reload(wait_time = Capybara.default_wait_time, &test)
       unless test
         old_inspect = inspect
         test        = ->{ old_inspect != inspect }
       end
 
-      root.synchronize(wait_time) do
-        raise Reload unless test.()
-      end
-
-      self
-    rescue Reload
-      # raised on timeout
+      checkpoint(wait_time).wait_until(false, &test)
 
       self
     end
@@ -289,6 +289,10 @@ module Dill
     private
 
     attr_writer :root
+
+    def checkpoint(wait_time = Capybara.default_wait_time)
+      Checkpoint.new(wait_time)
+    end
 
     def page
       Capybara.current_session
