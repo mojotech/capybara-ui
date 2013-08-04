@@ -7,9 +7,9 @@ describe Dill::Widget do
         <span id="widget">Widget</span>
       HTML
 
-      Given(:container_class) { WidgetMacro }
+      Given(:container_class) { WidgetMacroNameSelector }
 
-      class WidgetMacro < Dill::Widget
+      class WidgetMacroNameSelector < Dill::Widget
         widget :widget, '#widget'
       end
 
@@ -25,9 +25,9 @@ describe Dill::Widget do
         <span id="inline">Guybrush Threepwood</span>
       HTML
 
-      Given(:container_class) { WidgetMacro }
+      Given(:container_class) { WidgetMacroInline }
 
-      class WidgetMacro < Dill::Widget
+      class WidgetMacroInline < Dill::Widget
         widget :inline, '#inline' do
           def inline!
             'yay'
@@ -35,7 +35,7 @@ describe Dill::Widget do
         end
       end
 
-      context "accessing using #widget" do
+      context "using behavior defined inline" do
         When(:inline) { container.widget(:inline) }
 
         Then { inline.respond_to?(:inline!) == true }
@@ -48,7 +48,9 @@ describe Dill::Widget do
       <span id="present">Guybrush Threepwood</span>
     HTML
 
-    class Container < Dill::Widget
+    Given(:container_class) { HasWidget }
+
+    class HasWidget < Dill::Widget
       widget :present, '#present'
       widget :absent, '#absent'
     end
@@ -73,7 +75,9 @@ describe Dill::Widget do
       <a href="#" id="present">Edit</a>
     HTML
 
-    class Container < Dill::Widget
+    Given(:container_class) { HasAction }
+
+    class HasAction < Dill::Widget
       action :present, '#present'
       action :absent, '#absent'
     end
@@ -107,7 +111,9 @@ describe Dill::Widget do
         <span id="remove">Guybrush Threepwood</span>
       HTML
 
-      class Container < Dill::Widget
+      Given(:container_class) { ReloadWithChange }
+
+      class ReloadWithChange < Dill::Widget
         widget :removed, '#remove'
       end
 
@@ -119,7 +125,9 @@ describe Dill::Widget do
         <span id="present">Guybrush Threepwood</span>
       HTML
 
-      class Container < Dill::Widget
+      Given(:container_class) { ReloadWithNoChange }
+
+      class ReloadWithNoChange < Dill::Widget
         widget :present, '#present'
       end
 
