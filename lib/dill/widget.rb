@@ -43,11 +43,12 @@ module Dill
       # Declares a new child widget.
       #
       # Child widgets are accessible inside the container widget using the
-      # +widget+ message.
+      # {#widget} message. They are automatically scoped to the parent widget's
+      # root node.
       #
-      # @param name the name of the child widget
-      # @param selector the child widget selector
-      # @param parent [Class] the parent class of the new child widget
+      # @param name the name of the child widget.
+      # @param selector the child widget selector.
+      # @param parent [Class] the parent class of the new child widget.
       #
       # @yield A block allowing you to further customize the widget behavior.
       #
