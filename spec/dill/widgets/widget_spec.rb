@@ -35,9 +35,11 @@ describe Dill::Widget do
         end
       end
 
-      When(:inline) { container.widget(:inline) }
+      context "accessing using #widget" do
+        When(:inline) { container.widget(:inline) }
 
-      Then { inline.respond_to?(:inline!) == true }
+        Then { inline.respond_to?(:inline!) == true }
+      end
     end
   end
 
