@@ -265,8 +265,8 @@ module Dill
     # @see Checkpoint
     def reload(wait_time = Capybara.default_wait_time, &test)
       unless test
-        old_inspect = inspect
-        test        = ->{ old_inspect != inspect }
+        old_root = root
+        test     = ->{ old_root != root }
       end
 
       checkpoint(wait_time).wait_until(false, &test)
