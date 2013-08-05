@@ -219,10 +219,12 @@ DRIVERS.each do |driver|
         GivenHTML <<-HTML
           <script>
             function removeNode() {
-              document.getElementById('remove').remove();
+              var victim = document.getElementById('remove');
+
+              document.body.removeChild(victim);
             }
 
-            setInterval(removeNode, 500);
+            setTimeout(removeNode, 500);
           </script>
 
           <span id="remove">Guybrush Threepwood</span>
