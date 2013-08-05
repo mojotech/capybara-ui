@@ -286,6 +286,14 @@ module Dill
       self
     end
 
+    def to_i
+      to_s.to_i
+    end
+
+    def to_f
+      to_s.to_f
+    end
+
     def to_s
       node_text(root)
     end
