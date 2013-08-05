@@ -144,6 +144,86 @@ DRIVERS.each do |driver|
       end
     end
 
+    describe "#==" do
+      class Equals < Dill::Widget
+        root '#value'
+      end
+
+      context "straight comparison" do
+        GivenHTML <<-HTML
+          <span id="value">1</span>
+        HTML
+
+        Given(:container_class) { Equals }
+
+        Then { container == 1 }
+        Then { container == '1' }
+        Then { container == 1.0 }
+      end
+
+      context "delayed comparison" do
+        GivenHTML <<-HTML
+          <script>
+            function changeValue() {
+              var value = document.getElementById('value');
+
+              value.innerHTML = 1;
+            }
+
+            setTimeout(changeValue, 500);
+          </script>
+
+          <span id="value">0</span>
+        HTML
+
+        Given(:container_class) { Equals }
+
+        Then { container == 1 }
+        Then { container == '1' }
+        Then { container == 1.0 }
+      end
+    end
+
+    describe "#!=" do
+      class Differs < Dill::Widget
+        root '#value'
+      end
+
+      context "straight comparison" do
+        GivenHTML <<-HTML
+          <span id="value">1</span>
+        HTML
+
+        Given(:container_class) { Equals }
+
+        Then { container != 0 }
+        Then { container != '0' }
+        Then { container != 0.0 }
+      end
+
+      context "delayed comparison" do
+        GivenHTML <<-HTML
+          <script>
+            function changeValue() {
+              var value = document.getElementById('value');
+
+              value.innerHTML = 0;
+            }
+
+            setTimeout(changeValue, 500);
+          </script>
+
+          <span id="value">1</span>
+        HTML
+
+        Given(:container_class) { Differs }
+
+        Then { container != 1 }
+        Then { container != '1' }
+        Then { container != 1.0 }
+      end
+    end
+
     describe "#has_action?" do
       GivenHTML <<-HTML
         <a href="#" id="present">Edit</a>

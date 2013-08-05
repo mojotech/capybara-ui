@@ -216,6 +216,18 @@ module Dill
       self.root = settings.fetch(:root)
     end
 
+    # Compares the current widget with +value+, waiting for the comparison
+    # to return +true+.
+    def ==(value)
+      checkpoint.wait_until(false) { cast_to(value) == value }
+    end
+
+    # Compares the current widget with +value+, waiting for the comparison
+    # to return +false+.
+    def !=(value)
+      checkpoint.wait_until(false) { cast_to(value) != value }
+    end
+
     def checkpoint(wait_time)
       Checkpoint.new(wait_time)
     end
@@ -301,6 +313,19 @@ module Dill
     alias_method :w, :widget
 
     protected
+
+    def cast_to(value)
+      case value
+      when Float
+        to_f
+      when Integer
+        to_i
+      when String
+        to_s
+      else
+        raise TypeError, "can't convert this widget to `#{klass}'"
+      end
+    end
 
     def node_text(node)
       NodeText.new(node)
