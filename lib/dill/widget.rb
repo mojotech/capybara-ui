@@ -4,6 +4,8 @@ module Dill
 
     include WidgetContainer
 
+    class Removed < StandardError; end
+
     # @!group Widget macros
 
       # Defines a new action.
@@ -274,6 +276,12 @@ module Dill
       end
 
       checkpoint(wait_time).wait_until(false, &test)
+
+      begin
+        root.inspect
+      rescue
+        raise Removed, "widget was removed"
+      end
 
       self
     end

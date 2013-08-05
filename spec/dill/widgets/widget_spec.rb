@@ -239,6 +239,33 @@ DRIVERS.each do |driver|
         Then { ! container.reload.has_widget?(:removed) }
       end
 
+      context "when the widget node is replaced" do
+        GivenHTML <<-HTML
+          <script>
+            function removeNode() {
+              var victim = document.getElementById('remove');
+
+              document.body.removeChild(victim);
+            }
+
+            setTimeout(removeNode, 500);
+          </script>
+
+          <span id="remove">Guybrush Threepwood</span>
+        HTML
+
+
+        Given(:container_class) { ReloadRemoved }
+
+        class ReloadRemoved < Dill::Widget
+          root '#remove'
+        end
+
+        When(:failure) { container.reload }
+
+        Then { failure == Failure(Dill::Widget::Removed) }
+      end
+
       context "when widget remains the same", js: true do
         GivenHTML <<-HTML
           <span id="present">Guybrush Threepwood</span>
