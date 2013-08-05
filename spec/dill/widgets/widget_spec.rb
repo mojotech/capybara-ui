@@ -143,33 +143,6 @@ describe Dill::Widget do
     end
   end
 
-  describe "#has_widget?" do
-    GivenHTML <<-HTML
-      <span id="present">Guybrush Threepwood</span>
-    HTML
-
-    Given(:container_class) { HasWidget }
-
-    class HasWidget < Dill::Widget
-      widget :present, '#present'
-      widget :absent, '#absent'
-    end
-
-    context "when widget exists" do
-      Then { container.has_widget?(:present) }
-    end
-
-    context "when widget is missing" do
-      Then { ! container.has_widget?(:absent) }
-    end
-
-    context "when widget is undefined" do
-      When(:error) { container.has_widget?(:undefined) }
-
-      Then { error == Failure(Dill::Missing, /`undefined' widget/) }
-    end
-  end
-
   describe "#has_action?" do
     GivenHTML <<-HTML
       <a href="#" id="present">Edit</a>
@@ -194,6 +167,33 @@ describe Dill::Widget do
       When(:error) { container.has_action?(:undefined) }
 
       Then { error == Failure(Dill::Missing, /`undefined' action/) }
+    end
+  end
+
+  describe "#has_widget?" do
+    GivenHTML <<-HTML
+      <span id="present">Guybrush Threepwood</span>
+    HTML
+
+    Given(:container_class) { HasWidget }
+
+    class HasWidget < Dill::Widget
+      widget :present, '#present'
+      widget :absent, '#absent'
+    end
+
+    context "when widget exists" do
+      Then { container.has_widget?(:present) }
+    end
+
+    context "when widget is missing" do
+      Then { ! container.has_widget?(:absent) }
+    end
+
+    context "when widget is undefined" do
+      When(:error) { container.has_widget?(:undefined) }
+
+      Then { error == Failure(Dill::Missing, /`undefined' widget/) }
     end
   end
 
