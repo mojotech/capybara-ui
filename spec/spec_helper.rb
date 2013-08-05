@@ -5,6 +5,7 @@ require 'rspec/given'
 require 'sinatra/base'
 require 'capybara/rspec'
 require 'capybara/webkit'
+require 'capybara/poltergeist'
 
 class DillApp < Sinatra::Base; end
 Capybara.app = DillApp
