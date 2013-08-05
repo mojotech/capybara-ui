@@ -7,6 +7,8 @@ require 'capybara/rspec'
 require 'capybara/webkit'
 require 'capybara/poltergeist'
 
+DRIVERS = [:webkit, :poltergeist]
+
 class DillApp < Sinatra::Base; end
 Capybara.app = DillApp
 
