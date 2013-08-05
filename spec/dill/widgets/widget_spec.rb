@@ -197,6 +197,22 @@ describe Dill::Widget do
     end
   end
 
+  describe "#inspect" do
+    GivenHTML <<-HTML
+      <span id="ins">Ins</span>
+    HTML
+
+    Given(:container_class) { Inspect }
+
+    class Inspect < Dill::Widget;
+      root 'span'
+    end
+
+    When(:inspection) { container.inspect }
+
+    Then { inspection == "<!-- Inspect: -->\n<span id=\"ins\">Inspect</span>\n" }
+  end
+
   describe "#reload" do
     context "when widget content changes", js: true do
       GivenHTML <<-HTML
