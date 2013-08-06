@@ -222,6 +222,16 @@ module Dill
       checkpoint.wait_until(false) { cast_to(value) == value }
     end
 
+    # Calls +=~+ on this widget's text content.
+    def =~(regexp)
+      checkpoint.wait_until(false) { to_s =~ regexp }
+    end
+
+    # Calls +!~+ on this widget's text content.
+    def !~(regexp)
+      checkpoint.wait_until(false) { to_s !~ regexp }
+    end
+
     # Compares the current widget with +value+, waiting for the comparison
     # to return +false+.
     def !=(value)

@@ -184,6 +184,21 @@ DRIVERS.each do |driver|
       end
     end
 
+    describe "#=~" do
+      GivenHTML <<-HTML
+        <span id="match">This matches</span>
+      HTML
+
+      Given(:container_class) { RegexpMatch }
+
+      class RegexpMatch < Dill::Widget
+        root '#match'
+      end
+
+      Then { container =~ /This m/ }
+      Then { container !~ /No match/ }
+    end
+
     describe "#!=" do
       class Differs < Dill::Widget
         root '#value'
