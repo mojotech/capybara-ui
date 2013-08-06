@@ -294,6 +294,36 @@ DRIVERS.each do |driver|
       Then { inspection == "<!-- Inspect: -->\n<span id=\"ins\">Ins</span>\n" }
     end
 
+    describe "#match" do
+      GivenHTML <<-HTML
+        <span id="match">This matches</span>
+      HTML
+
+      Given(:container_class) { Match }
+
+      class Match < Dill::Widget
+        root '#match'
+      end
+
+      context "simple match" do
+        Then { container.match(/This m/) }
+      end
+
+      context "match with block" do
+        When(:result) { container.match(/This m/) { |m| 'w00t!' } }
+
+        Then { result == 'w00t!' }
+      end
+
+      context "no match" do
+        Then { ! container.match(/No match/) }
+      end
+
+      context "no match with position" do
+        Then { ! container.match(/This mat/, 2) }
+      end
+    end
+
     describe "#reload" do
       context "when widget content changes", js: true do
         GivenHTML <<-HTML

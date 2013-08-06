@@ -298,6 +298,20 @@ module Dill
       self
     end
 
+    # Calls +match+ on this widget's text content.
+    #
+    # If a block is given, passes the resulting match data to the block.
+    #
+    # @param pattern the pattern to match
+    # @param position where to begin the search
+    #
+    # @yieldparam [MatchData] the match data from running +match+ on the text.
+    #
+    # @return [MatchData] the match data from running +match+ on the text.
+    def match(pattern, position = 0, &block)
+      checkpoint.wait_until(false) { to_s.match(pattern, position, &block) }
+    end
+
     def to_i
       to_s.to_i
     end
