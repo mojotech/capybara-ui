@@ -8,20 +8,16 @@ DRIVERS.each do |driver|
           <span id="widget">Widget</span>
         HTML
 
-        Given(:container_class) { WidgetMacroNameSelector }
-
-        class WidgetMacroNameSelector < Dill::Widget
-          widget :the_widget, '#widget'
-        end
+        GivenWidget { widget :the_widget, '#widget' }
 
         context "accessing using #widget" do
-          When(:widget) { container.widget(:the_widget) }
+          When(:widget) { w.widget(:the_widget) }
 
           Then { widget.is_a?(Dill::Widget) }
         end
 
         context "accessing using #<name>" do
-          When(:widget) { container.the_widget }
+          When(:widget) { w.the_widget }
 
           Then { widget.is_a?(Dill::Widget) }
         end
@@ -36,39 +32,24 @@ DRIVERS.each do |driver|
           </div>
         HTML
 
-        context "when type has valid selector" do
-          Given(:container_class) { WidgetMacroNameTypeValid }
+        GivenWidget(Dill::Widget, :parent) { root '#container' }
 
-          class ChildWithSelector < Dill::Widget
-            root '.widget'
-          end
+        context "when child type has valid selector" do
+          GivenWidget(Dill::Widget, :child) { root '.widget' }
 
-          When {
-            class WidgetMacroNameTypeValid < Dill::Widget
-              root '#container'
+          Given { parent_class.widget :the_widget, child_class }
 
-              widget :the_widget, ChildWithSelector
-            end
-          }
-
-          When(:widget) { container.widget(:the_widget) }
+          When(:widget) { parent.widget(:the_widget) }
 
           Then { widget.to_s == 'Inner Widget' }
         end
 
         context "when type has no selector" do
-          class ChildWithoutSelector < Dill::Widget
-          end
+          GivenWidget Dill::Widget, :child
 
-          When(:error) {
-            class WidgetMacroNameTypeInvalid < Dill::Widget
-              root '#container'
+          When(:result) { parent_class.widget :the_widget, child_class }
 
-              widget :the_widget, ChildWithoutSelector
-            end
-          }
-
-          Then { error == Failure(ArgumentError, /missing root selector/) }
+          Then { result == Failure(ArgumentError, /missing root selector/) }
         end
       end
 
@@ -81,41 +62,24 @@ DRIVERS.each do |driver|
           </div>
         HTML
 
+        GivenWidget(Dill::Widget, :parent) { root '#container' }
+
         context "when child has a selector" do
-          Given(:container_class) { WidgetMacroNameSelectorTypeSelector }
+          GivenWidget(Dill::Widget, :child) { root 'body > .widget' }
 
-          class ChildWithOuterSelector < Dill::Widget
-            root 'body > .widget'
-          end
+          Given { parent_class.widget :the_widget, '.widget', child_class }
 
-          When {
-            class WidgetMacroNameSelectorTypeSelector < Dill::Widget
-              root '#container'
-
-              widget :the_widget, '.widget', ChildWithOuterSelector
-            end
-          }
-
-          When(:widget) { container.widget(:the_widget) }
+          When(:widget) { parent.widget(:the_widget) }
 
           Then { widget.to_s == 'Inner Widget' }
         end
 
         context "when type has no selector" do
-          Given(:container_class) { WidgetMacroNameSelectorTypeNoSelector }
+          GivenWidget Dill::Widget, :child
 
-          class ChildNoSelector < Dill::Widget
-          end
+          Given { parent_class.widget :the_widget, '.widget', child_class }
 
-          When {
-            class WidgetMacroNameSelectorTypeNoSelector < Dill::Widget
-              root '#container'
-
-              widget :the_widget, '.widget', ChildNoSelector
-            end
-          }
-
-          When(:widget) { container.widget(:the_widget) }
+          When(:widget) { parent.widget(:the_widget) }
 
           Then { widget.to_s == 'Inner Widget' }
         end
@@ -126,9 +90,7 @@ DRIVERS.each do |driver|
           <span id="inline">Guybrush Threepwood</span>
         HTML
 
-        Given(:container_class) { WidgetMacroInline }
-
-        class WidgetMacroInline < Dill::Widget
+        GivenWidget do
           widget :inline, '#inline' do
             def inline!
               'yay'
@@ -137,7 +99,7 @@ DRIVERS.each do |driver|
         end
 
         context "using behavior defined inline" do
-          When(:inline) { container.widget(:inline) }
+          When(:inline) { w.widget(:inline) }
 
           Then { inline.respond_to?(:inline!) == true }
         end
@@ -145,20 +107,16 @@ DRIVERS.each do |driver|
     end
 
     describe "#==" do
-      class Equals < Dill::Widget
-        root '#value'
-      end
+      GivenWidget { root '#value' }
 
       context "straight comparison" do
         GivenHTML <<-HTML
           <span id="value">1</span>
         HTML
 
-        Given(:container_class) { Equals }
-
-        Then { container == 1 }
-        Then { container == '1' }
-        Then { container == 1.0 }
+        Then { w == 1 }
+        Then { w == '1' }
+        Then { w == 1.0 }
       end
 
       context "delayed comparison" do
@@ -176,11 +134,9 @@ DRIVERS.each do |driver|
           <span id="value">0</span>
         HTML
 
-        Given(:container_class) { Equals }
-
-        Then { container == 1 }
-        Then { container == '1' }
-        Then { container == 1.0 }
+        Then { w == 1 }
+        Then { w == '1' }
+        Then { w == 1.0 }
       end
     end
 
@@ -189,31 +145,23 @@ DRIVERS.each do |driver|
         <span id="match">This matches</span>
       HTML
 
-      Given(:container_class) { RegexpMatch }
+      GivenWidget { root '#match' }
 
-      class RegexpMatch < Dill::Widget
-        root '#match'
-      end
-
-      Then { container =~ /This m/ }
-      Then { container !~ /No match/ }
+      Then { w =~ /This m/ }
+      Then { w !~ /No match/ }
     end
 
     describe "#!=" do
-      class Differs < Dill::Widget
-        root '#value'
-      end
+      GivenWidget { root '#value' }
 
       context "straight comparison" do
         GivenHTML <<-HTML
           <span id="value">1</span>
         HTML
 
-        Given(:container_class) { Equals }
-
-        Then { container != 0 }
-        Then { container != '0' }
-        Then { container != 0.0 }
+        Then { w != 0 }
+        Then { w != '0' }
+        Then { w != 0.0 }
       end
 
       context "delayed comparison" do
@@ -231,11 +179,9 @@ DRIVERS.each do |driver|
           <span id="value">1</span>
         HTML
 
-        Given(:container_class) { Differs }
-
-        Then { container != 1 }
-        Then { container != '1' }
-        Then { container != 1.0 }
+        Then { w != 1 }
+        Then { w != '1' }
+        Then { w != 1.0 }
       end
     end
 
@@ -244,23 +190,21 @@ DRIVERS.each do |driver|
         <a href="#" id="present">Edit</a>
       HTML
 
-      Given(:container_class) { HasAction }
-
-      class HasAction < Dill::Widget
+      GivenWidget do
         action :present, '#present'
         action :absent, '#absent'
       end
 
       context "when action exists" do
-        Then { container.has_action?(:present) }
+        Then { w.has_action?(:present) }
       end
 
       context "when action is missing" do
-        Then { ! container.has_action?(:absent) }
+        Then { ! w.has_action?(:absent) }
       end
 
       context "when the action is undefined" do
-        When(:error) { container.has_action?(:undefined) }
+        When(:error) { w.has_action?(:undefined) }
 
         Then { error == Failure(Dill::Missing, /`undefined' action/) }
       end
@@ -271,23 +215,21 @@ DRIVERS.each do |driver|
         <span id="present">Guybrush Threepwood</span>
       HTML
 
-      Given(:container_class) { HasWidget }
-
-      class HasWidget < Dill::Widget
+      GivenWidget do
         widget :present, '#present'
         widget :absent, '#absent'
       end
 
       context "when widget exists" do
-        Then { container.has_widget?(:present) }
+        Then { w.has_widget?(:present) }
       end
 
       context "when widget is missing" do
-        Then { ! container.has_widget?(:absent) }
+        Then { ! w.has_widget?(:absent) }
       end
 
       context "when widget is undefined" do
-        When(:error) { container.has_widget?(:undefined) }
+        When(:error) { w.has_widget?(:undefined) }
 
         Then { error == Failure(Dill::Missing, /`undefined' widget/) }
       end
@@ -298,13 +240,15 @@ DRIVERS.each do |driver|
         <span id="ins">Ins</span>
       HTML
 
-      Given(:container_class) { Inspect }
-
-      class Inspect < Dill::Widget;
+      GivenWidget do
         root 'span'
+
+        def self.name
+          'Inspect'
+        end
       end
 
-      When(:inspection) { container.inspect }
+      When(:inspection) { w.inspect }
 
       Then { inspection == "<!-- Inspect: -->\n<span id=\"ins\">Ins</span>\n" }
     end
@@ -314,28 +258,24 @@ DRIVERS.each do |driver|
         <span id="match">This matches</span>
       HTML
 
-      Given(:container_class) { Match }
-
-      class Match < Dill::Widget
-        root '#match'
-      end
+      GivenWidget { root '#match' }
 
       context "simple match" do
-        Then { container.match(/This m/) }
+        Then { w.match(/This m/) }
       end
 
       context "match with block" do
-        When(:result) { container.match(/This m/) { |m| 'w00t!' } }
+        When(:result) { w.match(/This m/) { |m| 'w00t!' } }
 
         Then { result == 'w00t!' }
       end
 
       context "no match" do
-        Then { ! container.match(/No match/) }
+        Then { ! w.match(/No match/) }
       end
 
       context "no match with position" do
-        Then { ! container.match(/This mat/, 2) }
+        Then { ! w.match(/This mat/, 2) }
       end
     end
 
@@ -355,13 +295,9 @@ DRIVERS.each do |driver|
           <span id="remove">Guybrush Threepwood</span>
         HTML
 
-        Given(:container_class) { ReloadWithChange }
+        GivenWidget { widget :removed, '#remove' }
 
-        class ReloadWithChange < Dill::Widget
-          widget :removed, '#remove'
-        end
-
-        Then { ! container.reload.has_widget?(:removed) }
+        Then { ! w.reload.has_widget?(:removed) }
       end
 
       context "when the widget node is replaced" do
@@ -379,14 +315,9 @@ DRIVERS.each do |driver|
           <span id="remove">Guybrush Threepwood</span>
         HTML
 
+        GivenWidget { root '#remove' }
 
-        Given(:container_class) { ReloadRemoved }
-
-        class ReloadRemoved < Dill::Widget
-          root '#remove'
-        end
-
-        When(:failure) { container.reload }
+        When(:failure) { w.reload }
 
         Then { failure == Failure(Dill::Widget::Removed) }
       end
@@ -396,13 +327,9 @@ DRIVERS.each do |driver|
           <span id="present">Guybrush Threepwood</span>
         HTML
 
-        Given(:container_class) { ReloadWithNoChange }
+        GivenWidget { widget :present, '#present' }
 
-        class ReloadWithNoChange < Dill::Widget
-          widget :present, '#present'
-        end
-
-        Then { container.reload.has_widget?(:present) }
+        Then { w.reload.has_widget?(:present) }
       end
     end
   end

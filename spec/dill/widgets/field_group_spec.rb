@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Dill::FieldGroup do
   shared_examples_for 'a field' do
     context "when using an auto locator" do
-      Then { container.has_widget?(:auto_locator) }
+      Then { w.has_widget?(:auto_locator) }
     end
   end
 
@@ -23,36 +23,34 @@ describe Dill::FieldGroup do
       </p>
     HTML
 
-    Given(:container_class) { CheckBoxGroup }
-
-    class CheckBoxGroup < Dill::FieldGroup
+    GivenWidget Dill::FieldGroup do
       check_box :unchecked_box, 'ub'
       check_box :checked_box, 'cb'
       check_box :auto_locator
     end
 
     context "when defining" do
-      Then { CheckBoxGroup.field_names.include?(:unchecked_box) }
+      Then { w_class.field_names.include?(:unchecked_box) }
     end
 
     context "when querying" do
-      Then { container.checked_box == true }
-      Then { container.unchecked_box == false }
+      Then { w.checked_box == true }
+      Then { w.unchecked_box == false }
     end
 
     context "when setting" do
-      When { container.checked_box   = false }
-      When { container.unchecked_box = true }
+      When { w.checked_box   = false }
+      When { w.unchecked_box = true }
 
-      Then { container.checked_box   == false }
-      Then { container.unchecked_box == true }
+      Then { w.checked_box   == false }
+      Then { w.unchecked_box == true }
     end
 
     context 'when transforming to table' do
       Given(:headers) {['unchecked box', 'checked box', 'auto locator']}
       Given(:values)  {['no', 'yes', 'no']}
 
-      When(:table)   { container.to_table }
+      When(:table)   { w.to_table }
 
       Then { table == [headers, values] }
     end
@@ -83,36 +81,34 @@ describe Dill::FieldGroup do
       </p>
     HTML
 
-    Given(:container_class) { SelectGroup }
-
-    class SelectGroup < Dill::FieldGroup
+    GivenWidget Dill::FieldGroup do
       select :deselected, 'd'
       select :selected, 's'
       select :auto_locator
     end
 
     context "when defining" do
-      Then { SelectGroup.field_names.include?(:deselected) }
+      Then { w_class.field_names.include?(:deselected) }
     end
 
     context "when querying" do
-      Then { container.deselected.nil? }
-      Then { container.selected == "Selected option" }
+      Then { w.deselected.nil? }
+      Then { w.selected == "Selected option" }
     end
 
     context "when setting" do
-      When { container.selected   = "Unselected option" }
-      When { container.deselected = "One" }
+      When { w.selected   = "Unselected option" }
+      When { w.deselected = "One" }
 
-      Then { container.selected   == "Unselected option" }
-      Then { container.deselected == "One" }
+      Then { w.selected   == "Unselected option" }
+      Then { w.deselected == "One" }
     end
 
     context 'when transforming to table' do
       Given(:headers) {['deselected', 'selected', 'auto locator']}
       Given(:values)  {['', 'selected option', '']}
 
-      When(:table)   { container.to_table }
+      When(:table)   { w.to_table }
 
       Then { table == [headers, values] }
     end
@@ -136,33 +132,31 @@ describe Dill::FieldGroup do
       </p>
     HTML
 
-    Given(:container_class) { TextGroup }
-
-    class TextGroup < Dill::FieldGroup
+    GivenWidget Dill::FieldGroup do
       text_field :empty_field, 'ef'
       text_field :filled_field, 'ff'
       text_field :auto_locator
     end
 
     context "when defining" do
-      Then { TextGroup.field_names.include?(:empty_field) }
+      Then { w_class.field_names.include?(:empty_field) }
     end
 
     context "when querying" do
-      Then { container.empty_field.nil? }
-      Then { container.filled_field == "Field contents" }
+      Then { w.empty_field.nil? }
+      Then { w.filled_field == "Field contents" }
     end
 
     context "when setting" do
-      When { container.empty_field  = "Some text" }
-      When { container.filled_field = nil }
+      When { w.empty_field  = "Some text" }
+      When { w.filled_field = nil }
 
-      Then { container.empty_field  == "Some text" }
-      Then { container.filled_field == "" }
+      Then { w.empty_field  == "Some text" }
+      Then { w.filled_field == "" }
     end
 
     describe '#to_table' do
-      Given(:table)   { container.to_table }
+      Given(:table)   { w.to_table }
       Given(:headers) {['empty field', 'filled field', 'auto locator']}
       Given(:values)  {['', 'field contents', '']}
 

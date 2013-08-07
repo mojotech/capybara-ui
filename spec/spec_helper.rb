@@ -30,16 +30,21 @@ module WidgetSpecDSL
       end
     end
 
-    Given(:container_class) { Container }
-    Given(:container_root)  { find(container_class.selector || 'body') }
-    Given(:container)       { container_class.new(root: container_root) }
-
-    Given(:path)            { path }
-    Given                   { visit path }
+    Given(:path) { path }
+    Given        { visit path }
 
     after :all do
       DillApp.reset!
     end
+  end
+
+  def GivenWidget(parent_class = Dill::Widget, name = :w, &block)
+    klass = :"#{name}_class"
+    root  = :"#{name}_root"
+
+    Given(name)  { send(klass).new(root: send(root)) }
+    Given(klass) { Class.new(parent_class, &block) }
+    Given(root)  { find(send(klass).selector || 'body') }
   end
 end
 
