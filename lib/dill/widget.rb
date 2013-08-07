@@ -238,10 +238,6 @@ module Dill
       wait_for { cast_to_type_of(value) != value }
     end
 
-    def checkpoint(wait_time)
-      Checkpoint.new(wait_time)
-    end
-
     # Determines if the widget underlying an action exists.
     #
     # @param name the name of the action
