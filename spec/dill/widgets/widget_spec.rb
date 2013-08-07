@@ -235,7 +235,7 @@ DRIVERS.each do |driver|
       end
     end
 
-    describe "#inspect" do
+    describe "#inspect", if: driver == :webkit do
       GivenHTML <<-HTML
         <span id="ins">Ins</span>
       HTML
