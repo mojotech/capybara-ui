@@ -219,7 +219,7 @@ module Dill
     # Compares the current widget with +value+, waiting for the comparison
     # to return +true+.
     def ==(value)
-      wait_for { cast_to(value) == value }
+      wait_for { cast_to_type_of(value) == value }
     end
 
     # Calls +=~+ on this widget's text content.
@@ -235,7 +235,7 @@ module Dill
     # Compares the current widget with +value+, waiting for the comparison
     # to return +false+.
     def !=(value)
-      wait_for { cast_to(value) != value }
+      wait_for { cast_to_type_of(value) != value }
     end
 
     def checkpoint(wait_time)
@@ -340,7 +340,7 @@ module Dill
 
     protected
 
-    def cast_to(value)
+    def cast_to_type_of(value)
       case value
       when Float
         to_f
