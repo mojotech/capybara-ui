@@ -336,8 +336,6 @@ module Dill
       node_text(root)
     end
 
-    alias_method :w, :widget
-
     protected
 
     def cast_to_type_of(value)
