@@ -106,6 +106,22 @@ DRIVERS.each do |driver|
       end
     end
 
+    describe ".widget_delegator" do
+      GivenWidget do
+        widget :child, '#child' do
+          def inline!
+            'yay!'
+          end
+        end
+
+        widget_delegator :child, :inline!
+        widget_delegator :child, :inline!, :outline!
+      end
+
+      Then { w.respond_to?(:inline!) }
+      Then { w.respond_to?(:outline!) }
+    end
+
     describe "#==" do
       GivenWidget { root '#value' }
 
