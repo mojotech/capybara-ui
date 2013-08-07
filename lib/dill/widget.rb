@@ -219,23 +219,23 @@ module Dill
     # Compares the current widget with +value+, waiting for the comparison
     # to return +true+.
     def ==(value)
-      checkpoint.wait_until(false) { cast_to(value) == value }
+      wait_for { cast_to(value) == value }
     end
 
     # Calls +=~+ on this widget's text content.
     def =~(regexp)
-      checkpoint.wait_until(false) { to_s =~ regexp }
+      wait_for { to_s =~ regexp }
     end
 
     # Calls +!~+ on this widget's text content.
     def !~(regexp)
-      checkpoint.wait_until(false) { to_s !~ regexp }
+      wait_for { to_s !~ regexp }
     end
 
     # Compares the current widget with +value+, waiting for the comparison
     # to return +false+.
     def !=(value)
-      checkpoint.wait_until(false) { cast_to(value) != value }
+      wait_for { cast_to(value) != value }
     end
 
     def checkpoint(wait_time)
@@ -299,7 +299,7 @@ module Dill
         test     = ->{ old_root != root }
       end
 
-      checkpoint(wait_time).wait_until(false, &test)
+      check(&test)
 
       begin
         root.inspect
@@ -360,6 +360,10 @@ module Dill
     private
 
     attr_writer :root
+
+    def wait_for(raise_errors = false, &block)
+      checkpoint.wait_until(raise_errors, &block)
+    end
 
     def checkpoint(wait_time = Capybara.default_wait_time)
       Checkpoint.new(wait_time)
