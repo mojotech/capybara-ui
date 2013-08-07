@@ -257,14 +257,16 @@ module Dill
     end
 
     def inspect
-      root = self.root
+      inspection = "<!-- #{self.class.name}: -->\n"
+      root       = self.root
 
-      xml = Nokogiri::HTML(page.body).at(root.path).to_xml
+      begin
+        xml = Nokogiri::HTML(page.body).at(root.path).to_xml
 
-      "<!-- #{self.class.name}: -->\n" <<
-       Nokogiri::XML(xml, &:noblanks).to_xhtml
-    rescue Capybara::NotSupportedByDriverError
-      root.inspect
+        inspection << Nokogiri::XML(xml, &:noblanks).to_xhtml
+      rescue Capybara::NotSupportedByDriverError
+        inspection << "<#{root.tag_name}>\n#{to_s}"
+      end
     end
 
     class Reload < Capybara::ElementNotFound; end

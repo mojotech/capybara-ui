@@ -253,6 +253,25 @@ DRIVERS.each do |driver|
       Then { inspection == "<!-- Inspect: -->\n<span id=\"ins\">Ins</span>\n" }
     end
 
+    describe "#inspect", if: driver != :webkit do
+      GivenHTML <<-HTML
+        <p>
+          <span id="ins">Ins</span>
+        </p>
+      HTML
+
+      GivenWidget do
+        root 'p'
+
+        def self.name
+          'Inspect'
+        end
+      end
+
+      When(:inspection) { w.inspect }
+
+      Then { inspection == "<!-- Inspect: -->\n<p>\nIns" }
+    end
     describe "#match" do
       GivenHTML <<-HTML
         <span id="match">This matches</span>
