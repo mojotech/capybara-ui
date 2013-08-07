@@ -125,35 +125,13 @@ DRIVERS.each do |driver|
     describe "#==" do
       GivenWidget { root '#value' }
 
-      context "straight comparison" do
-        GivenHTML <<-HTML
-          <span id="value">1</span>
-        HTML
+      GivenHTML <<-HTML
+        <span id="value">1</span>
+      HTML
 
-        Then { w == 1 }
-        Then { w == '1' }
-        Then { w == 1.0 }
-      end
-
-      context "delayed comparison" do
-        GivenHTML <<-HTML
-          <script>
-            function changeValue() {
-              var value = document.getElementById('value');
-
-              value.innerHTML = 1;
-            }
-
-            setTimeout(changeValue, 500);
-          </script>
-
-          <span id="value">0</span>
-        HTML
-
-        Then { w == 1 }
-        Then { w == '1' }
-        Then { w == 1.0 }
-      end
+      Then { w == 1 }
+      Then { w == '1' }
+      Then { w == 1.0 }
     end
 
     describe "#=~" do
@@ -170,35 +148,13 @@ DRIVERS.each do |driver|
     describe "#!=" do
       GivenWidget { root '#value' }
 
-      context "straight comparison" do
-        GivenHTML <<-HTML
-          <span id="value">1</span>
-        HTML
+      GivenHTML <<-HTML
+        <span id="value">1</span>
+      HTML
 
-        Then { w != 0 }
-        Then { w != '0' }
-        Then { w != 0.0 }
-      end
-
-      context "delayed comparison" do
-        GivenHTML <<-HTML
-          <script>
-            function changeValue() {
-              var value = document.getElementById('value');
-
-              value.innerHTML = 0;
-            }
-
-            setTimeout(changeValue, 500);
-          </script>
-
-          <span id="value">1</span>
-        HTML
-
-        Then { w != 1 }
-        Then { w != '1' }
-        Then { w != 1.0 }
-      end
+      Then { w != 0 }
+      Then { w != '0' }
+      Then { w != 0.0 }
     end
 
     describe "#has_action?" do
