@@ -295,7 +295,7 @@ module Dill
         test     = ->{ old_root != root }
       end
 
-      wait_for(&test)
+      wait_for(wait_time, false, &test)
 
       begin
         root.inspect
