@@ -317,7 +317,7 @@ module Dill
     #
     # @return [MatchData] the match data from running +match+ on the text.
     def match(pattern, position = 0, &block)
-      checkpoint.wait_for(false) { to_s.match(pattern, position, &block) }
+      wait_for { to_s.match(pattern, position, &block) }
     end
 
     def to_i
