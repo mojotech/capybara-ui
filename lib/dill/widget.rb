@@ -355,12 +355,8 @@ module Dill
 
     attr_writer :root
 
-    def wait_for(raise_errors = false, &block)
-      checkpoint.wait_for(raise_errors, &block)
-    end
-
-    def checkpoint(wait_time = Capybara.default_wait_time)
-      Checkpoint.new(wait_time)
+    def wait_for(wait_time = Capybara.default_wait_time, raise_errors = false, &block)
+      Checkpoint.wait_for(wait_time, raise_errors, &block)
     end
 
     def page
