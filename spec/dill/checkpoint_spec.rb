@@ -8,35 +8,35 @@ describe Dill::Checkpoint do
   When(:start)  { Time.now }
 
   context "when condition is not met due to element not found" do
-    When(:result) { checkpoint.wait_until { raise Capybara::ElementNotFound } }
+    When(:result) { checkpoint.wait_for { raise Capybara::ElementNotFound } }
 
     Then { result == Failure(Capybara::ElementNotFound) }
     Then { elapsed > wait_time }
   end
 
   context "when condition is not met due to being falsey" do
-    When(:result) { checkpoint.wait_until { false } }
+    When(:result) { checkpoint.wait_for { false } }
 
     Then { result == Failure(Dill::Checkpoint::ConditionNotMet) }
     Then { elapsed > wait_time }
   end
 
   context "when condition is not met and no errors should be raised" do
-    When(:result) { checkpoint.wait_until(false) { false } }
+    When(:result) { checkpoint.wait_for(false) { false } }
 
     Then { result == false }
     Then { elapsed > wait_time }
   end
 
   context "when some unhandled exception is raised" do
-    When(:result) { checkpoint.wait_until { raise NameError } }
+    When(:result) { checkpoint.wait_for { raise NameError } }
 
     Then { result == Failure(NameError) }
     Then { elapsed < wait_time }
   end
 
   context "when condition is met" do
-    When(:result) { checkpoint.wait_until { 'return value' } }
+    When(:result) { checkpoint.wait_for { 'return value' } }
 
     Then { result == 'return value' }
     Then { elapsed < wait_time }

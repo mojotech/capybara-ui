@@ -317,7 +317,7 @@ module Dill
     #
     # @return [MatchData] the match data from running +match+ on the text.
     def match(pattern, position = 0, &block)
-      checkpoint.wait_until(false) { to_s.match(pattern, position, &block) }
+      checkpoint.wait_for(false) { to_s.match(pattern, position, &block) }
     end
 
     def to_i
@@ -356,7 +356,7 @@ module Dill
     attr_writer :root
 
     def wait_for(raise_errors = false, &block)
-      checkpoint.wait_until(raise_errors, &block)
+      checkpoint.wait_for(raise_errors, &block)
     end
 
     def checkpoint(wait_time = Capybara.default_wait_time)

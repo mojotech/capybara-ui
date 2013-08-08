@@ -48,7 +48,7 @@ module Dill
     # @return whatever the condition block returns if the condition is
     #   successful. If the condition is not met, returns +false+ if
     #   +rescue_errors+ is false.
-    def wait_until(raise_errors = true, &condition)
+    def wait_for(raise_errors = true, &condition)
       start
 
       begin
