@@ -320,6 +320,10 @@ module Dill
       wait_for { to_s.match(pattern, position, &block) }
     end
 
+    def text
+      NodeText.new(root)
+    end
+
     def to_i
       to_s.to_i
     end
@@ -328,9 +332,7 @@ module Dill
       to_s.to_f
     end
 
-    def to_s
-      node_text(root)
-    end
+    alias_method :to_s, :text
 
     protected
 
@@ -345,10 +347,6 @@ module Dill
       else
         raise TypeError, "can't convert this widget to `#{klass}'"
       end
-    end
-
-    def node_text(node)
-      NodeText.new(node)
     end
 
     private
