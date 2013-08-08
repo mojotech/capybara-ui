@@ -16,6 +16,16 @@ module Dill
       Capybara.current_session.driver
     end
 
+    # Executes +block+ repeatedly until it returns a "truthy" value or +timeout+
+    # expires.
+    #
+    # TODO: Expand documentation.
+    def self.wait_for(wait_time = Capybara.default_wait_time,
+                      raise_errors = true,
+                      &block)
+      new(wait_time).wait_for(raise_errors, &block)
+    end
+
     # Initializes a new Checkpoint.
     #
     # @param wait_time how long this checkpoint will wait for its conditions to
