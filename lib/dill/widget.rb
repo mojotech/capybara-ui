@@ -216,6 +216,40 @@ module Dill
       self.root = settings.fetch(:root)
     end
 
+    # Returns +true+ if this widget's representation is less than +value+.
+    #
+    # Waits for the result to be +true+ for the time defined in
+    # `Capybara.default_wait_time`.
+    def <(value)
+      wait_for { cast_to_type_of(value) < value }
+    end
+
+    # Returns +true+ if this widget's representation is less than or equal to
+    # +value+.
+    #
+    # Waits for the result to be +true+ for the time defined in
+    # `Capybara.default_wait_time`.
+    def <=(value)
+      wait_for { cast_to_type_of(value) <= value }
+    end
+
+    # Returns +true+ if this widget's representation is greater than +value+.
+    #
+    # Waits for the result to be +true+ for the time defined in
+    # `Capybara.default_wait_time`.
+    def >(value)
+      wait_for { cast_to_type_of(value) > value }
+    end
+
+    # Returns +true+ if this widget's representation is greater than or equal to
+    # +value+.
+    #
+    # Waits for the result to be +true+ for the time defined in
+    # `Capybara.default_wait_time`.
+    def >=(value)
+      wait_for { cast_to_type_of(value) >= value }
+    end
+
     # Compares the current widget with +value+, waiting for the comparison
     # to return +true+.
     def ==(value)

@@ -122,6 +122,60 @@ DRIVERS.each do |driver|
       Then { w.respond_to?(:outline!) }
     end
 
+    describe "#<" do
+      GivenWidget { root '#value' }
+
+      GivenHTML <<-HTML
+        <span id="value">1</span>
+      HTML
+
+      Then { w < 2 }
+      Then { w < '2' }
+      Then { w < 1.5 }
+    end
+
+    describe "#<=" do
+      GivenWidget { root '#value' }
+
+      GivenHTML <<-HTML
+        <span id="value">1</span>
+      HTML
+
+      Then { w <= 2 }
+      Then { w <= '2' }
+      Then { w <= 2.0 }
+      Then { w <= 1 }
+      Then { w <= '1' }
+      Then { w <= 1.0 }
+    end
+
+    describe "#>" do
+      GivenWidget { root '#value' }
+
+      GivenHTML <<-HTML
+        <span id="value">1</span>
+      HTML
+
+      Then { w > 0 }
+      Then { w > '0' }
+      Then { w > 0.5 }
+    end
+
+    describe "#>=" do
+      GivenWidget { root '#value' }
+
+      GivenHTML <<-HTML
+        <span id="value">1</span>
+      HTML
+
+      Then { w >= 0 }
+      Then { w >= '0' }
+      Then { w >= 0.5 }
+      Then { w >= 1 }
+      Then { w >= '1' }
+      Then { w >= 1.0 }
+    end
+
     describe "#==" do
       GivenWidget { root '#value' }
 
