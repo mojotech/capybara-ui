@@ -147,7 +147,7 @@ TODO
 
 ### Lists
 
-TODO
+See [the documentation for Dill::List](http://rubydoc.info/github/mojotech/dill/master/Dill/List).
 
 ### Tables
 
