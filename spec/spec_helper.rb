@@ -15,7 +15,7 @@ Capybara.app = DillApp
 Capybara.javascript_driver = :webkit
 
 module WidgetSpecDSL
-  def GivenHTML(body_html, path = "/test")
+  def GivenAction(body_html, path)
     before :all do
       DillApp.class_eval do
         get path do
@@ -29,6 +29,10 @@ module WidgetSpecDSL
         end
       end
     end
+  end
+
+  def GivenHTML(body_html, path = "/test")
+    GivenAction body_html, path
 
     Given(:path) { path }
     Given        { visit path }
