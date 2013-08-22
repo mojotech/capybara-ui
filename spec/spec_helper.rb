@@ -16,7 +16,7 @@ Capybara.javascript_driver = :webkit
 
 module WidgetSpecDSL
   def GivenAction(body_html, path)
-    before :all do
+    before :each do
       DillApp.class_eval do
         get path do
           <<-HTML
@@ -36,10 +36,6 @@ module WidgetSpecDSL
 
     Given(:path) { path }
     Given        { visit path }
-
-    after :all do
-      DillApp.reset!
-    end
   end
 
   def GivenWidget(parent_class = Dill::Widget, name = :w, &block)
@@ -57,4 +53,8 @@ RSpec.configure do |config|
 
   config.include Capybara::DSL
   config.include Dill::DSL
+
+  config.after :each do
+    DillApp.reset!
+  end
 end
