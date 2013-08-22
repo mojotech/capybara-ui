@@ -211,6 +211,27 @@ DRIVERS.each do |driver|
       Then { w != 0.0 }
     end
 
+    describe '#click' do
+      context "clicking a widget" do
+        GivenAction <<-HTML, '/destination'
+          Congratulations!
+        HTML
+
+        GivenHTML <<-HTML
+          <a href="/destination" id="present">Edit</a>
+        HTML
+
+        GivenWidget Dill::Widget, :link do
+          root 'a'
+        end
+
+        When       { link.click }
+        When(:url) { Capybara.current_session.current_url }
+
+        Then { url =~ %r{/destination} }
+      end
+    end
+
     describe "#has_action?" do
       GivenHTML <<-HTML
         <a href="#" id="present">Edit</a>
