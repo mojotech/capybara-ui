@@ -91,6 +91,12 @@ If you want to access the root node inside a widget, send the `#root` message:
       end
     end
 
+If you want to check for the existence of a widget you can do
+  expect(document).to have_widget(:my_widget)
+
+and the inverse
+  expect(document).to_not have_widget(:my_widget)
+
 `#root` is public, so you can access it outside the widget object. That is
 obviously not recommended (but if you must, you must).
 
