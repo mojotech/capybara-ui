@@ -212,20 +212,31 @@ DRIVERS.each do |driver|
     end
 
     describe '#click' do
+      GivenAction <<-HTML, '/destination'
+        Congratulations!
+      HTML
+
+      GivenHTML <<-HTML
+        <a href="/destination" id="present">Edit</a>
+      HTML
+
       context "clicking a widget" do
-        GivenAction <<-HTML, '/destination'
-          Congratulations!
-        HTML
-
-        GivenHTML <<-HTML
-          <a href="/destination" id="present">Edit</a>
-        HTML
-
         GivenWidget Dill::Widget, :link do
           root 'a'
         end
 
         When       { link.click }
+        When(:url) { Capybara.current_session.current_url }
+
+        Then { url =~ %r{/destination} }
+      end
+
+      context "clicking a child widget" do
+        GivenWidget do
+          widget :link, 'a'
+        end
+
+        When       { w.click :link  }
         When(:url) { Capybara.current_session.current_url }
 
         Then { url =~ %r{/destination} }

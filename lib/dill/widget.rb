@@ -210,8 +210,6 @@ module Dill
     # @return The root node of the current widget
     attr_reader :root
 
-    def_delegators :root, :click
-
     def initialize(settings = {})
       self.root = settings.fetch(:root)
     end
@@ -270,6 +268,15 @@ module Dill
     # to return +false+.
     def !=(value)
       wait_for { cast_to_type_of(value) != value }
+    end
+
+    # Clicks the current widget, or the child widget given by +name+.
+    def click(name = nil)
+      if name
+        widget(name).click
+      else
+        root.click
+      end
     end
 
     # Determines if the widget underlying an action exists.
