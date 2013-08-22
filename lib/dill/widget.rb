@@ -271,6 +271,13 @@ module Dill
     end
 
     # Clicks the current widget, or the child widget given by +name+.
+    # @param <optional> symbol of the widget you want to click
+    #
+    # class Foo < Dill::Widget
+    #   root: 'h2'
+    #   widget :zap, 'span'
+    # end
+    # widget(:foo).click(:zap)
     def click(name = nil)
       if name
         widget(name).click
