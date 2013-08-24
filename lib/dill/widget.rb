@@ -330,13 +330,13 @@ module Dill
     # @return the current widget
     #
     # @see Checkpoint
-    def reload(wait_time = Capybara.default_wait_time, &test)
+    def reload(wait_time = Capybara.default_wait_time, &condition)
       unless test
         old_root = root
         test     = ->{ old_root != root }
       end
 
-      Checkpoint.wait_for(wait_time, &test) rescue nil
+      test wait_time, &condition
 
       begin
         root.inspect
@@ -395,7 +395,7 @@ module Dill
     attr_writer :root
 
     def test(wait_time = Capybara.default_wait_time, &block)
-      Checkpoint.wait_for(wait_time, &block) rescue nil
+      WidgetCheckpoint.wait_for(wait_time, &block) rescue nil
     end
 
     def page

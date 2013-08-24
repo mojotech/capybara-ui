@@ -5,21 +5,13 @@ module Dill
   # @see http://rubydoc.info/github/jnicklas/capybara/master/Capybara/Node/Base#synchronize-instance_method,
   #   which inspired this class.
   class Checkpoint
-    class ConditionNotMet < Capybara::ElementNotFound; end
+    class ConditionNotMet < StandardError; end
     class TimeFrozen < StandardError; end
 
     # @return the configured wait time, in seconds.
     attr_reader :wait_time
 
-    # @return the Capybara driver in use.
-    def self.driver
-      Capybara.current_session.driver
-    end
-
-    # Executes +block+ repeatedly until it returns a "truthy" value or +timeout+
-    # expires.
-    #
-    # TODO: Expand documentation.
+    # Shortcut for instance level wait_for.
     def self.wait_for(wait_time = Capybara.default_wait_time, &block)
       new(wait_time).wait_for(&block)
     end
@@ -32,36 +24,23 @@ module Dill
       @wait_time = wait_time
     end
 
-    # Waits until the condition encapsulated by the block is met.
+    # Executes +block+ repeatedly until it returns a "truthy" value or
+    # +wait_time+ expires.
     #
-    # Automatically rescues some exceptions ({Capybara::ElementNotFound}, and
-    # driver specific exceptions) until {wait_time} is exceeded. At that point
-    # it raises whatever exception was raised in the condition block, or
-    # {ConditionNotMet}, if no exception was raised inside the block. However,
-    # if +raise_errors+ is set to +false+, returns +false+ instead of
-    # propagating any of the automatically rescued exceptions.
+    # Swallows any StandardError or StandardError descendent until +wait_time+
+    # expires. If an exception is raised and the time has expired, that
+    # exception will be raised again.
     #
-    # If an "unknown" exception is raised, it is propagated immediately, without
-    # waiting for {wait_time} to expire.
+    # If the block does not return a "truthy" value until +wait_time+ expires,
+    # raises a Dill::Checkpoint::ConditionNotMet error.
     #
-    # If a driver that doesn't support waiting is used, any exception raised is
-    # immediately propagated.
-    #
-    # @param raise_errors [Boolean] whether to propagate exceptions that are
-    #   "rescuable" when {wait_time} expires.
-    #
-    # @yield a block encapsulating the condition to be evaluated.
-    # @yieldreturn a truthy value, if condition is met, a falsey value otherwise.
-    #
-    # @return whatever the condition block returns if the condition is
-    #   successful.
+    # Returns whatever value is returned by the block.
     def wait_for(&condition)
       start
 
       begin
         yield or raise ConditionNotMet
-      rescue *rescuable_errors
-        raise if immediate?
+      rescue
         raise if expired?
 
         wait
@@ -76,28 +55,12 @@ module Dill
 
     attr_reader :start_time
 
-    def driver
-      self.class.driver
-    end
-
-    def driver_errors
-      driver.invalid_element_errors
-    end
-
     def expired?
       remaining_time > wait_time
     end
 
-    def immediate?
-      ! driver.wait?
-    end
-
     def remaining_time
       Time.now - start_time
-    end
-
-    def rescuable_errors
-      @rescuable_errors ||= [Capybara::ElementNotFound, *driver_errors]
     end
 
     def start
