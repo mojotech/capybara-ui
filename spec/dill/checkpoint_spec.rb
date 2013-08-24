@@ -21,13 +21,6 @@ describe Dill::Checkpoint do
     Then { elapsed > wait_time }
   end
 
-  context "when condition is not met and no errors should be raised" do
-    When(:result) { checkpoint.wait_for(false) { false } }
-
-    Then { result == false }
-    Then { elapsed > wait_time }
-  end
-
   context "when some unhandled exception is raised" do
     When(:result) { checkpoint.wait_for { raise NameError } }
 

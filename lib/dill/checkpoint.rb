@@ -20,10 +20,8 @@ module Dill
     # expires.
     #
     # TODO: Expand documentation.
-    def self.wait_for(wait_time = Capybara.default_wait_time,
-                      raise_errors = true,
-                      &block)
-      new(wait_time).wait_for(raise_errors, &block)
+    def self.wait_for(wait_time = Capybara.default_wait_time, &block)
+      new(wait_time).wait_for(&block)
     end
 
     # Initializes a new Checkpoint.
@@ -56,25 +54,15 @@ module Dill
     # @yieldreturn a truthy value, if condition is met, a falsey value otherwise.
     #
     # @return whatever the condition block returns if the condition is
-    #   successful. If the condition is not met, returns +false+ if
-    #   +rescue_errors+ is false.
-    def wait_for(raise_errors = true, &condition)
+    #   successful.
+    def wait_for(&condition)
       start
 
       begin
         yield or raise ConditionNotMet
-      rescue *rescuable_errors => e
-        if immediate?
-          raise e if raise_errors
-
-          return false
-        end
-
-        if expired?
-          raise e if raise_errors
-
-          return false
-        end
+      rescue *rescuable_errors
+        raise if immediate?
+        raise if expired?
 
         wait
 

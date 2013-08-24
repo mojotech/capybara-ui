@@ -219,7 +219,7 @@ module Dill
     # Waits for the result to be +true+ for the time defined in
     # `Capybara.default_wait_time`.
     def <(value)
-      wait_for { cast_to_type_of(value) < value }
+      test { cast_to_type_of(value) < value }
     end
 
     # Returns +true+ if this widget's representation is less than or equal to
@@ -228,7 +228,7 @@ module Dill
     # Waits for the result to be +true+ for the time defined in
     # `Capybara.default_wait_time`.
     def <=(value)
-      wait_for { cast_to_type_of(value) <= value }
+      test { cast_to_type_of(value) <= value }
     end
 
     # Returns +true+ if this widget's representation is greater than +value+.
@@ -236,7 +236,7 @@ module Dill
     # Waits for the result to be +true+ for the time defined in
     # `Capybara.default_wait_time`.
     def >(value)
-      wait_for { cast_to_type_of(value) > value }
+      test { cast_to_type_of(value) > value }
     end
 
     # Returns +true+ if this widget's representation is greater than or equal to
@@ -245,29 +245,29 @@ module Dill
     # Waits for the result to be +true+ for the time defined in
     # `Capybara.default_wait_time`.
     def >=(value)
-      wait_for { cast_to_type_of(value) >= value }
+      test { cast_to_type_of(value) >= value }
     end
 
     # Compares the current widget with +value+, waiting for the comparison
     # to return +true+.
     def ==(value)
-      wait_for { cast_to_type_of(value) == value }
+      test { cast_to_type_of(value) == value }
     end
 
     # Calls +=~+ on this widget's text content.
     def =~(regexp)
-      wait_for { to_s =~ regexp }
+      test { to_s =~ regexp }
     end
 
     # Calls +!~+ on this widget's text content.
     def !~(regexp)
-      wait_for { to_s !~ regexp }
+      test { to_s !~ regexp }
     end
 
     # Compares the current widget with +value+, waiting for the comparison
     # to return +false+.
     def !=(value)
-      wait_for { cast_to_type_of(value) != value }
+      test { cast_to_type_of(value) != value }
     end
 
     # Clicks the current widget, or the child widget given by +name+.
@@ -336,7 +336,7 @@ module Dill
         test     = ->{ old_root != root }
       end
 
-      wait_for(wait_time, false, &test)
+      Checkpoint.wait_for(wait_time, &test) rescue nil
 
       begin
         root.inspect
@@ -358,7 +358,7 @@ module Dill
     #
     # @return [MatchData] the match data from running +match+ on the text.
     def match(pattern, position = 0, &block)
-      wait_for { to_s.match(pattern, position, &block) }
+      test { to_s.match(pattern, position, &block) }
     end
 
     def text
@@ -394,8 +394,8 @@ module Dill
 
     attr_writer :root
 
-    def wait_for(wait_time = Capybara.default_wait_time, raise_errors = false, &block)
-      Checkpoint.wait_for(wait_time, raise_errors, &block)
+    def test(wait_time = Capybara.default_wait_time, &block)
+      Checkpoint.wait_for(wait_time, &block) rescue nil
     end
 
     def page
