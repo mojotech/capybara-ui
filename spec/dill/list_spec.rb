@@ -12,8 +12,8 @@ describe Dill::List do
 
     GivenWidget Dill::List
 
-    Then { Dill::List.selector == 'ul' }
-    Then { Dill::List.item_factory.selector == 'li' }
+    Then { w_class.selector == 'ul' }
+    Then { w_class.item_factory.selector == 'li' }
   end
 
   describe "#item" do

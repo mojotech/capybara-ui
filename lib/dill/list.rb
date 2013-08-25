@@ -15,6 +15,7 @@ module Dill
   #
   #   class Colors < Dill::List
   #     root '#colors'
+  #     item 'li'
   #   end
   #
   # Now you'll be able to iterate over each item:
@@ -25,6 +26,19 @@ module Dill
   #   # Blue Azul
   #   widget(:colors).each do |e|
   #     puts e
+  #   end
+  #
+  # This is the same as doing the following in Capybara:
+  #
+  #   all('#colors li').each do |e|
+  #     puts e.text.strip
+  #   end
+  #
+  # Not that, by default, the root selector of a List is +ul+ and the list
+  # item selector is +li+. So you could wrap the +<ul>+ above simply by using
+  # the following:
+  #
+  #   class Colors < Dill::List
   #   end
   #
   # === Narrowing items
@@ -123,11 +137,21 @@ module Dill
         self.item_factory = klass
       end
 
-      attr_accessor :item_factory
-    end
+      attr_writer :item_factory
 
-    root 'ul'
-    item 'li'
+      def item_factory
+        @item_factory ||= Class.new(Widget) { root 'li' }
+      end
+
+      def selector
+        super ||
+          begin
+            root 'ul'
+
+            super
+          end
+      end
+    end
 
     def to_table
       items.map { |e| Array(e) }
