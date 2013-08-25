@@ -1,7 +1,7 @@
 module Dill
   # Use a List when you want to treat repeating elements as a unit.
   #
-  # === Example
+  # === Usage
   #
   # Consider the following HTML:
   #
@@ -41,7 +41,7 @@ module Dill
   #   class Colors < Dill::List
   #   end
   #
-  # === Narrowing items
+  # ==== Narrowing items
   #
   # You can define the root selector for your list items using the ::item macro:
   #
@@ -83,7 +83,7 @@ module Dill
     class << self
       # Configures the List item selector and class.
       #
-      # === Using
+      # === Usage
       #
       # Given the following HTML:
       #
@@ -100,6 +100,8 @@ module Dill
       #     root 'ul'
       #     item 'li'
       #   end
+      #
+      # ==== Extending the list item class
       #
       # You can define the list item class for the current List:
       #

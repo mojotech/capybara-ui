@@ -272,7 +272,7 @@ module Dill
 
     # Clicks the current widget, or the child widget given by +name+.
     #
-    # === Example
+    # === Usage
     #
     # Given the following widget definition:
     #
