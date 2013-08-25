@@ -26,4 +26,15 @@ shared_examples_for 'checkpoint' do
     Then { result == 'return value' }
     Then { elapsed < wait_time }
   end
+
+  context "when condition is met later" do
+    Given(:wait_time)   { 3 }
+    Given(:break_time) { 1 }
+
+    When(:result) { checkpoint.wait_for { elapsed > break_time } }
+
+    Then { result == true }
+    Then { elapsed > break_time }
+    Then { elapsed < wait_time }
+  end
 end
