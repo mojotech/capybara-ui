@@ -62,8 +62,6 @@ module Dill
   #     item '.child'
   #   end
   class List < Widget
-    DEFAULT_TYPE = Widget
-
     include Enumerable
 
     def_delegators :items, :size, :include?, :each, :empty?, :first, :last
@@ -117,7 +115,7 @@ module Dill
       #
       #     widget(:numbers).first.upcase #=> "ONE"
       #   end
-      def item(selector, type = DEFAULT_TYPE, &block)
+      def item(selector, type = Widget, &block)
         klass = Class.new(type) { root selector }
 
         klass.class_eval(&block) if block_given?
@@ -125,12 +123,11 @@ module Dill
         self.item_factory = klass
       end
 
-      def item_factory
-        @item_factory || DEFAULT_TYPE
-      end
-
-      attr_writer :item_factory
+      attr_accessor :item_factory
     end
+
+    root 'ul'
+    item 'li'
 
     def to_table
       items.map { |e| Array(e) }

@@ -1,8 +1,25 @@
 require 'spec_helper'
 
 describe Dill::List do
+  describe "defaults" do
+    GivenHTML <<-HTML
+      <ul>
+        <li>One</li>
+        <li>Two</li>
+        <li>Three</li>
+      </ul>
+    HTML
+
+    GivenWidget Dill::List
+
+    Then { Dill::List.selector == 'ul' }
+    Then { Dill::List.item_factory.selector == 'li' }
+  end
+
   describe "#item" do
     context "using the default item type" do
+      Given(:default_item_type) { Dill::Widget }
+
       GivenWidget Dill::List do
         item '.selector'
       end
@@ -14,9 +31,9 @@ describe Dill::List do
       end
 
       context "uses the default item type as the superclass" do
-        When(:base_type) { w_class.item_factory.superclass }
+        When(:type) { w_class.item_factory.superclass }
 
-        Then { base_type == Dill::List::DEFAULT_TYPE }
+        Then { type == default_item_type }
       end
 
       context "allows extending the list item type inline" do
@@ -35,7 +52,7 @@ describe Dill::List do
         end
 
         context "does not touch the parent item type" do
-          When(:methods) { Dill::List::DEFAULT_TYPE.instance_methods }
+          When(:methods) { default_item_type.instance_methods }
 
           Then { ! methods.include?(:hurray!) }
         end
