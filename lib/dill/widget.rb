@@ -271,6 +271,32 @@ module Dill
     end
 
     # Clicks the current widget, or the child widget given by +name+.
+    #
+    # === Example
+    #
+    # Given the following widget definition:
+    #
+    #   class Container < Dill::Widget
+    #     root '#container'
+    #
+    #     widget :link, 'a'
+    #   end
+    #
+    # Send +click+ with no arguments to trigger a +click+ event on +#container+.
+    #
+    #   widget(:container).click
+    #
+    # This is the equivalent of doing the following using Capybara:
+    #
+    #   find('#container').click
+    #
+    # Send +click :link+ to trigger a +click+ event on +a+:
+    #
+    #   widget(:container).click :link
+    #
+    # This is the equivalent of doing the following using Capybara:
+    #
+    #   find('#container a').click
     def click(name = nil)
       if name
         widget(name).click
