@@ -68,18 +68,68 @@ module Dill
 
     def_delegators :items, :size, :include?, :each, :empty?, :first, :last
 
-    def self.item(selector, type = DEFAULT_TYPE, &item_for)
-      define_method :item_selector do
-        @item_selector ||= selector
+    class << self
+      # Configures the List item selector and class.
+      #
+      # === Using
+      #
+      # Given the following HTML:
+      #
+      #   <ul>
+      #     <li>One</li>
+      #     <li>Two</li>
+      #     <li>Three</li>
+      #   </ul>
+      #
+      # In its most basic form, allows you to configure the list item selector,
+      # using the default list item class (Widget):
+      #
+      #   class Numbers < Dill::List
+      #     root 'ul'
+      #     item 'li'
+      #   end
+      #
+      # You can define the list item class for the current List:
+      #
+      #   class Number < Dill::Widget
+      #     # ...
+      #   end
+      #
+      #   class Numbers < Dill::List
+      #     root 'ul'
+      #     item 'li', Number
+      #   end
+      #
+      #   widget(:numbers).first.class < Number #=> true
+      #
+      # Alternatively, you can extend the list item type inline. This is useful
+      # when you want to add small extensions to the default list item class.
+      # The extensions will apply only to list items of the current List.
+      #
+      #   class Numbers < Dill::List
+      #     root 'ul'
+      #
+      #     item 'li' do
+      #       def upcase
+      #         text.upcase
+      #       end
+      #     end
+      #
+      #     widget(:numbers).first.upcase #=> "ONE"
+      #   end
+      def item(selector, type = DEFAULT_TYPE, &block)
+        klass = Class.new(type) { root selector }
+
+        klass.class_eval(&block) if block_given?
+
+        self.item_factory = klass
       end
 
-      if block_given?
-        define_method :item_for, &item_for
-      else
-        define_method :item_factory do
-          type
-        end
+      def item_factory
+        @item_factory || DEFAULT_TYPE
       end
+
+      attr_writer :item_factory
     end
 
     def to_table
@@ -88,11 +138,7 @@ module Dill
 
     protected
 
-    attr_writer :item_selector
-
-    def item_factory
-      DEFAULT_TYPE
-    end
+    def_delegator 'self.class', :item_factory
 
     def item_for(node)
       item_factory.new(root: node)
