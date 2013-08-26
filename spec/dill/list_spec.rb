@@ -2,18 +2,28 @@ require 'spec_helper'
 
 describe Dill::List do
   describe "defaults" do
-    GivenHTML <<-HTML
-      <ul>
-        <li>One</li>
-        <li>Two</li>
-        <li>Three</li>
-      </ul>
-    HTML
-
     GivenWidget Dill::List
 
     Then { w_class.selector == 'ul' }
     Then { w_class.item_factory.selector == 'li' }
+  end
+
+  describe "wraps HTML" do
+    context "using defaults" do
+      GivenHTML <<-HTML
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+          <li>Three</li>
+        </ul>
+      HTML
+
+      GivenWidget Dill::List
+
+      When(:size) { w.size }
+
+      Then { size == 3 }
+    end
   end
 
   describe "#item" do
