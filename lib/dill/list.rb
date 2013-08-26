@@ -168,7 +168,7 @@ module Dill
     end
 
     def item_selector
-      'li'
+      item_factory.selector
     end
 
     def items

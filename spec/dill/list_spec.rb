@@ -24,6 +24,26 @@ describe Dill::List do
 
       Then { size == 3 }
     end
+
+    context "using custom selectors" do
+      GivenHTML <<-HTML
+        <div id="colors">
+          <div class="color">Red</li>
+          <div class="color">Green</li>
+          <div class="color">Blue</li>
+        </ul>
+      HTML
+
+      GivenWidget Dill::List do
+        root '#colors'
+
+        item '.color'
+      end
+
+      When(:size) { w.size }
+
+      Then { size == 3 }
+    end
   end
 
   describe "#item" do
