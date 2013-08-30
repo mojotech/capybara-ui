@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'cucumber'
 
 DRIVERS.each do |driver|
   describe Dill::Widget, "using #{driver}", js: true, driver: driver do
@@ -241,6 +242,33 @@ DRIVERS.each do |driver|
 
         Then { url =~ %r{/destination} }
       end
+    end
+
+    describe 'diff' do
+      GOOD_TABLE = [{'a' => '1', 'b' => '2'}, {'a' => '3', 'b' => '4'}]
+
+      Given(:table) { Cucumber::Ast::Table.new(GOOD_TABLE) }
+
+      context 'successful comparison' do
+        GivenWidget do
+          define_method(:to_table) { GOOD_TABLE }
+        end
+
+        When(:success) { w.diff table }
+
+        Then { success == true }
+      end
+
+      context 'failed comparison' do
+        GivenWidget do
+          define_method(:to_table) { [{'a' => '5', 'b' => '6'}] }
+        end
+
+        When(:failure) { w.diff table }
+
+        Then { failure == Failure(Cucumber::Ast::Table::Different) }
+      end
+
     end
 
     describe "#has_action?" do

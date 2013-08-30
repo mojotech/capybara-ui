@@ -305,6 +305,21 @@ module Dill
       end
     end
 
+    # Compares this widget with the given +diffable+, as long as it responds to
+    # the same protocol as Cucumber::Ast::Table#diff!.
+    #
+    # Raises Cucumber::Ast::Table::Different on failure.
+    def diff(diffable, timeout = Capybara.default_wait_time)
+      # #diff! raises an exception if the comparison fails, or returns nil if it
+      # doesn't. We don't need to worry about failure, because that will be
+      # propagated, but we need to return +true+ when it succeeds, to end the
+      # comparison.
+      #
+      # We use Checkpoint instead of WidgetCheckpoint (through #test) because we
+      # want the succeed-or-raise behavior.
+      Checkpoint.wait_for(timeout) { diffable.diff!(to_table) || true }
+    end
+
     # Determines if the widget underlying an action exists.
     #
     # @param name the name of the action
