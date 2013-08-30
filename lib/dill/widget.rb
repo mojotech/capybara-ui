@@ -391,6 +391,18 @@ module Dill
       NodeText.new(root)
     end
 
+    # Converts this widget into a string representation suitable to be displayed
+    # in a Cucumber table cell. By default calls #text.
+    #
+    # This method will be called by methods that build tables or rows (usually
+    # #to_table or #to_row) so, in general, you won't call it directly, but feel
+    # free to override it when needed.
+    #
+    # Returns a String.
+    def to_cell
+      to_s
+    end
+
     def to_i
       to_s.to_i
     end
