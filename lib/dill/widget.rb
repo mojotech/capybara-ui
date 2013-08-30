@@ -315,9 +315,9 @@ module Dill
       # propagated, but we need to return +true+ when it succeeds, to end the
       # comparison.
       #
-      # We use Checkpoint instead of WidgetCheckpoint (through #test) because we
-      # want the succeed-or-raise behavior.
-      Checkpoint.wait_for(timeout) { diffable.diff!(to_table) || true }
+      # We use WidgetCheckpoint instead of #test because we want the
+      # succeed-or-raise behavior.
+      WidgetCheckpoint.wait_for(timeout) { diffable.diff!(to_table) || true }
     end
 
     # Determines if the widget underlying an action exists.
