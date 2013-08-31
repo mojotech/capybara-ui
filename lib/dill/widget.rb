@@ -207,7 +207,7 @@ module Dill
       @selector
     end
 
-    # @return The root node of the current widget
+    # Returns the root node (a Capybara::Node::Element) of the current widget.
     attr_reader :root
 
     def initialize(settings = {})
