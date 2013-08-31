@@ -180,8 +180,8 @@ module Dill
     # @return a new instance of the current widget class.
     #
     # @raise [Capybara::ElementNotFoundError] if the widget can't be found
-    def self.find_in(node, options = {})
-      new(options.merge(root: node.find(selector)))
+    def self.find_in(node)
+      new(node.find(selector))
     end
 
     # Determines if an instance of this widget class exists in
@@ -209,8 +209,8 @@ module Dill
     # Returns the root node (a Capybara::Node::Element) of the current widget.
     attr_reader :root
 
-    def initialize(settings = {})
-      self.root = settings.fetch(:root)
+    def initialize(root)
+      self.root = root
     end
 
     # Returns +true+ if this widget's representation is less than +value+.

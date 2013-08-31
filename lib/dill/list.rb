@@ -160,7 +160,7 @@ module Dill
     def_delegator 'self.class', :item_factory
 
     def item_for(node)
-      item_factory.new(root: node)
+      item_factory.new(node)
     end
 
     def item_selector

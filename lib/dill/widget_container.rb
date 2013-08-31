@@ -4,8 +4,8 @@ module Dill
       widget_class(name).present_in?(root)
     end
 
-    def widget(name, options = {})
-      widget_class(name).find_in(root, options)
+    def widget(name)
+      widget_class(name).find_in(root)
     end
 
     private

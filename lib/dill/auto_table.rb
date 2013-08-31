@@ -50,11 +50,11 @@ module Dill
 
     class Row < Widget
       def initialize(settings)
-        s = settings.dup
+        root = settings.delete(:root)
 
-        self.cell_selector = s.delete(:cell_selector)
+        self.cell_selector = settings.delete(:cell_selector)
 
-        super s
+        super root
       end
 
       def values

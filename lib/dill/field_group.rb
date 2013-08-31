@@ -244,8 +244,8 @@ module Dill
 
     # A form field.
     class Field < Widget
-      def self.find_in(parent, options)
-        new({root: parent.find_field(selector)}.merge(options))
+      def self.find_in(parent)
+        new(parent.find_field(selector))
       end
 
       def self.present_in?(parent)
