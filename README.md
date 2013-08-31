@@ -8,7 +8,8 @@ Add `dill` to your `Gemfile`. Then add
 
     require 'dill/cucumber'
 
-to your `env.rb`.
+to `features/support/00_dill.rb`. We prefix the file name with `00_` to ensure 
+it's loaded as soon as possible during cucumber boot.
 
 ## Widgets
 
