@@ -102,7 +102,7 @@ describe Dill::List do
     end
   end
 
-  describe ".empty?" do
+  describe "#empty?" do
     GivenWidget Dill::List do
       root 'ul'
       item 'li'
