@@ -156,7 +156,7 @@ module Dill
     end
 
     def to_table
-      items.map { |e| Array(e) }
+      items.map(&:to_row)
     end
 
     protected

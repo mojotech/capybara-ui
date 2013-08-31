@@ -127,4 +127,32 @@ describe Dill::List do
       Then { w.empty? == false }
     end
   end
+
+  describe "#to_table" do
+    GivenWidget Dill::List
+
+    context "with rows" do
+      GivenHTML <<-HTML
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+          <li>Three</li>
+        </ul>
+      HTML
+
+      When(:table) { w.to_table }
+
+      Then { table == [%w(One), %w(Two), %w(Three)] }
+    end
+
+    context "without rows" do
+      GivenHTML <<-HTML
+        <ul></ul>
+      HTML
+
+      When(:table) { w.to_table }
+
+      Then { table == [] }
+    end
+  end
 end
