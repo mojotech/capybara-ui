@@ -94,7 +94,7 @@ module Dill
       #   </ul>
       #
       # In its most basic form, allows you to configure the list item selector,
-      # using the default list item class (Widget):
+      # using the default list item class (Dill::ListItem):
       #
       #   class Numbers < Dill::List
       #     root 'ul'
@@ -131,7 +131,7 @@ module Dill
       #
       #     widget(:numbers).first.upcase #=> "ONE"
       #   end
-      def item(selector, type = Widget, &block)
+      def item(selector, type = ListItem, &block)
         klass = Class.new(type) { root selector }
 
         klass.class_eval(&block) if block_given?
@@ -142,7 +142,7 @@ module Dill
       attr_writer :item_factory
 
       def item_factory
-        @item_factory ||= Class.new(Widget) { root 'li' }
+        @item_factory ||= Class.new(ListItem) { root 'li' }
       end
 
       def selector

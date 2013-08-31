@@ -48,7 +48,7 @@ describe Dill::List do
 
   describe "#item" do
     context "using the default item type" do
-      Given(:default_item_type) { Dill::Widget }
+      Given(:default_item_type) { Dill::ListItem }
 
       GivenWidget Dill::List do
         item '.selector'
