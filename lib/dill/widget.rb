@@ -357,8 +357,6 @@ module Dill
       end
     end
 
-    class Reload < Capybara::ElementNotFound; end
-
     # Reloads the widget, waiting for its contents to change (by default),
     # or until +wait_time+ expires.
     #
