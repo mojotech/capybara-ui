@@ -3,6 +3,7 @@ require 'nokogiri'
 require 'capybara'
 
 require 'dill/checkpoint'
+require 'dill/widget_class'
 require 'dill/widget_checkpoint'
 require 'dill/widget_container'
 require 'dill/conversions'

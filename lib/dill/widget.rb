@@ -139,8 +139,7 @@ module Dill
           raise ArgumentError, "unknown method signature: #{rest.inspect}"
         end
 
-        child = Class.new(type) { root selector }
-        child.class_eval(&block) if block_given?
+        child = WidgetClass.new(selector, type, &block)
 
         const_set(Dill::WidgetName.new(name).to_sym, child)
 

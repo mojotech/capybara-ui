@@ -132,17 +132,13 @@ module Dill
       #     widget(:numbers).first.upcase #=> "ONE"
       #   end
       def item(selector, type = ListItem, &block)
-        klass = Class.new(type) { root selector }
-
-        klass.class_eval(&block) if block_given?
-
-        self.item_factory = klass
+        self.item_factory = WidgetClass.new(selector, type, &block)
       end
 
       attr_writer :item_factory
 
       def item_factory
-        @item_factory ||= Class.new(ListItem) { root 'li' }
+        @item_factory ||= WidgetClass.new('li', ListItem)
       end
 
       def selector
