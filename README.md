@@ -13,7 +13,7 @@ it's loaded as soon as possible during cucumber boot.
 
 ## Documentation
 
-See the docs for [master](http://rubydoc.info/github/mojotech/dill/master).
+See the docs for [master](http://rubydoc.info/github/mojotech/dill/master/frames).
 
 ## Widgets
 
