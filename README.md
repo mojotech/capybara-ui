@@ -8,8 +8,12 @@ Add `dill` to your `Gemfile`. Then add
 
     require 'dill/cucumber'
 
-to `features/support/00_dill.rb`. We prefix the file name with `00_` to ensure 
+to `features/support/00_dill.rb`. We prefix the file name with `00_` to ensure
 it's loaded as soon as possible during cucumber boot.
+
+## Documentation
+
+See the docs for [master](http://rubydoc.info/github/mojotech/dill/master).
 
 ## Widgets
 
