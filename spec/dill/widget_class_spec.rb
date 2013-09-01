@@ -8,7 +8,7 @@ describe Dill::WidgetClass do
       Given(:widget_class) { Dill::WidgetClass.new(selector) }
 
       Then { widget_class < Dill::Widget }
-      And { widget_class.selector == selector }
+      And { widget_class.selector == [selector] }
     end
 
     context "passing the selector and type" do

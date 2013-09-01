@@ -2,7 +2,56 @@ require 'spec_helper'
 require 'cucumber'
 
 DRIVERS.each do |driver|
+  describe "wraps HTML" do
+    context "simple selector" do
+      GivenHTML <<-HTML
+        <span class="selector">Some Text</span>
+      HTML
+
+      GivenWidget { root '.selector' }
+
+      When(:s) { w.to_s }
+
+      Then { s == 'Some Text' }
+    end
+
+    context "composite selector" do
+      GivenHTML <<-HTML
+        <span class="selector">Pick me!</span>
+        <span class="selector">No, pick me!</span>
+      HTML
+
+      GivenWidget { root '.selector', text: 'Pick me!' }
+
+      When(:s) { w.to_s }
+
+      Then { s == 'Pick me!' }
+    end
+  end
+
   describe Dill::Widget, "using #{driver}", js: true, driver: driver do
+    describe '.root' do
+      context 'simple selector' do
+        GivenWidget { root '.selector' }
+
+        Then { w_class.selector == ['.selector'] }
+      end
+
+      context 'composite selector' do
+        context "using splat" do
+          GivenWidget { root '.selector', text: 'something' }
+
+          Then { w_class.selector == ['.selector', text: 'something'] }
+        end
+
+        context "using array" do
+          GivenWidget { root ['.selector', text: 'something'] }
+
+          Then { w_class.selector == ['.selector', text: 'something'] }
+        end
+      end
+    end
+
     describe '.widget' do
       context "declaring a new widget with name and selector" do
         GivenHTML <<-HTML

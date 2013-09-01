@@ -86,7 +86,8 @@ module Dill
       #   root selector, if +type+ has one defined.
       #
       #   @param name the child widget's name.
-      #   @param selector the child widget's selector.
+      #   @param selector the child widget's selector. You can pass either a
+      #     String or, if you want to use a composite selector, an Array.
       #   @param type the child widget's parent class.
       #
       # @overload widget(name, type)
@@ -119,7 +120,7 @@ module Dill
             unless type.selector
 
           selector = type.selector
-        when String
+        when String, Array
           arg_count = rest.size + 1
 
           case arg_count
@@ -181,7 +182,7 @@ module Dill
     #
     # @raise [Capybara::ElementNotFoundError] if the widget can't be found
     def self.find_in(node)
-      new(node.find(selector))
+      new(node.find(*selector))
     end
 
     # Determines if an instance of this widget class exists in
@@ -191,17 +192,67 @@ module Dill
     #
     # @return +true+ if a widget instance is found, +false+ otherwise.
     def self.present_in?(parent_node)
-      parent_node.has_selector?(selector)
+      parent_node.has_selector?(*selector)
     end
 
     # Sets this widget's default selector.
     #
-    # @param selector [String] a CSS or XPath query
-    def self.root(selector)
-      @selector = selector
+    # You can pass more than one argument to it, or a single Array. Any valid
+    # Capybara selector accepted by Capybara::Node::Finders#find will work.
+    #
+    # === Examples
+    #
+    # Most of the time, your selectors will be Strings:
+    #
+    #   class MyWidget < Dill::Widget
+    #     root '.selector'
+    #   end
+    #
+    # This will match any element with a class of "selector". For example:
+    #
+    #   <span class="selector">Pick me!</span>
+    #
+    # ==== Composite selectors
+    #
+    # If you're using CSS as the query language, it's useful to be able to use
+    # +text: 'Some text'+ to zero in on a specific node:
+    #
+    #   class MySpecificWidget < Dill::Widget
+    #     root '.selector', text: 'Pick me!'
+    #   end
+    #
+    # This is especially useful, e.g., when you want to create a widget
+    # to match a specific error or notification:
+    #
+    #   class NoFreeSpace < Dill::Widget
+    #     root '.error', text: 'No free space left!'
+    #   end
+    #
+    # So, given the following HTML:
+    #
+    #   <body>
+    #     <div class="error">No free space left!</div>
+    #
+    #     <!-- ... -->
+    #   </body>
+    #
+    # You can test for the error's present using the following code:
+    #
+    #   document.has_widget?(:no_free_space) #=> true
+    #
+    # Note: When you want to match text, consider using +I18n.t+ instead of
+    # hard-coding the text, so that your tests don't break when the text changes.
+    #
+    # Finally, you may want to override the query language:
+    #
+    #   class MyWidgetUsesXPath < Dill::Widget
+    #     root :xpath, '//some/node'
+    #   end
+    def self.root(*selector)
+      @selector = selector.flatten
     end
 
-    # @return The selector specified with +root+.
+    # Returns the selector specified with +root+.
     def self.selector
       @selector
     end

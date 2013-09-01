@@ -245,11 +245,11 @@ module Dill
     # A form field.
     class Field < Widget
       def self.find_in(parent)
-        new(parent.find_field(selector))
+        new(parent.find_field(*selector))
       end
 
       def self.present_in?(parent)
-        parent.has_field?(selector)
+        parent.has_field?(*selector)
       end
 
       # @return This field's value.

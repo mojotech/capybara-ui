@@ -168,7 +168,7 @@ module Dill
     end
 
     def items
-      root.all(item_selector).map { |node| item_for(node) }
+      root.all(*item_selector).map { |node| item_for(node) }
     end
   end
 end

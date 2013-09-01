@@ -4,8 +4,8 @@ describe Dill::List do
   describe "defaults" do
     GivenWidget Dill::List
 
-    Then { w_class.selector == 'ul' }
-    Then { w_class.item_factory.selector == 'li' }
+    Then { w_class.selector == ['ul'] }
+    Then { w_class.item_factory.selector == ['li'] }
   end
 
   describe "wraps HTML" do
@@ -57,7 +57,7 @@ describe Dill::List do
       context "interns the selector" do
         When(:selector) { w_class.item_factory.selector }
 
-        Then { selector == '.selector' }
+        Then { selector == ['.selector'] }
       end
 
       context "uses the default item type as the superclass" do

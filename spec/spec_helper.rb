@@ -44,7 +44,7 @@ module WidgetSpecDSL
 
     Given(name)  { send(klass).new(send(root)) }
     Given(klass) { Class.new(parent_class, &block) }
-    Given(root)  { find(send(klass).selector || 'body') }
+    Given(root)  { find(*send(klass).selector || 'body') }
   end
 end
 
