@@ -18,7 +18,7 @@ module Dill
     protected
 
     def rescuable_errors
-      @rescuable_errors ||= Array(super) + driver.invalid_element_errors
+      @rescuable_errors ||= super + driver.invalid_element_errors
     end
 
     private

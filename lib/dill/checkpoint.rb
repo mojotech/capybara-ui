@@ -52,7 +52,7 @@ module Dill
     end
 
     def rescuable_errors
-      StandardError
+      [StandardError]
     end
 
     private
