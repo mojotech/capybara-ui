@@ -40,7 +40,7 @@ module Dill
 
       begin
         yield or raise ConditionNotMet
-      rescue
+      rescue *rescuable_errors
         raise if expired?
 
         wait
@@ -49,6 +49,10 @@ module Dill
 
         retry
       end
+    end
+
+    def rescuable_errors
+      StandardError
     end
 
     private
