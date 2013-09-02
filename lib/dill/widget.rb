@@ -355,8 +355,7 @@ module Dill
       end
     end
 
-    # Compares this widget with the given +diffable+, as long as it responds to
-    # the same protocol as Cucumber::Ast::Table#diff!.
+    # Compares this widget with the given Cucumber +table+.
     #
     # Waits +wait_time+ seconds for the comparison to be successful, otherwise
     # raises Cucumber::Ast::Table::Different on failure.
@@ -369,7 +368,7 @@ module Dill
     #   Then(/^some step that takes in a cucumber table$/) do |table|
     #     widget(:my_widget).diff table
     #   end
-    def diff(diffable, wait_time = Capybara.default_wait_time)
+    def diff(table, wait_time = Capybara.default_wait_time)
       # #diff! raises an exception if the comparison fails, or returns nil if it
       # doesn't. We don't need to worry about failure, because that will be
       # propagated, but we need to return +true+ when it succeeds, to end the
@@ -377,7 +376,13 @@ module Dill
       #
       # We use WidgetCheckpoint instead of #test because we want the
       # succeed-or-raise behavior.
-      WidgetCheckpoint.wait_for(wait_time) { diffable.diff!(to_table) || true }
+      #
+      # Unfortunately, Cucumber::Ast::Table#diff! changes its table, so that
+      # #diff! can only be called once. For that reason, we need to create a
+      # copy of the original table before we try to compare it.
+      WidgetCheckpoint.wait_for(wait_time) {
+        table.dup.diff!(to_table) || true
+      }
     end
 
     # Determines if the widget underlying an action exists.
