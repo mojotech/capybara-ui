@@ -15,6 +15,12 @@ module Dill
       end
     end
 
+    protected
+
+    def rescuable_errors
+      @rescuable_errors ||= Array(super) + driver.invalid_element_errors
+    end
+
     private
 
     def immediate?
