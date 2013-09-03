@@ -297,11 +297,13 @@ module Dill
         option && option.text
       end
 
-      # Selects the given option.
+      # Selects the given +option+.
       #
-      # @param option [String] The text of the option to select.
+      # You may pass in the option text or value.
       def set(option)
-        root.find('option', text: option).select_option
+        root.
+          find(:xpath, "option[@value = '#{option}' or . = '#{option}']").
+          select_option
       end
 
       # @!method to_s

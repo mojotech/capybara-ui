@@ -75,6 +75,13 @@ describe Dill::FieldGroup do
         </select>
       </p>
       <p>
+        <label for="v">By Value</label>
+        <select name="v" id="v">
+          <option value="o">One</option>
+          <option value="t">Two</option>
+        </select>
+      </p>
+      <p>
         <label for="al">Auto locator</label>
         <select name="al" id="al">
         </select>
@@ -84,6 +91,7 @@ describe Dill::FieldGroup do
     GivenWidget Dill::FieldGroup do
       select :deselected, 'd'
       select :selected, 's'
+      select :by_value, 'v'
       select :auto_locator
     end
 
@@ -99,9 +107,11 @@ describe Dill::FieldGroup do
     context "when setting" do
       When { w.selected   = "Unselected option" }
       When { w.deselected = "One" }
+      When { w.by_value   = "t"}
 
       Then { w.selected   == "Unselected option" }
       Then { w.deselected == "One" }
+      Then { w.by_value   == "Two" }
     end
 
     context 'when transforming to table' do
