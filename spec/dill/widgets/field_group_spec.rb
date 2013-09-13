@@ -115,8 +115,8 @@ describe Dill::FieldGroup do
     end
 
     context 'when transforming to table' do
-      Given(:headers) {['deselected', 'selected', 'auto locator']}
-      Given(:values)  {['', 'selected option', '']}
+      Given(:headers) {['deselected', 'selected', 'by value', 'auto locator']}
+      Given(:values)  {['', 'selected option', '', '']}
 
       When(:table)   { w.to_table }
 
