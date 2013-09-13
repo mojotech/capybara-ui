@@ -1,13 +1,6 @@
 require 'spec_helper'
 
 describe Dill::List do
-  describe "defaults" do
-    GivenWidget Dill::List
-
-    Then { w_class.selector == ['ul'] }
-    Then { w_class.item_factory.selector == ['li'] }
-  end
-
   describe "wraps HTML" do
     context "using defaults" do
       GivenHTML <<-HTML
