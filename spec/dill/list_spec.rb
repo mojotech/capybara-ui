@@ -14,16 +14,18 @@ describe Dill::List do
       GivenWidget Dill::List
 
       When(:size) { w.size }
+      When(:first) { w.first }
 
       Then { size == 3 }
+      Then { first == "One" }
     end
 
     context "using custom selectors" do
       GivenHTML <<-HTML
         <div id="colors">
-          <div class="color">Red</li>
-          <div class="color">Green</li>
-          <div class="color">Blue</li>
+          <div class="color">Red</div>
+          <div class="color">Green</div>
+          <div class="color">Blue</div>
         </ul>
       HTML
 
@@ -34,8 +36,10 @@ describe Dill::List do
       end
 
       When(:size) { w.size }
+      When(:first) { w.first }
 
       Then { size == 3 }
+      Then { first == "Red" }
     end
   end
 
