@@ -78,7 +78,7 @@ module Dill
   class List < Widget
     include Enumerable
 
-    def_delegators :items, :size, :include?, :each, :empty?, :first, :last
+    def_delegators :items, :size, :include?, :each, :first, :last
 
     class << self
       # Configures the List item selector and class.
@@ -149,6 +149,10 @@ module Dill
             super
           end
       end
+    end
+
+    def empty?
+      test { items.empty? }
     end
 
     def to_table

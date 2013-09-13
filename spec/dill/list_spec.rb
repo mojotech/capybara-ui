@@ -111,7 +111,7 @@ describe Dill::List do
         </ul>
       HTML
 
-      Then { w.empty? == true }
+      Then { w.empty? }
     end
 
     context "when the list is not" do
@@ -121,7 +121,7 @@ describe Dill::List do
         </ul>
       HTML
 
-      Then { w.empty? == false }
+      Then { ! w.empty? }
     end
   end
 
