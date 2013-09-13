@@ -152,6 +152,20 @@ describe Dill::List do
     end
   end
 
+  describe "#to_row" do
+    GivenHTML <<-HTML
+      <ul>
+        <li>One</li>
+        <li>Two</li>
+        <li>Three</li>
+      </ul>
+    HTML
+
+    GivenWidget Dill::List
+
+    Then { w.to_row == %w(One Two Three) }
+  end
+
   describe "#to_table" do
     GivenWidget Dill::List
 

@@ -159,6 +159,10 @@ module Dill
       test { items.include?(element) }
     end
 
+    def to_row
+      items.map(&:to_cell)
+    end
+
     def to_table
       items.map(&:to_row)
     end
