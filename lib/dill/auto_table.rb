@@ -4,7 +4,7 @@ module Dill
     # don't include footer in to_table, because footer column configuration is very
     # often different from the headers & values.
     def footers
-      @footers ||= root.all(footer_selector).map { |n| node_text(n) }
+      @footers ||= root.all(footer_selector).map { |n| Widget.new(n).text }
     end
 
     protected
@@ -37,7 +37,9 @@ module Dill
     end
 
     def headers
-      @headers ||= root.all(header_selector).map { |n| node_text(n).downcase }
+      @headers ||= root.
+        all(header_selector).
+        map { |n| Widget.new(n).text.downcase }
     end
 
     def footer_selector
