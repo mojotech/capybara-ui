@@ -10,7 +10,7 @@ describe Dill::WidgetCheckpoint do
   context "with a driver that doesn't wait" do
     Given { Capybara.current_driver = :rack_test }
 
-    When(:result) { checkpoint.wait_for { false } }
+    When(:result) { checkpoint.call { false } }
 
     Then { result == Failure(Dill::Checkpoint::ConditionNotMet) }
     Then { elapsed < wait_time }
@@ -27,7 +27,7 @@ describe Dill::WidgetCheckpoint do
   context "with poltergeist", :js => true, :driver => :poltergeist do
     context "when an obsolete node error is raised" do
       When(:result) {
-        checkpoint.wait_for {
+        checkpoint.call {
           raise Capybara::Poltergeist::ObsoleteNode.new(nil, nil)
         }
       }

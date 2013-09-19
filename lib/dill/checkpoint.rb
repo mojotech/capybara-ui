@@ -13,7 +13,7 @@ module Dill
 
     # Shortcut for instance level wait_for.
     def self.wait_for(wait_time = Capybara.default_wait_time, &block)
-      new(wait_time).wait_for(&block)
+      new(wait_time).call(&block)
     end
 
     # Initializes a new Checkpoint.
@@ -35,7 +35,7 @@ module Dill
     # raises a Dill::Checkpoint::ConditionNotMet error.
     #
     # Returns whatever value is returned by the block.
-    def wait_for(&condition)
+    def call(&condition)
       start
 
       begin
