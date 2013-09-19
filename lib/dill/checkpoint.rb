@@ -6,10 +6,50 @@ module Dill
   #   which inspired this class.
   class Checkpoint
     class ConditionNotMet < StandardError; end
-    class TimeFrozen < StandardError; end
 
-    # @return the configured wait time, in seconds.
-    attr_reader :wait_time
+    class Timer
+      class Frozen < StandardError; end
+
+      def initialize(duration)
+        @duration = duration
+      end
+
+      attr_reader :duration
+
+      def expired?
+        remaining > duration
+      end
+
+      def remaining
+        now - start_time
+      end
+
+      def start
+        @start_time = now
+      end
+
+      def tick
+        sleep tick_duration
+
+        raise Frozen, 'time appears to be frozen' if frozen?
+      end
+
+      protected
+
+      def now
+        Time.now
+      end
+
+      attr_reader :start_time
+
+      def frozen?
+        now == start_time
+      end
+
+      def tick_duration
+        0.05
+      end
+    end
 
     # Shortcut for instance level wait_for.
     def self.wait_for(wait_time = Capybara.default_wait_time, &block)
@@ -21,7 +61,7 @@ module Dill
     # @param wait_time how long this checkpoint will wait for its conditions to
     #   be met, in seconds.
     def initialize(wait_time = Capybara.default_wait_time)
-      @wait_time = wait_time
+      @timer = Timer.new(wait_time)
     end
 
     # Executes +block+ repeatedly until it returns a "truthy" value or
@@ -36,16 +76,14 @@ module Dill
     #
     # Returns whatever value is returned by the block.
     def call(&condition)
-      start
+      timer.start
 
       begin
         yield or raise ConditionNotMet
       rescue *rescuable_errors
-        raise if expired?
+        raise if timer.expired?
 
-        wait
-
-        raise TimeFrozen, 'time appears to be frozen' if time_frozen?
+        timer.tick
 
         retry
       end
@@ -53,30 +91,10 @@ module Dill
 
     protected
 
-    def expired?
-      remaining_time > wait_time
-    end
-
-    def remaining_time
-      Time.now - start_time
-    end
-
     def rescuable_errors
       [StandardError]
     end
 
-    def start
-      @start_time = Time.now
-    end
-
-    attr_reader :start_time
-
-    def time_frozen?
-      Time.now == start_time
-    end
-
-    def wait
-      sleep 0.05
-    end
+    attr_reader :timer
   end
 end
