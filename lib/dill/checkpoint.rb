@@ -51,13 +51,7 @@ module Dill
       end
     end
 
-    def rescuable_errors
-      [StandardError]
-    end
-
-    private
-
-    attr_reader :start_time
+    protected
 
     def expired?
       remaining_time > wait_time
@@ -67,16 +61,22 @@ module Dill
       Time.now - start_time
     end
 
+    def rescuable_errors
+      [StandardError]
+    end
+
     def start
       @start_time = Time.now
     end
 
-    def wait
-      sleep 0.05
-    end
+    attr_reader :start_time
 
     def time_frozen?
       Time.now == start_time
+    end
+
+    def wait
+      sleep 0.05
     end
   end
 end
