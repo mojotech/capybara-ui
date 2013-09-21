@@ -5,7 +5,7 @@ module Dill
     # @return [Document] the current document with the class of the
     #   current object set as the widget lookup scope.
     def document
-      Document.new(widget_lookup_scope: widget_lookup_scope)
+      Document.new(widget_lookup_scope)
     end
 
     # @return [Boolean] Whether one or more widgets exist in the current
