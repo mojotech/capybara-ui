@@ -470,7 +470,7 @@ module Dill
     end
 
     def text
-      NodeText.new(root)
+      value.to_s
     end
 
     # Converts this widget into a string representation suitable to be displayed
@@ -494,6 +494,10 @@ module Dill
     end
 
     alias_method :to_s, :text
+
+    def value
+      NodeText.new(root)
+    end
 
     protected
 
