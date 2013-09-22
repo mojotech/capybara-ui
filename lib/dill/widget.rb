@@ -399,14 +399,16 @@ module Dill
 
     def inspect
       inspection = "<!-- #{self.class.name}: -->\n"
-      root       = self.root
 
       begin
+        root = self.root
         xml = Nokogiri::HTML(page.body).at(root.path).to_xml
 
         inspection << Nokogiri::XML(xml, &:noblanks).to_xhtml
       rescue Capybara::NotSupportedByDriverError
         inspection << "<#{root.tag_name}>\n#{to_s}"
+      rescue Capybara::ElementNotFound, *page.driver.invalid_element_errors
+        nil
       end
     end
 

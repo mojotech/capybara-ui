@@ -407,6 +407,20 @@ DRIVERS.each do |driver|
       Then { inspection == "<!-- Inspect: -->\n<p>\nIns" }
     end
 
+    describe "inspecting detached node" do
+      GivenHTML <<-HTML
+        <span id="ins">Ins</span>
+      HTML
+
+      GivenWidget do
+        widget :child, 'a'
+      end
+
+      When(:inspection) { w.child.inspect }
+
+      Then { inspection.nil? }
+    end
+
     describe "#match" do
       GivenHTML <<-HTML
         <span id="match">This matches</span>
