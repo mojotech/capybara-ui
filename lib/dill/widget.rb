@@ -181,8 +181,8 @@ module Dill
     # @return a new instance of the current widget class.
     #
     # @raise [Capybara::ElementNotFoundError] if the widget can't be found
-    def self.find_in(node)
-      new(node.find(*selector))
+    def self.find_in(parent)
+      new { parent.root.find(*selector) }
     end
 
     # Determines if an instance of this widget class exists in
@@ -191,8 +191,8 @@ module Dill
     # @param parent_node [Capybara::Node] the node we want to search in
     #
     # @return +true+ if a widget instance is found, +false+ otherwise.
-    def self.present_in?(parent_node)
-      parent_node.has_selector?(*selector)
+    def self.present_in?(parent)
+      parent.root.has_selector?(*selector)
     end
 
     # Sets this widget's default selector.
@@ -257,11 +257,9 @@ module Dill
       @selector
     end
 
-    # Returns the root node (a Capybara::Node::Element) of the current widget.
-    attr_reader :root
-
-    def initialize(root)
-      self.root = root
+    def initialize(node = nil, &query)
+      self.node = node
+      self.query = query
     end
 
     # Returns +true+ if this widget's representation is less than +value+.
@@ -465,6 +463,10 @@ module Dill
       test { to_s.match(pattern, position, &block) }
     end
 
+    def root
+      node || query.()
+    end
+
     def text
       NodeText.new(root)
     end
@@ -508,7 +510,7 @@ module Dill
 
     private
 
-    attr_writer :root
+    attr_accessor :node, :query
 
     def test(wait_time = Capybara.default_wait_time, &block)
       WidgetCheckpoint.wait_for(wait_time, &block) rescue nil
