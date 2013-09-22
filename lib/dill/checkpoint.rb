@@ -17,10 +17,10 @@ module Dill
       attr_reader :duration
 
       def expired?
-        remaining > duration
+        duration < elapsed
       end
 
-      def remaining
+      def elapsed
         now - start_time
       end
 
