@@ -317,7 +317,6 @@ DRIVERS.each do |driver|
 
         Then { failure == Failure(Cucumber::Ast::Table::Different) }
       end
-
     end
 
     describe "#has_action?" do
@@ -407,6 +406,7 @@ DRIVERS.each do |driver|
 
       Then { inspection == "<!-- Inspect: -->\n<p>\nIns" }
     end
+
     describe "#match" do
       GivenHTML <<-HTML
         <span id="match">This matches</span>
