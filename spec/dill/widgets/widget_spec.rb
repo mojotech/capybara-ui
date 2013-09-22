@@ -418,7 +418,7 @@ DRIVERS.each do |driver|
 
       When(:inspection) { w.child.inspect }
 
-      Then { inspection.nil? }
+      Then { inspection == "#<DETACHED>" }
     end
 
     describe "#match" do
