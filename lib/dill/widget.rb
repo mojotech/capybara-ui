@@ -493,7 +493,9 @@ module Dill
       value.to_f
     end
 
-    alias_method :to_s, :text
+    def to_s
+      value.to_s
+    end
 
     def value
       NodeText.new(root)
