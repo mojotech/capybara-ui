@@ -482,15 +482,15 @@ module Dill
     #
     # Returns a String.
     def to_cell
-      to_s
+      value.to_s
     end
 
     def to_i
-      to_s.to_i
+      value.to_i
     end
 
     def to_f
-      to_s.to_f
+      value.to_f
     end
 
     alias_method :to_s, :text
