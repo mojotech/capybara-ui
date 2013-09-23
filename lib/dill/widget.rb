@@ -435,18 +435,14 @@ module Dill
     #
     # @see Checkpoint
     def reload(wait_time = Capybara.default_wait_time, &condition)
-      unless test
+      unless condition
         old_root = root
-        test     = ->{ old_root != root }
+        condition = ->{ old_root != root }
       end
 
       test wait_time, &condition
 
-      begin
-        root.inspect
-      rescue
-        raise Removed, "widget was removed"
-      end
+      root rescue raise Removed, "widget was removed"
 
       self
     end
