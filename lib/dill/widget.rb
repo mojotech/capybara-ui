@@ -458,6 +458,11 @@ module Dill
       self
     end
 
+    # Returns +true+ if widget is visible.
+    def present?
+      test { !! root rescue false }
+    end
+
     # Calls +match+ on this widget's text content.
     #
     # If a block is given, passes the resulting match data to the block.

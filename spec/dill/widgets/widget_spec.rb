@@ -513,5 +513,16 @@ DRIVERS.each do |driver|
       Then { w.gone? }
       And { w.absent? }
     end
+
+    context "when the widget is present" do
+      GivenHTML <<-HTML
+        <span id="present">Present</span>
+      HTML
+
+      GivenWidget { root '#present' }
+
+      Then { w.present? }
+      And { ! w.absent? }
+    end
   end
 end
