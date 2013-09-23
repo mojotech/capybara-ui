@@ -383,6 +383,12 @@ module Dill
       }
     end
 
+    # Returns +true+ if the widget is not visible, or has been removed from the
+    # DOM.
+    def gone?
+      test { ! root rescue true }
+    end
+
     # Determines if the widget underlying an action exists.
     #
     # @param name the name of the action

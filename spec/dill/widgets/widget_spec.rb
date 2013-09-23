@@ -504,5 +504,13 @@ DRIVERS.each do |driver|
         Then { w.reload.has_widget?(:present) }
       end
     end
+
+    context "when it's absent" do
+      GivenHTML ""
+
+      GivenWidget { root 'a' }
+
+      Then { w.gone? == true }
+    end
   end
 end
