@@ -36,15 +36,15 @@ module WidgetSpecDSL
 
     Given(:path) { path }
     Given        { visit path }
+
+    Given(:document) { Dill::Document.new(self.class) }
   end
 
   def GivenWidget(parent_class = Dill::Widget, name = :w, &block)
     klass = :"#{name}_class"
-    root  = :"#{name}_root"
 
-    Given(name)  { send(klass).new(send(root)) }
-    Given(klass) { Class.new(parent_class, &block) }
-    Given(root)  { find(*send(klass).selector || 'body') }
+    Given(name)  { send(klass).find_in(document) }
+    Given(klass) { Dill::WidgetClass.new('body', parent_class, &block) }
   end
 end
 

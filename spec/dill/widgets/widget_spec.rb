@@ -95,7 +95,11 @@ DRIVERS.each do |driver|
         end
 
         context "when type has no selector" do
-          GivenWidget Dill::Widget, :child
+          GivenWidget Dill::Widget, :child do
+            def self.selector
+              nil
+            end
+          end
 
           When(:result) { parent_class.widget :the_widget, child_class }
 
