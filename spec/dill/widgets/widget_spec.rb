@@ -505,12 +505,13 @@ DRIVERS.each do |driver|
       end
     end
 
-    context "when it's absent" do
+    context "when the widget is absent" do
       GivenHTML ""
 
       GivenWidget { root 'a' }
 
       Then { w.gone? == true }
+      And { w.absent? == true }
     end
   end
 end

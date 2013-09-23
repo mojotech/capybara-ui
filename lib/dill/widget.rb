@@ -318,6 +318,11 @@ module Dill
       test { cast_to_type_of(value) != value }
     end
 
+    # Alias for #gone?
+    def absent?
+      gone?
+    end
+
     # Clicks the current widget, or the child widget given by +name+.
     #
     # === Usage
