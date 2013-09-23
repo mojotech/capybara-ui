@@ -510,8 +510,8 @@ DRIVERS.each do |driver|
 
       GivenWidget { root 'a' }
 
-      Then { w.gone? == true }
-      And { w.absent? == true }
+      Then { w.gone? }
+      And { w.absent? }
     end
   end
 end
