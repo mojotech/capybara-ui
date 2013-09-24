@@ -453,8 +453,6 @@ module Dill
 
       test wait_time, &condition
 
-      root rescue raise Removed, "widget was removed"
-
       self
     end
 
@@ -518,7 +516,9 @@ module Dill
     attr_accessor :node, :query
 
     def test(wait_time = Capybara.default_wait_time, &block)
-      WidgetCheckpoint.wait_for(wait_time, &block) rescue nil
+      WidgetCheckpoint.wait_for(wait_time, &block)
+    rescue Checkpoint::ConditionNotMet
+      false
     end
 
     def page

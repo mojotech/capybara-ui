@@ -475,7 +475,7 @@ DRIVERS.each do |driver|
 
         When(:failure) { w.reload }
 
-        Then { failure == Failure(Dill::Widget::Removed) }
+        Then { failure == Failure(Capybara::ElementNotFound) }
       end
 
       context "when widget remains the same", js: true do
