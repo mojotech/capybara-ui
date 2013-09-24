@@ -78,7 +78,7 @@ module Dill
   class List < Widget
     include Enumerable
 
-    def_delegators :items, :size, :each, :first, :last
+    def_delegators :items, :each, :first, :last
 
     class << self
       # Configures the List item selector and class.
@@ -158,6 +158,10 @@ module Dill
 
     def include?(element)
       delay { items.include?(element) }
+    end
+
+    def size
+      DynamicValue.new { items.size }
     end
 
     def to_row
