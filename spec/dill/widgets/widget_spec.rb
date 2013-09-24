@@ -183,9 +183,7 @@ DRIVERS.each do |driver|
         <span id="value">1</span>
       HTML
 
-      Then { w < 2 }
       Then { w < '2' }
-      Then { w < 1.5 }
     end
 
     describe "#<=" do
@@ -195,12 +193,8 @@ DRIVERS.each do |driver|
         <span id="value">1</span>
       HTML
 
-      Then { w <= 2 }
       Then { w <= '2' }
-      Then { w <= 2.0 }
-      Then { w <= 1 }
       Then { w <= '1' }
-      Then { w <= 1.0 }
     end
 
     describe "#>" do
@@ -210,9 +204,7 @@ DRIVERS.each do |driver|
         <span id="value">1</span>
       HTML
 
-      Then { w > 0 }
       Then { w > '0' }
-      Then { w > 0.5 }
     end
 
     describe "#>=" do
@@ -222,12 +214,8 @@ DRIVERS.each do |driver|
         <span id="value">1</span>
       HTML
 
-      Then { w >= 0 }
       Then { w >= '0' }
-      Then { w >= 0.5 }
-      Then { w >= 1 }
       Then { w >= '1' }
-      Then { w >= 1.0 }
     end
 
     describe "#==" do
@@ -237,9 +225,7 @@ DRIVERS.each do |driver|
         <span id="value">1</span>
       HTML
 
-      Then { w == 1 }
       Then { w == '1' }
-      Then { w == 1.0 }
     end
 
     describe "#=~" do
@@ -260,9 +246,7 @@ DRIVERS.each do |driver|
         <span id="value">1</span>
       HTML
 
-      Then { w != 0 }
       Then { w != '0' }
-      Then { w != 0.0 }
     end
 
     describe '#click' do

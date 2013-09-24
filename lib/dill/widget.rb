@@ -267,7 +267,7 @@ module Dill
     # Waits for the result to be +true+ for the time defined in
     # `Capybara.default_wait_time`.
     def <(value)
-      test { cast_to_type_of(value) < value }
+      test { self.value < value }
     end
 
     # Returns +true+ if this widget's representation is less than or equal to
@@ -276,7 +276,7 @@ module Dill
     # Waits for the result to be +true+ for the time defined in
     # `Capybara.default_wait_time`.
     def <=(value)
-      test { cast_to_type_of(value) <= value }
+      test { self.value <= value }
     end
 
     # Returns +true+ if this widget's representation is greater than +value+.
@@ -284,7 +284,7 @@ module Dill
     # Waits for the result to be +true+ for the time defined in
     # `Capybara.default_wait_time`.
     def >(value)
-      test { cast_to_type_of(value) > value }
+      test { self.value > value }
     end
 
     # Returns +true+ if this widget's representation is greater than or equal to
@@ -293,13 +293,13 @@ module Dill
     # Waits for the result to be +true+ for the time defined in
     # `Capybara.default_wait_time`.
     def >=(value)
-      test { cast_to_type_of(value) >= value }
+      test { self.value >= value }
     end
 
     # Compares the current widget with +value+, waiting for the comparison
     # to return +true+.
     def ==(value)
-      test { cast_to_type_of(value) == value }
+      test { self.value == value }
     end
 
     # Calls +=~+ on this widget's text content.
@@ -315,7 +315,7 @@ module Dill
     # Compares the current widget with +value+, waiting for the comparison
     # to return +false+.
     def !=(value)
-      test { cast_to_type_of(value) != value }
+      test { self.value != value }
     end
 
     # Alias for #gone?
@@ -511,21 +511,6 @@ module Dill
 
     def value
       NodeText.new(root)
-    end
-
-    protected
-
-    def cast_to_type_of(value)
-      case value
-      when Float
-        to_f
-      when Integer
-        to_i
-      when String
-        to_s
-      else
-        raise TypeError, "can't convert this widget to `#{klass}'"
-      end
     end
 
     private
