@@ -176,48 +176,6 @@ DRIVERS.each do |driver|
       Then { w.respond_to?(:outline!) }
     end
 
-    describe "#<" do
-      GivenWidget { root '#value' }
-
-      GivenHTML <<-HTML
-        <span id="value">1</span>
-      HTML
-
-      Then { w < '2' }
-    end
-
-    describe "#<=" do
-      GivenWidget { root '#value' }
-
-      GivenHTML <<-HTML
-        <span id="value">1</span>
-      HTML
-
-      Then { w <= '2' }
-      Then { w <= '1' }
-    end
-
-    describe "#>" do
-      GivenWidget { root '#value' }
-
-      GivenHTML <<-HTML
-        <span id="value">1</span>
-      HTML
-
-      Then { w > '0' }
-    end
-
-    describe "#>=" do
-      GivenWidget { root '#value' }
-
-      GivenHTML <<-HTML
-        <span id="value">1</span>
-      HTML
-
-      Then { w >= '0' }
-      Then { w >= '1' }
-    end
-
     describe "#==" do
       GivenWidget { root '#value' }
 
@@ -226,27 +184,6 @@ DRIVERS.each do |driver|
       HTML
 
       Then { w == '1' }
-    end
-
-    describe "#=~" do
-      GivenHTML <<-HTML
-        <span id="match">This matches</span>
-      HTML
-
-      GivenWidget { root '#match' }
-
-      Then { w =~ /This m/ }
-      Then { w !~ /No match/ }
-    end
-
-    describe "#!=" do
-      GivenWidget { root '#value' }
-
-      GivenHTML <<-HTML
-        <span id="value">1</span>
-      HTML
-
-      Then { w != '0' }
     end
 
     describe '#click' do
@@ -405,34 +342,8 @@ DRIVERS.each do |driver|
       end
 
       When(:inspection) { w.child.inspect }
-
+p
       Then { inspection == "#<DETACHED>" }
-    end
-
-    describe "#match" do
-      GivenHTML <<-HTML
-        <span id="match">This matches</span>
-      HTML
-
-      GivenWidget { root '#match' }
-
-      context "simple match" do
-        Then { w.match(/This m/) }
-      end
-
-      context "match with block" do
-        When(:result) { w.match(/This m/) { |m| 'w00t!' } }
-
-        Then { result == 'w00t!' }
-      end
-
-      context "no match" do
-        Then { ! w.match(/No match/) }
-      end
-
-      context "no match with position" do
-        Then { ! w.match(/This mat/, 2) }
-      end
     end
 
     describe "#reload" do

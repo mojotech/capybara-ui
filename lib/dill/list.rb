@@ -151,12 +151,13 @@ module Dill
       end
     end
 
+    # TODO: Convert value to primitive data structures.
     def empty?
-      test { items.empty? }
+      delay { items.empty? }
     end
 
     def include?(element)
-      test { items.include?(element) }
+      delay { items.include?(element) }
     end
 
     def to_row

@@ -3,6 +3,7 @@ module Dill
     extend Forwardable
 
     include WidgetContainer
+    include DynamicValue
 
     class Removed < StandardError; end
 
@@ -262,62 +263,6 @@ module Dill
       self.query = query
     end
 
-    # Returns +true+ if this widget's representation is less than +value+.
-    #
-    # Waits for the result to be +true+ for the time defined in
-    # `Capybara.default_wait_time`.
-    def <(value)
-      test { self.value < value }
-    end
-
-    # Returns +true+ if this widget's representation is less than or equal to
-    # +value+.
-    #
-    # Waits for the result to be +true+ for the time defined in
-    # `Capybara.default_wait_time`.
-    def <=(value)
-      test { self.value <= value }
-    end
-
-    # Returns +true+ if this widget's representation is greater than +value+.
-    #
-    # Waits for the result to be +true+ for the time defined in
-    # `Capybara.default_wait_time`.
-    def >(value)
-      test { self.value > value }
-    end
-
-    # Returns +true+ if this widget's representation is greater than or equal to
-    # +value+.
-    #
-    # Waits for the result to be +true+ for the time defined in
-    # `Capybara.default_wait_time`.
-    def >=(value)
-      test { self.value >= value }
-    end
-
-    # Compares the current widget with +value+, waiting for the comparison
-    # to return +true+.
-    def ==(value)
-      test { self.value == value }
-    end
-
-    # Calls +=~+ on this widget's text content.
-    def =~(regexp)
-      test { to_s =~ regexp }
-    end
-
-    # Calls +!~+ on this widget's text content.
-    def !~(regexp)
-      test { to_s !~ regexp }
-    end
-
-    # Compares the current widget with +value+, waiting for the comparison
-    # to return +false+.
-    def !=(value)
-      test { self.value != value }
-    end
-
     # Alias for #gone?
     def absent?
       gone?
@@ -377,21 +322,16 @@ module Dill
       # propagated, but we need to return +true+ when it succeeds, to end the
       # comparison.
       #
-      # We use WidgetCheckpoint instead of #test because we want the
-      # succeed-or-raise behavior.
-      #
       # Unfortunately, Cucumber::Ast::Table#diff! changes its table, so that
       # #diff! can only be called once. For that reason, we need to create a
       # copy of the original table before we try to compare it.
-      WidgetCheckpoint.wait_for(wait_time) {
-        table.dup.diff!(to_table) || true
-      }
+      delay { table.dup.diff!(to_table) || true }
     end
 
     # Returns +true+ if the widget is not visible, or has been removed from the
     # DOM.
     def gone?
-      test { ! root rescue true }
+      delay { ! root rescue true }
     end
 
     # Determines if the widget underlying an action exists.
@@ -451,28 +391,14 @@ module Dill
         condition = ->{ old_root != root }
       end
 
-      test wait_time, &condition
+      delay wait_time, &condition
 
       self
     end
 
     # Returns +true+ if widget is visible.
     def present?
-      test { !! root rescue false }
-    end
-
-    # Calls +match+ on this widget's text content.
-    #
-    # If a block is given, passes the resulting match data to the block.
-    #
-    # @param pattern the pattern to match
-    # @param position where to begin the search
-    #
-    # @yieldparam [MatchData] the match data from running +match+ on the text.
-    #
-    # @return [MatchData] the match data from running +match+ on the text.
-    def match(pattern, position = 0, &block)
-      test { to_s.match(pattern, position, &block) }
+      delay { !! root rescue false }
     end
 
     def root
@@ -515,10 +441,8 @@ module Dill
 
     attr_accessor :node, :query
 
-    def test(wait_time = Capybara.default_wait_time, &block)
-      WidgetCheckpoint.wait_for(wait_time, &block)
-    rescue Checkpoint::ConditionNotMet
-      false
+    def checkpoint
+      WidgetCheckpoint
     end
 
     def page
