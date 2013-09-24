@@ -151,6 +151,10 @@ module Dill
       end
     end
 
+    def count
+      DynamicValue.new { items.count }
+    end
+
     # TODO: Convert value to primitive data structures.
     def empty?
       delay { items.empty? }
@@ -158,6 +162,10 @@ module Dill
 
     def include?(element)
       delay { items.include?(element) }
+    end
+
+    def length
+      DynamicValue.new { items.length }
     end
 
     def size
