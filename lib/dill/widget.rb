@@ -406,7 +406,7 @@ module Dill
     end
 
     def text
-      value.to_s
+      NodeText.new(root)
     end
 
     # Converts this widget into a string representation suitable to be displayed
@@ -418,23 +418,23 @@ module Dill
     #
     # Returns a String.
     def to_cell
-      value.to_s
+      text.to_s
     end
 
     def to_i
-      value.to_i
+      text.to_i
     end
 
     def to_f
-      value.to_f
+      text.to_f
     end
 
     def to_s
-      value.to_s
+      text.to_s
     end
 
     def value
-      NodeText.new(root)
+      DynamicValue.new { text }
     end
 
     private
