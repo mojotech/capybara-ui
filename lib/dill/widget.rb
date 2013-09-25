@@ -303,6 +303,10 @@ module Dill
       end
     end
 
+    def delayed(&block)
+      DynamicValue.new(&block)
+    end
+
     # Compares this widget with the given Cucumber +table+.
     #
     # Waits +wait_time+ seconds for the comparison to be successful, otherwise
@@ -434,7 +438,7 @@ module Dill
     end
 
     def value
-      DynamicValue.new { text }
+      delayed { text }
     end
 
     private
