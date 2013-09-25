@@ -303,7 +303,7 @@ module Dill
       end
     end
 
-    def delayed(&block)
+    def dynamic(&block)
       DynamicValue.new(&block)
     end
 

@@ -152,7 +152,7 @@ module Dill
     end
 
     def count
-      DynamicValue.new { items.count }
+      dynamic { items.count }
     end
 
     # TODO: Convert value to primitive data structures.
@@ -165,11 +165,11 @@ module Dill
     end
 
     def length
-      DynamicValue.new { items.length }
+      dynamic { items.length }
     end
 
     def size
-      DynamicValue.new { items.size }
+      dynamic { items.size }
     end
 
     def to_row
