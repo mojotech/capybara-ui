@@ -438,7 +438,7 @@ module Dill
     end
 
     def value
-      delayed { text }
+      text
     end
 
     private
