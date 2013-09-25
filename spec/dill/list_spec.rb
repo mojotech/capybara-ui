@@ -125,6 +125,33 @@ describe Dill::List do
     end
   end
 
+  describe "#exclude?" do
+    GivenWidget Dill::List do
+      root 'ul'
+      item 'li'
+    end
+
+    context "when the element is on the list" do
+      GivenHTML <<-HTML
+        <ul>
+          <li>Red</li>
+        </ul>
+      HTML
+
+      Then { ! w.exclude?("Red") }
+    end
+
+    context "when the element is not on the list" do
+      GivenHTML <<-HTML
+        <ul>
+          <li>Yellow<li>
+        </ul>
+      HTML
+
+      Then { w.exclude?("Red") }
+    end
+  end
+
   describe "#include?" do
     GivenWidget Dill::List do
       root 'ul'

@@ -160,6 +160,10 @@ module Dill
       delay { items.empty? }
     end
 
+    def exclude?(element)
+      delay { ! items.include?(element) }
+    end
+
     def include?(element)
       delay { items.include?(element) }
     end
