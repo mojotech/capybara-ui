@@ -329,7 +329,7 @@ module Dill
       # Unfortunately, Cucumber::Ast::Table#diff! changes its table, so that
       # #diff! can only be called once. For that reason, we need to create a
       # copy of the original table before we try to compare it.
-      delay { table.dup.diff!(to_table) || true }
+      delay(wait_time) { table.dup.diff!(to_table) || true }
     end
 
     # Returns +true+ if the widget is not visible, or has been removed from the
