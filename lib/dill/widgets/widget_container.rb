@@ -1,7 +1,7 @@
 module Dill
   module WidgetContainer
     def has_widget?(name)
-      widget_class(name).present_in?(self)
+      widget(name).present?
     end
 
     def widget(name)
