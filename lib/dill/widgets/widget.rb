@@ -193,7 +193,7 @@ module Dill
     #
     # @return +true+ if a widget instance is found, +false+ otherwise.
     def self.present_in?(parent)
-      parent.root.has_selector?(*selector)
+      find_in(parent).present?
     end
 
     # Sets this widget's default selector.
