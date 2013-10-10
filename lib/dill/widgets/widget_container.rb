@@ -1,5 +1,9 @@
 module Dill
   module WidgetContainer
+    def has_no_widget?(name)
+      widget(name).absent?
+    end
+
     def has_widget?(name)
       widget(name).present?
     end
