@@ -4,12 +4,9 @@ Write tastier tests.
 
 ## Installation
 
-Add `dill` to your `Gemfile`. Then add
+Add `dill` to your `Gemfile`. Then add `require 'dill/cucumber'` to `features/support/00_dill.rb`.
 
-    require 'dill/cucumber'
-
-to `features/support/00_dill.rb`. We prefix the file name with `00_` to ensure
-it's loaded as soon as possible during cucumber boot.
+- We prefix the file name with `00_` to ensure it's loaded as soon as possible during cucumber boot.
 
 ## Documentation
 
@@ -56,6 +53,7 @@ You could define the following widget:
 And then use it in a cucumber step:
 
     When(/^I edit the character's profile$/)
+      # this is the same as page.find('.character-profile [rel = edit]').click
       widget(:charater_profile).edit
     end
 
