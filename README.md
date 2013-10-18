@@ -62,7 +62,7 @@ This works even if the widget isn't visible yet because, when called,
 return `true`, then it will wait a certain amount of time until it can, or,
 finally, it will give up and return `false`. The same thing happens with all
 other operators defined on `Widget`: `!=`, `>`, `>=`, `<`, `<=`, `=~` and
-`!~`. So note this: **widget operators will block until they return true, or
+`!~`. So remember this: **some widget methods will block until they return true, or
 some pre-defined time passes.**
 
 You can take advantage of the OO-nature of the widget API to customize how a
