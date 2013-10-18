@@ -38,7 +38,7 @@ module Dill
 
     def headers
       @headers ||= root.
-        all(header_selector).
+                     all(header_selector).
         map { |n| Widget.new(n).text.downcase }
     end
 

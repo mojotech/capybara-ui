@@ -32,7 +32,7 @@ describe Dill::Conversions do
 
     it 'transforms a comma separated string to a list' do
       expect(List(' one, two , three four') { |v| "#{v}#{v}"}).
-       to eq ['oneone', 'twotwo', 'three fourthree four']
+        to eq ['oneone', 'twotwo', 'three fourthree four']
     end
   end
 
