@@ -82,8 +82,9 @@ widget presents itself to the world. Just override the widget's `#value` method:
     expect(widget(:my_widget)).to eq 'My Widget, eh?'
     expect(widget(:my_widget)).to include 'My'
 
-See [the documentation for Dill::Widget](http://rubydoc.info/github/mojotech/dill/master/Dill/Widget)
-for more.
+See
+[the documentation for Dill::Widget](http://rubydoc.info/github/mojotech/dill/master/Dill/Widget)
+for information on how to use basic widgets.
 
 ### Forms
 
