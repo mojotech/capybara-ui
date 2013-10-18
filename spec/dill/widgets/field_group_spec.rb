@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Dill::FieldGroup do
   shared_examples_for 'a field' do
-    context "when using an auto locator" do
+    context 'when using an auto locator' do
       Then { w.has_widget?(:auto_locator) }
     end
   end
@@ -29,16 +29,16 @@ describe Dill::FieldGroup do
       check_box :auto_locator
     end
 
-    context "when defining" do
+    context 'when defining' do
       Then { w_class.field_names.include?(:unchecked_box) }
     end
 
-    context "when querying" do
+    context 'when querying' do
       Then { w.checked_box == true }
       Then { w.unchecked_box == false }
     end
 
-    context "when setting" do
+    context 'when setting' do
       When { w.checked_box   = false }
       When { w.unchecked_box = true }
 
@@ -95,23 +95,23 @@ describe Dill::FieldGroup do
       select :auto_locator
     end
 
-    context "when defining" do
+    context 'when defining' do
       Then { w_class.field_names.include?(:deselected) }
     end
 
-    context "when querying" do
+    context 'when querying' do
       Then { w.deselected.nil? }
-      Then { w.selected == "Selected option" }
+      Then { w.selected == 'Selected option' }
     end
 
-    context "when setting" do
-      When { w.selected   = "Unselected option" }
-      When { w.deselected = "One" }
-      When { w.by_value   = "t"}
+    context 'when setting' do
+      When { w.selected   = 'Unselected option' }
+      When { w.deselected = 'One' }
+      When { w.by_value   = 't'}
 
-      Then { w.selected   == "Unselected option" }
-      Then { w.deselected == "One" }
-      Then { w.by_value   == "Two" }
+      Then { w.selected   == 'Unselected option' }
+      Then { w.deselected == 'One' }
+      Then { w.by_value   == 'Two' }
     end
 
     context 'when transforming to table' do
@@ -148,21 +148,21 @@ describe Dill::FieldGroup do
       text_field :auto_locator
     end
 
-    context "when defining" do
+    context 'when defining' do
       Then { w_class.field_names.include?(:empty_field) }
     end
 
-    context "when querying" do
+    context 'when querying' do
       Then { w.empty_field.nil? }
-      Then { w.filled_field == "Field contents" }
+      Then { w.filled_field == 'Field contents' }
     end
 
-    context "when setting" do
-      When { w.empty_field  = "Some text" }
+    context 'when setting' do
+      When { w.empty_field  = 'Some text' }
       When { w.filled_field = nil }
 
-      Then { w.empty_field  == "Some text" }
-      Then { w.filled_field == "" }
+      Then { w.empty_field  == 'Some text' }
+      Then { w.filled_field == '' }
     end
 
     describe '#to_table' do

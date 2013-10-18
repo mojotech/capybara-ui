@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Dill::DynamicValue do
-  describe "unchanging equality" do
+  describe 'unchanging equality' do
     Given(:value) { Dill::DynamicValue.new { 'b' } }
 
     Then { value == value }
@@ -9,53 +9,53 @@ describe Dill::DynamicValue do
     Then { ! (value != 'b') }
   end
 
-  describe "delayed equality" do
+  describe 'delayed equality' do
     Given(:value) { v = 'a'; Dill::DynamicValue.new { v.succ! } }
 
     Then { value == 'd' }
   end
 
-  describe "unchanging inequality" do
+  describe 'unchanging inequality' do
     Given(:value) { Dill::DynamicValue.new { 'b' } }
 
     Then { value != 'c'}
     Then { ! (value == 'c') }
   end
 
-  describe "delayed inequality" do
+  describe 'delayed inequality' do
     Given(:value) { v = 'a'; Dill::DynamicValue.new { v.succ! } }
 
     Then { value != 'a' }
   end
 
-  describe "unchanging pattern matching" do
+  describe 'unchanging pattern matching' do
     Given(:value) { Dill::DynamicValue.new { 'b' } }
 
     Then { value =~ /b/ }
     Then { value !~ /c/ }
   end
 
-  describe "delayed pattern matching" do
+  describe 'delayed pattern matching' do
     Given(:value) { v = 'a'; Dill::DynamicValue.new { v.succ! } }
 
     Then { value =~ /f/ }
     Then { value !~ /b/ }
   end
 
-  describe "unchanging delegated comparison" do
+  describe 'unchanging delegated comparison' do
     Given(:value) { Dill::DynamicValue.new { 'b' } }
 
     Then { value < 'c' }
     Then { value > 'a' }
   end
 
-  describe "delayed delegated comparison" do
+  describe 'delayed delegated comparison' do
     Given(:value) { v = 'a'; Dill::DynamicValue.new { v.succ! } }
 
     Then { value > 'b' }
   end
 
-  describe "inspect value" do
+  describe 'inspect value' do
     Given(:value) { Dill::DynamicValue.new { 'b' } }
 
     When(:inspection) { value.inspect }
@@ -63,30 +63,30 @@ describe Dill::DynamicValue do
     Then { inspection == '"b"' }
   end
 
-  describe "responds to missing" do
+  describe 'responds to missing' do
     Given(:value) { Dill::DynamicValue.new { 'b' } }
 
     Then { value.respond_to?(:<) }
   end
 
-  describe "matching" do
+  describe 'matching' do
     Given(:value) { Dill::DynamicValue.new { 'b' } }
 
-    context "simple match" do
+    context 'simple match' do
       Then { value.match(/b/) }
     end
 
-    context "match with block" do
+    context 'match with block' do
       When(:result) { value.match(/b/) { |m| 'w00t!' } }
 
       Then { result == 'w00t!' }
     end
 
-    context "no match" do
+    context 'no match' do
       Then { ! value.match(/No match/) }
     end
 
-    context "no match with position" do
+    context 'no match with position' do
       Then { ! value.match(/b/, 2) }
     end
   end

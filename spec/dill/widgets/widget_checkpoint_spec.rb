@@ -24,8 +24,8 @@ describe Dill::WidgetCheckpoint do
     end
   end
 
-  context "with poltergeist", :js => true, :driver => :poltergeist do
-    context "when an obsolete node error is raised" do
+  context 'with poltergeist', :js => true, :driver => :poltergeist do
+    context 'when an obsolete node error is raised' do
       When(:result) {
         checkpoint.call {
           raise Capybara::Poltergeist::ObsoleteNode.new(nil, nil)

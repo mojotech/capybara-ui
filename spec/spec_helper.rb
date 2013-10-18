@@ -31,7 +31,7 @@ module WidgetSpecDSL
     end
   end
 
-  def GivenHTML(body_html, path = "/test")
+  def GivenHTML(body_html, path = '/test')
     GivenAction body_html, path
 
     Given(:path) { path }

@@ -28,23 +28,23 @@ describe Dill::TextTable do
   let(:table)  { OpenStruct.new(hashes: hashes) }
 
   shared_examples_for 'table' do
-    it "passes header through" do
+    it 'passes header through' do
       expect(t).to have_key(:passthrough)
     end
 
-    it "returns passthrough value" do
+    it 'returns passthrough value' do
       expect(t[:passthrough]).to eq 'a_str'
     end
 
-    it "converts header" do
+    it 'converts header' do
       expect(t).to have_key(:a_symbol)
     end
 
-    it "returns converted header value" do
+    it 'returns converted header value' do
       expect(t[:a_symbol]).to eq 'converted'
     end
 
-    it "converts value with predefined conversion" do
+    it 'converts value with predefined conversion' do
       expect(t[:full2]).to eq true
     end
   end
@@ -54,7 +54,7 @@ describe Dill::TextTable do
 
     it_should_behave_like 'table'
 
-    it "converts value" do
+    it 'converts value' do
       expect(t[:full]).to eq 3
     end
   end
@@ -64,7 +64,7 @@ describe Dill::TextTable do
 
     it_should_behave_like 'table'
 
-    it "converts with overriden conversion" do
+    it 'converts with overriden conversion' do
       expect(t[:full]).to eq 1
     end
   end

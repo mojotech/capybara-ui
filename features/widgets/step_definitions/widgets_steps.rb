@@ -27,7 +27,7 @@ When(/^I execute the following code:$/) do |code|
 end
 
 When(/^I execute "(.*?)"$/) do |code|
-  step "I execute the following code:", code
+  step 'I execute the following code:', code
 end
 
 When(/^I evaluate the following code:$/) do |code|
@@ -43,7 +43,7 @@ Then(/^it should return the following:$/) do |retval|
 end
 
 Then(/^it should return "([^"]+)"$/) do |retval|
-  step "it should return the following:", retval
+  step 'it should return the following:', retval
 end
 
 Then(/^the following should raise an exception:$/) do |code|

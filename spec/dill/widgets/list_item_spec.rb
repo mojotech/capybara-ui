@@ -9,9 +9,9 @@ describe Dill::ListItem do
     root '#item'
   end
 
-  describe "#to_row" do
+  describe '#to_row' do
     When(:row) { w.to_row }
 
-    Then { row == ["Item"] }
+    Then { row == ['Item'] }
   end
 end

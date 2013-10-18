@@ -11,13 +11,13 @@ DRIVERS.each do |driver|
       end
 
       context 'composite selector' do
-        context "using splat" do
+        context 'using splat' do
           GivenWidget { root '.selector', text: 'something' }
 
           Then { w_class.selector == ['.selector', text: 'something'] }
         end
 
-        context "using array" do
+        context 'using array' do
           GivenWidget { root ['.selector', text: 'something'] }
 
           Then { w_class.selector == ['.selector', text: 'something'] }
@@ -26,27 +26,27 @@ DRIVERS.each do |driver|
     end
 
     describe '.widget' do
-      context "declaring a new widget with name and selector" do
+      context 'declaring a new widget with name and selector' do
         GivenHTML <<-HTML
           <span id="widget">Widget</span>
         HTML
 
         GivenWidget { widget :the_widget, '#widget' }
 
-        context "accessing using #widget" do
+        context 'accessing using #widget' do
           When(:widget) { w.widget(:the_widget) }
 
           Then { widget.is_a?(Dill::Widget) }
         end
 
-        context "accessing using #<name>" do
+        context 'accessing using #<name>' do
           When(:widget) { w.the_widget }
 
           Then { widget.is_a?(Dill::Widget) }
         end
       end
 
-      context "declaring a new widget with name and type" do
+      context 'declaring a new widget with name and type' do
         GivenHTML <<-HTML
           <span class="widget">Outer Widget</span>
 
@@ -57,7 +57,7 @@ DRIVERS.each do |driver|
 
         GivenWidget(Dill::Widget, :parent) { root '#container' }
 
-        context "when child type has valid selector" do
+        context 'when child type has valid selector' do
           GivenWidget(Dill::Widget, :child) { root '.widget' }
 
           Given { parent_class.widget :the_widget, child_class }
@@ -67,7 +67,7 @@ DRIVERS.each do |driver|
           Then { widget.to_s == 'Inner Widget' }
         end
 
-        context "when type has no selector" do
+        context 'when type has no selector' do
           GivenWidget Dill::Widget, :child do
             def self.selector
               nil
@@ -80,7 +80,7 @@ DRIVERS.each do |driver|
         end
       end
 
-      context "declaring a new widget with name, selector and type" do
+      context 'declaring a new widget with name, selector and type' do
         GivenHTML <<-HTML
           <span class="widget">Outer Widget</span>
 
@@ -91,7 +91,7 @@ DRIVERS.each do |driver|
 
         GivenWidget(Dill::Widget, :parent) { root '#container' }
 
-        context "when child has a selector" do
+        context 'when child has a selector' do
           GivenWidget(Dill::Widget, :child) { root 'body > .widget' }
 
           Given { parent_class.widget :the_widget, '.widget', child_class }
@@ -101,7 +101,7 @@ DRIVERS.each do |driver|
           Then { widget.to_s == 'Inner Widget' }
         end
 
-        context "when type has no selector" do
+        context 'when type has no selector' do
           GivenWidget Dill::Widget, :child
 
           Given { parent_class.widget :the_widget, '.widget', child_class }
@@ -112,7 +112,7 @@ DRIVERS.each do |driver|
         end
       end
 
-      context "defining new behavior inline" do
+      context 'defining new behavior inline' do
         GivenHTML <<-HTML
           <span id="inline">Guybrush Threepwood</span>
         HTML
@@ -125,7 +125,7 @@ DRIVERS.each do |driver|
           end
         end
 
-        context "using behavior defined inline" do
+        context 'using behavior defined inline' do
           When(:inline) { w.widget(:inline) }
 
           Then { inline.respond_to?(:inline!) == true }
@@ -133,7 +133,7 @@ DRIVERS.each do |driver|
       end
     end
 
-    describe ".widget_delegator" do
+    describe '.widget_delegator' do
       GivenWidget do
         widget :child, '#child' do
           def inline!
@@ -149,7 +149,7 @@ DRIVERS.each do |driver|
       Then { w.respond_to?(:outline!) }
     end
 
-    describe "#==" do
+    describe '#==' do
       GivenWidget { root '#value' }
 
       GivenHTML <<-HTML
@@ -168,7 +168,7 @@ DRIVERS.each do |driver|
         <a href="/destination" id="present">Edit</a>
       HTML
 
-      context "clicking a widget" do
+      context 'clicking a widget' do
         GivenWidget Dill::Widget, :link do
           root 'a'
         end
@@ -179,7 +179,7 @@ DRIVERS.each do |driver|
         Then { url =~ %r{/destination} }
       end
 
-      context "clicking a child widget" do
+      context 'clicking a child widget' do
         GivenWidget do
           widget :link, 'a'
         end
@@ -217,7 +217,7 @@ DRIVERS.each do |driver|
       end
     end
 
-    describe "#has_action?" do
+    describe '#has_action?' do
       GivenHTML <<-HTML
         <a href="#" id="present">Edit</a>
       HTML
@@ -227,22 +227,22 @@ DRIVERS.each do |driver|
         action :absent, '#absent'
       end
 
-      context "when action exists" do
+      context 'when action exists' do
         Then { w.has_action?(:present) }
       end
 
-      context "when action is missing" do
+      context 'when action is missing' do
         Then { ! w.has_action?(:absent) }
       end
 
-      context "when the action is undefined" do
+      context 'when the action is undefined' do
         When(:error) { w.has_action?(:undefined) }
 
         Then { error == Failure(Dill::Missing, /`undefined' action/) }
       end
     end
 
-    describe "#has_widget?" do
+    describe '#has_widget?' do
       GivenHTML <<-HTML
         <span id="present">Guybrush Threepwood</span>
       HTML
@@ -252,22 +252,22 @@ DRIVERS.each do |driver|
         widget :absent, '#absent'
       end
 
-      context "when widget exists" do
+      context 'when widget exists' do
         Then { w.has_widget?(:present) }
       end
 
-      context "when widget is missing" do
+      context 'when widget is missing' do
         Then { ! w.has_widget?(:absent) }
       end
 
-      context "when widget is undefined" do
+      context 'when widget is undefined' do
         When(:error) { w.has_widget?(:undefined) }
 
         Then { error == Failure(Dill::Missing, /`undefined' widget/) }
       end
     end
 
-    describe "#inspect", if: driver == :webkit do
+    describe '#inspect', if: driver == :webkit do
       GivenHTML <<-HTML
         <span id="ins">Ins</span>
       HTML
@@ -285,7 +285,7 @@ DRIVERS.each do |driver|
       Then { inspection == "<!-- Inspect: -->\n<span id=\"ins\">Ins</span>\n" }
     end
 
-    describe "#inspect", if: driver != :webkit do
+    describe '#inspect', if: driver != :webkit do
       GivenHTML <<-HTML
         <p>
           <span id="ins">Ins</span>
@@ -305,7 +305,7 @@ DRIVERS.each do |driver|
       Then { inspection == "<!-- Inspect: -->\n<p>\nIns" }
     end
 
-    describe "inspecting detached node" do
+    describe 'inspecting detached node' do
       GivenHTML <<-HTML
         <span id="ins">Ins</span>
       HTML
@@ -316,11 +316,11 @@ DRIVERS.each do |driver|
 
       When(:inspection) { w.child.inspect }
 p
-      Then { inspection == "#<DETACHED>" }
+      Then { inspection == '#<DETACHED>' }
     end
 
-    describe "#reload" do
-      context "when widget content changes", js: true do
+    describe '#reload' do
+      context 'when widget content changes', js: true do
         GivenHTML <<-HTML
           <script>
             function removeNode() {
@@ -340,7 +340,7 @@ p
         Then { ! w.reload.has_widget?(:removed) }
       end
 
-      context "when the widget node is replaced" do
+      context 'when the widget node is replaced' do
         GivenHTML <<-HTML
           <script>
             function removeNode() {
@@ -362,7 +362,7 @@ p
         Then { failure == Failure(Capybara::ElementNotFound) }
       end
 
-      context "when widget remains the same", js: true do
+      context 'when widget remains the same', js: true do
         GivenHTML <<-HTML
           <span id="present">Guybrush Threepwood</span>
         HTML
@@ -373,8 +373,8 @@ p
       end
     end
 
-    context "when the widget is absent" do
-      GivenHTML ""
+    context 'when the widget is absent' do
+      GivenHTML ''
 
       GivenWidget { root 'a' }
 
@@ -382,7 +382,7 @@ p
       And { w.absent? }
     end
 
-    context "when the widget is present" do
+    context 'when the widget is present' do
       GivenHTML <<-HTML
         <span id="present">Present</span>
       HTML
