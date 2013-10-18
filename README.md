@@ -58,12 +58,12 @@ you can do the samething using Dill, like this:
     expect(widget(:my_widget)).to eq 'My Widget'
 
 This works even if the widget isn't visible yet because, when called,
-`Widget#==` assumes that it's expected to return `true`. If it can't
-return `true`, then it will wait a certain amount of time until it can, or,
-finally, it will give up and return `false`. The same thing happens with all
-other operators defined on `Widget`: `!=`, `>`, `>=`, `<`, `<=`, `=~` and
-`!~`. So remember this: **some widget methods will block until they return true, or
-some pre-defined time passes.**
+`Widget#==` assumes that it's expected to return `true`. If it can't return
+`true`, then it will wait a certain amount of time until it can, or, finally, it
+will give up and return `false`. The same thing happens with all other operators
+defined on `Widget`: `!=`, `>`, `>=`, `<`, `<=`, `=~` and `!~`. So remember
+this: **some widget methods will block until they return true, or some
+pre-defined time passes.**
 
 You can take advantage of the OO-nature of the widget API to customize how a
 widget presents itself to the world. Just override the widget's `#value` method:
