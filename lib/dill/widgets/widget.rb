@@ -148,6 +148,8 @@ module Dill
       define_method name do
         widget(name)
       end
+
+      child
     end
 
     # Creates a delegator for one child widget message.
