@@ -426,19 +426,11 @@ module Dill
     #
     # Returns a String.
     def to_cell
-      text.to_s
-    end
-
-    def to_i
-      text.to_i
-    end
-
-    def to_f
-      text.to_f
+      text
     end
 
     def to_s
-      text.to_s
+      text
     end
 
     def value
