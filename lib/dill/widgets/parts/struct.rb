@@ -6,8 +6,8 @@ module Dill
       end
 
       module ClassMethods
-        def attribute(name, *args, &block)
-          child = widget(name, *args, &block)
+        def attribute(name, selector, &block)
+          child = widget(name, selector, &block)
 
           class_eval <<-WIDGET
             def #{name}
@@ -18,8 +18,8 @@ module Dill
           child
         end
 
-        def boolean(name, *args, &block)
-          child = widget(name, *args, &block)
+        def boolean(name, selector, &block)
+          child = widget(name, selector, &block)
 
           class_eval <<-WIDGET
             def #{name}?
@@ -36,8 +36,8 @@ module Dill
           child
         end
 
-        def date(name, *args, &block)
-          child = attribute(name, *args, &block)
+        def date(name, selector, &block)
+          child = attribute(name, selector, &block)
 
           child.class_eval <<-VALUE
             def value
@@ -48,8 +48,8 @@ module Dill
           child
         end
 
-        def float(name, *args, &block)
-          child = attribute(name, *args, &block)
+        def float(name, selector, &block)
+          child = attribute(name, selector, &block)
 
           child.class_eval <<-VALUE
             def value
@@ -60,8 +60,8 @@ module Dill
           child
         end
 
-        def integer(name, *args, &block)
-          child = attribute(name, *args, &block)
+        def integer(name, selector, &block)
+          child = attribute(name, selector, &block)
 
           child.class_eval <<-VALUE
             def value
