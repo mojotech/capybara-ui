@@ -72,6 +72,22 @@ module Dill
           child
         end
 
+        def list(name, selector, options = {}, &block)
+          child = widget(name, selector, Dill::List) do
+            item options[:item_selector], options[:item_class] || ListItem
+          end
+
+          class_eval <<-WIDGET
+            def #{name}
+              widget(:#{name}).dynamic_value
+            end
+          WIDGET
+
+          child.class_eval(&block) if block_given?
+
+          child
+        end
+
         def string(name, *args, &block)
           child = attribute(name, *args, &block)
 

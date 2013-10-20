@@ -9,6 +9,11 @@ describe 'Widget attributes' do
       <span id="active-since">October 1, 1990</span>
       <span id="last-seen">December 8, 2009 23:33</span>
       <span id="is-pirate">yes</span>
+      <ul id="skills">
+        <li class='skill'>Seafaring</li>
+        <li class='skill'>Insult swordfighting</li>
+        <li class='skill'>Long range spitting</li>
+      </ul>
     </div>
   HTML
 
@@ -21,6 +26,7 @@ describe 'Widget attributes' do
     date :active_since, '#active-since'
     time :last_seen_on, '#last-seen'
     boolean :pirate, '#is-pirate'
+    list :skills, '#skills', item_selector: '.skill'
   end
 
   Then { w.name == 'Guybrush Threepwood' }
@@ -29,4 +35,5 @@ describe 'Widget attributes' do
   Then { w.active_since == Date.civil(1990, 10, 1) }
   Then { w.last_seen_on == Time.local(2009, 12, 8, 23, 33) }
   Then { w.pirate? }
+  Then { w.skills == ['Seafaring', 'Insult swordfighting', 'Long range spitting'] }
 end
