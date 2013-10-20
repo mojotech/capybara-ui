@@ -1,5 +1,7 @@
 module Dill
   module Conversions
+    extend self
+
     def Boolean(val)
       case val
       when 'yes', 'true', true
