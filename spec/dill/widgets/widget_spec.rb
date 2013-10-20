@@ -313,60 +313,6 @@ DRIVERS.each do |driver|
       Then { inspection == '#<DETACHED>' }
     end
 
-    describe '#reload' do
-      context 'when widget content changes', js: true do
-        GivenHTML <<-HTML
-          <script>
-            function removeNode() {
-              var victim = document.getElementById('remove');
-
-              document.body.removeChild(victim);
-            }
-
-            setTimeout(removeNode, 500);
-          </script>
-
-          <span id="remove">Guybrush Threepwood</span>
-        HTML
-
-        GivenWidget { widget :removed, '#remove' }
-
-        Then { ! w.reload.has_widget?(:removed) }
-      end
-
-      context 'when the widget node is replaced' do
-        GivenHTML <<-HTML
-          <script>
-            function removeNode() {
-              var victim = document.getElementById('remove');
-
-              document.body.removeChild(victim);
-            }
-
-            setTimeout(removeNode, 500);
-          </script>
-
-          <span id="remove">Guybrush Threepwood</span>
-        HTML
-
-        GivenWidget { root '#remove' }
-
-        When(:failure) { w.reload }
-
-        Then { failure == Failure(Capybara::ElementNotFound) }
-      end
-
-      context 'when widget remains the same', js: true do
-        GivenHTML <<-HTML
-          <span id="present">Guybrush Threepwood</span>
-        HTML
-
-        GivenWidget { widget :present, '#present' }
-
-        Then { w.reload.has_widget?(:present) }
-      end
-    end
-
     context 'when the widget is absent' do
       GivenHTML ''
 

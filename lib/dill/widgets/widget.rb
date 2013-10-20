@@ -371,39 +371,6 @@ module Dill
       end
     end
 
-    # Reloads the widget, waiting for its contents to change (by default),
-    # or until +wait_time+ expires.
-    #
-    # Call this method to make sure a widget has enough time to update
-    # itself.
-    #
-    # You can pass a block to this method to control what it means for the
-    # widget to be reloaded.
-    #
-    # *Note: does not account for multiple changes to the widget yet.*
-    #
-    # @param wait_time [Numeric] how long we should wait for changes, in
-    #   seconds.
-    #
-    # @yield A block that determines what it means for a widget to be
-    #   reloaded.
-    # @yieldreturn [Boolean] +true+ if the widget is considered to be
-    #   reloaded, +false+ otherwise.
-    #
-    # @return the current widget
-    #
-    # @see Checkpoint
-    def reload(wait_time = Capybara.default_wait_time, &condition)
-      unless condition
-        old_root = root
-        condition = ->{ old_root != root }
-      end
-
-      delay wait_time, &condition
-
-      self
-    end
-
     # Returns +true+ if widget is visible.
     def present?
       delay { !! root rescue false }
