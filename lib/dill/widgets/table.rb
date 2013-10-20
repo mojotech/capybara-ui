@@ -24,7 +24,7 @@ module Dill
       attr_writer :header, :transform
 
       def node_text(node)
-        NodeText.new(node)
+        node.text.strip
       end
 
       def transform

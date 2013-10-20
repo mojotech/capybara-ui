@@ -414,7 +414,7 @@ module Dill
     end
 
     def text
-      NodeText.new(root)
+      root.text.strip
     end
 
     # Converts this widget into a string representation suitable to be displayed

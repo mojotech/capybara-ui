@@ -68,7 +68,7 @@ module Dill
       attr_accessor :cell_selector
 
       def node_text(node)
-        NodeText.new(node)
+        node.text.strip
       end
     end
   end
