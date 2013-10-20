@@ -184,6 +184,10 @@ module Dill
       items.map(&:to_row)
     end
 
+    def value
+      items.map(&:value)
+    end
+
     protected
 
     def_delegator 'self.class', :item_factory
