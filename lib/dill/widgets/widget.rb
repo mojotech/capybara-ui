@@ -5,6 +5,8 @@ module Dill
     include WidgetContainer
     include DynamicValue
 
+    include WidgetParts::Struct
+
     class Removed < StandardError; end
 
     # @!group Widget macros
@@ -144,10 +146,6 @@ module Dill
       child = WidgetClass.new(selector, type, &block)
 
       const_set(Dill::WidgetName.new(name).to_sym, child)
-
-      define_method name do
-        widget(name)
-      end
 
       child
     end
@@ -307,6 +305,10 @@ module Dill
 
     def dynamic(&block)
       DynamicValue.new(&block)
+    end
+
+    def dynamic_value
+      dynamic { value }
     end
 
     # Compares this widget with the given Cucumber +table+.

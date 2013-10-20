@@ -1,4 +1,11 @@
 # This file describes the organization of the major Widget API components.
+#
+# === Parts
+#
+# Widget parts encapsulate the set of behaviours that constitute a widget.
+module Dill::WidgetParts; end
+
+require 'dill/widgets/parts/struct'
 
 require 'dill/widgets/widget_class'
 require 'dill/widgets/widget_checkpoint'

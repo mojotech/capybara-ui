@@ -38,12 +38,6 @@ DRIVERS.each do |driver|
 
           Then { widget.is_a?(Dill::Widget) }
         end
-
-        context 'accessing using #<name>' do
-          When(:widget) { w.the_widget }
-
-          Then { widget.is_a?(Dill::Widget) }
-        end
       end
 
       context 'declaring a new widget with name and type' do
@@ -314,8 +308,8 @@ DRIVERS.each do |driver|
         widget :child, 'a'
       end
 
-      When(:inspection) { w.child.inspect }
-p
+      When(:inspection) { w.widget(:child).inspect }
+
       Then { inspection == '#<DETACHED>' }
     end
 
