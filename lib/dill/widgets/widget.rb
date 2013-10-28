@@ -2,10 +2,10 @@ module Dill
   class Widget
     extend Forwardable
 
-    include WidgetContainer
     include DynamicValue
 
     include WidgetParts::Struct
+    include WidgetParts::Container
 
     class Removed < StandardError; end
 
@@ -108,7 +108,7 @@ module Dill
     # @see #widget
     def self.widget(name, *rest, &block)
       raise ArgumentError, "`#{name}' is a reserved name" \
-        if WidgetContainer.instance_methods.include?(name.to_sym)
+        if WidgetParts::Container.instance_methods.include?(name.to_sym)
 
       case rest.first
       when Class
@@ -152,8 +152,8 @@ module Dill
 
     # Creates a delegator for one child widget message.
     #
-    # Since widgets are accessed through {WidgetContainer#widget}, we can't
-    # use {Forwardable} to delegate messages to widgets.
+    # Since widgets are accessed through {WidgetParts::Container#widget}, we
+    # can't use {Forwardable} to delegate messages to widgets.
     #
     # @param name the name of the receiver child widget
     # @param widget_message the name of the message to be sent to the child widget

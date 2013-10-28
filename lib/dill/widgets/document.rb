@@ -1,6 +1,6 @@
 module Dill
   class Document
-    include WidgetContainer
+    include WidgetParts::Container
 
     def initialize(widget_lookup_scope)
       self.widget_lookup_scope = widget_lookup_scope or raise 'No scope given'
