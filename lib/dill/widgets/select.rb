@@ -21,5 +21,9 @@ module Dill
     #   @return the text of the selected option, or the empty string if
     #     no option is selected.
     def_delegator :get, :to_s
+
+    def to_cell
+      get
+    end
   end
 end

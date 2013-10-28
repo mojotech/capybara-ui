@@ -14,6 +14,10 @@ module Dill
       !! root.checked?
     end
 
+    def to_cell
+      to_s
+    end
+
     # @return +"yes"+ if the checkbox is checked, +"no"+ otherwise.
     def to_s
       get ? 'yes' : 'no'

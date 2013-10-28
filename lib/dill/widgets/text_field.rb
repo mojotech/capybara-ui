@@ -15,5 +15,9 @@ module Dill
     #   @return the text field value, or the empty string if the field is
     #     empty.
     def_delegator :get, :to_s
+
+    def to_cell
+      get
+    end
   end
 end

@@ -11,5 +11,14 @@ module Dill
       set attributes
       submit
     end
+
+    def to_table
+      info = self.
+        class.
+        field_names.
+        each_with_object({}) { |e, a| a[e.to_s] = widget(e).to_cell }
+
+      [info]
+    end
   end
 end
