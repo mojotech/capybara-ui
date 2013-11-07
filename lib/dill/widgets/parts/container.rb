@@ -5,12 +5,12 @@ module Dill
         widget(name).absent?
       end
 
-      def has_widget?(name)
-        widget(name).present?
+      def has_widget?(name, *args)
+        widget(name, *args).present?
       end
 
-      def widget(name)
-        widget_class(name).find_in(self)
+      def widget(name, *args)
+        widget_class(name).find_in(self, *args)
       end
 
       private

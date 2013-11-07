@@ -33,6 +33,21 @@ DRIVERS.each do |driver|
       Then { widget == 'Right' }
     end
 
+    context 'the widget can be targeted by a lazy selector' do
+      GivenHTML <<-HTML
+        <span class="multiple">Right</span>
+        <span class="multiple">Wrong</span>
+      HTML
+
+      GivenWidget do
+        root { |text| ['.multiple', text: text] }
+      end
+
+      When(:widget) { w_class.find_in(document, 'Right') }
+
+      Then { widget == 'Right' }
+    end
+
     context "the widget can't be targeted unambiguously" do
       GivenHTML <<-HTML
         <span class="multiple">First</span>

@@ -10,15 +10,15 @@ module Dill
 
     # @return [Boolean] Whether one or more widgets exist in the current
     #   document.
-    def has_widget?(name)
-      document.has_widget?(name)
+    def has_widget?(name, *args)
+      document.has_widget?(name, *args)
     end
 
     # Returns a widget instance for the given name.
     #
     # @param name [String, Symbol]
-    def widget(name)
-      document.widget(name)
+    def widget(name, *args)
+      document.widget(name, *args)
     end
 
     def widget_lookup_scope

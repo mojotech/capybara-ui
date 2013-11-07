@@ -182,8 +182,8 @@ module Dill
     # @return a new instance of the current widget class.
     #
     # @raise [Capybara::ElementNotFoundError] if the widget can't be found
-    def self.find_in(parent)
-      new { parent.root.find(*selector) }
+    def self.find_in(parent, *args)
+      new { parent.root.find(*selector(*args)) }
     end
 
     # Determines if an instance of this widget class exists in
@@ -249,13 +249,13 @@ module Dill
     #   class MyWidgetUsesXPath < Dill::Widget
     #     root :xpath, '//some/node'
     #   end
-    def self.root(*selector)
-      @selector = selector.flatten
+    def self.root(*selector, &block)
+      @selector = block || selector
     end
 
     # Returns the selector specified with +root+.
-    def self.selector
-      @selector
+    def self.selector(*args)
+      @selector.respond_to?(:call) ? @selector.call(*args) : @selector.flatten
     end
 
     def initialize(node = nil, &query)
