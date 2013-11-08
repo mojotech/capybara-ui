@@ -380,8 +380,12 @@ module Dill
       node || query.()
     end
 
-    def text
+    def original_text
       root.text.strip
+    end
+
+    def text
+      original_text.downcase
     end
 
     # Converts this widget into a string representation suitable to be displayed
