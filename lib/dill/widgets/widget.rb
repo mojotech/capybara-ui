@@ -123,7 +123,7 @@ module Dill
           unless type.selector
 
         selector = type.selector
-      when String, Array
+      when String, Array, Proc
         arg_count = rest.size + 1
 
         case arg_count
@@ -250,12 +250,14 @@ module Dill
     #     root :xpath, '//some/node'
     #   end
     def self.root(*selector, &block)
-      @selector = block || selector
+      @selector = block ? [block] : selector.flatten
     end
 
     # Returns the selector specified with +root+.
     def self.selector(*args)
-      @selector.respond_to?(:call) ? @selector.call(*args) : @selector.flatten
+      fst = @selector.first
+
+      fst.respond_to?(:call) ? fst.call(*args) : @selector
     end
 
     def initialize(node = nil, &query)
