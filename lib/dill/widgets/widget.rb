@@ -297,11 +297,11 @@ module Dill
     # This is the equivalent of doing the following using Capybara:
     #
     #   find('#container a').click
-    def click(name = nil)
-      if name
-        widget(name).click
-      else
+    def click(*args)
+      if args.empty?
         root.click
+      else
+        widget(*args).click
       end
     end
 
