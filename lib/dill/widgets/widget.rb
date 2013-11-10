@@ -255,9 +255,17 @@ module Dill
 
     # Returns the selector specified with +root+.
     def self.selector(*args)
-      fst = @selector.first
+      if @selector
+        fst = @selector.first
 
-      fst.respond_to?(:call) ? fst.call(*args) : @selector
+        fst.respond_to?(:call) ? fst.call(*args) : @selector
+      else
+        if superclass.respond_to?(:selector)
+          superclass.selector
+        else
+          raise 'no selector defined'
+        end
+      end
     end
 
     def initialize(node = nil, &query)
