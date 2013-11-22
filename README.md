@@ -43,12 +43,9 @@ like this:
 ### Philosophy
 
 A test is typically comprised of 3 phases: Arrange (Given), Act
-(When) and Assert (Then). Widgets care about Act and Assert, so they let you
+(When) and Assert (Then). Widgets take a central roles in Act, and they provide helpful access to information you'll need when you Assert.
 
-1. do things, and
-2. verify things
-
-much like Capybara, but in a more object-oriented manner. So, for example,
+Widgets allow you to interact with your DOM in a more object-oriented manner. For example,
 where, in Capybara, you would test if a node contains some text like this:
 
     expect(page).to have_selector('#my-widget', text: 'My Widget')
@@ -56,14 +53,6 @@ where, in Capybara, you would test if a node contains some text like this:
 you can do the samething using Dill, like this:
 
     expect(widget(:my_widget)).to eq 'My Widget'
-
-This works even if the widget isn't visible yet because, when called,
-`Widget#==` assumes that it's expected to return `true`. If it can't return
-`true`, then it will wait a certain amount of time until it can, or, finally, it
-will give up and return `false`. The same thing happens with all other operators
-defined on `Widget`: `!=`, `>`, `>=`, `<`, `<=`, `=~` and `!~`. So remember
-this: **some widget methods will block until they return true, or some
-pre-defined time passes.**
 
 You can take advantage of the OO-nature of the widget API to customize how a
 widget presents itself to the world. Just override the widget's `#value` method:
@@ -85,6 +74,10 @@ widget presents itself to the world. Just override the widget's `#value` method:
 See
 [the documentation for Dill::Widget](http://rubydoc.info/github/mojotech/dill/master/Dill/Widget)
 for information on how to use basic widgets.
+
+### Waiting on assertions
+
+TODO
 
 ### Forms
 
