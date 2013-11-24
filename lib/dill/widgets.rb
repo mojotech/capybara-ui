@@ -18,6 +18,17 @@ module Dill
         end
       end
     end
+
+    require 'bigdecimal'
+
+    def Decimal(selector)
+      WidgetClass.new(selector) do
+        def value
+          # ensure we can convert to float first
+          Float(text) && BigDecimal.new(text)
+        end
+      end
+    end
   end
 
   extend Constructors
