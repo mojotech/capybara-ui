@@ -11,7 +11,7 @@ module Dill
 
     alias_method :String, :Widget
 
-    def Integer(selector)
+    def Integer(*selector)
       Widget(selector) do
         def value
           Integer(text)
@@ -21,7 +21,7 @@ module Dill
 
     require 'bigdecimal'
 
-    def Decimal(selector)
+    def Decimal(*selector)
       Widget(selector) do
         def value
           # ensure we can convert to float first
