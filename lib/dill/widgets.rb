@@ -10,6 +10,14 @@ module Dill
     end
 
     alias_method :String, :Widget
+
+    def Integer(selector)
+      WidgetClass.new(selector) do
+        def value
+          Integer(text)
+        end
+      end
+    end
   end
 
   extend Constructors

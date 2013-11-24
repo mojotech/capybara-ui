@@ -12,4 +12,32 @@ describe 'Widget values' do
 
     Then { value(:str) == 'Hello, world!' }
   end
+
+  describe 'Widgets as integers' do
+    context 'Widget content can be cast to an integer' do
+      GivenHTML <<-HTML
+        <span id="my-widget">1</span>
+      HTML
+
+      GivenWidget do
+        Int = Dill::Integer('#my-widget')
+      end
+
+      Then { value(:int) == 1 }
+    end
+
+    context 'Widget content cannot be cast to an integer' do
+      GivenHTML <<-HTML
+        <span id="my-widget">String</span>
+      HTML
+
+      GivenWidget do
+        Int = Dill::Integer('#my-widget')
+      end
+
+      When(:result) { value(:int) }
+
+      Then { result == Failure(ArgumentError, /invalid value for Integer()/) }
+    end
+  end
 end
