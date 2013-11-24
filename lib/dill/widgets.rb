@@ -5,8 +5,8 @@
 # Widget parts encapsulate the set of behaviours that constitute a widget.
 module Dill
   module Constructors
-    def Widget(selector, &block)
-      WidgetClass.new(selector, &block)
+    def Widget(*selector, &block)
+      WidgetClass.new(selector.flatten, &block)
     end
 
     alias_method :String, :Widget

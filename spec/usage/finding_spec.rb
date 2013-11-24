@@ -44,6 +44,20 @@ describe 'Finding a widget' do
     And { widget(:composite).is_a?(Composite)}
   end
 
+  describe 'Using a composite selector (short form)' do
+    GivenHTML <<-HTML
+      <span class="multiple">Right</span>
+      <span class="multiple">Wrong</span>
+    HTML
+
+    GivenWidget do
+      CompositeForm = Dill::Widget('.multiple', text: 'Right')
+    end
+
+    Then { widget(:composite_form).text == 'Right' }
+    Then { widget(:composite_form).is_a?(CompositeForm) }
+  end
+
   context 'Using a lazy selector' do
     GivenHTML <<-HTML
       <span class="multiple">Right</span>
@@ -58,6 +72,20 @@ describe 'Finding a widget' do
 
     Then { widget(:lazy, 'Right').text == 'Right' }
     And { widget(:lazy).is_a?(Lazy)}
+  end
+
+  context 'Using a lazy selector (short form)' do
+    GivenHTML <<-HTML
+      <span class="multiple">Right</span>
+      <span class="multiple">Wrong</span>
+    HTML
+
+    GivenWidget do
+      LazyForm = Dill::Widget(->(text){ ['.multiple', text: text] })
+    end
+
+    Then { widget(:lazy_form, 'Right').text == 'Right' }
+    And { widget(:lazy_form).is_a?(LazyForm)}
   end
 
   context 'Using an ambiguous selector' do
