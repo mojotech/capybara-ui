@@ -14,6 +14,10 @@ module Dill
       document.has_widget?(name, *args)
     end
 
+    def value(name)
+      widget(name).value
+    end
+
     # Returns a widget instance for the given name.
     #
     # @param name [String, Symbol]
