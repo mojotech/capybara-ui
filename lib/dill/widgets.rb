@@ -3,6 +3,18 @@
 # === Parts
 #
 # Widget parts encapsulate the set of behaviours that constitute a widget.
+module Dill
+  module Constructors
+    def Widget(selector)
+      Class.new Dill::Widget do
+        root selector
+      end
+    end
+  end
+
+  extend Constructors
+end
+
 module Dill::WidgetParts; end
 
 require 'dill/widgets/parts/struct'
