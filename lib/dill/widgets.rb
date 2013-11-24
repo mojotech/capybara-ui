@@ -5,14 +5,14 @@
 # Widget parts encapsulate the set of behaviours that constitute a widget.
 module Dill
   module Constructors
-    def Widget(selector)
-      WidgetClass.new(selector)
+    def Widget(selector, &block)
+      WidgetClass.new(selector, &block)
     end
 
     alias_method :String, :Widget
 
     def Integer(selector)
-      WidgetClass.new(selector) do
+      Widget(selector) do
         def value
           Integer(text)
         end
@@ -22,7 +22,7 @@ module Dill
     require 'bigdecimal'
 
     def Decimal(selector)
-      WidgetClass.new(selector) do
+      Widget(selector) do
         def value
           # ensure we can convert to float first
           Float(text) && BigDecimal.new(text)
