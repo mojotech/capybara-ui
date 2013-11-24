@@ -7,11 +7,9 @@ describe 'Widget values' do
     HTML
 
     GivenWidget do
-      class WString < Dill::Widget
-        root '#my-widget'
-      end
+      Str = Dill::String('#my-widget')
     end
 
-    Then { value(:w_string) == 'Hello, world!' }
+    Then { value(:str) == 'Hello, world!' }
   end
 end

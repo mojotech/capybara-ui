@@ -10,6 +10,8 @@ module Dill
         root selector
       end
     end
+
+    alias_method :String, :Widget
   end
 
   extend Constructors
