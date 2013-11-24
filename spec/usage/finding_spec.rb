@@ -1,6 +1,33 @@
 require 'spec_helper'
 
 describe 'Finding a widget' do
+  describe 'Using a simple selector' do
+    GivenHTML <<-HTML
+      <span id="my-widget">Hello, world!</span>
+    HTML
+
+    GivenWidget do
+      class Simplest < Dill::Widget
+        root '#my-widget'
+      end
+    end
+
+    Then { widget(:simplest).text == 'Hello, world!' }
+    And { widget(:simplest).is_a?(Simplest) }
+  end
+
+  describe 'Using a simple selector (short form)' do
+    GivenHTML <<-HTML
+      <span id="my-widget">Hello, world!</span>
+    HTML
+
+    GivenWidget do
+      ShortForm = Dill::Widget('#my-widget')
+    end
+
+    Then { widget(:short_form).is_a?(ShortForm) }
+  end
+
   context 'Using a composite selector' do
     GivenHTML <<-HTML
       <span class="multiple">Right</span>
@@ -14,6 +41,7 @@ describe 'Finding a widget' do
     end
 
     Then { widget(:composite).text == 'Right' }
+    And { widget(:composite).is_a?(Composite)}
   end
 
   context 'Using a lazy selector' do
@@ -29,6 +57,7 @@ describe 'Finding a widget' do
     end
 
     Then { widget(:lazy, 'Right').text == 'Right' }
+    And { widget(:lazy).is_a?(Lazy)}
   end
 
   context 'Using an ambiguous selector' do
