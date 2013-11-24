@@ -6,9 +6,7 @@
 module Dill
   module Constructors
     def Widget(selector)
-      Class.new Dill::Widget do
-        root selector
-      end
+      WidgetClass.new(selector)
     end
 
     alias_method :String, :Widget
