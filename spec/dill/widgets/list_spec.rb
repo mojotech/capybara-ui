@@ -11,10 +11,13 @@ describe Dill::List do
         </ul>
       HTML
 
-      GivenWidget Dill::List
+      GivenWidget do
+        class List < Dill::List
+        end
+      end
 
-      When(:size) { w.size }
-      When(:first) { w.first }
+      When(:size) { widget(:list).size }
+      When(:first) { widget(:list).first }
 
       Then { size == 3 }
       Then { first == 'One' }
@@ -29,14 +32,16 @@ describe Dill::List do
         </ul>
       HTML
 
-      GivenWidget Dill::List do
-        root '#colors'
+      GivenWidget do
+        class List < Dill::List
+          root '#colors'
 
-        item '.color'
+          item '.color'
+        end
       end
 
-      When(:size) { w.size }
-      When(:first) { w.first }
+      When(:size) { widget(:list).size }
+      When(:first) { widget(:list).first }
 
       Then { size == 3 }
       Then { first == 'Red' }
@@ -47,33 +52,31 @@ describe Dill::List do
     context 'using the default item type' do
       Given(:default_item_type) { Dill::ListItem }
 
-      GivenWidget Dill::List do
-        item '.selector'
-      end
-
-      context 'interns the selector' do
-        When(:selector) { w_class.item_factory.selector }
-
-        Then { selector == ['.selector'] }
-      end
-
-      context 'uses the default item type as the superclass' do
-        When(:type) { w_class.item_factory.superclass }
-
-        Then { type == default_item_type }
-      end
-
-      context 'allows extending the list item type inline' do
-        GivenWidget Dill::List do
+      GivenWidget do
+        class List < Dill::List
           item '.selector' do
             def hurray!
               'hurray!'
             end
           end
         end
+      end
 
+      context 'interns the selector' do
+        When(:selector) { List.item_factory.selector }
+
+        Then { selector == ['.selector'] }
+      end
+
+      context 'uses the default item type as the superclass' do
+        When(:type) { List.item_factory.superclass }
+
+        Then { type == default_item_type }
+      end
+
+      context 'allows extending the list item type inline' do
         context 'adds the extensions to the list item type' do
-          When(:methods) { w_class.item_factory.instance_methods(false) }
+          When(:methods) { List.item_factory.instance_methods(false) }
 
           Then { methods.include?(:hurray!) }
         end
@@ -87,22 +90,26 @@ describe Dill::List do
     end
 
     context 'allows setting a custom item type' do
-      class Child < Dill::Widget; end
+      GivenWidget do
+        class Child < Dill::Widget; end
 
-      GivenWidget Dill::List do
-        item '.selector', Child
+        class List < Dill::List
+          item '.selector', Child
+        end
       end
 
-      When(:base_type) { w_class.item_factory.superclass }
+      When(:base_type) { List.item_factory.superclass }
 
       Then { base_type == Child }
     end
   end
 
   describe '#empty?' do
-    GivenWidget Dill::List do
-      root 'ul'
-      item 'li'
+    GivenWidget do
+      class List < Dill::List
+        root 'ul'
+        item 'li'
+      end
     end
 
     context 'when the list is empty' do
@@ -111,7 +118,7 @@ describe Dill::List do
         </ul>
       HTML
 
-      Then { w.empty? }
+      Then { widget(:list).empty? }
     end
 
     context 'when the list is not' do
@@ -121,14 +128,16 @@ describe Dill::List do
         </ul>
       HTML
 
-      Then { ! w.empty? }
+      Then { ! widget(:list).empty? }
     end
   end
 
   describe '#exclude?' do
-    GivenWidget Dill::List do
-      root 'ul'
-      item 'li'
+    GivenWidget do
+      class List < Dill::List
+        root 'ul'
+        item 'li'
+      end
     end
 
     context 'when the element is on the list' do
@@ -138,7 +147,7 @@ describe Dill::List do
         </ul>
       HTML
 
-      Then { ! w.exclude?('Red') }
+      Then { ! widget(:list).exclude?('Red') }
     end
 
     context 'when the element is not on the list' do
@@ -148,14 +157,16 @@ describe Dill::List do
         </ul>
       HTML
 
-      Then { w.exclude?('Red') }
+      Then { widget(:list).exclude?('Red') }
     end
   end
 
   describe '#include?' do
-    GivenWidget Dill::List do
-      root 'ul'
-      item 'li'
+    GivenWidget do
+      class List < Dill::List
+        root 'ul'
+        item 'li'
+      end
     end
 
     context 'when the element is on the list' do
@@ -165,7 +176,7 @@ describe Dill::List do
         </ul>
       HTML
 
-      Then { w.include?('Red') }
+      Then { widget(:list).include?('Red') }
     end
 
     context 'when the element is not on the list' do
@@ -175,7 +186,7 @@ describe Dill::List do
         </ul>
       HTML
 
-      Then { ! w.include?('Red') }
+      Then { ! widget(:list).include?('Red') }
     end
   end
 
@@ -188,13 +199,19 @@ describe Dill::List do
       </ul>
     HTML
 
-    GivenWidget Dill::List
+    GivenWidget do
+      class List < Dill::List
+      end
+    end
 
-    Then { w.to_row == %w(One Two Three) }
+    Then { widget(:list).to_row == %w(One Two Three) }
   end
 
   describe '#to_table' do
-    GivenWidget Dill::List
+    GivenWidget do
+      class List < Dill::List
+      end
+    end
 
     context 'with rows' do
       GivenHTML <<-HTML
@@ -205,7 +222,7 @@ describe Dill::List do
         </ul>
       HTML
 
-      When(:table) { w.to_table }
+      When(:table) { widget(:list).to_table }
 
       Then { table == [%w(One), %w(Two), %w(Three)] }
     end
@@ -215,7 +232,7 @@ describe Dill::List do
         <ul></ul>
       HTML
 
-      When(:table) { w.to_table }
+      When(:table) { widget(:list).to_table }
 
       Then { table == [] }
     end

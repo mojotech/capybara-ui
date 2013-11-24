@@ -15,12 +15,14 @@ DRIVERS.each do |driver|
       </form>
     HTML
 
-    GivenWidget Dill::Form do
-      root 'form'
+    GivenWidget do
+      class MyWidget < Dill::Form
+        root 'form'
 
-      text_field :name, 'name'
-      check_box :protagonist, 'protagonist'
-      select :selected_item, 'selected-item'
+        text_field :name, 'name'
+        check_box :protagonist, 'protagonist'
+        select :selected_item, 'selected-item'
+      end
     end
 
     Given(:base_fields) {
@@ -36,7 +38,7 @@ DRIVERS.each do |driver|
     context "same table" do
       Given(:fields) { base_fields }
 
-      When(:result) { w.diff table }
+      When(:result) { widget(:my_widget).diff table }
 
       Then { result == true }
     end
@@ -44,7 +46,7 @@ DRIVERS.each do |driver|
     context "different table" do
       Given(:fields) { base_fields.merge('protagonist' => 'no') }
 
-      When(:result) { w.diff table }
+      When(:result) { widget(:my_widget).diff table }
 
       Then { result == Failure(Cucumber::Ast::Table::Different) }
     end

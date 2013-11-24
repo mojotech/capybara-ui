@@ -18,22 +18,24 @@ describe 'Widget attributes' do
   HTML
 
   GivenWidget do
-    root '#container'
+    class MyWidget < Dill::Widget
+      root '#container'
 
-    string :name, '#name'
-    integer :age, '#age'
-    float :weight, '#weight'
-    date :active_since, '#active-since'
-    time :last_seen_on, '#last-seen'
-    boolean :pirate, '#is-pirate'
-    list :skills, '#skills', item_selector: '.skill'
+      string :name, '#name'
+      integer :age, '#age'
+      float :weight, '#weight'
+      date :active_since, '#active-since'
+      time :last_seen_on, '#last-seen'
+      boolean :pirate, '#is-pirate'
+      list :skills, '#skills', item_selector: '.skill'
+    end
   end
 
-  Then { w.name == 'Guybrush Threepwood' }
-  Then { w.age == 21 }
-  Then { w.weight == 185.5 }
-  Then { w.active_since == Date.civil(1990, 10, 1) }
-  Then { w.last_seen_on == Time.local(2009, 12, 8, 23, 33) }
-  Then { w.pirate? }
-  Then { w.skills == ['Seafaring', 'Insult swordfighting', 'Long range spitting'] }
+  Then { widget(:my_widget).name == 'Guybrush Threepwood' }
+  Then { widget(:my_widget).age == 21 }
+  Then { widget(:my_widget).weight == 185.5 }
+  Then { widget(:my_widget).active_since == Date.civil(1990, 10, 1) }
+  Then { widget(:my_widget).last_seen_on == Time.local(2009, 12, 8, 23, 33) }
+  Then { widget(:my_widget).pirate? }
+  Then { widget(:my_widget).skills == ['Seafaring', 'Insult swordfighting', 'Long range spitting'] }
 end

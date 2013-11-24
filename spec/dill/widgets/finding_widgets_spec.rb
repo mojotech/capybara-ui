@@ -10,12 +10,14 @@ DRIVERS.each do |driver|
       HTML
 
       GivenWidget do
-        root '#single'
+        class MyWidget < Dill::Widget
+          root '#single'
+        end
       end
 
-      When(:widget) { w_class.find_in(document) }
+      When(:w) { MyWidget.find_in(document) }
 
-      Then { widget == 'Content' }
+      Then { w == 'Content' }
     end
 
     context 'the widget can be targeted by a composite selector' do
@@ -25,12 +27,14 @@ DRIVERS.each do |driver|
       HTML
 
       GivenWidget do
-        root '.multiple', text: 'Right'
+        class MyWidget < Dill::Widget
+          root '.multiple', text: 'Right'
+        end
       end
 
-      When(:widget) { w_class.find_in(document) }
+      When(:w) { MyWidget.find_in(document) }
 
-      Then { widget == 'Right' }
+      Then { w == 'Right' }
     end
 
     context 'the widget can be targeted by a lazy selector' do
@@ -40,12 +44,14 @@ DRIVERS.each do |driver|
       HTML
 
       GivenWidget do
-        root { |text| ['.multiple', text: text] }
+        class MyWidget < Dill::Widget
+          root { |text| ['.multiple', text: text] }
+        end
       end
 
-      When(:widget) { w_class.find_in(document, 'Right') }
+      When(:w) { MyWidget.find_in(document, 'Right') }
 
-      Then { widget == 'Right' }
+      Then { w == 'Right' }
     end
 
     context "the widget can't be targeted unambiguously" do
@@ -55,12 +61,14 @@ DRIVERS.each do |driver|
       HTML
 
       GivenWidget do
-        root '.multiple'
+        class MyWidget < Dill::Widget
+          root '.multiple'
+        end
       end
 
-      Given(:widget) { w_class.find_in(document) }
+      Given(:w) { MyWidget.find_in(document) }
 
-      When(:ambiguous) { widget.value }
+      When(:ambiguous) { w.value }
 
       Then { ambiguous == Failure(Capybara::Ambiguous) }
     end
@@ -71,12 +79,14 @@ DRIVERS.each do |driver|
       HTML
 
       GivenWidget do
-        root '#none'
+        class MyWidget < Dill::Widget
+          root '#none'
+        end
       end
 
-      Given(:widget) { w_class.find_in(document) }
+      Given(:w) { MyWidget.find_in(document) }
 
-      When(:missing) { widget.value }
+      When(:missing) { w.value }
 
       Then { missing == Failure(Capybara::ElementNotFound) }
     end

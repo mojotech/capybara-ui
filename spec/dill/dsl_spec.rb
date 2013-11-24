@@ -10,8 +10,6 @@ module WidgetNS
 end
 
 describe Dill::DSL do
-  include Dill::DSL
-
   GivenHTML <<-HTML
     <span id="top">Top Widget</span>
   HTML

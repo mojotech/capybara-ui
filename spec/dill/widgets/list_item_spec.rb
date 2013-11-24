@@ -5,12 +5,14 @@ describe Dill::ListItem do
     <span id="item">Item</span>
   HTML
 
-  GivenWidget Dill::ListItem do
-    root '#item'
+  GivenWidget do
+    class ListItem < Dill::ListItem
+      root '#item'
+    end
   end
 
   describe '#to_row' do
-    When(:row) { w.to_row }
+    When(:row) { widget(:list_item).to_row }
 
     Then { row == ['Item'] }
   end

@@ -142,12 +142,13 @@ module Dill
       end
 
       def selector
-        super ||
-          begin
-            root 'ul'
+        begin
+          super
+        rescue Widget::MissingSelector
+          root 'ul'
 
-            super
-          end
+          super
+        end
       end
     end
 

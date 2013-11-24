@@ -253,6 +253,9 @@ module Dill
       @selector = block ? [block] : selector.flatten
     end
 
+    class MissingSelector < StandardError
+    end
+
     # Returns the selector specified with +root+.
     def self.selector(*args)
       if @selector
@@ -263,7 +266,7 @@ module Dill
         if superclass.respond_to?(:selector)
           superclass.selector
         else
-          raise 'no selector defined'
+          raise MissingSelector, 'no selector defined'
         end
       end
     end

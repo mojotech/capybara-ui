@@ -5,22 +5,34 @@ DRIVERS.each do |driver|
   describe Dill::Widget, "using #{driver}", js: true, driver: driver do
     describe '.root' do
       context 'simple selector' do
-        GivenWidget { root '.selector' }
+        GivenWidget do
+          class MyWidget < Dill::Widget
+            root '.selector'
+          end
+        end
 
-        Then { w_class.selector == ['.selector'] }
+        Then { MyWidget.selector == ['.selector'] }
       end
 
       context 'composite selector' do
         context 'using splat' do
-          GivenWidget { root '.selector', text: 'something' }
+          GivenWidget do
+            class MyWidget < Dill::Widget
+              root '.selector', text: 'something'
+            end
+          end
 
-          Then { w_class.selector == ['.selector', text: 'something'] }
+          Then { MyWidget.selector == ['.selector', text: 'something'] }
         end
 
         context 'using array' do
-          GivenWidget { root ['.selector', text: 'something'] }
+          GivenWidget do
+            class MyWidget < Dill::Widget
+              root ['.selector', text: 'something']
+            end
+          end
 
-          Then { w_class.selector == ['.selector', text: 'something'] }
+          Then { MyWidget.selector == ['.selector', text: 'something'] }
         end
       end
     end
@@ -31,12 +43,16 @@ DRIVERS.each do |driver|
           <span id="widget">Widget</span>
         HTML
 
-        GivenWidget { widget :the_widget, '#widget' }
+        GivenWidget do
+          class MyWidget < Dill::Widget
+            widget :the_widget, '#widget'
+          end
+        end
 
         context 'accessing using #widget' do
-          When(:widget) { w.widget(:the_widget) }
+          When(:w) { widget(:my_widget).widget(:the_widget) }
 
-          Then { widget.is_a?(Dill::Widget) }
+          Then { w.is_a?(Dill::Widget) }
         end
       end
 
@@ -49,26 +65,36 @@ DRIVERS.each do |driver|
           </div>
         HTML
 
-        GivenWidget(Dill::Widget, :parent) { root '#container' }
-
-        context 'when child type has valid selector' do
-          GivenWidget(Dill::Widget, :child) { root '.widget' }
-
-          Given { parent_class.widget :the_widget, child_class }
-
-          When(:widget) { parent.widget(:the_widget) }
-
-          Then { widget.to_s == 'Inner Widget' }
+        GivenWidget do
+          class Parent < Dill::Widget
+            root '#container'
+          end
         end
 
-        context 'when type has no selector' do
-          GivenWidget Dill::Widget, :child do
-            def self.selector
-              nil
+        context 'when child type has valid selector' do
+          GivenWidget do
+            class Child < Dill::Widget
+              root '.widget'
             end
           end
 
-          When(:result) { parent_class.widget :the_widget, child_class }
+          Given { Parent.widget :the_widget, Child }
+
+          When(:child) { widget(:parent).widget(:the_widget) }
+
+          Then { child.to_s == 'Inner Widget' }
+        end
+
+        context 'when type has no selector' do
+          GivenWidget do
+            class Child < Dill::Widget
+              def self.selector
+                nil
+              end
+            end
+          end
+
+          When(:result) { Parent.widget :the_widget, Child }
 
           Then { result == Failure(ArgumentError, /missing root selector/) }
         end
@@ -83,26 +109,37 @@ DRIVERS.each do |driver|
           </div>
         HTML
 
-        GivenWidget(Dill::Widget, :parent) { root '#container' }
+        GivenWidget do
+          class Parent < Dill::Widget
+            root '#container'
+          end
+        end
 
         context 'when child has a selector' do
-          GivenWidget(Dill::Widget, :child) { root 'body > .widget' }
+          GivenWidget do
+            class Child < Dill::Widget
+              root 'body > .widget'
+            end
+          end
 
-          Given { parent_class.widget :the_widget, '.widget', child_class }
+          Given { Parent.widget :the_widget, '.widget', Child }
 
-          When(:widget) { parent.widget(:the_widget) }
+          When(:child) { widget(:parent).widget(:the_widget) }
 
-          Then { widget.to_s == 'Inner Widget' }
+          Then { child.to_s == 'Inner Widget' }
         end
 
         context 'when type has no selector' do
-          GivenWidget Dill::Widget, :child
+          GivenWidget do
+            class Child < Dill::Widget
+            end
+          end
 
-          Given { parent_class.widget :the_widget, '.widget', child_class }
+          Given { Parent.widget :the_widget, '.widget', Child }
 
-          When(:widget) { parent.widget(:the_widget) }
+          When(:child) { widget(:parent).widget(:the_widget) }
 
-          Then { widget.to_s == 'Inner Widget' }
+          Then { child.to_s == 'Inner Widget' }
         end
       end
 
@@ -112,15 +149,17 @@ DRIVERS.each do |driver|
         HTML
 
         GivenWidget do
-          widget :inline, '#inline' do
-            def inline!
-              'yay'
+          class MyWidget < Dill::Widget
+            widget :inline, '#inline' do
+              def inline!
+                'yay'
+              end
             end
           end
         end
 
         context 'using behavior defined inline' do
-          When(:inline) { w.widget(:inline) }
+          When(:inline) { widget(:my_widget).widget(:inline) }
 
           Then { inline.respond_to?(:inline!) == true }
         end
@@ -129,28 +168,34 @@ DRIVERS.each do |driver|
 
     describe '.widget_delegator' do
       GivenWidget do
-        widget :child, '#child' do
-          def inline!
-            'yay!'
+        class MyWidget < Dill::Widget
+          widget :child, '#child' do
+            def inline!
+              'yay!'
+            end
           end
-        end
 
-        widget_delegator :child, :inline!
-        widget_delegator :child, :inline!, :outline!
+          widget_delegator :child, :inline!
+          widget_delegator :child, :inline!, :outline!
+        end
       end
 
-      Then { w.respond_to?(:inline!) }
-      Then { w.respond_to?(:outline!) }
+      Then { widget(:my_widget).respond_to?(:inline!) }
+      Then { widget(:my_widget).respond_to?(:outline!) }
     end
 
     describe '#==' do
-      GivenWidget { root '#value' }
+      GivenWidget do
+        class MyWidget < Dill::Widget
+          root '#value'
+        end
+      end
 
       GivenHTML <<-HTML
         <span id="value">1</span>
       HTML
 
-      Then { w == '1' }
+      Then { widget(:my_widget) == '1' }
     end
 
     describe '#click' do
@@ -163,11 +208,13 @@ DRIVERS.each do |driver|
       HTML
 
       context 'clicking a widget' do
-        GivenWidget Dill::Widget, :link do
-          root 'a'
+        GivenWidget do
+          class Link < Dill::Widget
+            root 'a'
+          end
         end
 
-        When       { link.click }
+        When       { widget(:link).click }
         When(:url) { Capybara.current_session.current_url }
 
         Then { url =~ %r{/destination} }
@@ -175,10 +222,14 @@ DRIVERS.each do |driver|
 
       context 'clicking a child widget' do
         GivenWidget do
-          widget :link, 'a'
+          class Container < Dill::Widget
+            root 'body'
+
+            widget :link, 'a'
+          end
         end
 
-        When       { w.click :link  }
+        When       { widget(:container).click :link  }
         When(:url) { Capybara.current_session.current_url }
 
         Then { url =~ %r{/destination} }
@@ -192,20 +243,24 @@ DRIVERS.each do |driver|
 
       context 'successful comparison' do
         GivenWidget do
-          define_method(:to_table) { GOOD_TABLE }
+          class MyWidget < Dill::Widget
+            define_method(:to_table) { GOOD_TABLE }
+          end
         end
 
-        When(:success) { w.diff table }
+        When(:success) { widget(:my_widget).diff table }
 
         Then { success == true }
       end
 
       context 'failed comparison' do
         GivenWidget do
-          define_method(:to_table) { [{'a' => '5', 'b' => '6'}] }
+          class MyWidget < Dill::Widget
+            define_method(:to_table) { [{'a' => '5', 'b' => '6'}] }
+          end
         end
 
-        When(:failure) { w.diff table }
+        When(:failure) { widget(:my_widget).diff table }
 
         Then { failure == Failure(Cucumber::Ast::Table::Different) }
       end
@@ -217,20 +272,24 @@ DRIVERS.each do |driver|
       HTML
 
       GivenWidget do
-        action :present, '#present'
-        action :absent, '#absent'
+        class MyWidget < Dill::Widget
+          root 'body'
+
+          action :present, '#present'
+          action :absent, '#absent'
+        end
       end
 
       context 'when action exists' do
-        Then { w.has_action?(:present) }
+        Then { widget(:my_widget).has_action?(:present) }
       end
 
       context 'when action is missing' do
-        Then { ! w.has_action?(:absent) }
+        Then { ! widget(:my_widget).has_action?(:absent) }
       end
 
       context 'when the action is undefined' do
-        When(:error) { w.has_action?(:undefined) }
+        When(:error) { widget(:my_widget).has_action?(:undefined) }
 
         Then { error == Failure(Dill::Missing, /`undefined' action/) }
       end
@@ -242,20 +301,24 @@ DRIVERS.each do |driver|
       HTML
 
       GivenWidget do
-        widget :present, '#present'
-        widget :absent, '#absent'
+        class MyWidget < Dill::Widget
+          root 'body'
+
+          widget :present, '#present'
+          widget :absent, '#absent'
+        end
       end
 
       context 'when widget exists' do
-        Then { w.has_widget?(:present) }
+        Then { widget(:my_widget).has_widget?(:present) }
       end
 
       context 'when widget is missing' do
-        Then { ! w.has_widget?(:absent) }
+        Then { ! widget(:my_widget).has_widget?(:absent) }
       end
 
       context 'when widget is undefined' do
-        When(:error) { w.has_widget?(:undefined) }
+        When(:error) { widget(:my_widget).has_widget?(:undefined) }
 
         Then { error == Failure(Dill::Missing, /`undefined' widget/) }
       end
@@ -267,14 +330,16 @@ DRIVERS.each do |driver|
       HTML
 
       GivenWidget do
-        root 'span'
+        class MyWidget < Dill::Widget
+          root 'span'
 
-        def self.name
-          'Inspect'
+          def self.name
+            'Inspect'
+          end
         end
       end
 
-      When(:inspection) { w.inspect }
+      When(:inspection) { widget(:my_widget).inspect }
 
       Then { inspection == "<!-- Inspect: -->\n<span id=\"ins\">Ins</span>\n" }
     end
@@ -287,14 +352,16 @@ DRIVERS.each do |driver|
       HTML
 
       GivenWidget do
-        root 'p'
+        class MyWidget < Dill::Widget
+          root 'p'
 
-        def self.name
-          'Inspect'
+          def self.name
+            'Inspect'
+          end
         end
       end
 
-      When(:inspection) { w.inspect }
+      When(:inspection) { widget(:my_widget).inspect }
 
       Then { inspection == "<!-- Inspect: -->\n<p>\nIns" }
     end
@@ -305,10 +372,14 @@ DRIVERS.each do |driver|
       HTML
 
       GivenWidget do
-        widget :child, 'a'
+        class MyWidget < Dill::Widget
+          root 'body'
+
+          widget :child, 'a'
+        end
       end
 
-      When(:inspection) { w.widget(:child).inspect }
+      When(:inspection) { widget(:my_widget).widget(:child).inspect }
 
       Then { inspection == '#<DETACHED>' }
     end
@@ -316,10 +387,14 @@ DRIVERS.each do |driver|
     context 'when the widget is absent' do
       GivenHTML ''
 
-      GivenWidget { root 'a' }
+      GivenWidget do
+        class MyWidget < Dill::Widget
+          root 'a'
+        end
+      end
 
-      Then { w.gone? }
-      And { w.absent? }
+      Then { widget(:my_widget).gone? }
+      And { widget(:my_widget).absent? }
     end
 
     context 'when the widget is present' do
@@ -327,10 +402,14 @@ DRIVERS.each do |driver|
         <span id="present">Present</span>
       HTML
 
-      GivenWidget { root '#present' }
+      GivenWidget do
+        class MyWidget < Dill::Widget
+          root '#present'
+        end
+      end
 
-      Then { w.present? }
-      And { ! w.absent? }
+      Then { widget(:my_widget).present? }
+      And { ! widget(:my_widget).absent? }
     end
   end
 end

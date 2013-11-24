@@ -40,11 +40,20 @@ module WidgetSpecDSL
     Given(:document) { Dill::Document.new(self.class) }
   end
 
-  def GivenWidget(parent_class = Dill::Widget, name = :w, &block)
-    klass = :"#{name}_class"
+  def GivenWidget
+    let!(:_saved_constant_names) { Object.constants }
 
-    Given(name)  { send(klass).find_in(document) }
-    Given(klass) { Dill::WidgetClass.new('body', parent_class, &block) }
+    before do
+      yield
+    end
+
+    after do
+      new_constants = Object.constants - _saved_constant_names
+
+      new_constants.
+        select { |e| Object.const_get(e) < Dill::Widget }.
+        each { |e| Object.send :remove_const, e }
+    end
   end
 end
 

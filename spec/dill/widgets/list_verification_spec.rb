@@ -5,7 +5,7 @@ describe 'List verification' do
     context 'when there is no list' do
       GivenHTML ''
 
-      When(:failure) { w.value }
+      When(:failure) { widget(:list).value }
 
       Then { failure == Failure(Capybara::ElementNotFound) }
     end
@@ -16,7 +16,7 @@ describe 'List verification' do
           <ul id="skills"></ul>
         HTML
 
-        When(:list) { w.value }
+        When(:list) { widget(:list).value }
 
         Then { list == [] }
       end
@@ -28,7 +28,7 @@ describe 'List verification' do
           </ul>
         HTML
 
-        When(:list) { w.value }
+        When(:list) { widget(:list).value }
 
         Then { list == ['Seafaring'] }
       end
@@ -42,7 +42,7 @@ describe 'List verification' do
           </ul>
         HTML
 
-        When(:list) { w.value }
+        When(:list) { widget(:list).value }
 
         Then { list == ['Seafaring', 'Insult swordfighting', 'Long range spitting'] }
       end
@@ -50,7 +50,10 @@ describe 'List verification' do
   end
 
   context 'with defaults' do
-    GivenWidget Dill::List
+    GivenWidget do
+      class List < Dill::List
+      end
+    end
 
     pending '[FIXME: empty list test is failing]' do
       it_should_behave_like 'a list'
@@ -58,9 +61,11 @@ describe 'List verification' do
   end
 
   context 'given the standard list item' do
-    GivenWidget Dill::List do
-      root '#skills'
-      item '.skill'
+    GivenWidget do
+      class List < Dill::List
+        root '#skills'
+        item '.skill'
+      end
     end
 
     it_should_behave_like 'a list'

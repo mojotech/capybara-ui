@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Dill::FieldGroup do
   shared_examples_for 'a field' do
     context 'when using an auto locator' do
-      Then { w.has_widget?(:auto_locator) }
+      Then { widget(:field_group).has_widget?(:auto_locator) }
     end
   end
 
@@ -23,34 +23,38 @@ describe Dill::FieldGroup do
       </p>
     HTML
 
-    GivenWidget Dill::FieldGroup do
-      check_box :unchecked_box, 'ub'
-      check_box :checked_box, 'cb'
-      check_box :auto_locator
+    GivenWidget do
+      class FieldGroup < Dill::FieldGroup
+        root 'body'
+
+        check_box :unchecked_box, 'ub'
+        check_box :checked_box, 'cb'
+        check_box :auto_locator
+      end
     end
 
     context 'when defining' do
-      Then { w_class.field_names.include?(:unchecked_box) }
+      Then { FieldGroup.field_names.include?(:unchecked_box) }
     end
 
     context 'when querying' do
-      Then { w.checked_box == true }
-      Then { w.unchecked_box == false }
+      Then { widget(:field_group).checked_box == true }
+      Then { widget(:field_group).unchecked_box == false }
     end
 
     context 'when setting' do
-      When { w.checked_box   = false }
-      When { w.unchecked_box = true }
+      When { widget(:field_group).checked_box   = false }
+      When { widget(:field_group).unchecked_box = true }
 
-      Then { w.checked_box   == false }
-      Then { w.unchecked_box == true }
+      Then { widget(:field_group).checked_box   == false }
+      Then { widget(:field_group).unchecked_box == true }
     end
 
     context 'when transforming to table' do
       Given(:headers) {['unchecked box', 'checked box', 'auto locator']}
       Given(:values)  {['no', 'yes', 'no']}
 
-      When(:table)   { w.to_table }
+      When(:table)   { widget(:field_group).to_table }
 
       Then { table == [headers, values] }
     end
@@ -88,37 +92,41 @@ describe Dill::FieldGroup do
       </p>
     HTML
 
-    GivenWidget Dill::FieldGroup do
-      select :deselected, 'd'
-      select :selected, 's'
-      select :by_value, 'v'
-      select :auto_locator
+    GivenWidget do
+      class FieldGroup < Dill::FieldGroup
+        root 'body'
+
+        select :deselected, 'd'
+        select :selected, 's'
+        select :by_value, 'v'
+        select :auto_locator
+      end
     end
 
     context 'when defining' do
-      Then { w_class.field_names.include?(:deselected) }
+      Then { FieldGroup.field_names.include?(:deselected) }
     end
 
     context 'when querying' do
-      Then { w.deselected.nil? }
-      Then { w.selected == 'Selected option' }
+      Then { widget(:field_group).deselected.nil? }
+      Then { widget(:field_group).selected == 'Selected option' }
     end
 
     context 'when setting' do
-      When { w.selected   = 'Unselected option' }
-      When { w.deselected = 'One' }
-      When { w.by_value   = 't'}
+      When { widget(:field_group).selected   = 'Unselected option' }
+      When { widget(:field_group).deselected = 'One' }
+      When { widget(:field_group).by_value   = 't'}
 
-      Then { w.selected   == 'Unselected option' }
-      Then { w.deselected == 'One' }
-      Then { w.by_value   == 'Two' }
+      Then { widget(:field_group).selected   == 'Unselected option' }
+      Then { widget(:field_group).deselected == 'One' }
+      Then { widget(:field_group).by_value   == 'Two' }
     end
 
     context 'when transforming to table' do
       Given(:headers) {['deselected', 'selected', 'by value', 'auto locator']}
       Given(:values)  {['', 'selected option', '', '']}
 
-      When(:table)   { w.to_table }
+      When(:table)   { widget(:field_group).to_table }
 
       Then { table == [headers, values] }
     end
@@ -142,31 +150,35 @@ describe Dill::FieldGroup do
       </p>
     HTML
 
-    GivenWidget Dill::FieldGroup do
-      text_field :empty_field, 'ef'
-      text_field :filled_field, 'ff'
-      text_field :auto_locator
+    GivenWidget do
+      class FieldGroup < Dill::FieldGroup
+        root 'body'
+
+        text_field :empty_field, 'ef'
+        text_field :filled_field, 'ff'
+        text_field :auto_locator
+      end
     end
 
     context 'when defining' do
-      Then { w_class.field_names.include?(:empty_field) }
+      Then { FieldGroup.field_names.include?(:empty_field) }
     end
 
     context 'when querying' do
-      Then { w.empty_field.nil? }
-      Then { w.filled_field == 'Field contents' }
+      Then { widget(:field_group).empty_field.nil? }
+      Then { widget(:field_group).filled_field == 'Field contents' }
     end
 
     context 'when setting' do
-      When { w.empty_field  = 'Some text' }
-      When { w.filled_field = nil }
+      When { widget(:field_group).empty_field  = 'Some text' }
+      When { widget(:field_group).filled_field = nil }
 
-      Then { w.empty_field  == 'Some text' }
-      Then { w.filled_field == '' }
+      Then { widget(:field_group).empty_field  == 'Some text' }
+      Then { widget(:field_group).filled_field == '' }
     end
 
     describe '#to_table' do
-      Given(:table)   { w.to_table }
+      Given(:table)   { widget(:field_group).to_table }
       Given(:headers) {['empty field', 'filled field', 'auto locator']}
       Given(:values)  {['', 'field contents', '']}
 

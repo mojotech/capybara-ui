@@ -11,14 +11,16 @@ DRIVERS.each do |driver|
       HTML
 
       GivenWidget do
-        root '#container'
+        class Container < Dill::Widget
+          root '#container'
 
-        widget :multiple, lambda { |text| ['.multiple', text: text] }
+          widget :multiple, lambda { |text| ['.multiple', text: text] }
+        end
       end
 
-      When(:widget) { w.widget(:multiple, 'Right') }
+      When(:w) { widget(:container).widget(:multiple, 'Right') }
 
-      Then { widget == 'Right' }
+      Then { w == 'Right' }
     end
   end
 end

@@ -27,8 +27,10 @@ describe Dill::AutoTable do
     </table>
   HTML
 
-  GivenWidget Dill::AutoTable do
-    root 'table'
+  GivenWidget do
+    class Table < Dill::AutoTable
+      root 'table'
+    end
   end
 
   Given(:table) {
@@ -39,6 +41,6 @@ describe Dill::AutoTable do
 
   Given(:footer) { ['Footer 1', 'Footer 2'] }
 
-  Then { w.to_table == table }
-  Then { w.footers == footer }
+  Then { widget(:table).to_table == table }
+  Then { widget(:table).footers == footer }
 end
