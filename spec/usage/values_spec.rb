@@ -13,6 +13,21 @@ describe 'Widget values' do
     Then { value(:str) == 'Hello, world!' }
   end
 
+  describe 'Passing more arguments to #value' do
+    GivenHTML <<-HTML
+      <span id="my-widget-1">Hello, world!</span>
+      <span id="my-widget-2">Goodbye, world!</span>
+    HTML
+
+    GivenWidget do
+      class Str < Dill::Widget
+        root { |n| "#my-widget-#{n}" }
+      end
+    end
+
+    Then { value(:str, 2) == 'Goodbye, world!' }
+  end
+
   describe 'Widgets as integers' do
     context 'Widget content can be cast to an integer' do
       GivenHTML <<-HTML

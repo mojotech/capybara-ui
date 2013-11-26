@@ -14,8 +14,8 @@ module Dill
       document.has_widget?(name, *args)
     end
 
-    def value(name)
-      widget(name).value
+    def value(name, *args)
+      widget(name, *args).value
     end
 
     # Returns a widget instance for the given name.
