@@ -10,7 +10,7 @@ describe 'List verification' do
       Then { failure == Failure(Capybara::ElementNotFound) }
     end
 
-    context "to verify equality" do
+    context 'to verify equality' do
       context 'when the list is empty' do
         GivenHTML <<-HTML
           <ul id="skills"></ul>

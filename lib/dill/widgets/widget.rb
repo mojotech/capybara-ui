@@ -380,7 +380,7 @@ module Dill
       rescue Capybara::NotSupportedByDriverError
         inspection << "<#{root.tag_name}>\n#{to_s}"
       rescue Capybara::ElementNotFound, *page.driver.invalid_element_errors
-        "#<DETACHED>"
+        '#<DETACHED>'
       end
     end
 

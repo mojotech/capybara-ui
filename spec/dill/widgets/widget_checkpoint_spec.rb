@@ -24,13 +24,13 @@ describe Dill::WidgetCheckpoint do
     end
   end
 
-  context 'with poltergeist', :js => true, :driver => :poltergeist do
+  context 'with poltergeist', js: true, driver: :poltergeist do
     context 'when an obsolete node error is raised' do
-      When(:result) {
-        checkpoint.call {
+      When(:result) do
+        checkpoint.call do
           raise Capybara::Poltergeist::ObsoleteNode.new(nil, nil)
-        }
-      }
+        end
+      end
 
       Then { result == Failure(Capybara::Poltergeist::ObsoleteNode) }
       Then { elapsed > wait_time }
