@@ -11,7 +11,7 @@ module Dill
 
           class_eval <<-WIDGET
             def #{name}
-              widget(:#{name}).dynamic_value
+              widget(:#{name}).value
             end
           WIDGET
 
@@ -23,7 +23,7 @@ module Dill
 
           class_eval <<-WIDGET
             def #{name}?
-              delay { widget(:#{name}).value }
+              widget(:#{name}).value
             end
           WIDGET
 
@@ -79,7 +79,7 @@ module Dill
 
           class_eval <<-WIDGET
             def #{name}
-              widget(:#{name}).dynamic_value
+              widget(:#{name}).value
             end
           WIDGET
 

@@ -20,7 +20,7 @@ describe Dill::List do
       When(:first) { widget(:list).first }
 
       Then { size == 3 }
-      Then { first == 'One' }
+      Then { first.value == 'One' }
     end
 
     context 'using custom selectors' do
@@ -44,7 +44,7 @@ describe Dill::List do
       When(:first) { widget(:list).first }
 
       Then { size == 3 }
-      Then { first == 'Red' }
+      Then { first.value == 'Red' }
     end
   end
 
