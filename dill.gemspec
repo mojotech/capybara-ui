@@ -26,4 +26,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'capybara-webkit', '~> 1.0.0'
   s.add_development_dependency 'poltergeist', '~> 1.3.0'
   s.add_development_dependency 'cucumber', '~> 1.3.0'
+  s.add_development_dependency 'pry'
+  s.add_development_dependency 'pry-nav'
 end
