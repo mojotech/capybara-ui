@@ -84,7 +84,41 @@ TODO
 
 ### Forms
 
-TODO
+
+##### Given the following Markup
+```haml
+%form.my-awesome-form
+  %input{type: "text", name:"title"}
+  %br
+  %textarea{name: "bio"}
+  %br
+  %input{type: "submit"}
+```
+##### And the following interactions
+![](http://i.imgur.com/yyf8VmP.gif)
+
+##### Your Widget
+###### awesome_form.rb
+```rb
+class AwesomeForm < Dill::Form
+  root '.my-awesome-form'
+  
+  class Title < Dill::FieldGroup::TextField
+	root 'title'
+  end
+
+  class Bio < Dill::FieldGroup::TextField
+	root 'bio'
+  end
+end
+```
+
+##### Interacting with your widget
+```rb
+  widget(:awesome_form).widget(:title).set("Tom Jones")
+  widget(:awesome_form).widget(:bio).set("Some text about my life")
+  widget(:awesome_form).submit
+```
 
 ### Lists
 
