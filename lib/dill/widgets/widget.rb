@@ -2,8 +2,6 @@ module Dill
   class Widget
     extend Forwardable
 
-    include DynamicValue
-
     include WidgetParts::Struct
     include WidgetParts::Container
 
@@ -316,21 +314,7 @@ module Dill
       end
     end
 
-    def dynamic(&block)
-      DynamicValue.new(&block)
-    end
-
-    def dynamic_value
-      dynamic { value }
-    end
-
     # Compares this widget with the given Cucumber +table+.
-    #
-    # Waits +wait_time+ seconds for the comparison to be successful, otherwise
-    # raises Cucumber::Ast::Table::Different on failure.
-    #
-    # This is especially useful when you're not sure if the widget is in the
-    # proper state to be compared with the table.
     #
     # === Example
     #
@@ -338,21 +322,13 @@ module Dill
     #     widget(:my_widget).diff table
     #   end
     def diff(table, wait_time = Capybara.default_wait_time)
-      # #diff! raises an exception if the comparison fails, or returns nil if it
-      # doesn't. We don't need to worry about failure, because that will be
-      # propagated, but we need to return +true+ when it succeeds, to end the
-      # comparison.
-      #
-      # Unfortunately, Cucumber::Ast::Table#diff! changes its table, so that
-      # #diff! can only be called once. For that reason, we need to create a
-      # copy of the original table before we try to compare it.
-      delay(wait_time) { table.dup.diff!(to_table) || true }
+      table.diff!(to_table) || true
     end
 
     # Returns +true+ if the widget is not visible, or has been removed from the
     # DOM.
     def gone?
-      delay { ! root rescue true }
+      ! root rescue true
     end
 
     # Determines if the widget underlying an action exists.
@@ -386,7 +362,7 @@ module Dill
 
     # Returns +true+ if widget is visible.
     def present?
-      delay { !! root rescue false }
+      !! root rescue false
     end
 
     def root
@@ -420,10 +396,6 @@ module Dill
     private
 
     attr_accessor :node, :query
-
-    def checkpoint
-      WidgetCheckpoint
-    end
 
     def page
       Capybara.current_session

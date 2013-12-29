@@ -195,7 +195,7 @@ DRIVERS.each do |driver|
         <span id="value">1</span>
       HTML
 
-      Then { widget(:my_widget) == '1' }
+      Then { widget(:my_widget).value == '1' }
     end
 
     describe '#click' do

@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pry'
 
 class Top < Dill::Widget
   root '#top'
@@ -30,5 +31,32 @@ describe Dill::DSL do
 
       Then { error == Failure(Dill::Missing) }
     end
+  end
+
+  describe '#eventually' do
+    context 'when the block immediately passes' do
+      When(:block) { lambda { true } }
+      Then { eventually(&block) }
+    end
+
+    context 'when the block always fails' do
+      When(:block) { lambda { false } }
+      When(:result) { eventually(&block) }
+      Then { result == Failure(Dill::Checkpoint::ConditionNotMet) }
+    end
+
+    context 'when the block succeeds within wait time' do
+      When(:end_time) { Time.now + (Capybara.default_wait_time - 1) }
+      When(:block) { lambda { Time.now > end_time } }
+      Then { eventually(&block) }
+    end
+
+    context 'when the block would succeed only after wait time' do
+      When(:end_time) { Time.now + (Capybara.default_wait_time + 1) }
+      When(:block) { lambda { Time.now > end_time } }
+      When(:result) { eventually(&block) }
+      Then { result == Failure(Dill::Checkpoint::ConditionNotMet) }
+    end
+
   end
 end

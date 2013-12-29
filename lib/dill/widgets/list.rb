@@ -153,28 +153,28 @@ module Dill
     end
 
     def count
-      dynamic { items.count }
+      items.count
     end
 
     # TODO: Convert value to primitive data structures.
     def empty?
-      delay { items.empty? }
+      items.empty?
     end
 
     def exclude?(element)
-      delay { ! items.include?(element) }
+      ! include?(element)
     end
 
     def include?(element)
-      delay { items.include?(element) }
+      value.include?(element)
     end
 
     def length
-      dynamic { items.length }
+      items.length
     end
 
     def size
-      dynamic { items.size }
+      items.size
     end
 
     def to_row

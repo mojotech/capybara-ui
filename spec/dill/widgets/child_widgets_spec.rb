@@ -20,7 +20,7 @@ DRIVERS.each do |driver|
 
       When(:w) { widget(:container).widget(:multiple, 'Right') }
 
-      Then { w == 'Right' }
+      Then { w.value == 'Right' }
     end
   end
 end

@@ -40,7 +40,6 @@ require 'dill/widgets/parts/struct'
 require 'dill/widgets/parts/container'
 
 require 'dill/widgets/widget_class'
-require 'dill/widgets/widget_checkpoint'
 require 'dill/widgets/widget_name'
 require 'dill/widgets/widget'
 require 'dill/widgets/list_item'
