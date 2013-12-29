@@ -2,7 +2,7 @@
 Write tastier tests.
 
 <center>
-<img height="220px" src="https://raw.github.com/mojotech/dill/sjs/add-logo/dill_logo.png"/>
+<img height="220px" src="https://raw.github.com/mojotech/dill/master/dill_logo.png"/>
 </center>
 
 ## Installation
