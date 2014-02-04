@@ -2,6 +2,21 @@ module Dill
   module DSL
     attr_writer :widget_lookup_scope
 
+    # Clicks the widget defined by +name+ and optional +args+.
+    #
+    # Makes no distinction between links or buttons.
+    #
+    #   class MyWidget < Dill::Widget
+    #     root { |text| ['.my-widget', text: text] }
+    #   end
+    #
+    #   #  <a href="#one" class="my-widget">One</li>
+    #   #  <a href="#two" class="my-widget">Two</li> <!-- clicks this node -->
+    #   click :my_widget, 'Two'
+    def click(name, *args)
+      widget(name, *args).click
+    end
+
     # @return [Document] the current document with the class of the
     #   current object set as the widget lookup scope.
     def document
