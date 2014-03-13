@@ -19,6 +19,7 @@ test/tmp
 test/version_tmp
 tmp
 node_modules/
+.DS_Store
 
 # YARD artifacts
 .yardoc
