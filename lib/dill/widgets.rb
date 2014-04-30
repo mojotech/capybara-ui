@@ -6,28 +6,30 @@
 module Dill
   module Constructors
     def Widget(*selector, &block)
-      WidgetClass.new(selector.flatten, &block)
+      if block_given?
+        WidgetClass.new(selector.flatten) do
+          define_method :value do
+            block.call(text)
+          end
+        end
+      else
+        WidgetClass.new(selector.flatten)
+      end
     end
 
     alias_method :String, :Widget
 
     def Integer(*selector)
-      Widget(selector) do
-        def value
-          Integer(text)
-        end
-      end
+      Widget(selector) { |text| Kernel::Integer(text) }
     end
 
     require 'bigdecimal'
 
     def Decimal(*selector)
-      Widget(selector) do
-        def value
-          # ensure we can convert to float first
-          Float(text) && BigDecimal.new(text)
-        end
-      end
+      Widget(selector) { |text|
+        # ensure we can convert to float first
+        Float(text) && BigDecimal.new(text)
+      }
     end
   end
 

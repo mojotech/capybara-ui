@@ -1,6 +1,18 @@
 require 'spec_helper'
 
 describe 'Widget values' do
+  describe 'Widgets as values' do
+    GivenHTML <<-HTML
+      <span id="my-widget">1</span>
+    HTML
+
+    GivenWidget do
+      Int = Dill::Widget('#my-widget') { |text| text.to_i }
+    end
+
+    Then { value(:int) == 1 }
+  end
+
   describe 'Widgets as strings' do
     GivenHTML <<-HTML
       <span id="my-widget">Hello, world!</span>
