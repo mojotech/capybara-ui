@@ -40,6 +40,13 @@ module Dill
       document.widget(name, *args)
     end
 
+    # Returns a list of widget instances for the given name.
+    #
+    # @param name [String, Symbol]
+    def widgets(name, *args)
+      document.widgets(name, *args)
+    end
+
     def widget_lookup_scope
       @widget_lookup_scope ||= default_widget_lookup_scope
     end

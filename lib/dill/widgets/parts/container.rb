@@ -13,6 +13,10 @@ module Dill
         widget_class(name).find_in(self, *args)
       end
 
+      def widgets(name, *args)
+        widget_class(name).find_all_in(self, *args)
+      end
+
       private
 
       attr_writer :widget_lookup_scope

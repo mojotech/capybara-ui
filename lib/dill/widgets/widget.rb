@@ -184,6 +184,10 @@ module Dill
       new { parent.root.find(*selector(*args)) }
     end
 
+    def self.find_all_in(parent, *args)
+      parent.root.all(*selector(*args)).map { |e| new(e) }
+    end
+
     # Determines if an instance of this widget class exists in
     # +parent_node+.
     #
