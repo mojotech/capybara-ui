@@ -68,6 +68,22 @@ describe 'Widget values' do
     end
   end
 
+  describe 'Lists of values' do
+    GivenHTML <<-HTML
+      <span class="my-widget">Hi, world!</span>
+      <span class="my-widget">Hello, world!</span>
+    HTML
+
+    GivenWidget do
+      class Single < Dill::Widget
+        root '.my-widget'
+      end
+    end
+
+    When(:vals) { values(:single) }
+
+    Then { vals == ['Hi, world!', 'Hello, world!'] }
+  end
 
   describe 'Widgets as decimals' do
     context 'Widget content can be cast to a float' do

@@ -33,6 +33,10 @@ module Dill
       widget(name, *args).value
     end
 
+    def values(name, *args)
+      widgets(name, *args).map(&:value)
+    end
+
     # Returns a widget instance for the given name.
     #
     # @param name [String, Symbol]
