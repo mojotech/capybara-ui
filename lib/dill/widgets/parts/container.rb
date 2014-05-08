@@ -9,6 +9,8 @@ module Dill
         widget(name, *args).present?
       end
 
+      alias_method :widget?, :has_widget?
+
       def widget(name, *args)
         widget_class(name).find_in(self, *args)
       end

@@ -29,6 +29,8 @@ module Dill
       document.has_widget?(name, *args)
     end
 
+    alias_method :widget?, :has_widget?
+
     def value(name, *args)
       widget(name, *args).value
     end
