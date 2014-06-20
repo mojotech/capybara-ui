@@ -349,6 +349,10 @@ module Dill
       has_widget?(:"#{name}_widget")
     end
 
+    def id
+      root['id']
+    end
+
     def inspect
       inspection = "<!-- #{self.class.name}: -->\n"
 
