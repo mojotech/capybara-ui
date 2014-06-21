@@ -18,21 +18,6 @@ describe 'Finding a widget' do
     Then { values == ['Hi, world!', 'Hello, world!'] }
   end
 
-  describe 'Using a simple selector' do
-    GivenHTML <<-HTML
-      <span id="my-widget">Hello, world!</span>
-    HTML
-
-    GivenWidget do
-      class Simplest < Dill::Widget
-        root '#my-widget'
-      end
-    end
-
-    Then { widget(:simplest).text == 'Hello, world!' }
-    And { widget(:simplest).is_a?(Simplest) }
-  end
-
   describe 'Using a simple selector (short form)' do
     GivenHTML <<-HTML
       <span id="my-widget">Hello, world!</span>
@@ -43,22 +28,6 @@ describe 'Finding a widget' do
     end
 
     Then { widget(:short_form).is_a?(ShortForm) }
-  end
-
-  context 'Using a composite selector' do
-    GivenHTML <<-HTML
-      <span class="multiple">Right</span>
-      <span class="multiple">Wrong</span>
-    HTML
-
-    GivenWidget do
-      class Composite < Dill::Widget
-        root '.multiple', text: 'Right'
-      end
-    end
-
-    Then { widget(:composite).text == 'Right' }
-    And { widget(:composite).is_a?(Composite)}
   end
 
   describe 'Using a composite selector (short form)' do
@@ -73,22 +42,6 @@ describe 'Finding a widget' do
 
     Then { widget(:composite_form).text == 'Right' }
     Then { widget(:composite_form).is_a?(CompositeForm) }
-  end
-
-  context 'Using a lazy selector' do
-    GivenHTML <<-HTML
-      <span class="multiple">Right</span>
-      <span class="multiple">Wrong</span>
-    HTML
-
-    GivenWidget do
-      class Lazy < Dill::Widget
-        root { |text| ['.multiple', text: text] }
-      end
-    end
-
-    Then { widget(:lazy, 'Right').text == 'Right' }
-    And { widget(:lazy).is_a?(Lazy)}
   end
 
   context 'Using a lazy selector (short form)' do
