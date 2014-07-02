@@ -353,6 +353,10 @@ module Dill
       root['id']
     end
 
+    def classes
+      root['class'].split
+    end
+
     def inspect
       inspection = "<!-- #{self.class.name}: -->\n"
 
