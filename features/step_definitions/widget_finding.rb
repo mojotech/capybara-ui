@@ -32,3 +32,11 @@ end
 Then(/^we will get an instance of the widget$/) do
   expect(@thread.value).to be_present
 end
+
+When(/^we try to find the widget with:$/) do |string|
+  @code = string
+end
+
+Then(/^we will get the error Dill::(.+)$/) do |name|
+  expect { eval_find(@code).root }.to raise_error Dill.const_get(name)
+end

@@ -17,4 +17,6 @@ require 'dill/dsl'
 module Dill
   # An exception that signals that something is missing.
   class Missing < StandardError; end
+  class MissingWidget < StandardError; end
+  class AmbiguousWidget < StandardError; end
 end

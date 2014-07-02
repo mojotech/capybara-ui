@@ -7,7 +7,7 @@ describe 'List verification' do
 
       When(:failure) { widget(:list).value }
 
-      Then { failure == Failure(Capybara::ElementNotFound) }
+      Then { failure == Failure(Dill::MissingWidget) }
     end
 
     context "to verify equality" do

@@ -363,7 +363,7 @@ module Dill
         inspection << Nokogiri::XML(xml, &:noblanks).to_xhtml
       rescue Capybara::NotSupportedByDriverError
         inspection << "<#{root.tag_name}>\n#{to_s}"
-      rescue Capybara::ElementNotFound, *page.driver.invalid_element_errors
+      rescue Dill::MissingWidget, *page.driver.invalid_element_errors
         "#<DETACHED>"
       end
     end
@@ -375,6 +375,16 @@ module Dill
 
     def root
       node || query.()
+    rescue Capybara::Ambiguous => e
+      x = AmbiguousWidget.new(e.message)
+      x.set_backtrace e.backtrace
+
+      raise x
+    rescue Capybara::ElementNotFound => e
+      x = MissingWidget.new(e.message)
+      x.set_backtrace e.backtrace
+
+      raise x
     end
 
     def text

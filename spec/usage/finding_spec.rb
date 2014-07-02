@@ -72,7 +72,7 @@ describe 'Finding a widget' do
 
     When(:result) { widget(:ambiguous).text }
 
-    Then { result == Failure(Capybara::Ambiguous) }
+    Then { result == Failure(Dill::AmbiguousWidget) }
   end
 
   context "the widget root doesn't exist" do
@@ -88,6 +88,6 @@ describe 'Finding a widget' do
 
     When(:result) { widget(:missing).text }
 
-    Then { result == Failure(Capybara::ElementNotFound) }
+    Then { result == Failure(Dill::MissingWidget) }
   end
 end
