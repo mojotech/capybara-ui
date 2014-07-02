@@ -5,12 +5,12 @@ Feature: Finding Widgets
   Scenario: finding a widget with a simple selector
     Given the following HTML:
       """
-      <div id="my-widget"></div>
+      <div id="the-widget"></div>
       """
     And the following widget definition:
       """
       class MyWidget < Dill::Widget
-        root "#my-widget"
+        root "#the-widget"
       end
       """
     Then we can get an instance of the widget with:
