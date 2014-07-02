@@ -14,7 +14,7 @@ Then(/^we can get an instance of the first "li" with:$/) do |string|
   expect(eval_find(string).text).to eq "One"
 end
 
-When(/^we get the widget with:$/) do |string|
+When(/^we try to get the widget with:$/) do |string|
   load_test_page
 
   @thread = Thread.new { eval(string) }

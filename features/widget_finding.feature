@@ -72,7 +72,7 @@ Feature: Finding Widgets
         root 'div', :text => 'My Widget'
       end
       """
-    When we get the widget with:
+    When we try to get the widget with:
       """
       widget(:waiting_widget)
       """
