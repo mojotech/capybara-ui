@@ -1,11 +1,3 @@
-Given(/^the following HTML:$/) do |string|
-  define_page_body string
-end
-
-Given(/^the following widget definition:$/) do |string|
-  @widget_class = define_widget(string)
-end
-
 Then(/^we can(?: also)? get an instance of the widget with:$/) do |string|
   expect(eval_find(string)).to be_instance_of @widget_class
 end
