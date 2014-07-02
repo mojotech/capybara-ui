@@ -78,3 +78,20 @@ Feature: Finding Widgets
       """
     And the widget's content changes to "My Widget" before the timeout expires
     Then we will get an instance of the widget
+
+  Scenario: can't find a widget
+    Given the following HTML:
+      """
+      <div>Widget</div>
+      """
+    And the following widget definition:
+      """
+      class MissingWidget < Dill::Widget
+        root 'li'
+      end
+      """
+    When we try to find the widget with:
+      """
+      widget(:missing_widget)
+      """
+    Then we will get the error Dill::MissingWidget

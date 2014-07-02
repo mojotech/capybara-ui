@@ -375,6 +375,11 @@ module Dill
 
     def root
       node || query.()
+    rescue Capybara::ElementNotFound => e
+      x = MissingWidget.new(e.message)
+      x.set_backtrace e.backtrace
+
+      raise x
     end
 
     def text
