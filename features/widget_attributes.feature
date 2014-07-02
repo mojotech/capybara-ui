@@ -12,13 +12,13 @@ Feature: Widget Attributes
       end
       """
 
-  Scenario: getting the id
+  Scenario: html id
     Then we can get the widget's html id with:
       """
       widget(:my_widget).id #=> "the-widget"
       """
 
-  Scenario: getting the css classes
+  Scenario: css classes
     Then we can get the widget's css classes with:
       """
       widget(:my_widget).classes #=> ["first", "second"]
