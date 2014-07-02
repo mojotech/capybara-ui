@@ -57,37 +57,4 @@ describe 'Finding a widget' do
     Then { widget(:lazy_form, 'Right').text == 'Right' }
     And { widget(:lazy_form).is_a?(LazyForm)}
   end
-
-  context 'Using an ambiguous selector' do
-    GivenHTML <<-HTML
-      <span class="multiple">First</span>
-      <span class="multiple">Second</span>
-    HTML
-
-    GivenWidget do
-      class Ambiguous < Dill::Widget
-        root '.multiple'
-      end
-    end
-
-    When(:result) { widget(:ambiguous).text }
-
-    Then { result == Failure(Dill::AmbiguousWidget) }
-  end
-
-  context "the widget root doesn't exist" do
-    GivenHTML <<-HTML
-      <span id="single">Single</span>
-    HTML
-
-    GivenWidget do
-      class Missing < Dill::Widget
-        root '#none'
-      end
-    end
-
-    When(:result) { widget(:missing).text }
-
-    Then { result == Failure(Dill::MissingWidget) }
-  end
 end
