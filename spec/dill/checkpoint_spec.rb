@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'shared/checkpoint'
 
 describe Dill::Checkpoint do
   Given(:wait_time)  { 1 }
