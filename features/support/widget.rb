@@ -38,6 +38,8 @@ module Widget
     eval(code)
   end
 
+  alias_method :eval_in_page, :eval_find
+
   def load_test_page
     visit "/test"
   end
