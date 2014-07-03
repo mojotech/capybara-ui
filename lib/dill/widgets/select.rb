@@ -12,9 +12,9 @@ module Dill
     #
     # You may pass in the option text or value.
     def set(option)
-      root.
-        find(:xpath, "option[@value = '#{option}' or . = '#{option}']").
-        select_option
+      root.find(:option, option).select_option
+    rescue Capybara::ElementNotFound
+      root.find("option[value = #{option.inspect}]").select_option
     end
 
     # @!method to_s
