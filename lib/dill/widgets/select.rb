@@ -17,10 +17,7 @@ module Dill
       begin
         root.find("option[value = #{option.inspect}]").select_option
       rescue Capybara::ElementNotFound => e
-        x = Dill::InvalidOption.new(e.message)
-        x.set_backtrace e.backtrace
-
-        raise x
+        raise wrap_exception(e, InvalidOption)
       end
     end
 

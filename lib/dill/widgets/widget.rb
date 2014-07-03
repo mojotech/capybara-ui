@@ -380,15 +380,9 @@ module Dill
     def root
       node || query.()
     rescue Capybara::Ambiguous => e
-      x = AmbiguousWidget.new(e.message)
-      x.set_backtrace e.backtrace
-
-      raise x
+      raise wrap_exception(e, AmbiguousWidget)
     rescue Capybara::ElementNotFound => e
-      x = MissingWidget.new(e.message)
-      x.set_backtrace e.backtrace
-
-      raise x
+      raise wrap_exception(e, MissingWidget)
     end
 
     def text
@@ -421,6 +415,10 @@ module Dill
 
     def page
       Capybara.current_session
+    end
+
+    def wrap_exception(e, wrapper_class)
+      wrapper_class.new(e.message).tap { |x| x.set_backtrace e.backtrace }
     end
   end
 end
