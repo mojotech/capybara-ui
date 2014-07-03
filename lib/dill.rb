@@ -19,4 +19,5 @@ module Dill
   class Missing < StandardError; end
   class MissingWidget < StandardError; end
   class AmbiguousWidget < StandardError; end
+  class InvalidOption < StandardError; end
 end

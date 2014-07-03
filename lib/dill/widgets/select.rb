@@ -13,8 +13,15 @@ module Dill
     # You may pass in the option text or value.
     def set(option)
       root.find(:option, option).select_option
-    rescue Capybara::ElementNotFound
-      root.find("option[value = #{option.inspect}]").select_option
+    rescue
+      begin
+        root.find("option[value = #{option.inspect}]").select_option
+      rescue Capybara::ElementNotFound => e
+        x = Dill::InvalidOption.new(e.message)
+        x.set_backtrace e.backtrace
+
+        raise x
+      end
     end
 
     # @!method to_s
