@@ -1,5 +1,4 @@
 Given(/^the following HTML:$/) do |string|
-  reset_server
   define_page_body string
 end
 

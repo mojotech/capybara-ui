@@ -23,10 +23,11 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'rspec', '~> 2.12.0'
   s.add_development_dependency 'rspec-given', '~> 3.0.0'
-  s.add_development_dependency 'sinatra'
   s.add_development_dependency 'capybara-webkit', '~> 1.0.0'
   s.add_development_dependency 'poltergeist', '~> 1.3.0'
   s.add_development_dependency 'cucumber', '~> 1.3.0'
   s.add_development_dependency 'pry'
   s.add_development_dependency 'pry-nav'
+  s.add_development_dependency 'sinatra'
+  s.add_development_dependency 'rails', '~> 4.0.0'
 end

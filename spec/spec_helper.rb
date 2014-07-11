@@ -1,5 +1,6 @@
 $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
 
+require 'rails'
 require 'dill'
 require 'rspec/given'
 require 'sinatra/base'

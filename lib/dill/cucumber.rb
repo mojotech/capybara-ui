@@ -1,3 +1,3 @@
-require 'dill'
+require 'dill/rails'
 
 World(Dill::DSL)
