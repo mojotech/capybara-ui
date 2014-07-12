@@ -1,8 +1,8 @@
 module Expectations
-  def expect_code_with_result(string)
+  def expect_code_with_result(string, evaluator = :eval_in_page)
     code, result = string.split('#=>').map(&:strip)
 
-    expect(eval_in_page(code)).to eq eval(result)
+    expect(send(evaluator, code)).to eq eval(result)
   end
 end
 
