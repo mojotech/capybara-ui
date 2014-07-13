@@ -39,6 +39,10 @@ module Dill
       widgets(name, *args).map(&:value)
     end
 
+    def visit(path)
+      Capybara.current_session.visit path
+    end
+
     # Returns a widget instance for the given name.
     #
     # @param name [String, Symbol]

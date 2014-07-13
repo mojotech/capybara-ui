@@ -1,5 +1,5 @@
-Given(/^the following HTML:$/) do |string|
-  define_page_body string
+Given(/^the following HTML(?: at the path "(.*?)")?:$/) do |*args|
+  define_page_body(*args.reverse.compact)
 end
 
 Given(/^the following widget definition:$/) do |string|
