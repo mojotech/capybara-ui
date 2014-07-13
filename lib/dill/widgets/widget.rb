@@ -42,16 +42,18 @@ module Dill
     #
     # @param name the name of the action
     # @param selector the selector for the widget that will be clicked
-    def self.action(name, selector)
-      wname = :"#{name}_widget"
+    def self.action(name, selector = nil)
+      block = if selector
+                wname = :"#{name}_widget"
 
-      widget wname, selector
+                widget wname, selector
 
-      define_method name do
-        widget(wname).click
+                -> { widget(wname).click; self }
+              else
+                -> { click; self }
+              end
 
-        self
-      end
+      define_method name, &block
     end
 
     # Declares a new child widget.
