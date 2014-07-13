@@ -17,3 +17,22 @@ Feature: DSL
       """
       widget(:here).present? #=> true
       """
+
+  @javascript
+  Scenario: clicking a widget
+    Given the following HTML:
+      """
+      <div id="clickme" onclick="this.innerHTML = 'Clicked!'">Click Me!</a>
+      """
+    And the following widget definition:
+      """
+      Clicker = Dill::Widget('#clickme')
+      """
+    When I click the widget with:
+      """
+      click :clicker
+      """
+    Then I should see the widget has been clicked with:
+      """
+      widget(:clicker).text #=> "Clicked!"
+      """
