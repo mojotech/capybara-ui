@@ -41,6 +41,7 @@ module Dill::WidgetParts; end
 require 'dill/widgets/parts/struct'
 require 'dill/widgets/parts/container'
 
+require 'dill/widgets/dsl'
 require 'dill/widgets/widget_class'
 require 'dill/widgets/widget_name'
 require 'dill/widgets/widget'
