@@ -40,3 +40,31 @@ Feature: Role
       """
       widget(:plants).text #=> 'Watered!'
       """
+
+  Scenario: declaring a role-specific widget
+
+    Widgets can be declared in roles in the usual ways. An especially handy one
+    is the same .widget macro that is used to declare widgets inside other
+    widgets.
+
+    Given the following HTML:
+      """
+      <div id="seen-outer">Seen Outer!</div>
+      <div id="seen-inner">Seen Inner!</div>
+      """
+    And the following widget definition:
+      """
+      SeenOuter = Dill::Widget('#seen-outer')
+      """
+    And the following role definition:
+      """
+      class Seer < Dill::Role
+        widget :seen_inner, "#seen-inner"
+      end
+      """
+    Then we should be able to see that the widget :seen_inner exists:
+      """
+      seer = Seer.new
+
+      expect(seer.widget?(:seen_inner)).to be_true
+      """
