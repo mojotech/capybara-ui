@@ -5,7 +5,6 @@ Feature: Role
 
   * Dill's DSL
   * Rails path helpers
-  * RSpec expectations
 
   @javascript
   Scenario: declaring a role
