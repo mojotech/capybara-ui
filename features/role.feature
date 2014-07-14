@@ -68,3 +68,37 @@ Feature: Role
 
       expect(seer.widget?(:seen_inner)).to be_true
       """
+
+  Scenario: seeing a widget through a role
+
+    This is just a way to make role-based expectations read a little beter. We
+    make the role the base of the expectation, and pass a widget selector
+    (widget name and any required arguments for that widget) to it.
+
+    Given the following HTML:
+      """
+      <div id="seen-outer">Seen Outer!</div>
+      <div id="seen-inner">Seen Inner!</div>
+      """
+    And the following widget definition:
+      """
+      SeenOuter = Dill::Widget('#seen-outer')
+      """
+    And the following role definition:
+      """
+      class Seer < Dill::Role
+        widget :seen_inner, "#seen-inner"
+      end
+      """
+    Then we should be able to see that the widget :seen_inner exists:
+      """
+      seer = Seer.new
+
+      expect(seer).to see :seen_inner
+      """
+    And we should be able to see that the widget :seen_outer exists:
+      """
+      seer = Seer.new
+
+      expect(seer).to see :seen_outer
+      """
