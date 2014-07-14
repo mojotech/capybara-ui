@@ -13,3 +13,11 @@ end
 Then(/^I should see the widget has been clicked with:$/) do |string|
   expect_code_with_result string, :eval
 end
+
+When(/^I submit the form with:$/) do |string|
+  eval_in_page string
+end
+
+Then(/^I should see the form has been submitted:$/) do |string|
+  expect_code_with_result string, :eval
+end

@@ -36,3 +36,54 @@ Feature: DSL
       """
       widget(:clicker).text #=> "Clicked!"
       """
+
+  @javascript
+  Scenario: submitting a form with some fields set
+    Given the following HTML:
+      """
+      <form onsubmit="this.innerHTML = 'Submitted!'; return false">
+        <input type="text" name="first_name" />
+        <input type="text" name="last_name" />
+        <input type="submit">
+      </form>
+      """
+    And the following widget definition:
+      """
+      class MyForm < Dill::Form
+        root 'form'
+
+        text_field :first_name, 'first_name'
+        text_field :last_name, 'first_name'
+      end
+      """
+    When I submit the form with:
+      """
+      submit :my_form, :first_name => 'Gubrush', :last_name => 'Threepwood'
+      """
+    Then I should see the form has been submitted:
+      """
+      widget(:my_form).text #=> "Submitted!"
+      """
+
+  @javascript
+  Scenario: submitting a form with no fields set
+    Given the following HTML:
+      """
+      <form onsubmit="this.innerHTML = 'Submitted!'; return false">
+        <input type="submit">
+      </form>
+      """
+    And the following widget definition:
+      """
+      class MyForm < Dill::Form
+        root 'form'
+      end
+      """
+    When I submit the form with:
+      """
+      submit :my_form
+      """
+    Then I should see the form has been submitted:
+      """
+      widget(:my_form).text #=> "Submitted!"
+      """

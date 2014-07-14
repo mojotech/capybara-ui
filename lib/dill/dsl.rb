@@ -31,6 +31,10 @@ module Dill
 
     alias_method :widget?, :has_widget?
 
+    def submit(name, fields = {})
+      widget(name).submit_with fields
+    end
+
     def value(name, *args)
       widget(name, *args).value
     end
