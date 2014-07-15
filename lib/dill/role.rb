@@ -5,5 +5,9 @@ module Dill
     include Dill::DSL
 
     alias_method :see?, :widget?
+
+    def inspect
+      self.class.name
+    end
   end
 end
