@@ -1,5 +1,7 @@
 module Dill
   class Form < FieldGroup
+    root 'form'
+
     action :submit, '[type = submit]'
 
     # Submit form with +attributes+.

@@ -15,8 +15,6 @@ Feature: Widget Form Fields: Select
     And the following widget definition:
       """
       class MyForm < Dill::Form
-        root "form"
-
         select :my_select, 'number'
       end
       """

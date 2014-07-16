@@ -50,8 +50,6 @@ Feature: DSL
     And the following widget definition:
       """
       class MyForm < Dill::Form
-        root 'form'
-
         text_field :first_name, 'first_name'
         text_field :last_name, 'first_name'
       end
@@ -75,9 +73,7 @@ Feature: DSL
       """
     And the following widget definition:
       """
-      class MyForm < Dill::Form
-        root 'form'
-      end
+      class MyForm < Dill::Form; end
       """
     When I submit the form with:
       """
