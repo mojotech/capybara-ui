@@ -61,7 +61,7 @@ Feature: Role
         widget :seen_inner, "#seen-inner"
       end
       """
-    Then we should be able to see that the widget :seen_inner exists:
+    Then we should be able to see that the widget exists:
       """
       seer = Seer.new
 
@@ -89,15 +89,10 @@ Feature: Role
         widget :seen_inner, "#seen-inner"
       end
       """
-    Then we should be able to see that the widget :seen_inner exists:
+    Then we should be able to see that the widgets exist:
       """
       seer = Seer.new
 
       expect(seer).to see :seen_inner
-      """
-    And we should be able to see that the widget :seen_outer exists:
-      """
-      seer = Seer.new
-
       expect(seer).to see :seen_outer
       """

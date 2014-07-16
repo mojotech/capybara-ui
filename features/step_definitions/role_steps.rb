@@ -10,6 +10,6 @@ Then(/^we should see the plants have been watered:$/) do |string|
   expect_code_with_result string, :eval
 end
 
-Then(/^we should be able to see that the widget :(?:.*) exists:$/) do |string|
+Then(/^we should be able to see that the widgets? exists?:$/) do |string|
   eval_in_page string
 end
