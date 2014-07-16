@@ -4,7 +4,13 @@ module Dill
 
     include Dill::DSL
 
-    alias_method :see?, :widget?
+    def see?(name, *args)
+      if respond_to?("see_#{name}?")
+        send("see_#{name}?", *args)
+      else
+        widget?(name, *args)
+      end
+    end
 
     def inspect
       self.class.name
