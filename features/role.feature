@@ -76,12 +76,16 @@ Feature: Role
 
     Given the following HTML:
       """
-      <div id="seen-outer">Seen Outer!</div>
-      <div id="seen-inner">Seen Inner!</div>
+      <div id="seen-outer" class="seen">Seen Outer!</div>
+      <div id="seen-inner" class="seen">Seen Inner!</div>
       """
     And the following widget definition:
       """
       SeenOuter = Dill::Widget('#seen-outer')
+      """
+    And the following widget definition:
+      """
+      Seen = Dill::Widget(-> (position) { ['.seen', :text => /#{position}/] })
       """
     And the following role definition:
       """
@@ -95,4 +99,5 @@ Feature: Role
 
       expect(seer).to see :seen_inner
       expect(seer).to see :seen_outer
+      expect(seer).to see :seen, 'Inner'
       """
