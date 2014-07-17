@@ -83,3 +83,30 @@ Feature: DSL
       """
       widget(:my_form).text #=> "Submitted!"
       """
+
+  @javascript
+  Scenario: setting a form's values without submitting them
+    Given the following HTML:
+      """
+      <form onsubmit="this.innerHTML = 'Submitted!'; return false">
+        <input type="text" name="text_field">
+      </form>
+      """
+    And the following widget definition:
+      """
+      class MyForm < Dill::Form
+        text_field :text_field, 'text_field'
+      end
+      """
+    When we change the text field value:
+      """
+      set :my_form, :text_field => 'Value!'
+      """
+    Then we should see the text field value has been changed:
+      """
+      widget(:my_form).text_field #=> "Value!"
+      """
+    But the form shouldn't have been submitted:
+      """
+      widget(:my_form).text #=> ""
+      """
