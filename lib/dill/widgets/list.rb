@@ -64,9 +64,9 @@ module Dill
   # parent and child selectors.
   #
   #   <div id="not-a-list-colors">
-  #     <div class=".child">Red</div>
-  #     <div class=".child">Green</div>
-  #     <div class=".child">Blue</div>
+  #     <div class="child">Red</div>
+  #     <div class="child">Green</div>
+  #     <div class="child">Blue</div>
   #   </div>
   #
   # You can define the following widget:
