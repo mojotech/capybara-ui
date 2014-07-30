@@ -1,6 +1,11 @@
 module Dill
   module Widgets
     module DSL
+      # See features/role.feature.
+      def form(name, *rest, &block)
+        widget name, *rest, Dill::Form, &block
+      end
+
       # Declares a new child widget.
       #
       # Child widgets are accessible inside the container widget using the
