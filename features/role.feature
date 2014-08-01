@@ -65,7 +65,7 @@ Feature: Role
       """
       seer = Seer.new
 
-      expect(seer.widget?(:seen_inner)).to be_true
+      seer.widget?(:seen_inner) #=> true
       """
 
   Scenario: declaring a role-specific form
@@ -91,7 +91,7 @@ Feature: Role
       """
       seer = Seer.new
 
-      expect(seer.widget?(:the_form)).to be_true
+      seer.widget?(:the_form) #=> true
       """
 
   Scenario: seeing a widget through a role
