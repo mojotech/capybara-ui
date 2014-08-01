@@ -1,4 +1,4 @@
-Feature: Widget Form Fields: Select
+Feature: Form Fields: Select
 
   Background:
     Given the following HTML:

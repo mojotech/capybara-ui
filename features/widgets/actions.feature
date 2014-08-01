@@ -1,5 +1,5 @@
 @javascript
-Feature: Widget Actions
+Feature: Actions
 
   An action is just a way to name an interaction with the UI.
 

@@ -1,4 +1,4 @@
-Feature: Widget Form Fields
+Feature: Form Fields
 
   There are specific macros for each field type, but in this file we use the
   generic `field` macro, because this documentation applies to all field types.

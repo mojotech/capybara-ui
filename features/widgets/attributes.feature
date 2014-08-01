@@ -1,4 +1,4 @@
-Feature: Widget Attributes
+Feature: Attributes
 
   Background:
     Given the following HTML:

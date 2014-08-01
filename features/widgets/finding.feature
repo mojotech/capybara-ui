@@ -1,4 +1,4 @@
-Feature: Finding Widgets
+Feature: Finding
 
   Use #widget to find a single widget in the current document.
 
