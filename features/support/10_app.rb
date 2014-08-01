@@ -1,4 +1,3 @@
-require 'capybara/cucumber'
 require 'rails'
 require 'action_controller/railtie'
 
