@@ -9,3 +9,6 @@ cache: bundler
 script:
   - bundle exec rspec spec
   - bundle exec cucumber
+addons:
+  code_climate:
+    repo_token: 9028ccc64391f650aacd79af2eb66ba6d19bc5e96d3af2916c126a9809c4ddce

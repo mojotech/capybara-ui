@@ -30,4 +30,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'pry-nav'
   s.add_development_dependency 'sinatra'
   s.add_development_dependency 'rails', '~> 4.0.0'
+  s.add_development_dependency 'codeclimate-test-reporter'
 end
