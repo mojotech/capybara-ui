@@ -1,4 +1,4 @@
-Feature: Role
+Feature: Roles
 
   A Role is a way to group actions related to certain kinds of users. Inside a
   Role you have access to the following:
