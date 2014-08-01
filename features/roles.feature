@@ -1,10 +1,14 @@
 Feature: Roles
 
-  A Role is a way to group actions related to certain kinds of users. Inside a
-  Role you have access to the following:
+  Use a [role](https://github.com/mojotech/dill/blob/master/lib/dill/role.rb)
+  whenever you want to group actions that are specific to a certain kind of
+  user, or to a user performing tasks in a certain context.
 
-  * Dill's DSL
-  * Rails path helpers
+  For example, if you have an app with a public area, an area that is specific
+  to registered users and an area that is specific to admins, then you may have
+  3 different roles: visitor, user and admin. But you may want to sub-divide
+  these roles even further: a user that is managing their account performs a
+  different set of tasks than does a user that is shopping.
 
   @javascript
   Scenario: declaring a role
