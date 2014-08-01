@@ -30,8 +30,13 @@ Feature: Roles
     We said above that roles group actions. Usually those actions involve the
     following:
 
-    1. Visiting a certain path.
-    2. Interacting with a number of widgets.
+    1. Visiting a certain path (or more). Use `visit` and pass it a path, just
+       like with Capybara. You can use Rails path helpers inside role actions.
+
+    2. Interacting with a widget (or more). These widgets can be defined [inside
+       the role] [2], or outside (below).
+
+    [2]: #declaring-a-role-specific-widget
 
     Given the following HTML at the path "/garden":
       """
