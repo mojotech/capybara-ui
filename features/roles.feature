@@ -24,18 +24,21 @@ Feature: Roles
       """
 
   @javascript
-  Scenario: declaring a role
+  Scenario: Roles group actions
+
+    We said above that roles group actions. Usually those actions involve the
+    following:
+
+    1. Visiting a certain path.
+    2. Interacting with a number of widgets.
+
     Given the following HTML at the path "/garden":
       """
-      <div id="plants" onclick="this.innerHTML = 'Watered!'">Thirsty!</div>
+      <a id="plants" onclick="this.innerHTML = 'Watered!'">Water plants</div>
       """
     And the following widget definition:
       """
-      class Plants < Dill::Widget
-        root '#plants'
-
-        action :water
-      end
+      WaterPlants = Dill::Widget('#plants')
       """
     And the following role definition:
       """
@@ -43,18 +46,19 @@ Feature: Roles
         def water_plants
           visit garden_path
 
-          widget(:plants).water
+          click :water_plants
         end
       end
       """
-    When we ask the gardener to water the plants:
+    When we ask the the role to execute the action:
       """
       gardener = Gardener.new
+
       gardener.water_plants
       """
-    Then we should see the plants have been watered:
+    Then we should see the role did so:
       """
-      widget(:plants).text #=> 'Watered!'
+      widget(:water_plants).text #=> 'Watered!'
       """
 
   Scenario: declaring a role-specific widget

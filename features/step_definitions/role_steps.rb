@@ -6,11 +6,11 @@ Then(/^we can use the role as we do any other Ruby object:$/) do |string|
   eval string
 end
 
-When(/^we ask the gardener to water the plants:$/) do |string|
+When(/^we ask the the role to execute the action:$/) do |string|
   eval_in_page string
 end
 
-Then(/^we should see the plants have been watered:$/) do |string|
+Then(/^we should see the role did so:$/) do |string|
   expect_code_with_result string, :eval
 end
 
