@@ -10,6 +10,19 @@ Feature: Roles
   these roles even further: a user that is managing their account performs a
   different set of tasks than does a user that is shopping.
 
+  Scenario: Defining a role
+
+    You declare a role by inheriting from `Dill::Role`:
+
+    Given the following role definition:
+      """
+      class Gardener < Dill::Role; end
+      """
+    Then we can use the role as we do any other Ruby object:
+      """
+      Gardener.new
+      """
+
   @javascript
   Scenario: declaring a role
     Given the following HTML at the path "/garden":
