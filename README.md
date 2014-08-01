@@ -1,3 +1,5 @@
+[![Travis Build Status](https://travis-ci.org/mojotech/dill.svg?branch=master)](https://travis-ci.org/mojotech/dill)
+
 # Dill
 Write tastier tests.
 
