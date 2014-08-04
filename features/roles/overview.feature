@@ -20,7 +20,7 @@ Feature: Overview
 
     1. Visiting a certain path (or more). Use `visit` and pass it a path, just like with Capybara. You can use Rails path helpers inside role actions.
 
-    2. Interacting with a widget (or more). These widgets can be defined [inside the role](macros#declaring-a-role-specific-widget), or outside (below).
+    2. Interacting with a widget (or more). These widgets can be defined [inside the role](macros/widget#basic-usage), or outside (below).
 
     Given the following HTML at the path "/garden":
       """

@@ -1,7 +1,8 @@
 - end_to_end_testing.md (End-to-end testing)
 - roles:
   - overview.feature
-  - macros.feature
+  - widget.feature (.widget macro)
+  - form.feature (.form macro)
   - action_dsl.feature (Action DSL)
   - expectations.feature
 - widgets:
