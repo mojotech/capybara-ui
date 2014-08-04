@@ -38,24 +38,6 @@ DRIVERS.each do |driver|
     end
 
     describe '.widget' do
-      context 'declaring a new widget with name and selector' do
-        GivenHTML <<-HTML
-          <span id="widget">Widget</span>
-        HTML
-
-        GivenWidget do
-          class MyWidget < Dill::Widget
-            widget :the_widget, '#widget'
-          end
-        end
-
-        context 'accessing using #widget' do
-          When(:w) { widget(:my_widget).widget(:the_widget) }
-
-          Then { w.is_a?(Dill::Widget) }
-        end
-      end
-
       context 'declaring a new widget with name and type' do
         GivenHTML <<-HTML
           <span class="widget">Outer Widget</span>
@@ -140,28 +122,6 @@ DRIVERS.each do |driver|
           When(:child) { widget(:parent).widget(:the_widget) }
 
           Then { child.to_s == 'Inner Widget' }
-        end
-      end
-
-      context 'defining new behavior inline' do
-        GivenHTML <<-HTML
-          <span id="inline">Guybrush Threepwood</span>
-        HTML
-
-        GivenWidget do
-          class MyWidget < Dill::Widget
-            widget :inline, '#inline' do
-              def inline!
-                'yay'
-              end
-            end
-          end
-        end
-
-        context 'using behavior defined inline' do
-          When(:inline) { widget(:my_widget).widget(:inline) }
-
-          Then { inline.respond_to?(:inline!) == true }
         end
       end
     end
