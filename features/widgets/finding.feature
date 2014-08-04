@@ -1,6 +1,6 @@
 Feature: Finding
 
-  Use #widget to find a single widget in the current document.
+  Use [#widget](https://github.com/mojotech/dill/blob/master/lib/dill/widgets/dsl.rb) to find a single widget in the current document.
 
   Scenario: finding a widget with a simple selector
     Given the following HTML:
