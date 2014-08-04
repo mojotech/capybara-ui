@@ -2,13 +2,9 @@ Feature: Expectations
 
   Scenario: seeing a widget through a role
 
-    This is just a way to make role-based expectations read a little beter. We
-    make the role the base of the expectation, and pass a widget selector
-    (widget name and any required arguments for that widget) to it.
+    This is just a way to make role-based expectations read a little beter. We make the role the base of the expectation, and pass a widget selector (widget name and any required arguments for that widget) to it.
 
-    Sometimes, what we want the role to see may not map directly to a widget. In
-    those situations, we can define a custom `see_XXX?` method, which will be
-    used by the generic `see` matcher.
+    Sometimes, what we want the role to see may not map directly to a widget. In those situations, we can define a custom `see_XXX?` method, which will be used by the generic `see` matcher.
 
     Given the following HTML:
       """

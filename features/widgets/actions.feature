@@ -3,8 +3,7 @@ Feature: Actions
 
   An action is just a way to name an interaction with the UI.
 
-  Currently, calling the action is the same as clicking the target widget. In
-  the future we'll support other interaction types, like hovering.
+  Currently, calling the action is the same as clicking the target widget. In the future we'll support other interaction types, like hovering.
 
   Calling an action returns the widget the action was defined on.
 

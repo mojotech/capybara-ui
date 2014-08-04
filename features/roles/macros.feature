@@ -2,9 +2,7 @@ Feature: Macros
 
   Scenario: declaring a role-specific widget
 
-    Widgets can be declared in roles in the usual ways. An especially handy one
-    is the same .widget macro that is used to declare widgets inside other
-    widgets.
+    Widgets can be declared in roles in the usual ways. An especially handy one is the same .widget macro that is used to declare widgets inside other widgets.
 
     Given the following HTML:
       """
@@ -30,8 +28,7 @@ Feature: Macros
 
   Scenario: declaring a role-specific form
 
-    Although we can use the `widget` macro to declare a form, Dill provides a
-    slightly more convenient way to do it, using the `form` macro.
+    Although we can use the `widget` macro to declare a form, Dill provides a slightly more convenient way to do it, using the `form` macro.
 
     Given the following HTML:
       """
