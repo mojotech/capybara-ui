@@ -2,6 +2,7 @@
 - roles:
   - overview.feature
   - macros.feature
+  - action_dsl.feature (Action DSL)
   - expectations.feature
 - widgets:
   - actions.feature
@@ -9,4 +10,3 @@
   - form_fields_select.feature
   - form_fields.feature
   - finding.feature
-- dsl.feature
