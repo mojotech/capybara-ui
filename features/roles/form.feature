@@ -26,3 +26,28 @@ Feature: .form macro
 
       seer.widget?(:the_form) #=> true
       """
+
+  Scenario: Using the default selector
+
+    We can also pass the widget name only, and `form` will use Dill::Form's default selector (`form`).
+
+    Given the following HTML:
+      """
+      <form>
+        <input name='the_text_field'>
+      </form>
+      """
+    And the following role definition:
+      """
+      class Seer < Dill::Role
+        form :the_form do
+          text_field :the_text_field, 'the_text_field'
+        end
+      end
+      """
+    Then we should be able to see that the widget exists:
+      """
+      seer = Seer.new
+
+      seer.widget?(:the_form) #=> true
+      """
