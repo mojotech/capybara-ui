@@ -29,3 +29,7 @@ end
 Then(/^we should get a Dill::Widget::MissingSelector error$/) do
   expect(@rescued_dill_missing_selector).to be true
 end
+
+Then(/^we should be able to use the "see_\*" method:$/) do |string|
+  eval string
+end
