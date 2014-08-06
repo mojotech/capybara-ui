@@ -94,3 +94,17 @@ situations, we can define a custom `see_XXX?` method in the role, which will be 
 
       expect(seer).to see :something, "nice"
       """
+
+  Scenario: When a widget doesn't exist
+
+    Given the following role definition:
+      """
+      class Seer < Dill::Role; end
+      """
+    When we try to find the unknown widget:
+      """
+      seer = Seer.new
+
+      expect(seer).to see :unknown, "nice"
+      """
+    Then we should get a Dill::Missing error

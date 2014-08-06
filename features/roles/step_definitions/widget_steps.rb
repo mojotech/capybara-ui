@@ -33,3 +33,11 @@ end
 Then(/^we should be able to use the "see_\*" method:$/) do |string|
   eval string
 end
+
+When(/^we try to find the unknown widget:$/) do |string|
+  begin
+    eval_in_page string
+  rescue Dill::Missing
+    @rescued_dill_missing = true
+  end
+end
