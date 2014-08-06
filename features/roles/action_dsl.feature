@@ -1,6 +1,9 @@
-Feature: DSL
+Feature: Action DSL
 
-  Scenario: visiting a page
+  The role DSL helps us write actions in a succint and readable way, reminiscent of Capybara's and Webrat's own DSLs. The big difference is that the role DSL works exclusively with widgets.
+
+  Scenario: Visiting a page
+
     Given the following HTML at the path "/somewhere":
       """
       <div id="here"></div>
@@ -9,37 +12,61 @@ Feature: DSL
       """
       Here = Dill::Widget('#here')
       """
-    When I visit "/somewhere" with:
+    And the following role definition:
       """
-      visit "/somewhere"
+      class Visitor < Dill::Role
+        def go
+          visit "/somewhere"
+        end
+      end
       """
-    Then I should see the Here widget is present:
+    When we ask the role to execute the action:
       """
-      widget(:here).present? #=> true
+      role = Visitor.new
+
+      role.go
+      """
+    Then we should see the role did so:
+      """
+      widget?(:here) #=> true
       """
 
   @javascript
-  Scenario: clicking a widget
-    Given the following HTML:
+  Scenario: Clicking a widget
+
+    Given the following HTML at the path "/somewhere":
       """
       <div id="clickme" onclick="this.innerHTML = 'Clicked!'">Click Me!</a>
       """
     And the following widget definition:
       """
-      Clicker = Dill::Widget('#clickme')
+      Clickme = Dill::Widget('#clickme')
       """
-    When I click the widget with:
+    And the following role definition:
       """
-      click :clicker
+      class Clicker < Dill::Role
+        def go
+          visit "/somewhere"
+
+          click :clickme
+        end
+      end
       """
-    Then I should see the widget has been clicked with:
+    When we ask the role to execute the action:
       """
-      widget(:clicker).text #=> "Clicked!"
+      role = Clicker.new
+
+      role.go
+      """
+    Then we should see the role did so:
+      """
+      widget(:clickme).text #=> "Clicked!"
       """
 
   @javascript
-  Scenario: submitting a form with some fields set
-    Given the following HTML:
+  Scenario: Submitting a form with some fields set
+
+    Given the following HTML at the path "/somewhere":
       """
       <form onsubmit="this.innerHTML = 'Submitted!'; return false">
         <input type="text" name="first_name" />
@@ -54,18 +81,31 @@ Feature: DSL
         text_field :last_name, 'first_name'
       end
       """
-    When I submit the form with:
+    And the following role definition:
       """
-      submit :my_form, :first_name => 'Gubrush', :last_name => 'Threepwood'
+      class Submitter < Dill::Role
+        def go
+          visit "/somewhere"
+
+          submit :my_form, :first_name => 'Gubrush', :last_name => 'Threepwood'
+        end
+      end
       """
-    Then I should see the form has been submitted:
+    When we ask the role to execute the action:
+      """
+      role = Submitter.new
+
+      role.go
+      """
+    Then we should see the role did so:
       """
       widget(:my_form).text #=> "Submitted!"
       """
 
   @javascript
-  Scenario: submitting a form with no fields set
-    Given the following HTML:
+  Scenario: Submitting a form with no fields set
+
+    Given the following HTML at the path "/somewhere":
       """
       <form onsubmit="this.innerHTML = 'Submitted!'; return false">
         <input type="submit">
@@ -73,20 +113,33 @@ Feature: DSL
       """
     And the following widget definition:
       """
-      class MyForm < Dill::Form; end
+      class EmptyForm < Dill::Form; end
       """
-    When I submit the form with:
+    And the following role definition:
       """
-      submit :my_form
+      class EmptySubmitter < Dill::Role
+        def go
+          visit "/somewhere"
+
+          submit :empty_form
+        end
+      end
       """
-    Then I should see the form has been submitted:
+    When we ask the role to execute the action:
       """
-      widget(:my_form).text #=> "Submitted!"
+      role = EmptySubmitter.new
+
+      role.go
+      """
+    Then we should see the role did so:
+      """
+      widget(:empty_form).text #=> "Submitted!"
       """
 
   @javascript
-  Scenario: setting a form's values without submitting them
-    Given the following HTML:
+  Scenario: Setting a form's values without submitting them
+
+    Given the following HTML at the path "/somewhere":
       """
       <form onsubmit="this.innerHTML = 'Submitted!'; return false">
         <input type="text" name="text_field">
@@ -94,19 +147,31 @@ Feature: DSL
       """
     And the following widget definition:
       """
-      class MyForm < Dill::Form
+      class SetForm < Dill::Form
         text_field :text_field, 'text_field'
       end
       """
-    When we change the text field value:
+    And the following role definition:
       """
-      set :my_form, :text_field => 'Value!'
+      class Setter < Dill::Role
+        def go
+          visit "/somewhere"
+
+          set :set_form, :text_field => 'Value!'
+        end
+      end
+      """
+    When we ask the role to execute the action:
+      """
+      role = Setter.new
+
+      role.go
       """
     Then we should see the text field value has been changed:
       """
-      widget(:my_form).text_field #=> "Value!"
+      widget(:set_form).text_field #=> "Value!"
       """
     But the form shouldn't have been submitted:
       """
-      widget(:my_form).text #=> ""
+      widget(:set_form).text #=> ""
       """
