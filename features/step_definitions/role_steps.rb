@@ -6,7 +6,7 @@ Then(/^we can use the role as we do any other Ruby object:$/) do |string|
   eval string
 end
 
-When(/^we ask the the role to execute the action:$/) do |string|
+When(/^we ask the role to execute the action:$/) do |string|
   eval_in_page string
 end
 

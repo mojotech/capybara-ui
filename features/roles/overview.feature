@@ -40,7 +40,7 @@ Feature: Overview
         end
       end
       """
-    When we ask the the role to execute the action:
+    When we ask the role to execute the action:
       """
       gardener = Gardener.new
 
