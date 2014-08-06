@@ -34,6 +34,8 @@ Feature: Action DSL
   @javascript
   Scenario: Clicking a widget
 
+    `click :widget_name` is a shortcut for `widget(:widget_name).click`.
+
     Given the following HTML at the path "/somewhere":
       """
       <div id="clickme" onclick="this.innerHTML = 'Clicked!'">Click Me!</a>
@@ -65,6 +67,8 @@ Feature: Action DSL
 
   @javascript
   Scenario: Submitting a form with some fields set
+
+    `submit :form, ...` is a shortcut for `widget(:form).submit_with ...`.
 
     Given the following HTML at the path "/somewhere":
       """
@@ -105,6 +109,8 @@ Feature: Action DSL
   @javascript
   Scenario: Submitting a form with no fields set
 
+    `submit :form` is a shortcut for `widget(:form).submit`.
+
     Given the following HTML at the path "/somewhere":
       """
       <form onsubmit="this.innerHTML = 'Submitted!'; return false">
@@ -138,6 +144,8 @@ Feature: Action DSL
 
   @javascript
   Scenario: Setting a form's values without submitting them
+
+    `set :form, ...` is a shortcut for `widget(:form).set ...`.
 
     Given the following HTML at the path "/somewhere":
       """
