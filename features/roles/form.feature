@@ -1,8 +1,10 @@
 Feature: .form macro
 
-  Scenario: declaring a role-specific form
+  Although we can use the `widget` macro to declare a form, Dill provides a slightly more convenient way to do it, using the `form` macro.
 
-    Although we can use the `widget` macro to declare a form, Dill provides a slightly more convenient way to do it, using the `form` macro.
+  Scenario: Basic usage
+
+    In its most common usage, we pass `form` 2 arguments: the widget name and a selector.
 
     Given the following HTML:
       """
