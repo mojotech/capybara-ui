@@ -75,6 +75,20 @@ Feature: .widget macro
       role.widget(:list).is_a?(Dill::List) #=> true
       """
 
+  Scenario: With explicit class and missing default selector
+
+    Given the following HTML:
+      """
+      <div id="a-div">A DIV!</div>
+      """
+    When we try to define the role:
+      """
+      class WithDefaultSelector < Dill::Role
+        widget :div, Dill::Widget
+      end
+      """
+    Then we should get a Dill::Widget::MissingSelector error
+
   Scenario: With a block
 
     Pass a block to `.widget` to customize the new widget's behavior.

@@ -17,3 +17,15 @@ end
 Then(/^we should get a Dill::Missing error$/) do
   expect(@rescued_dill_missing).to be true
 end
+
+When(/^we try to define the role:$/) do |string|
+  begin
+    eval_in_page(string)
+  rescue Dill::Widget::MissingSelector
+    @rescued_dill_missing_selector = true
+  end
+end
+
+Then(/^we should get a Dill::Widget::MissingSelector error$/) do
+  expect(@rescued_dill_missing_selector).to be true
+end
