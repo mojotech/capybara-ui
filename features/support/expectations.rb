@@ -5,10 +5,22 @@ module Expectations
 
     attr_reader :env
 
-    def eval_expectation(code)
+    def eval_expectation(code, b)
       setup, result = code.split('#=>').map(&:strip)
 
-      expect(eval(setup)).to eq eval(result)
+      expect(eval(setup, b)).to eq eval(result, b)
+    end
+
+    def eval_expectations(code)
+      setup, result = code.split(/\n\n/)
+
+      eval setup, canvas
+
+      result.split("\n").each { |e| eval_expectation e, canvas }
+    end
+
+    def canvas
+      @canvas ||= binding
     end
   end
 
