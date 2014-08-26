@@ -7,7 +7,7 @@ Then(/^we can use the role as we do any other Ruby object:$/) do |string|
 end
 
 When(/^we ask the role to execute the action:$/) do |string|
-  eval_in_page string
+  page_context.eval string
 end
 
 Then(/^we should see the role did so:$/) do |string|
@@ -15,5 +15,5 @@ Then(/^we should see the role did so:$/) do |string|
 end
 
 Then(/^we should be able to see that the widgets? exists?:$/) do |string|
-  eval_in_page string
+  page_context.eval string
 end

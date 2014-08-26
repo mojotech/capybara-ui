@@ -1,5 +1,5 @@
 Then(/^we can change the value of the select to "(.*?)" with:$/) do |val, string|
-  eval_in_page(string)
+  page_context.eval string
 
   expect(widget(:my_form).my_select).to eq val
 end

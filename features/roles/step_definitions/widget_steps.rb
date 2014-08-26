@@ -8,7 +8,7 @@ end
 
 When(/^we try to access the widget outside the role:$/) do |string|
   begin
-    eval_in_page(string)
+    page_context.eval(string)
   rescue Dill::Missing
     @rescued_dill_missing = true
   end
@@ -20,7 +20,7 @@ end
 
 When(/^we try to define the role:$/) do |string|
   begin
-    eval_in_page(string)
+    page_context.eval string
   rescue Dill::Widget::MissingSelector
     @rescued_dill_missing_selector = true
   end
@@ -36,7 +36,7 @@ end
 
 When(/^we try to find the unknown widget:$/) do |string|
   begin
-    eval_in_page string
+    page_context.eval string
   rescue Dill::Missing
     @rescued_dill_missing = true
   end

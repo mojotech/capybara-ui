@@ -1,15 +1,15 @@
 Then(/^we can(?: also)? get an instance of the widget with:$/) do |string|
-  expect(eval_find(string)).to be_instance_of @widget_class
+  expect(page_context.eval(string)).to be_instance_of @widget_class
 end
 
 Then(/^we can get an instance of the first "li" with:$/) do |string|
-  expect(eval_find(string).text).to eq "One"
+  expect(page_context.eval(string).text).to eq "One"
 end
 
 When(/^we try to get the widget with:$/) do |string|
-  load_test_page
+  load_page_context
 
-  @thread = Thread.new { eval(string) }
+  @thread = Thread.new { page_context.eval(string) }
 end
 
 When(/^the widget's content changes to "(.*?)" before the timeout expires$/) do |string|
@@ -30,5 +30,5 @@ When(/^we try to find the widget with:$/) do |string|
 end
 
 Then(/^we will get the error Dill::(.+)$/) do |name|
-  expect { eval_find(@code).root }.to raise_error Dill.const_get(name)
+  expect { page_context.eval(@code).root }.to raise_error Dill.const_get(name)
 end
