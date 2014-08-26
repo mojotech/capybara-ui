@@ -8,6 +8,13 @@ module Dill
         widget name, *rest, Dill::Form, &block
       end
 
+      # Declares a new list widget.
+      #
+      # See features/roles/list.feature.
+      def list(name, *rest, &block)
+        widget name, *rest, Dill::List, &block
+      end
+
       # Declares a new child widget.
       #
       # See https://github.com/mojotech/dill/blob/master/features/roles/widget.feature
