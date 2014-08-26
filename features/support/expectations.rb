@@ -5,10 +5,10 @@ module Expectations
 
     attr_reader :env
 
-    def eval_expectation(code, b)
+    def eval_expectation(code, b = nil)
       setup, result = code.split('#=>').map(&:strip)
 
-      expect(eval(setup, b)).to eq eval(result, b)
+      expect(eval(*[setup, b].compact)).to eq eval(*[result, b].compact)
     end
 
     def eval_expectations(code)
