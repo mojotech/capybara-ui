@@ -9,6 +9,8 @@ end
 When(/^we try to get the widget with:$/) do |string|
   load_page_context
 
+  sleep 0.75
+
   @thread = Thread.new { page_context.eval(string) }
 end
 
