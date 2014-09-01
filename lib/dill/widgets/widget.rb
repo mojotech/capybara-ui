@@ -183,8 +183,7 @@ module Dill
     end
 
     def initialize(node = nil, &query)
-      self.node = node
-      self.query = query
+      self.query = query || -> { node }
     end
 
     # Alias for #gone?
@@ -287,7 +286,7 @@ module Dill
     end
 
     def root
-      node || query.()
+      query.()
     rescue Capybara::Ambiguous => e
       raise wrap_exception(e, AmbiguousWidget)
     rescue Capybara::ElementNotFound => e
