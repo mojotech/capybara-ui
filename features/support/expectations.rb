@@ -14,7 +14,11 @@ module Expectations
     def eval_expectations(code)
       setup, result = code.split(/\n\n/)
 
-      eval setup, canvas
+      if result
+        eval setup, canvas
+      else
+        result = setup
+      end
 
       result.split("\n").each { |e| eval_expectation e, canvas }
     end
