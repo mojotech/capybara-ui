@@ -79,6 +79,27 @@ Feature: Finding
     And the widget's content changes to "My Widget" before the timeout expires
     Then we will get an instance of the widget
 
+  Scenario: finding a widget that uses its parent's selector
+    Given the following HTML:
+      """
+      <div>My Widget</div>
+      """
+    And the following widget definition:
+      """
+      class ParentWidget < Dill::Widget
+        root 'div', :text => 'My Widget'
+      end
+      """
+    And the following widget definition:
+      """
+      class ChildWidget < ParentWidget
+      end
+      """
+    Then we can get the widget with:
+      """
+      widget(:child_widget).text #=> "My Widget"
+      """
+
   Scenario: can't find a widget
     Given the following HTML:
       """

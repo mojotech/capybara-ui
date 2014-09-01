@@ -34,3 +34,7 @@ end
 Then(/^we will get the error Dill::(.+)$/) do |name|
   expect { page_context.eval(@code).root }.to raise_error Dill.const_get(name)
 end
+
+Then(/^we can get the widget with:$/) do |string|
+  page_context.eval_expectations string
+end
