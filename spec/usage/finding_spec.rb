@@ -55,6 +55,6 @@ describe 'Finding a widget' do
     end
 
     Then { widget(:lazy_form, 'Right').text == 'Right' }
-    And { widget(:lazy_form).is_a?(LazyForm)}
+    And { widget(:lazy_form, 'Right').is_a?(LazyForm)}
   end
 end

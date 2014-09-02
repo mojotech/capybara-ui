@@ -15,10 +15,6 @@ module Dill
         parent_widget.root.all(*capybara_selector(*args))
       end
 
-      def query(parent, *args)
-        -> { node(parent, *args) }
-      end
-
       private
 
       def capybara_selector(*args)

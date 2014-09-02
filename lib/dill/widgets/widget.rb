@@ -9,6 +9,8 @@ module Dill
 
     class Removed < StandardError; end
 
+    attr_reader :root
+
     # @!group Widget macros
 
     # Defines a new action.
@@ -91,7 +93,13 @@ module Dill
     #
     # @raise [Capybara::ElementNotFoundError] if the widget can't be found
     def self.find_in(parent, *args)
-      new(filter.query(parent, *args))
+      new(filter.node(parent, *args))
+    rescue => e
+      if e.class.name =~ /Capybara::/
+        NoWidget.new(e)
+      else
+        raise
+      end
     end
 
     def self.find_all_in(parent, *args)
@@ -182,8 +190,8 @@ module Dill
       filter.selector
     end
 
-    def initialize(node)
-      self.query = node.respond_to?(:call) ? node : -> { node }
+    def initialize(root)
+      @root = root
     end
 
     # Clicks the current widget, or the child widget given by +name+.
@@ -264,22 +272,12 @@ module Dill
         inspection << Nokogiri::XML(xml, &:noblanks).to_xhtml
       rescue Capybara::NotSupportedByDriverError
         inspection << "<#{root.tag_name}>\n#{to_s}"
-      rescue Dill::MissingWidget, *page.driver.invalid_element_errors
-        "#<DETACHED>"
       end
     end
 
     # Returns +true+ if widget is visible.
     def present?
-      !! root rescue false
-    end
-
-    def root
-      query.()
-    rescue Capybara::Ambiguous => e
-      raise wrap_exception(e, AmbiguousWidget)
-    rescue Capybara::ElementNotFound => e
-      raise wrap_exception(e, MissingWidget)
+      true
     end
 
     def text
@@ -308,14 +306,8 @@ module Dill
 
     private
 
-    attr_accessor :node, :query
-
     def page
       Capybara.current_session
-    end
-
-    def wrap_exception(e, wrapper_class)
-      wrapper_class.new(e.message).tap { |x| x.set_backtrace e.backtrace }
     end
   end
 end

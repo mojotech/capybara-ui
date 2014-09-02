@@ -38,6 +38,12 @@ DRIVERS.each do |driver|
     end
 
     describe '.widget_delegator' do
+      GivenHTML <<-HTML
+        <div>
+          <span id="child">Ins</span>
+        </div>
+      HTML
+
       GivenWidget do
         class MyWidget < Dill::Widget
           root 'div'
@@ -111,6 +117,10 @@ DRIVERS.each do |driver|
 
     describe 'diff' do
       GOOD_TABLE = [{'a' => '1', 'b' => '2'}, {'a' => '3', 'b' => '4'}]
+
+      GivenHTML <<-HTML
+        <div>Widget</div>
+      HTML
 
       Given(:table) { Cucumber::Ast::Table.new(GOOD_TABLE) }
 
