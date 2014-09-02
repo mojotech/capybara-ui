@@ -5,6 +5,7 @@ module Dill
 
     include WidgetParts::Struct
     include WidgetParts::Container
+    include WidgetParts::Presence
 
     class Removed < StandardError; end
 
@@ -185,11 +186,6 @@ module Dill
       self.query = node.respond_to?(:call) ? node : -> { node }
     end
 
-    # Alias for #gone?
-    def absent?
-      gone?
-    end
-
     # Clicks the current widget, or the child widget given by +name+.
     #
     # === Usage
@@ -234,12 +230,6 @@ module Dill
     #   end
     def diff(table, wait_time = Capybara.default_wait_time)
       table.diff!(to_table) || true
-    end
-
-    # Returns +true+ if the widget is not visible, or has been removed from the
-    # DOM.
-    def gone?
-      ! root rescue true
     end
 
     # Determines if the widget underlying an action exists.
