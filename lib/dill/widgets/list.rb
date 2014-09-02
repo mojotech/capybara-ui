@@ -80,6 +80,8 @@ module Dill
 
     def_delegators :items, :each, :first, :last
 
+    root 'ul' unless filter?
+
     class << self
       # Configures the List item selector and class.
       #
@@ -140,16 +142,6 @@ module Dill
       def item_factory
         @item_factory ||= WidgetClass.new('li', ListItem)
       end
-
-      def selector
-        begin
-          super
-        rescue Widget::MissingSelector
-          root 'ul'
-
-          super
-        end
-      end
     end
 
     def count
@@ -197,12 +189,12 @@ module Dill
       item_factory.new(node)
     end
 
-    def item_selector
-      item_factory.selector
+    def item_filter
+      item_factory.filter
     end
 
     def items
-      root.all(*item_selector).map { |node| item_for(node) }
+      item_filter.nodes(self).map { |node| item_for(node) }
     end
   end
 end

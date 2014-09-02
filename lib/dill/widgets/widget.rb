@@ -90,11 +90,11 @@ module Dill
     #
     # @raise [Capybara::ElementNotFoundError] if the widget can't be found
     def self.find_in(parent, *args)
-      new { parent.root.find(*selector(*args)) }
+      new(filter.query(parent, *args))
     end
 
     def self.find_all_in(parent, *args)
-      parent.root.all(*selector(*args)).map { |e| new(e) }
+      filter.nodes(parent, *args).map { |e| new(e) }
     end
 
     # Determines if an instance of this widget class exists in
@@ -161,29 +161,28 @@ module Dill
     #     root :xpath, '//some/node'
     #   end
     def self.root(*selector, &block)
-      @selector = block ? [block] : selector.flatten
+      @filter = NodeFilter.new(block || selector)
     end
 
     class MissingSelector < StandardError
     end
 
-    # Returns the selector specified with +root+.
-    def self.selector(*args)
-      if @selector
-        fst = @selector.first
-
-        fst.respond_to?(:call) ? fst.call(*args) : @selector
-      else
-        if superclass.respond_to?(:selector)
-          superclass.selector
-        else
-          raise MissingSelector, 'no selector defined'
-        end
-      end
+    def self.filter
+      @filter || superclass.filter
+    rescue NoMethodError
+      raise MissingSelector, 'no selector defined'
     end
 
-    def initialize(node = nil, &query)
-      self.query = query || -> { node }
+    def self.filter?
+      filter rescue false
+    end
+
+    def self.selector
+      filter.selector
+    end
+
+    def initialize(node)
+      self.query = node.respond_to?(:call) ? node : -> { node }
     end
 
     # Alias for #gone?

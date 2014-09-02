@@ -40,6 +40,8 @@ DRIVERS.each do |driver|
     describe '.widget_delegator' do
       GivenWidget do
         class MyWidget < Dill::Widget
+          root 'div'
+
           widget :child, '#child' do
             def inline!
               'yay!'
@@ -115,6 +117,8 @@ DRIVERS.each do |driver|
       context 'successful comparison' do
         GivenWidget do
           class MyWidget < Dill::Widget
+            root 'div'
+
             define_method(:to_table) { GOOD_TABLE }
           end
         end
@@ -127,6 +131,8 @@ DRIVERS.each do |driver|
       context 'failed comparison' do
         GivenWidget do
           class MyWidget < Dill::Widget
+            root 'div'
+
             define_method(:to_table) { [{'a' => '5', 'b' => '6'}] }
           end
         end
