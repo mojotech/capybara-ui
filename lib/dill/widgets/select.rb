@@ -1,22 +1,36 @@
 module Dill
   # A select.
   class Select < Field
+    widget :selected, '[selected]'
+
+    module Selectable
+      def select
+        root.select_option
+      end
+    end
+
+    widget :option, -> (opt) { [:option, opt] } do
+      include Selectable
+    end
+
+    widget :option_by_value, -> (opt) { "option[value = #{opt.inspect}]" } do
+      include Selectable
+    end
+
     # @return [String] The text of the selected option.
     def get
-      option = root.find('[selected]') rescue nil
-
-      option && option.text
+      widget?(:selected) ? widget(:selected).text : nil
     end
 
     # Selects the given +option+.
     #
     # You may pass in the option text or value.
     def set(option)
-      root.find(:option, option).select_option
+      widget(:option, option).select
     rescue
       begin
-        root.find("option[value = #{option.inspect}]").select_option
-      rescue Capybara::ElementNotFound => e
+        widget(:option_by_value, option).select
+      rescue Dill::MissingWidget => e
         raise InvalidOption.new(e.message).
           tap { |x| x.set_backtrace e.backtrace }
       end
