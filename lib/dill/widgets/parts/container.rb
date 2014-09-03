@@ -1,10 +1,6 @@
 module Dill
   module WidgetParts
     module Container
-      def has_no_widget?(name)
-        ! has_widget?(name)
-      end
-
       def has_widget?(name, *args)
         widget_class(name).present_in?(self, *args)
       end
