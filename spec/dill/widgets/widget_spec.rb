@@ -252,51 +252,5 @@ DRIVERS.each do |driver|
 
       Then { inspection == "<!-- Inspect: -->\n<p>\nIns" }
     end
-
-    describe 'inspecting detached node' do
-      GivenHTML <<-HTML
-        <span id="ins">Ins</span>
-      HTML
-
-      GivenWidget do
-        class MyWidget < Dill::Widget
-          root 'body'
-
-          widget :child, 'a'
-        end
-      end
-
-      When(:inspection) { widget(:my_widget).widget(:child).inspect }
-
-      Then { inspection == '#<DETACHED>' }
-    end
-
-    context 'when the widget is absent' do
-      GivenHTML ''
-
-      GivenWidget do
-        class MyWidget < Dill::Widget
-          root 'a'
-        end
-      end
-
-      Then { widget(:my_widget).gone? }
-      And { widget(:my_widget).absent? }
-    end
-
-    context 'when the widget is present' do
-      GivenHTML <<-HTML
-        <span id="present">Present</span>
-      HTML
-
-      GivenWidget do
-        class MyWidget < Dill::Widget
-          root '#present'
-        end
-      end
-
-      Then { widget(:my_widget).present? }
-      And { ! widget(:my_widget).absent? }
-    end
   end
 end

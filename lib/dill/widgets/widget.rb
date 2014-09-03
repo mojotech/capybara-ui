@@ -5,7 +5,6 @@ module Dill
 
     include WidgetParts::Struct
     include WidgetParts::Container
-    include WidgetParts::Presence
 
     class Removed < StandardError; end
 
@@ -94,12 +93,12 @@ module Dill
     # @raise [Capybara::ElementNotFoundError] if the widget can't be found
     def self.find_in(parent, *args)
       new(filter.node(parent, *args))
-    rescue => e
-      if e.class.name =~ /Capybara::/
-        NoWidget.new(e)
-      else
-        raise
-      end
+    rescue Capybara::Ambiguous => e
+      raise AmbiguousWidget.new(e.message).
+        tap { |x| x.set_backtrace e.backtrace }
+    rescue Capybara::ElementNotFound => e
+      raise MissingWidget.new(e.message).
+        tap { |x| x.set_backtrace e.backtrace }
     end
 
     def self.find_all_in(parent, *args)
@@ -112,8 +111,8 @@ module Dill
     # @param parent_node [Capybara::Node] the node we want to search in
     #
     # @return +true+ if a widget instance is found, +false+ otherwise.
-    def self.present_in?(parent)
-      find_in(parent).present?
+    def self.present_in?(parent, *args)
+      filter.node?(parent, *args)
     end
 
     # Sets this widget's default selector.
@@ -273,11 +272,6 @@ module Dill
       rescue Capybara::NotSupportedByDriverError
         inspection << "<#{root.tag_name}>\n#{to_s}"
       end
-    end
-
-    # Returns +true+ if widget is visible.
-    def present?
-      true
     end
 
     def text

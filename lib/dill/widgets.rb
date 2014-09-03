@@ -40,13 +40,11 @@ module Dill::WidgetParts; end
 
 require 'dill/widgets/parts/struct'
 require 'dill/widgets/parts/container'
-require 'dill/widgets/parts/presence'
 
 require 'dill/widgets/dsl'
 require 'dill/widgets/widget_class'
 require 'dill/widgets/widget_name'
 require 'dill/widgets/widget'
-require 'dill/widgets/no_widget'
 require 'dill/widgets/widget/node_filter'
 require 'dill/widgets/list_item'
 require 'dill/widgets/list'

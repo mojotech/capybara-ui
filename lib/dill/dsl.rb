@@ -55,7 +55,7 @@ module Dill
     #
     # @param name [String, Symbol]
     def widget(name, *args)
-      document.widget(name, *args)
+      eventually { document.widget(name, *args) }
     end
 
     # Returns a list of widget instances for the given name.

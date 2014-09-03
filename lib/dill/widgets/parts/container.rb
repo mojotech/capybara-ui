@@ -2,11 +2,11 @@ module Dill
   module WidgetParts
     module Container
       def has_no_widget?(name)
-        widget(name).absent?
+        ! has_widget?(name)
       end
 
       def has_widget?(name, *args)
-        widget(name, *args).present?
+        widget_class(name).present_in?(self, *args)
       end
 
       alias_method :widget?, :has_widget?
