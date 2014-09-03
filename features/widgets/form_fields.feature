@@ -6,7 +6,7 @@ Feature: Form Fields
     Given the following HTML:
       """
       <form>
-        <input type="text" name="named">
+        <input class="named-class" type="text" name="named">
         <input type="submit">
       </form>
       """
@@ -19,6 +19,21 @@ Feature: Form Fields
       """
       class MyForm < Dill::Form
         field :text, 'named', Dill::TextField
+      end
+      """
+    Then we can see the text field widget is present using:
+      """
+      widget(:my_form).widget?(:text) #=> true
+      """
+
+  Scenario: Overriding the :field selector
+
+    Sometimes you may want to skip the usage of `find(:field, ...)` and pass a bare-bones selector instead. You can do it by enclosing the selector in an array.
+
+    Given the following widget definition:
+      """
+      class MyForm < Dill::Form
+        field :text, ['.named-class'], Dill::TextField
       end
       """
     Then we can see the text field widget is present using:

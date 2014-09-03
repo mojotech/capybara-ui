@@ -1,8 +1,8 @@
 module Dill
   # A form field.
   class Field < Widget
-    def self.root(*selector)
-      @filter = NodeFilter.new([:field] + selector)
+    def self.root(selector)
+      super String === selector ? [:field, selector] : selector
     end
 
     # @return This field's value.
