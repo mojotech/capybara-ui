@@ -2,9 +2,9 @@ Feature: Form Fields
 
   There are specific macros for each field type, but in this file we use the generic `field` macro, because this documentation applies to all field types.
 
-  Scenario: finding fields
+  Scenario: Finding
 
-    Fields are searched using capybara's `find(:field, ...)`. It expects either the text of a label, an input name or an input id.
+    Fields are usually searched for using capybara's `find(:field, ...)`. It expects either the text of a label, an input name or an input id.
 
     Given the following HTML:
       """
