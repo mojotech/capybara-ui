@@ -60,6 +60,34 @@ Feature: Finding
       widget(:list_item, "One")
       """
 
+  Scenario: finding a widget with a dynamic selector, passing an array
+
+    This is useful when we use the high level action DSL. It enables us to, for
+    example submit a form that was declared with a dynamic selector, like this:
+
+    ```ruby
+    submit [:my_form, 'form-id'], :field1 => 'val', ...
+    ```
+
+    Given the following HTML:
+      """
+      <ul>
+        <li>One</li>
+        <li>Two</li>
+      </ul>
+      """
+    And the following widget definition:
+      """
+      class ListItem < Dill::Widget
+        root { |text| ["li", :text => text] }
+      end
+      """
+    Then we can get an instance of the first "li" with:
+      """
+      widget([:list_item, "One"])
+      """
+
+
   @javascript
   Scenario: finding a widget that only appears after a time
     Given the following HTML:
@@ -103,7 +131,7 @@ Feature: Finding
   Scenario: can't find a widget
     Given the following HTML:
       """
-      <div>Widget</div>
+p      <div>Widget</div>
       """
     And the following widget definition:
       """

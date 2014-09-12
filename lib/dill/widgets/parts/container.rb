@@ -8,11 +8,15 @@ module Dill
       alias_method :widget?, :has_widget?
 
       def widget(name, *args)
-        widget_class(name).find_in(self, *args)
+        first, rest = [*name, *args]
+
+        widget_class(first).find_in(self, *rest)
       end
 
       def widgets(name, *args)
-        widget_class(name).find_all_in(self, *args)
+        first, rest = [*name, *args]
+
+        widget_class(first).find_all_in(self, *rest)
       end
 
       private
