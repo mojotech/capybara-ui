@@ -11,3 +11,6 @@
   - form_fields_select.feature
   - form_fields.feature
   - finding.feature
+- tables (Table Widget):
+  - api
+  - defaults
