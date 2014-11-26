@@ -275,7 +275,7 @@ module Dill
     end
 
     def text
-      root.text.strip
+      StringValue.new(root.text.strip)
     end
 
     # Converts this widget into a string representation suitable to be displayed
