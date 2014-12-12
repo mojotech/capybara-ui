@@ -6,13 +6,13 @@ describe Dill::Conversions do
   describe 'Boolean' do
     ['yes', 'true', true].each do |val|
       it "converts #{val.inspect} to true" do
-        expect(Boolean(val)).to be_true
+        expect(Boolean(val)).to be true
       end
     end
 
     ['no', 'false', false, nil].each do |val|
       it "converts #{val.inspect} to false" do
-        expect(Boolean(val)).to be_false
+        expect(Boolean(val)).to be false
       end
     end
   end
