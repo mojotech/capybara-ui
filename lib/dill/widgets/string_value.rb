@@ -21,7 +21,10 @@ module Dill
       delegate %w(to_i to_f) => :str
 
       def initialize(str)
-        @str = str.gsub(/^\$|,/, '')
+        fail ArgumentError, "can't convert `#{str}` to money" \
+          unless str =~ /^-?\$\d+(?:,\d{3})*(?:\.\d+)?/
+
+        @str = (str =~ /^-/ ? '-' : '') + str.gsub(/^-?\$|,/, '')
       end
 
       private

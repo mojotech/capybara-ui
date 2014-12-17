@@ -27,21 +27,29 @@ Feature: Values
 
     Given the following HTML:
       """
-      <div id="the-widget">$100,000,000.50</div>
+      <div id="the-widget">
+        <span id="positive">$100,000,000.50</span>
+        <span id="negative">-$100,000,000.50</span>
+      </div>
       """
     And the following widget definition:
       """
       class MyWidget < Dill::Widget
         root "#the-widget"
+
+        widget :positive, '#positive'
+        widget :negative, '#negative'
       end
       """
     Then I should be able to convert the value to an integer using:
       """
-      widget(:my_widget).value.to_usd.to_i #=> 100000000
+      widget(:my_widget).widget(:positive).value.to_usd.to_i #=> 100000000
+      widget(:my_widget).widget(:negative).value.to_usd.to_i #=> -100000000
       """
     And I should be able to convert the value to a float using:
       """
-      widget(:my_widget).value.to_usd.to_f #=> 100000000.5
+      widget(:my_widget).widget(:positive).value.to_usd.to_f #=> 100000000.5
+      widget(:my_widget).widget(:negative).value.to_usd.to_f #=> -100000000.5
       """
 
   Scenario: Date from standard date format
