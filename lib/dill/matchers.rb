@@ -1,19 +1,14 @@
+require 'dill/assertions'
 require 'rspec/matchers'
 
 RSpec::Matchers.define :see do |widget_name, *args|
+  include Dill::Assertions
+
   match do |role|
-    begin
-      eventually { role.see?(widget_name, *args) }
-    rescue Dill::Checkpoint::ConditionNotMet
-      false
-    end
+    assert_visible(role, widget_name, *args)
   end
 
   match_when_negated do |role|
-    begin
-      eventually { ! role.see?(widget_name, *args) }
-    rescue Dill::Checkpoint::ConditionNotMet
-      false
-    end
+    assert_not_visible(role, widget_name, *args)
   end
 end
