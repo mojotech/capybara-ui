@@ -13,7 +13,6 @@ require 'dill/text_table/transformations'
 require 'dill/text_table/cell_text'
 require 'dill/capybara'
 require 'dill/dsl'
-require 'dill/matchers'
 
 module Dill
   # An exception that signals that something is missing.
