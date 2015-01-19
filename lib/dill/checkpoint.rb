@@ -7,6 +7,12 @@ module Dill
   class Checkpoint
     class ConditionNotMet < StandardError; end
 
+    class << self
+      attr_accessor :rescuable_errors
+    end
+
+    self.rescuable_errors = [StandardError]
+
     class Timer
       class Frozen < StandardError; end
 
@@ -92,7 +98,7 @@ module Dill
     protected
 
     def rescuable_errors
-      [StandardError]
+      self.class.rescuable_errors
     end
 
     attr_reader :timer
