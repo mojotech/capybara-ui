@@ -1,15 +1,19 @@
 module Dill
   module Assertions
     def assert_visible(role, widget_name, *args)
-      eventually { role.see?(widget_name, *args) }
-    rescue Dill::Checkpoint::ConditionNotMet
-      false
+      eventually do
+        assert role.see?(widget_name, *args)
+
+        true
+      end
     end
 
     def assert_not_visible(role, widget_name, *args)
-      eventually { ! role.see?(widget_name, *args) }
-    rescue Dill::Checkpoint::ConditionNotMet
-      false
+      eventually do
+        refute role.see?(widget_name, *args)
+
+        true
+      end
     end
   end
 end
