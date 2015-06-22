@@ -34,7 +34,7 @@ module Dill
   #     puts e.text.strip
   #   end
   #
-  # Not that, by default, the root selector of a List is +ul+ and the list
+  # Note that, by default, the root selector of a List is +ul+ and the list
   # item selector is +li+. So you could wrap the +<ul>+ above simply by using
   # the following:
   #
