@@ -9,7 +9,9 @@ module Dill
       end
     end
 
-    widget :option, -> (opt) { [:option, opt] } do
+    widget :option, -> (opt) {
+      opt.is_a?(Regexp) ? ["option", text: opt] : [:option, opt]
+    } do
       include Selectable
     end
 

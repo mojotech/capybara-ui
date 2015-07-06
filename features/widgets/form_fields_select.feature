@@ -9,6 +9,7 @@ Feature: Form Fields: Select
           <option value="2">
             Two
           </option>
+          <option value="3">Three</option>
         </select>
       </form>
       """
@@ -30,11 +31,15 @@ Feature: Form Fields: Select
       """
       widget(:my_form).my_select = "Two"
       """
+    And we can change the value of the select to "Three" with:
+      """
+      widget(:my_form).my_select = /Thr/
+      """
 
   Scenario: invalid option
     When we try to change the value of the select to an invalid value:
       """
-      widget(:my_form).my_select = "Three"
+      widget(:my_form).my_select = "Four"
       """
     Then we will get the error Dill::InvalidOption
 
