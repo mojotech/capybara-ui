@@ -19,6 +19,7 @@ Dill might best be thought of as three layers:
 Table of Contents
   - [Walkthrough](#walkthrough)
   - [Widgets](#widgets)
+  - [Forms](#forms)
 
 #A Dill Walkthrough<a name="walkthrough"></a>
 For this walkthrough, we're going to write an Rspec test using Dill. If we use these concepts of Roles, Tasks and Elements, our test might end up looking something like this:
@@ -241,6 +242,81 @@ end
 
 ```
 
+#Forms<a name="forms"></a>
+Forms inherit all the properties of widgets, and have some of their own.
+
+Dill forms can be declared two ways. We prefer the form macro where possible, because it's a little cleaner.
+
+```ruby
+  # with explicit class
+  widget :todo_form, '.todo-form', Dill::Form do
+  end
+
+  # with the form macro
+  form :todo_form, '.todo-form' do
+  end
+```
+
+## Form Fields
+Forms can have form-field widgets defined, as well as any regular sub-widgets. Form field widgets by default try to match their second argument with the text of a label, an input name or an input id.
+
+```ruby
+  form :form_with_everything, '.form-with-everything' do
+    # text field
+    text_field :request, 'request'
+
+    # select field
+    select :state, 'state'
+
+    # checkbox field
+    check_box :receive_email, 'receive_email'
+
+    # regular sub-widget
+    widget :hidden_field, '.hidden-field'
+
+    # currently no built-in form support for radio buttons.
+  end
+```
+
+
+#### Defining Fields with CSS Selectors
+If you'd rather use a CSS selector, you can do that by passing the second argument an array, with the class as the array's first element.
+
+```ruby
+  text_field :request, ['.request-field-class'],
+```
+
+#### Getting Field Values
+You can get the current value of any of these elements at any time by referencing them on the form object.
+
+```
+  widget(:form_with_everything).state #=> 'CO'
+```
+
+
+## Submitting a Form
+Dill will easily submit a form for you, via the UI, with either of these methods.
+
+```ruby
+  params = { request: 'Call me', state: 'CO', receive_email: true }
+
+  # the submit macro
+  submit :form_with_everything, params
+
+  # the submit widget method
+  widget(:form_with_everything).submit_with(params)
+```
+
+You can also submit a form by setting the fields individually.
+```ruby
+  widget(:form_with_everything).tap do |f|
+    f.request = 'Call me'
+    f.state = 'CO'
+    f.receive_email = true
+    f.submit
+  end
+```
+
 
 ##To Be Continued...
 
@@ -251,5 +327,4 @@ Addressing irregular test failures with Dill
 Dill Elements
   - lists
   - list-tables
-  - forms
   - form-fields
