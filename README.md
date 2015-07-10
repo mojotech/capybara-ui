@@ -14,7 +14,11 @@ Dill might best be thought of as three layers:
 
     ROLES, that perform => TASKS, which manipulate => ELEMENTS
 
-#A Dill Walkthrough
+##Table of Contents
+  - [Walkthrough](#walkthrough)
+  - [Widgets](#widgets)
+
+#A Dill Walkthrough<a name="walkthrough"></a>
 For this walkthrough, we're going to write an Rspec test using Dill. If we use these concepts of Roles, Tasks and Elements, our test might end up looking something like this:
 
 ```
@@ -131,14 +135,143 @@ class Admin < Dill::Role
 end
 ```
 
+
+#Widgets
+A widget is the fundamental Dill element. A widget abstracts a DOM element, allowing you to call methods on that element, like checking for text or submitting a form.
+
+
+## Widget Declaration
+A widget can be declared with the `widget` macro, or as a class.
+
+Macro widget declarations take a CSS or XPath selector as the first argument.
+
+```ruby
+widget :todo_item, '.todo-item'
+widget :todo_item, [:xpath, '//some/node']
+```
+
+Class widget declarations define the widget with selector via the `root` method.
+
+```ruby
+class TodoItem < Dill::Widget
+  root '.todo-item'
+end
+
+class TodoItem < Dill::Widget
+  root :xpath, '//some/node'
+end
+```
+
+
+## Widgets with Procs
+Widgets can take a Proc in addition to a CSS selector or XPath expression, allowing us to more precisely define the widget at call time.
+
+```ruby
+class TodoManager < Dill::Role
+  widget :todo_item, -> (text) { ['.todo-item', text: text] }
+
+  def select_item(description)
+    click :todo_item, description
+  end
+end
+```
+
+
+## Widgets Wait to Find an Element
+The `widget` method blocks, meaning it pauses Ruby code execution, and checks the page for that element until found or it reaches Capybara's timeout limit. It does not pause JavaScript code execution. This is handy for dynamic UI tests.
+
+```ruby
+roles.myrole.create_todo_item("Buy Milk")
+# the item form is submitted to server and on response
+# from the server, a new item is appended to the list.
+# 'widget' waits until the item appears on the list,
+# or Capybara's timeout limit is reached
+
+expect(roles.myrole).to see :todo_item, "Buy Milk"
+```
+
+
+## Widget Root
+The **root** of a widget is the Capybara element itself that Dill abstracts. When a widget is declared with the widget macro, the root declaration is implicit and equal to the element with the css class in the definition.
+
+```ruby
+class TodoManager < Dill::Role
+  widget :todo_item, '.todo-item' do
+    def delete
+      root.find('a.delete').click
+    end
+  end
+end
+```
+
+
+## HTML Attributes
+You can access the id and classes of the widget as well with Dill methods. Other attributes can be accessed from the Capybara element, via the `root` method.
+
+```ruby
+# <a href="/items/1" id="todo_item" class="todo-item right-aligned">
+widget(:todo_item).id #=> "todo_form"
+widget(:todo_item).classes #=> ["todo-item", "right-aligned"]
+widget(:todo_item).root['href'] #=> "/items/1"
+```
+
+
+## Getting All the Widgets
+You can get a list of all the elements that match your selector(s) on the page with the `widgets` method.
+
+```ruby
+# note: `widgets` does not wait like `widget` does
+widgets(:todo_item)
+```
+
+
+## Nested Widgets
+Widgets can be nested inside other widgets. Definining attributes of the inner widget, such as classes, will be scoped to within the outer widget.
+
+```ruby
+widget :todo_item, '.todo-item' do
+  widget :delete_link, 'a.delete'
+end
+```
+
+And can be called from that widget.
+
+```ruby
+widget(:todo_item).click :delete_button
+```
+
+
+## Widget Custom Methods
+You can define custom methods on a widget object.
+
+```ruby
+class TodoManager < Dill::Role
+  # see the Forms section for more information about form widgets
+  form :new_email, '#new_email' do
+    text_field :email, ["[id ^= 'email_addresses_']"]
+
+    def body=(body)
+      page.execute_script <<-JS
+        jQuery('#email_body').data('wysihtml5').setValue(#{body.inspect});
+        setTimeout(function() { $('#email_body').trigger('change') }, 500);
+      JS
+    end
+  end
+
+  def send_email(body)
+    submit :new_email, body: "My test email body content."
+  end
+end
+```
+
+
 ##To Be Continued...
 
-That's a quick tour of the basic Dill features, but there's a lot more! Stay tuned for more in depth documentation of the following:
+Stay tuned for more in-depth documentation of the following:
 
 Dill Gotchas - the most common, unexpected Dill errors and solutions
 Addressing irregular test failures with Dill
 Dill Elements
-  - widgets
   - lists
   - list-tables
   - forms
