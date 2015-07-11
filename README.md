@@ -3,19 +3,15 @@
 [![Code Climate](https://codeclimate.com/github/mojotech/dill/badges/gpa.svg)](https://codeclimate.com/github/mojotech/dill)
 [![Test Coverage](https://codeclimate.com/github/mojotech/dill/badges/coverage.svg)](https://codeclimate.com/github/mojotech/dill)
 
-Cucumber helpers to make it easier to write living documentation in Ruby.
-
 See the documentation at https://www.relishapp.com/mojotech/dill/docs.
 
+
 #Overview
-Dill is designed to work as a DOM interaction tool. Dill emphasizes relying on DOM attributes, rather than text, as attributes tend to be more stable.
+Dill abstracts the DOM, giving you more control in how you're testing, while bringing increased order, simplicity and clarity to your test code.
 
-Dill might best be thought of as three layers:
-
-    ROLES, that perform => TASKS, which manipulate => ELEMENTS
 
 ##Table of Contents
-  - [Walkthrough](#walkthrough)
+  - [Walkthrough](#a-dill-walkthrough)
   - [Widgets](#widgets)
   - [Forms](#forms)
   - [Field Groups](#field-groups)
@@ -23,10 +19,14 @@ Dill might best be thought of as three layers:
   - [Tables](#tables)
 
 
-#A Dill Walkthrough<a name="walkthrough"></a>
+#A Dill Walkthrough
+Dill might best be thought of as three layers.
+
+    ROLES, that perform => TASKS, which manipulate => ELEMENTS
+
 For this walkthrough, we're going to write an Rspec test using Dill. If we use these concepts of Roles, Tasks and Elements, our test might end up looking something like this:
 
-```
+```ruby
 describe 'Admin' do
   it 'should be able to create a new user' do
     params = { name: 'Example', email: 'example@example.com' }
@@ -41,14 +41,17 @@ end
 
 You can start to see in the expect statement that Dill is magical, too.
 
+
 ##Roles
 A Dill role groups tasks and elements together, and is defined as a class.
+See the [setting up roles](https://github.com/mojotech/dill/wiki/Setting-Up-Roles) section in the wiki for more how-to ideas.
 
 ```ruby
 class Admin < Dill::Role
   ...
 end
 ```
+
 
 ##Tasks
 A task is just a method on a role.
@@ -66,6 +69,7 @@ class Admin < Dill::Role
   ...
 end
 ```
+
 
 ##Elements
 Elements are where the Dill amazingness begins, as well as where the Dill confusion heats up. Elements are dom abstractions that allow for precise testing. By using dom element attributes we can easily create the most basic Dill Element, a widget.
@@ -119,7 +123,7 @@ class Admin < Dill::Role
 end
 ```
 
-Finally, let's explore that Dill magic in the expect clause. Dill's `see` expectation method, by default, will simply check for the presence of a widget by that name.
+Finally, let's explore that Dill magic in the expect clause of our example spec. Dill's `see` expectation method, by default, will simply check for the presence of a widget by that name.
 
 ```ruby
 class Admin < Dill::Role
@@ -139,6 +143,8 @@ class Admin < Dill::Role
   widget :new_user_message, '.flash.new-user-success'
 end
 ```
+
+That's it for the walkthrough, but Dill has a lot more to offer. We recommend digging into Widgets next, as Widget is the fundamental class common to all the Dill elements.
 
 
 #Widgets
@@ -513,3 +519,4 @@ In both default and custom tables, you can get the values in a row, or in a colu
 Stay tuned for more documentation of the following:
 - Dill Gotchas - the most common, unexpected Dill errors and solutions
 - Addressing irregular test failures with Dill
+- Dill's rspec 'see' method
