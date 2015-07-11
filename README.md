@@ -19,6 +19,8 @@ Dill might best be thought of as three layers:
   - [Widgets](#widgets)
   - [Forms](#forms)
   - [Field Groups](#field-groups)
+  - [Lists](#lists)
+
 
 #A Dill Walkthrough<a name="walkthrough"></a>
 For this walkthrough, we're going to write an Rspec test using Dill. If we use these concepts of Roles, Tasks and Elements, our test might end up looking something like this:
@@ -360,12 +362,73 @@ A field group is like a form without a submit button. It has all the same functi
 ```
 
 
+# Lists
+A list is a collection of Dill ListItem objects, and is a good way to map a simple list format with a Dill element.
+
+
+## List Declaration
+```ruby
+  # with explicit class
+  class TodoList < Dill::List
+    root '.todo-list'
+  end
+
+  # with widget macro and explicit class
+  widget :todo_list, '.todo-list', Dill::List
+
+  # with the list macro
+  list :todo_list, '.todo-list'
+```
+
+
+## List Items
+A List has access to its items, defined with a CSS selector.
+
+```ruby
+  list :todo_list, '.todo-list' do
+    item 'li'
+  end
+
+  widget(:todo_list).items
+```
+
+List items are just a form of widget, and can have methods defined on them.
+
+```ruby
+  list :todo_list, '.todo-list' do
+    item 'li' do
+      def downcased
+        text.downcase
+      end
+    end
+  end
+```
+
+Inside the list, you can access all of its items.
+
+```ruby
+  list :todo_list, '.todo-list' do
+    item 'li'
+
+    def view_items_as_rows
+      # list has Enumerable!
+      items.map { |item| item.to_row }
+    end
+  end
+```
+
+If you only care about the list items themselves, it might be better to define the items as widgets.
+
+```ruby
+  # now when you go to find your item,
+  # Dill will wait for that item to appear
+  widget :todo_list_item, '.todo-list-item'
+```
+
+
 ##To Be Continued...
 
 Stay tuned for more in-depth documentation of the following:
 
-Dill Gotchas - the most common, unexpected Dill errors and solutions
-Addressing irregular test failures with Dill
-Dill Elements
-  - lists
-  - list-tables
+- Dill Gotchas - the most common, unexpected Dill errors and solutions
+- Addressing irregular test failures with Dill
