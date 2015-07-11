@@ -20,6 +20,7 @@ Dill might best be thought of as three layers:
   - [Forms](#forms)
   - [Field Groups](#field-groups)
   - [Lists](#lists)
+  - [Tables](#tables)
 
 
 #A Dill Walkthrough<a name="walkthrough"></a>
@@ -363,7 +364,7 @@ A field group is like a form without a submit button. It has all the same functi
 
 
 # Lists
-A list is a collection of Dill ListItem objects, and is a good way to map a simple list format with a Dill element.
+A list is a collection of Dill ListItem objects, and is a good way to map a simple list format with a Dill element. (For more complicated lists, consider the [table](#tables) element.)
 
 
 ## List Declaration
@@ -426,9 +427,89 @@ If you only care about the list items themselves, it might be better to define t
 ```
 
 
-##To Be Continued...
+# Tables
+Table widgets map tables, or table-like DOM structures that have a header and data rows.
 
-Stay tuned for more in-depth documentation of the following:
 
+## Default vs Custom Tables
+Default Table widgets define the root as a `table` element, headers as `thead > tr`, and data rows as `tbody > tr`. Both headers and rows have a default column of `td`.
+
+Custom tables allow you to map a Dill::Table element over a table-like structure.
+
+
+## Default Table Declaration
+```ruby
+  # with explicit class
+  class TodoTable < Dill::Table
+  end
+
+  # with widget macro and explicit class
+  widget :todo_table, Dill::Table
+```
+
+
+## Custom Table Declaration
+```ruby
+  # with explicit class
+  class TodoTable < Dill::Table
+    root '.todo-table'
+  end
+
+  # with widget macro and explicit class
+  widget :todo_table, '.todo-table', Dill::Table
+```
+
+
+## Custom Header and Data Row Definitions
+Tables allow you to define the header row and data rows by class.
+
+Given this HTML...
+```html
+<ul class="todo-table">
+  <li class="header-row">
+    <span>Header Col 1</span>
+    <span>Header Col 2</span>
+    <span>Header Col 3</span>
+  </li>
+  <li class="data-row">
+    <span>Val 1.1</span>
+    <span>Val 1.2</span>
+    <span>Val 1.3</span>
+  </li>
+  <li class="data-row">
+    <span>Val 2.1</span>
+    <span>Val 2.2</span>
+    <span>Val 2.3</span>
+  </li>
+</ul>
+```
+
+... You can define the headers, data_rows and their columns with CSS selectors.
+
+```ruby
+widget :todo_table, '.todo-table', Dill::Table do
+  header_row '.header-row' do
+    column 'span'
+  end
+
+  data_row '.data-row' do
+    column 'span'
+  end
+end
+```
+
+
+## Table Values
+In both default and custom tables, you can get the values in a row, or in a column.
+
+```ruby
+  widget(:list_table).rows[0] #=> ['Val 1.1', 'Val 1.2']
+  widget(:list_table).columns[2] #=> ['Val 1.3', 'Val 2.3']
+  widget(:list_table).columns['Header Col 2'] #=> ['Val 1.2', 'Val 2.2']
+```
+
+
+#To Be Continued...
+Stay tuned for more documentation of the following:
 - Dill Gotchas - the most common, unexpected Dill errors and solutions
 - Addressing irregular test failures with Dill
