@@ -18,6 +18,7 @@ Dill might best be thought of as three layers:
   - [Walkthrough](#walkthrough)
   - [Widgets](#widgets)
   - [Forms](#forms)
+  - [Field Groups](#field-groups)
 
 #A Dill Walkthrough<a name="walkthrough"></a>
 For this walkthrough, we're going to write an Rspec test using Dill. If we use these concepts of Roles, Tasks and Elements, our test might end up looking something like this:
@@ -349,6 +350,16 @@ If you'd prefer to just set the fields without submitting the form, Dill can han
 ```
 
 
+#Field Groups
+A field group is like a form without a submit button. It has all the same functionality as a Form object, minus the submitting function.
+
+
+## Field Group Declaration
+```ruby
+  widget :todo_form, '.todo-form', Dill::FieldGroup
+```
+
+
 ##To Be Continued...
 
 Stay tuned for more in-depth documentation of the following:
@@ -358,4 +369,3 @@ Addressing irregular test failures with Dill
 Dill Elements
   - lists
   - list-tables
-  - form-fields
