@@ -11,7 +11,7 @@ module Dill
       attr_accessor :rescuable_errors
     end
 
-    self.rescuable_errors = [StandardError]
+    self.rescuable_errors = [StandardError, Exception]
 
     class Timer
       class Frozen < StandardError; end
