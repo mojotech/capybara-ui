@@ -13,6 +13,10 @@ module Dill
 
     self.rescuable_errors = [StandardError]
 
+    if defined?(RSpec::Expectations)
+      self.rescuable_errors << RSpec::Expectations::ExpectationNotMetError
+    end
+
     class Timer
       class Frozen < StandardError; end
 
