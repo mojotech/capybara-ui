@@ -248,6 +248,8 @@ end
 And can be called from that widget.
 
 ```ruby
+# warning - this method will not wait
+# for the nested widget to appear
 widget(:todo_item).click :delete_button
 ```
 
