@@ -13,7 +13,8 @@ module Dill
 
     self.rescuable_errors = [StandardError]
 
-    if defined?(RSpec::Expectations)
+    if defined?(RSpec)
+      require 'rspec/expectations'
       self.rescuable_errors << RSpec::Expectations::ExpectationNotMetError
     end
 
