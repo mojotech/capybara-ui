@@ -3,11 +3,11 @@
 [![Code Climate](https://codeclimate.com/github/mojotech/dill/badges/gpa.svg)](https://codeclimate.com/github/mojotech/dill)
 [![Test Coverage](https://codeclimate.com/github/mojotech/dill/badges/coverage.svg)](https://codeclimate.com/github/mojotech/dill)
 
-See the documentation at https://www.relishapp.com/mojotech/dill/docs.
-
 
 #Overview
 Dill abstracts the DOM, giving you more control in how you're testing, while bringing increased order, simplicity and clarity to your test code.
+
+See even more documentation at https://www.relishapp.com/mojotech/dill/docs.
 
 
 ##Table of Contents
@@ -248,6 +248,8 @@ end
 And can be called from that widget.
 
 ```ruby
+# warning - this method will not wait
+# for the nested widget to appear
 widget(:todo_item).click :delete_button
 ```
 
