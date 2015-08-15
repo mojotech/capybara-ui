@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Dill::FieldGroup do
+describe "Dill::FieldGroup" do
   shared_examples_for 'a field' do
     context 'when using an auto locator' do
       Then { widget(:field_group).visible?(:auto_locator) }
@@ -65,8 +65,8 @@ describe Dill::FieldGroup do
   describe '.select' do
     GivenHTML <<-HTML
       <p>
-        <label for="d">Deselected</label>
-        <select name="d" id="d">
+        <label for="u">Unselected</label>
+        <select name="u" id="u">
           <option>One</option>
           <option>Two</option>
         </select>
@@ -96,7 +96,7 @@ describe Dill::FieldGroup do
       class FieldGroup < Dill::FieldGroup
         root 'body'
 
-        select :deselected, 'd'
+        select :unselected, 'u'
         select :selected, 's'
         select :by_value, 'v'
         select :auto_locator
@@ -104,27 +104,27 @@ describe Dill::FieldGroup do
     end
 
     context 'when defining' do
-      Then { FieldGroup.field_names.include?(:deselected) }
+      Then { FieldGroup.field_names.include?(:unselected) }
     end
 
     context 'when querying' do
-      Then { widget(:field_group).deselected.nil? }
+      Then { widget(:field_group).unselected == 'One' }
       Then { widget(:field_group).selected == 'Selected option' }
     end
 
     context 'when setting' do
+      When { widget(:field_group).unselected = 'Two' }
       When { widget(:field_group).selected   = 'Unselected option' }
-      When { widget(:field_group).deselected = 'One' }
       When { widget(:field_group).by_value   = 't'}
 
+      Then { widget(:field_group).unselected == 'Two' }
       Then { widget(:field_group).selected   == 'Unselected option' }
-      Then { widget(:field_group).deselected == 'One' }
-      Then { widget(:field_group).by_value   == 'Two' }
+      Then { widget(:field_group).by_value   == 't' }
     end
 
     context 'when transforming to table' do
-      Given(:headers) {['deselected', 'selected', 'by value', 'auto locator']}
-      Given(:values)  {['', 'selected option', '', '']}
+      Given(:headers) {['unselected', 'selected', 'by value', 'auto locator']}
+      Given(:values)  {['one', 'selected option', 'o', '']}
 
       When(:table)   { widget(:field_group).to_table }
 
