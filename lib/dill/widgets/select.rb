@@ -1,7 +1,9 @@
 module Dill
   # A select.
   class Select < Field
-    widget :selected, '[selected]'
+    def selected
+      root.all(:xpath, ".//option", visible: true).select(&:selected?).first
+    end
 
     module Selectable
       def select
@@ -21,7 +23,7 @@ module Dill
 
     # @return [String] The text of the selected option.
     def get
-      visible?(:selected) ? widget(:selected).text : nil
+      selected.text unless selected.nil?
     end
 
     # Selects the given +option+.

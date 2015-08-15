@@ -6,9 +6,7 @@ Feature: Form Fields: Select
       <form>
         <select name="number">
           <option value="1" selected>One</option>
-          <option value="2">
-            Two
-          </option>
+          <option value="2">Two</option>
           <option value="3">Three</option>
         </select>
       </form>
@@ -48,6 +46,7 @@ Feature: Form Fields: Select
       """
       <form>
         <select name="number">
+          <option disabled="disabled">-- Escolha Um --</option>
           <option>Um</option>
           <option>Dois<option>
         </select>
