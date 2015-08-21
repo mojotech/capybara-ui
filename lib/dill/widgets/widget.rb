@@ -261,6 +261,15 @@ module Dill
       root['class'].split
     end
 
+    # Determines if the widget has a specific class
+    #
+    # @param name the name of the class
+    #
+    # @return [Boolean] +true+ if the class is found, +false+ otherwise
+    def class?(name)
+      classes.include?(name)
+    end
+
     def inspect
       inspection = "<!-- #{self.class.name}: -->\n"
 
