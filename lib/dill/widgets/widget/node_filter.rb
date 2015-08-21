@@ -15,6 +15,10 @@ module Dill
         parent_widget.root.has_selector?(*capybara_selector(*args))
       end
 
+      def nodeless?(parent_widget, *args)
+        parent_widget.root.has_no_selector?(*capybara_selector(*args))
+      end
+
       def nodes(parent_widget, *args)
         parent_widget.root.all(*capybara_selector(*args))
       end

@@ -51,6 +51,20 @@ end
 ```
 
 
+## Checking for Widgets on the Page
+It is enough to call a widget to know if it is on the page. But we can also return a boolean with `#visible?` and `not_visible?`.
+
+```ruby
+widget(:todo_item, 'Buy Milk') # => returns widget object
+visible?(:todo_item, 'Buy Milk') # => true
+not_visible?(:todo_item, 'Buy Milk') # => false
+
+widget(:todo_item, 'Write a Novel') # => raises Dill::MissingWidget error
+visible?(:todo_item, 'Write a Novel') # => false
+not_visible?(:todo_item, 'Write a Novel') # => true
+```
+
+
 ## Widgets Wait to Find an Element
 The `widget` method blocks, meaning it pauses Ruby code execution, and checks the page for that element until found or it reaches Capybara's timeout limit. It does not pause JavaScript code execution. This is handy for dynamic UI tests.
 

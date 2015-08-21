@@ -115,6 +115,10 @@ module Dill
       filter.node?(parent, *args)
     end
 
+    def self.not_present_in?(parent, *args)
+      filter.nodeless?(parent, *args)
+    end
+
     # Sets this widget's default selector.
     #
     # You can pass more than one argument to it, or a single Array. Any valid
