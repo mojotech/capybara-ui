@@ -309,17 +309,10 @@ module Dill
       classes.include?(name)
     end
 
-    def inspect
-      inspection = "<!-- #{self.class.name}: -->\n"
+    def html
+      xml = Nokogiri::HTML(page.body).at(root.path).to_xml
 
-      begin
-        root = self.root
-        xml = Nokogiri::HTML(page.body).at(root.path).to_xml
-
-        inspection << Nokogiri::XML(xml, &:noblanks).to_xhtml
-      rescue Capybara::NotSupportedByDriverError
-        inspection << "<#{root.tag_name}>\n#{to_s}"
-      end
+      Nokogiri::XML(xml, &:noblanks).to_xhtml.gsub("\n", "")
     end
 
     def text
