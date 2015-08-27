@@ -39,7 +39,7 @@ module Dill
       when CAMEL_CASE_FORMAT
         str
       else
-        raise ArgumentError, "can't convert `#{str.inspect}' to canonical form"
+        raise ArgumentError, "`#{str.inspect}' is an unrecognized format. Try snake case or camel case."
       end
     end
 
