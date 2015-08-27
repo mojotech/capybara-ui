@@ -23,3 +23,9 @@ Feature: Attributes
       """
       widget(:my_widget).classes #=> ["first", "second"]
       """
+
+    And we can check for the presence of a css class with:
+      """
+      widget(:my_widget).class? "first" #=> true
+
+      """

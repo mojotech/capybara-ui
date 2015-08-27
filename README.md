@@ -223,6 +223,7 @@ You can access the id and classes of the widget as well with Dill methods. Other
 # <a href="/items/1" id="todo_item" class="todo-item right-aligned">
 widget(:todo_item).id #=> "todo_form"
 widget(:todo_item).classes #=> ["todo-item", "right-aligned"]
+widget(:todo_item).class?("todo-item") #=> true
 widget(:todo_item).root['href'] #=> "/items/1"
 ```
 
