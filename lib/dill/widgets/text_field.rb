@@ -19,5 +19,9 @@ module Dill
     def to_cell
       get
     end
+
+    def content?
+      get.respond_to?(:empty?) ? ! get.empty? : !! get
+    end
   end
 end
