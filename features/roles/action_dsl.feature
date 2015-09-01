@@ -28,7 +28,7 @@ Feature: Action DSL
       """
     Then we should see the role did so:
       """
-      widget?(:here) #=> true
+      visible?(:here) #=> true
       """
 
   @javascript

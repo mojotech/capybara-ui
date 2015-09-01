@@ -43,7 +43,7 @@ Feature: Defaults
 
     Then we can see the widget is present using:
       """
-      widget?(:defaults_table) #=> true
+      visible?(:defaults_table) #=> true
       """
 
   Scenario: Getting row values

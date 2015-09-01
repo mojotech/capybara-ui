@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Dill::FieldGroup do
   shared_examples_for 'a field' do
     context 'when using an auto locator' do
-      Then { widget(:field_group).has_widget?(:auto_locator) }
+      Then { widget(:field_group).visible?(:auto_locator) }
     end
   end
 

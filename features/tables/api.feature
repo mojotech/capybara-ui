@@ -48,7 +48,7 @@ Feature: API
 
     Then we can see the widget is present using:
       """
-      widget?(:list_table) #=> true
+      visible?(:list_table) #=> true
       """
 
   Scenario: Getting row values

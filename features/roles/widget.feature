@@ -22,7 +22,7 @@ Feature: .widget macro
       """
       seer = Seer.new
 
-      seer.widget?(:inner) #=> true
+      seer.visible?(:inner) #=> true
       """
 
   Scenario: With explicit class
