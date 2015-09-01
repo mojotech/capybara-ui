@@ -228,6 +228,41 @@ module Dill
       end
     end
 
+    # Hovers over the current widget, or the child widget given by +name+.
+    #
+    # === Usage
+    #
+    # Given the following widget definition:
+    #
+    #   class Container < Dill::Widget
+    #     root '#container'
+    #
+    #     widget :link, 'a'
+    #   end
+    #
+    # Send +hover+ with no arguments to trigger a +hover+ event on +#container+.
+    #
+    #   widget(:container).hover
+    #
+    # This is the equivalent of doing the following using Capybara:
+    #
+    #   find('#container').hover
+    #
+    # Send +hover :link+ to trigger a +hover+ event on +a+:
+    #
+    #   widget(:container).hover :link
+    #
+    # This is the equivalent of doing the following using Capybara:
+    #
+    #   find('#container a').hover
+    def hover(*args)
+      if args.empty?
+        root.hover
+      else
+        widget(*args).hover
+      end
+    end
+
     # Compares this widget with the given Cucumber +table+.
     #
     # === Example

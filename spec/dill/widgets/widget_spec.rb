@@ -115,6 +115,38 @@ DRIVERS.each do |driver|
       end
     end
 
+    describe '#hover' do
+      GivenHTML <<-HTML
+        <span onmouseover="this.innerHTML = 'Hovered!'">Hover Me!</span>
+      HTML
+
+      context 'hovering over a widget' do
+        GivenWidget do
+          class MyWidget < Dill::Widget
+            root 'span'
+          end
+        end
+
+        When { widget(:my_widget).hover }
+
+        Then { widget(:my_widget).text == "Hovered!" }
+      end
+
+      context 'hovering over a child widget' do
+        GivenWidget do
+          class Container < Dill::Widget
+            root 'body'
+
+            widget :my_widget, 'span'
+          end
+        end
+
+        When { widget(:container).hover :my_widget  }
+
+        Then { widget(:container).text == "Hovered!" }
+      end
+    end
+
     describe 'diff' do
       GOOD_TABLE = [{'a' => '1', 'b' => '2'}, {'a' => '3', 'b' => '4'}]
 

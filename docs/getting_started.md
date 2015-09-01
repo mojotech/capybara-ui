@@ -79,6 +79,24 @@ end
 ```
 
 
+## UI Interactions
+We can simulate a user interacting with a widget.
+
+```ruby
+# dsl methods
+hover :todo_item
+click :todo_item
+
+# widget methods
+widget(:todo_item).hover
+widget(:todo_item).click
+
+# nested widget methods
+widget(:todo_item).hover :delete_button
+widget(:todo_item).click :delete_button
+```
+
+
 ## HTML Attributes
 You can access the id and classes of the widget as well with Dill methods. Other attributes can be accessed from the Capybara element, via the `root` method.
 
