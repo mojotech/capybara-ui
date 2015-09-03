@@ -63,7 +63,7 @@ module Dill
     end
 
     # Shortcut for instance level wait_for.
-    def self.wait_for(wait_time = Capybara.default_wait_time, &block)
+    def self.wait_for(wait_time = Capybara.default_max_wait_time, &block)
       new(wait_time).call(&block)
     end
 
@@ -71,7 +71,7 @@ module Dill
     #
     # @param wait_time how long this checkpoint will wait for its conditions to
     #   be met, in seconds.
-    def initialize(wait_time = Capybara.default_wait_time)
+    def initialize(wait_time = Capybara.default_max_wait_time)
       @timer = Timer.new(wait_time)
     end
 
