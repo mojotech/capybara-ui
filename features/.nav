@@ -9,6 +9,7 @@
   - actions.feature
   - attributes.feature
   - form_fields_select.feature
+  - form_fields_text.feature
   - form_fields.feature
   - finding.feature
 - tables (Table Widget):

@@ -204,13 +204,23 @@ If you'd rather use a CSS selector, you can do that by passing the second argume
 ```
 
 
-#### Getting Field Values
-You can get the current value of any of these elements at any time by referencing them on the form object.
+#### Form Field Values
+You can get the current value of form elements by calling their methods, automagically defined by Dill.
 
-```
+```ruby
   widget(:form_with_everything).state #=> 'CO'
+  widget(:form_with_everything).request #=> 'Please send me more info'
+  widget(:form_with_everything).receive_email #=> true
 ```
 
+For text fields, check for content by calling the method + question mark.
+
+```ruby
+  # <input type="text" value="Please send me more info">
+  widget(:form_with_everything).request? # => true
+  # <input type="text" value="">
+  widget(:form_with_everything).request? # => false
+```
 
 ## Submitting a Form
 Dill will easily submit a form for you, via the UI, with either of these methods.

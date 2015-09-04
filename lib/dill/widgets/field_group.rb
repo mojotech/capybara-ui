@@ -168,6 +168,8 @@ module Dill
     # <name>:: Returns the current text field value, or +nil+ if no value
     #          has been set.
     # <name>=:: Sets the current text field value.
+    # <name>? Returns +true+ if the current text field has content or
+    #         +false+ otherwise
     #
     # @example
     #   # Given the following HTML:
@@ -194,6 +196,9 @@ module Dill
     #   form.filled_field                #=> "Content"
     #   form.empty_field                 #=> nil
     #
+    #   form.filled_field?                #=> true
+    #   form.empty_field?                 #=> false
+    #
     #   form.empty_field = "Not anymore"
     #   form.empty_field                 #=> "Not anymore"
     #
@@ -204,6 +209,10 @@ module Dill
     # @todo Handle text field access when the field is disabled (raise an
     #   exception?)
     def self.text_field(name, locator = nil)
+      define_method "#{name}?" do
+        widget(name).content?
+      end
+
       field name, locator, TextField
     end
 
