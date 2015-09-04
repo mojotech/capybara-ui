@@ -17,6 +17,11 @@ module Dill
       widget(name, *args).click
     end
 
+    # Hovers the widget defined by +name+ and optional +args+.
+    def hover(name, *args)
+      widget(name, *args).hover
+    end
+
     # @return [Document] the current document with the class of the
     #   current object set as the widget lookup scope.
     def document

@@ -66,6 +66,40 @@ Feature: Action DSL
       """
 
   @javascript
+  Scenario: Hovering over a widget
+
+    `hover :widget_name` is a shortcut for `widget(:widget_name).hover`.
+
+    Given the following HTML at the path "/somewhere":
+      """
+      <div id="hoverme" onmouseover="this.innerHTML = 'Hovered!'">Hover Me!</a>
+      """
+    And the following widget definition:
+      """
+      Hoverme = Dill::Widget('#hoverme')
+      """
+    And the following role definition:
+      """
+      class Hoverer < Dill::Role
+        def act
+          visit "/somewhere"
+
+          hover :hoverme
+        end
+      end
+      """
+    When we ask the role to execute the action:
+      """
+      role = Hoverer.new
+
+      role.act
+      """
+    Then we should see the role did so:
+      """
+      widget(:hoverme).text #=> "Hovered!"
+      """
+
+  @javascript
   Scenario: Submitting a form with some fields set
 
     `submit :form, ...` is a shortcut for `widget(:form).submit_with ...`.
