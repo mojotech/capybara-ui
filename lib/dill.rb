@@ -20,4 +20,10 @@ module Dill
   class MissingWidget < StandardError; end
   class AmbiguousWidget < StandardError; end
   class InvalidOption < StandardError; end
+
+  def deprecate(method, alternate_method, once=false)
+    @deprecation_notified ||= {}
+    warn "DEPRECATED: ##{method} is deprecated, please use ##{alternate_method} instead" unless once and @deprecation_notified[method]
+    @deprecation_notified[method] = true
+  end
 end

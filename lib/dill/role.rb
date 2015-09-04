@@ -8,7 +8,7 @@ module Dill
       if respond_to?("see_#{name}?")
         send("see_#{name}?", *args)
       else
-        widget?(name, *args)
+        visible?(name, *args)
       end
     end
 

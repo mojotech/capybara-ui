@@ -24,7 +24,7 @@ Feature: .form macro
       """
       seer = Seer.new
 
-      seer.widget?(:the_form) #=> true
+      seer.visible?(:the_form) #=> true
       """
 
   Scenario: Using the default selector
@@ -49,5 +49,5 @@ Feature: .form macro
       """
       seer = Seer.new
 
-      seer.widget?(:the_form) #=> true
+      seer.visible?(:the_form) #=> true
       """

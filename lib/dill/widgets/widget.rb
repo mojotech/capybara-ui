@@ -115,6 +115,10 @@ module Dill
       filter.node?(parent, *args)
     end
 
+    def self.not_present_in?(parent, *args)
+      filter.nodeless?(parent, *args)
+    end
+
     # Sets this widget's default selector.
     #
     # You can pass more than one argument to it, or a single Array. Any valid
@@ -158,7 +162,7 @@ module Dill
     #
     # You can test for the error's present using the following code:
     #
-    #   document.has_widget?(:no_free_space) #=> true
+    #   document.visible?(:no_free_space) #=> true
     #
     # Note: When you want to match text, consider using +I18n.t+ instead of
     # hard-coding the text, so that your tests don't break when the text changes.
@@ -285,7 +289,7 @@ module Dill
     def has_action?(name)
       raise Missing, "couldn't find `#{name}' action" unless respond_to?(name)
 
-      has_widget?(:"#{name}_widget")
+      visible?(:"#{name}_widget")
     end
 
     def id

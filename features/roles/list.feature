@@ -25,7 +25,7 @@ Feature: .list macro
       """
       seer = Seer.new
 
-      seer.widget?(:the_list) #=> true
+      seer.visible?(:the_list) #=> true
       """
 
   Scenario: Using the default selector
@@ -49,6 +49,6 @@ Feature: .list macro
       """
       seer = Seer.new
 
-      seer.widget?(:the_list) #=> true
+      seer.visible?(:the_list) #=> true
       seer.value(:the_list) #=> ['One', 'Two']
       """

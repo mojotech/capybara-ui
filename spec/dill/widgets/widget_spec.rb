@@ -243,6 +243,65 @@ DRIVERS.each do |driver|
       end
     end
 
+    describe '#visible?' do
+      GivenHTML <<-HTML
+        <span id="visible">Example Item</span>
+      HTML
+
+      GivenWidget do
+        class MyWidget < Dill::Widget
+          root 'body'
+
+          widget :visible, '#visible'
+          widget :not_visible, '#not_visible'
+        end
+      end
+
+      context 'when widget exists' do
+        Then { widget(:my_widget).visible?(:visible) }
+      end
+
+      context 'when widget is missing' do
+        Then { ! widget(:my_widget).visible?(:not_visible) }
+      end
+
+      context 'when widget is undefined' do
+        When(:error) { widget(:my_widget).visible?(:undefined) }
+
+        Then { error == Failure(Dill::Missing, /`undefined' widget/) }
+      end
+    end
+
+
+    describe '#not_visible?' do
+      GivenHTML <<-HTML
+        <span id="visible">Example Item</span>
+      HTML
+
+      GivenWidget do
+        class MyWidget < Dill::Widget
+          root 'body'
+
+          widget :visible, '#visible'
+          widget :not_visible, '#not_visible'
+        end
+      end
+
+      context 'when widget exists' do
+        Then { ! widget(:my_widget).not_visible?(:visible) }
+      end
+
+      context 'when widget is missing' do
+        Then { widget(:my_widget).not_visible?(:not_visible) }
+      end
+
+      context 'when widget is undefined' do
+        When(:error) { widget(:my_widget).not_visible?(:undefined) }
+
+        Then { error == Failure(Dill::Missing, /`undefined' widget/) }
+      end
+    end
+
     describe '#inspect', if: driver == :webkit do
       GivenHTML <<-HTML
         <span id="ins">Ins</span>

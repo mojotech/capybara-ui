@@ -23,7 +23,7 @@ Feature: Form Fields
       """
     Then we can see the text field widget is present using:
       """
-      widget(:my_form).widget?(:text) #=> true
+      widget(:my_form).visible?(:text) #=> true
       """
 
   Scenario: Overriding the :field selector
@@ -38,5 +38,5 @@ Feature: Form Fields
       """
     Then we can see the text field widget is present using:
       """
-      widget(:my_form).widget?(:text) #=> true
+      widget(:my_form).visible?(:text) #=> true
       """

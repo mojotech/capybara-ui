@@ -21,7 +21,7 @@ module Dill
 
     # @return [String] The text of the selected option.
     def get
-      widget?(:selected) ? widget(:selected).text : nil
+      visible?(:selected) ? widget(:selected).text : nil
     end
 
     # Selects the given +option+.

@@ -36,6 +36,14 @@ module Dill
 
     alias_method :widget?, :has_widget?
 
+    def visible?(name, *args)
+      document.visible?(name, *args)
+    end
+
+    def not_visible?(name, *args)
+      document.not_visible?(name, *args)
+    end
+
     def set(name, fields)
       widget(name).set fields
     end
