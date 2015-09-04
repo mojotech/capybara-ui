@@ -46,13 +46,13 @@ describe Dill::DSL do
     end
 
     context 'when the block succeeds within wait time' do
-      When(:end_time) { Time.now + (Capybara.default_wait_time - 1) }
+      When(:end_time) { Time.now + (Capybara.default_max_wait_time - 1) }
       When(:block) { lambda { Time.now > end_time } }
       Then { eventually(&block) }
     end
 
     context 'when the block would succeed only after wait time' do
-      When(:end_time) { Time.now + (Capybara.default_wait_time + 1) }
+      When(:end_time) { Time.now + (Capybara.default_max_wait_time + 1) }
       When(:block) { lambda { Time.now > end_time } }
       When(:result) { eventually(&block) }
       Then { result == Failure(Dill::Checkpoint::ConditionNotMet) }

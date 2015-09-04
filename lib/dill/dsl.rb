@@ -76,7 +76,7 @@ module Dill
 
     # re-run one or more assertions until either they all pass,
     # or Dill times out, which will result in a test failure.
-    def eventually(wait_time = Capybara.default_wait_time, &block)
+    def eventually(wait_time = Capybara.default_max_wait_time, &block)
       Checkpoint.wait_for wait_time, &block
     end
 

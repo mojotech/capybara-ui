@@ -19,10 +19,10 @@ Gem::Specification.new do |s|
   s.rubyforge_project = '[none]'
 
   s.add_dependency 'chronic'
-  s.add_dependency 'capybara', '~> 2.0'
+  s.add_dependency 'capybara', '~> 2.5'
 
   s.add_development_dependency 'rspec-given', '~> 3.5.0'
-  s.add_development_dependency 'capybara-webkit', '~> 1.3.0'
+  s.add_development_dependency 'capybara-webkit', '~> 1.7.0'
   s.add_development_dependency 'poltergeist', '~> 1.5.0'
   s.add_development_dependency 'cucumber', '~> 1.3.0'
   s.add_development_dependency 'pry'
