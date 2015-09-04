@@ -446,6 +446,13 @@ Then(/^some step that takes in a cucumber table$/) do |table|
  end
 ```
 
+Pass `ignore_case: true`, for a case-insensitive table match.
+
+```ruby
+Then(/^some step that takes in a cucumber table$/) do |table|
+  widget(:my_widget).diff table, ignore_case: true
+end
+```
 
 #To Be Continued...
 Stay tuned for more documentation of the following:
