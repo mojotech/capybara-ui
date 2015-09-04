@@ -20,7 +20,7 @@ module Dill
         field_names.
         each_with_object({}) { |e, a| a[e.to_s] = widget(e).to_cell }
 
-      [info]
+      ArrayValue.new([info])
     end
   end
 end

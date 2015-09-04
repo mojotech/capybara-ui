@@ -174,7 +174,7 @@ module Dill
     end
 
     def to_table
-      items.map(&:to_row)
+      ArrayValue.new(items.map(&:to_row))
     end
 
     def value

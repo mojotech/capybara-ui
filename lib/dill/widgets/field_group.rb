@@ -248,7 +248,7 @@ module Dill
       headers = fields.map { |field| field.label.downcase }
       body    = fields.map { |field| field.to_s.downcase }
 
-      [headers, body]
+      ArrayValue.new([headers, body])
     end
   end
 end
