@@ -111,7 +111,7 @@ widget(:todo_item).click :delete_button
 ```
 
 
-## HTML Attributes
+## HTML and Attributes
 You can access the id and classes of the widget as well with Dill methods. Other attributes can be accessed from the Capybara element, via the `root` method.
 
 ```ruby
@@ -121,6 +121,15 @@ widget(:todo_item).classes #=> ["todo-item", "right-aligned"]
 widget(:todo_item).class?("todo-item") #=> true
 widget(:todo_item).root['href'] #=> "/items/1"
 ```
+
+You can also access the HTML of the element
+
+```ruby
+#  <a href="/items/1" id="todo_item" class="todo-item right-aligned"></a>
+widget(:html).html # => "<a href=\"/items/1\" id=\"todo_item\" class=\"todo-item right-aligned\"></a>\n"
+```
+
+> Note: Some drivers like Poltergeist currently do not provide a way to view the HTML.
 
 
 ## Getting All the Widgets

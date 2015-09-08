@@ -302,46 +302,36 @@ DRIVERS.each do |driver|
       end
     end
 
-    describe '#inspect', if: driver == :webkit do
+    describe '#html', if: driver == :webkit do
       GivenHTML <<-HTML
-        <span id="ins">Ins</span>
+        <span id="html" class="one">HTML</span>
       HTML
 
       GivenWidget do
         class MyWidget < Dill::Widget
           root 'span'
-
-          def self.name
-            'Inspect'
-          end
         end
       end
 
-      When(:inspection) { widget(:my_widget).inspect }
+      When(:html) { widget(:my_widget).html }
 
-      Then { inspection == "<!-- Inspect: -->\n<span id=\"ins\">Ins</span>\n" }
+      Then { html == "<span id=\"html\" class=\"one\">HTML</span>" }
     end
 
-    describe '#inspect', if: driver != :webkit do
+    describe '#html', if: driver != :webkit do
       GivenHTML <<-HTML
-        <p>
-          <span id="ins">Ins</span>
-        </p>
+        <span id="html" class="one">HTML</span>
       HTML
 
       GivenWidget do
         class MyWidget < Dill::Widget
-          root 'p'
-
-          def self.name
-            'Inspect'
-          end
+          root 'span'
         end
       end
 
-      When(:inspection) { widget(:my_widget).inspect }
+      When(:html) { widget(:my_widget).html }
 
-      Then { inspection == "<!-- Inspect: -->\n<p>\nIns" }
+      Then { html == Failure(Capybara::NotSupportedByDriverError) }
     end
   end
 end
