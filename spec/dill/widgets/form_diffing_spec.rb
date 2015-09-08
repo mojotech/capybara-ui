@@ -15,40 +15,80 @@ DRIVERS.each do |driver|
       </form>
     HTML
 
-    GivenWidget do
-      class MyWidget < Dill::Form
-        root 'form'
+    describe "with #diff", driver: driver do
+      GivenWidget do
+        class MyWidget < Dill::Form
+          root 'form'
 
-        text_field :name, 'name'
-        check_box :protagonist, 'protagonist'
-        select :selected_item, 'selected-item'
+          text_field :name, 'name'
+          check_box :protagonist, 'protagonist'
+          select :selected_item, 'selected-item'
+        end
+      end
+
+      Given(:base_fields) {
+        {
+         'name' => 'Guybrush Threepwood',
+         'protagonist' => 'yes',
+         'selected_item' => 'Wimpy Little Idol'
+        }
+      }
+
+      Given(:table) { Cucumber::Ast::Table.new([fields]) }
+
+      context "same table" do
+        Given(:fields) { base_fields }
+
+        When(:result) { widget(:my_widget).diff table }
+
+        Then { result == true }
+      end
+
+      context "different table" do
+        Given(:fields) { base_fields.merge('protagonist' => 'no') }
+
+        When(:result) { widget(:my_widget).diff table }
+
+        Then { result == Failure(Cucumber::Ast::Table::Different) }
       end
     end
 
-    Given(:base_fields) {
-      {
-       'name' => 'Guybrush Threepwood',
-       'protagonist' => 'yes',
-       'selected_item' => 'Wimpy Little Idol'
+    describe "with #easy_diff" do
+      GivenWidget do
+        class MyWidget < Dill::Form
+          root 'form'
+
+          text_field :name, 'name'
+          check_box :protagonist, 'protagonist'
+          select :selected_item, 'selected-item'
+        end
+      end
+
+      Given(:base_fields) {
+        {
+         'name' => 'gUybRush thReePwood',
+         'protagonist' => 'YES',
+         'selected_item' => 'wimpy liTTle idOL'
+        }
       }
-    }
 
-    Given(:table) { Cucumber::Ast::Table.new([fields]) }
+      Given(:table) { Cucumber::Ast::Table.new([fields]) }
 
-    context "same table" do
-      Given(:fields) { base_fields }
+      context "similar table" do
+        Given(:fields) { base_fields }
 
-      When(:result) { widget(:my_widget).diff table }
+        When(:result) { widget(:my_widget).easy_diff table }
 
-      Then { result == true }
-    end
+        Then { result == true }
+      end
 
-    context "different table" do
-      Given(:fields) { base_fields.merge('protagonist' => 'no') }
+      context "different table" do
+        Given(:fields) { base_fields.merge('protagonist' => 'no') }
 
-      When(:result) { widget(:my_widget).diff table }
+        When(:result) { widget(:my_widget).easy_diff table }
 
-      Then { result == Failure(Cucumber::Ast::Table::Different) }
+        Then { result == Failure(Cucumber::Ast::Table::Different) }
+      end
     end
   end
 end

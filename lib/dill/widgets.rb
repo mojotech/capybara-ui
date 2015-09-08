@@ -41,6 +41,7 @@ module Dill::WidgetParts; end
 require 'dill/widgets/parts/struct'
 require 'dill/widgets/parts/container'
 
+require 'dill/widgets/cucumber_methods'
 require 'dill/widgets/dsl'
 require 'dill/widgets/widget_class'
 require 'dill/widgets/widget_name'
@@ -57,3 +58,5 @@ require 'dill/widgets/form'
 require 'dill/widgets/document'
 require 'dill/widgets/table'
 require 'dill/widgets/string_value'
+require 'dill/widgets/array_value'
+require 'dill/widgets/hash_value'
