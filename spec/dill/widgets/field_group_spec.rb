@@ -165,7 +165,7 @@ require 'spec_helper'
       end
 
       context 'when querying' do
-        Then { widget(:field_group).empty_field.nil? }
+        Then { widget(:field_group).empty_field.empty? }
         Then { widget(:field_group).filled_field == 'Field contents' }
       end
 
