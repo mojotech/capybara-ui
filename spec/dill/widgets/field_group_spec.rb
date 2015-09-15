@@ -165,7 +165,7 @@ describe "Dill::FieldGroup" do
     end
 
     context 'when querying' do
-      Then { widget(:field_group).empty_field.nil? }
+      Then { widget(:field_group).empty_field.blank? }
       Then { widget(:field_group).filled_field == 'Field contents' }
     end
 
