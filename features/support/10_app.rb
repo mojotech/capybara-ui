@@ -1,5 +1,6 @@
 require 'rails'
 require 'action_controller/railtie'
+require 'pry'
 
 class DillApp < Rails::Application
   config.root = File.expand_path(File.join(File.dirname(__FILE__), '..', '..'))
