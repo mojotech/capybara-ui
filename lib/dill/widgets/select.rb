@@ -1,8 +1,6 @@
 module Dill
   # A select.
   class Select < Field
-    widget :selected, '[selected]'
-
     module Selectable
       def select
         root.select_option
@@ -21,7 +19,7 @@ module Dill
 
     # @return [String] The text of the selected option.
     def get
-      visible?(:selected) ? widget(:selected).text : nil
+      root.value
     end
 
     # Selects the given +option+.

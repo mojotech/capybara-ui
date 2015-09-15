@@ -23,15 +23,15 @@ Feature: Form Fields: Select
   Scenario: selected option
     Then we can get the text of the selected option with:
       """
-      widget(:my_form).my_select #=> "One"
+      widget(:my_form).my_select #=> "1"
       """
 
   Scenario: selecting an option
-    Then we can change the value of the select to "Two" with:
+    Then we can change the value of the select to "2" with:
       """
       widget(:my_form).my_select = "Two"
       """
-    And we can change the value of the select to "Three" with:
+    And we can change the value of the select to "3" with:
       """
       widget(:my_form).my_select = /Thr/
       """
@@ -55,5 +55,5 @@ Feature: Form Fields: Select
       """
     Then we will see no option is selected:
       """
-      widget(:my_form).my_select #=> nil
+      widget(:my_form).my_select #=> "Um"
       """
