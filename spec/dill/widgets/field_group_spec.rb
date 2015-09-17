@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-[:rack_test].each do |driver|
+DRIVERS.each do |driver|
   describe "Dill::FieldGroup (#{driver})", driver: driver do
     shared_examples_for 'a field' do
       context 'when using an auto locator' do
