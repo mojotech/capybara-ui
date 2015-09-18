@@ -4,7 +4,7 @@ Then(/^we can change the value of the select to "(.*?)" with:$/) do |val, string
   expect(widget(:my_form).my_select).to eq val
 end
 
-Then(/^we can get the text of the selected option with:$/) do |string|
+Then(/^we can get the (?:text|value) of the selected option with:$/) do |string|
   expect_code_with_result string
 end
 

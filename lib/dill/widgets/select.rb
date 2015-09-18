@@ -26,6 +26,11 @@ module Dill
       selected.text unless selected.nil?
     end
 
+    # @return [String] The value of the selected option.
+    def value
+      selected.value unless selected.nil?
+    end
+
     # Selects the given +option+.
     #
     # You may pass in the option text or value.

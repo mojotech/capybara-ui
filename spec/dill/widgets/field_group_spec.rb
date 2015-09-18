@@ -75,8 +75,8 @@ DRIVERS.each do |driver|
         <p>
           <label for="s">Selected</label>
           <select name="s" id="s">
-            <option selected>Selected option</option>
-            <option>Unselected option</option>
+            <option value="1s" selected>Selected option</option>
+            <option value="2s">Unselected option</option>
           </select>
         </p>
         <p>
@@ -110,6 +110,7 @@ DRIVERS.each do |driver|
 
       context 'when querying' do
         Then { widget(:field_group).selected == 'Selected option' }
+        Then { widget(:field_group).selected_value == '1s' }
       end
 
       context 'when setting' do

@@ -251,6 +251,7 @@ For select fields, the default method returns the selected option's text. Call t
 ```ruby
   # <option value="38" selected>CO</option>
   widget(:form_with_everything).state # => CO
+  widget(:form_with_everything).state_value # => "38"
 ```
 
 ## Submitting a Form

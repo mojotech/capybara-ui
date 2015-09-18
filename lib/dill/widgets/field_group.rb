@@ -110,6 +110,8 @@ module Dill
     #
     # <name>:: Gets the text of the current selected option, or +nil+,
     #          if no option is selected.
+    # <name>_value:: Gets the value of the current selected option, or
+    #                +nil+, if no option is selected.
     # <name>=:: Selects an option on the current select. Pass the text or
     #           value of the option you want to select.
     #
@@ -120,8 +122,8 @@ module Dill
     #   #   <p>
     #   #     <label for="selected">
     #   #     <select id="selected">
-    #   #       <option selected>Selected option</option>
-    #   #       <option>Selected option two</option>
+    #   #       <option value ="1s" selected>Selected option</option>
+    #   #       <option value ="2s">Selected option two</option>
     #   #     </select>
     #   #   </p>
     #   #   <p>
@@ -142,13 +144,17 @@ module Dill
     #   form = widget(:my_field_group)
     #
     #   form.selected                         #=> "Selected option"
-    #   form.unselected                       #=> nil
+    #   form.selected_value                   #=> "1s"
     #
-    #   form.unselected = "Unselected option" # Select by text
+    #   # Select by text
+    #   form.unselected                       #=> nil
+    #   form.unselected = "Unselected option"
     #   form.unselected                       #=> "Unselected option"
     #
-    #   form.unselected = "2u"                # Select by value
+    #   # Select by value
+    #   form.unselected = "2u"
     #   form.unselected                       #=> "Unselected option two"
+    #   form.unselected_value                 #=> "2u"
     #
     # @param name the name of the select accessor.
     # @param locator the locator for the select. If +nil+ the locator will
@@ -162,6 +168,10 @@ module Dill
     # @todo What to do when +nil+ is passed to the writer?
     def self.select(name, locator = nil)
       field name, locator, Select
+
+      define_method "#{name}_value" do
+        widget(name).value
+      end
     end
 
     # Creates a new text field accessor.

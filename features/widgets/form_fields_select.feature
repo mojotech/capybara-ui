@@ -23,6 +23,10 @@ Feature: Form Fields: Select
       """
       widget(:my_form).my_select #=> "One"
       """
+    And we can get the value of the selected option with:
+      """
+      widget(:my_form).my_select_value #=> "1"
+      """
 
   Scenario: selecting an option
     Then we can change the value of the select to "Two" with:
