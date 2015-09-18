@@ -108,10 +108,10 @@ module Dill
     #
     # Adds the following methods to the widget:
     #
-    # <name>:: Gets the current selected option. Returns the label of the
-    #          selected option, or +nil+, if no option is selected.
-    # <name>=:: Selects an option on the current select. Pass the label of
-    #           the option you want to select.
+    # <name>:: Gets the text of the current selected option, or +nil+,
+    #          if no option is selected.
+    # <name>=:: Selects an option on the current select. Pass the text or
+    #           value of the option you want to select.
     #
     # @example
     #   # Given the following HTML:
@@ -121,14 +121,14 @@ module Dill
     #   #     <label for="selected">
     #   #     <select id="selected">
     #   #       <option selected>Selected option</option>
-    #   #       <option>Another option</option>
+    #   #       <option>Selected option two</option>
     #   #     </select>
     #   #   </p>
     #   #   <p>
-    #   #     <label for="deselected">
-    #   #     <select id="deselected">
-    #   #       <option>Deselected option</option>
-    #   #       <option>Another option</option>
+    #   #     <label for="unselected">
+    #   #     <select id="unselected">
+    #   #       <option value="1u">Unselected option</option>
+    #   #       <option value="2u">Unselected option two</option>
     #   #     </select>
     #   #   </p>
     #   # </form>
@@ -136,16 +136,19 @@ module Dill
     #     root 'form'
     #
     #     select :selected, 'selected'
-    #     select :deselected, 'deselected'
+    #     select :unselected, 'unselected'
     #   end
     #
     #   form = widget(:my_field_group)
     #
     #   form.selected                         #=> "Selected option"
-    #   form.deselected                       #=> nil
+    #   form.unselected                       #=> nil
     #
-    #   form.deselected = "Deselected option"
-    #   form.unchecked_box                    #=> "Deselected option"
+    #   form.unselected = "Unselected option" # Select by text
+    #   form.unselected                       #=> "Unselected option"
+    #
+    #   form.unselected = "2u"                # Select by value
+    #   form.unselected                       #=> "Unselected option two"
     #
     # @param name the name of the select accessor.
     # @param locator the locator for the select. If +nil+ the locator will
