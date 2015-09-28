@@ -7,6 +7,7 @@
   - [Field Groups](#field-groups)
   - [Lists](#lists)
   - [Tables](#tables)
+  - [Cucumber helpers](#cucumber-helpers)
 
 See even more documentation at https://www.relishapp.com/mojotech/dill/docs.
 
@@ -429,6 +430,20 @@ In both default and custom tables, you can get the values in a row, or in a colu
   widget(:list_table).rows[0] #=> ['Val 1.1', 'Val 1.2']
   widget(:list_table).columns[2] #=> ['Val 1.3', 'Val 2.3']
   widget(:list_table).columns['Header Col 2'] #=> ['Val 1.2', 'Val 2.2']
+```
+
+
+# Cucumber helpers
+Dill currently provides a single method to work with Cucumber tables.
+
+```ruby
+Then(/^some step that takes in a cucumber table$/) do |table|
+  # when the cucumber table values do not match the widget's values
+  widget(:my_widget).diff table # raises error Cucumber::Ast::Table::Different
+
+  # when the cucumber table values match the widget's values
+  widget(:my_widget).diff table # => true
+ end
 ```
 
 
