@@ -9,6 +9,8 @@ require 'capybara/rspec'
 require 'capybara/webkit'
 require 'capybara/poltergeist'
 
+Dir["./spec/support/**/*.rb"].each { |file| require file }
+
 DRIVERS = [:webkit, :poltergeist]
 
 class DillApp < Sinatra::Base; end
