@@ -20,6 +20,7 @@ module Dill
   class MissingWidget < StandardError; end
   class AmbiguousWidget < StandardError; end
   class InvalidOption < StandardError; end
+  class InvalidRadioButton < StandardError; end
 
   def deprecate(method, alternate_method, once=false)
     @deprecation_notified ||= {}

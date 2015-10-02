@@ -8,6 +8,7 @@
 - widgets:
   - actions.feature
   - attributes.feature
+  - form_fields_radio_button.feature
   - form_fields_select.feature
   - form_fields_text.feature
   - form_fields.feature

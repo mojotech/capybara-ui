@@ -174,6 +174,58 @@ module Dill
       end
     end
 
+    # Creates a new radio button group accessor.
+    #
+    # Adds the following methods to the widget:
+    #
+    # <name>:: Gets the text of the current checked button, or +nil+,
+    #          if no button is checked.
+    # <name>=:: Checks a button in the current container. Pass the text of
+    #           the label or the id or value of the button you want to choose.
+    #
+    # @example
+    #   # Given the following HTML:
+    #   #
+    #   # <form>
+    #   #   <p class='checked'>
+    #   #     <label for="checked">Checked button</label>
+    #   #     <input type="radio" id="checked" name="c" value="checked_value" checked>
+    #   #     <label for="checked_two">Checked button two</label>
+    #   #     <input type="radio" id="checked_two" name="c" value="checked_two_value">
+    #   #   </p>
+    #   #   <p class='unchecked'>
+    #   #     <label for="unchecked">Unchecked button</label>
+    #   #     <input type="radio" id="unchecked" name="u" value="unchecked_value_one">
+    #   #     <label for="unchecked_two">Unchecked button two</label>
+    #   #     <input type="radio" id="unchecked_two" name="u" value="unchecked_value_two">
+    #   #   </p>
+    #   # </form>
+    #   class MyFieldGroup < Dill::FieldGroup
+    #     root 'form'
+    #
+    #     radio_button :checked, '.checked'
+    #     radio_button :unchecked, '.unchecked'
+    #   end
+    #
+    #   form = widget(:my_field_group)
+    #
+    #   form.checked                            #=> "Checked button"
+    #   form.unchecked                          #=> nil
+    #
+    #   form.unchecked = "Unchecked button" # Choose by label text
+    #   form.unchecked                          #=> "Unchecked button"
+    #   form.unchecked = "unchecked_two" # Choose by id
+    #   form.unchecked                          #=> "Unchecked button two"
+    #   form.unchecked = "unchecked_value_one" # Choose by value
+    #   form.unchecked                          #=> "Unchecked button"
+    #
+    # @param name the name of the radio_button group accessor.
+    # @param locator the locator for the radio_button group.
+    #
+    def self.radio_button(name, locator = nil)
+      field name, locator, RadioButton
+    end
+
     # Creates a new text field accessor.
     #
     # Adds the following methods to the widget:
