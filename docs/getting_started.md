@@ -262,6 +262,16 @@ For select fields, the default method returns the selected option's text. Call t
   widget(:form_with_everything).state_value # => "38"
 ```
 
+For **radio button** field groups, the default method returns the checked button's label text. Call the `<name>_value` method to return the value of the checked button.
+
+```ruby
+  # <label for="b">Blue</label>
+  # <input type="radio" id="b" value="#0033CC" checked>
+  widget(:form_with_everything).favorite_color # => Blue
+  widget(:form_with_everything).favorite_color_value # => "#0033CC"
+```
+
+
 ## Submitting a Form
 Dill will easily submit a form for you, via the UI, with either of these methods.
 

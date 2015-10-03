@@ -46,6 +46,7 @@ DRIVERS.each do |driver|
     context 'when querying' do
       Then { widget(:field_group).unchecked.nil? }
       Then { widget(:field_group).checked == 'Checked' }
+      Then { widget(:field_group).checked_value == '3' }
     end
 
     context 'when setting' do

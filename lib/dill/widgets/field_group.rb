@@ -180,6 +180,8 @@ module Dill
     #
     # <name>:: Gets the text of the current checked button, or +nil+,
     #          if no button is checked.
+    # <name>_value:: Gets the value of the current checked button, or +nil+,
+    #                if no button is checked.
     # <name>=:: Checks a button in the current container. Pass the text of
     #           the label or the id or value of the button you want to choose.
     #
@@ -214,8 +216,12 @@ module Dill
     #
     #   form.unchecked = "Unchecked button" # Choose by label text
     #   form.unchecked                          #=> "Unchecked button"
+    #   form.unchecked_value                    #=> "unchecked_value_one"
+    #
     #   form.unchecked = "unchecked_two" # Choose by id
     #   form.unchecked                          #=> "Unchecked button two"
+    #   form.unchecked_value                    #=> "unchecked_value_two"
+    #
     #   form.unchecked = "unchecked_value_one" # Choose by value
     #   form.unchecked                          #=> "Unchecked button"
     #
@@ -224,6 +230,10 @@ module Dill
     #
     def self.radio_button(name, locator = nil)
       field name, locator, RadioButton
+
+      define_method "#{name}_value" do
+        widget(name).value
+      end
     end
 
     # Creates a new text field accessor.
