@@ -246,6 +246,14 @@ For text fields, check for content by calling the method + question mark.
   widget(:form_with_everything).request? # => false
 ```
 
+For select fields, the default method returns the selected option's text. Call the `<name>_value` method to return the value of the selected option.
+
+```ruby
+  # <option value="38" selected>CO</option>
+  widget(:form_with_everything).state # => CO
+  widget(:form_with_everything).state_value # => "38"
+```
+
 ## Submitting a Form
 Dill will easily submit a form for you, via the UI, with either of these methods.
 

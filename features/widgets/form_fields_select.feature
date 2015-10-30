@@ -6,9 +6,7 @@ Feature: Form Fields: Select
       <form>
         <select name="number">
           <option value="1" selected>One</option>
-          <option value="2">
-            Two
-          </option>
+          <option value="2">Two</option>
           <option value="3">Three</option>
         </select>
       </form>
@@ -24,6 +22,10 @@ Feature: Form Fields: Select
     Then we can get the text of the selected option with:
       """
       widget(:my_form).my_select #=> "One"
+      """
+    And we can get the value of the selected option with:
+      """
+      widget(:my_form).my_select_value #=> "1"
       """
 
   Scenario: selecting an option
@@ -48,6 +50,7 @@ Feature: Form Fields: Select
       """
       <form>
         <select name="number">
+          <option disabled="disabled">-- Escolha Um --</option>
           <option>Um</option>
           <option>Dois<option>
         </select>

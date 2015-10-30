@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-[:rack_test].each do |driver|
+DRIVERS.each do |driver|
   describe "Dill::FieldGroup (#{driver})", driver: driver do
     shared_examples_for 'a field' do
       context 'when using an auto locator' do
@@ -66,8 +66,8 @@ require 'spec_helper'
     describe '.select' do
       GivenHTML <<-HTML
         <p>
-          <label for="d">Deselected</label>
-          <select name="d" id="d">
+          <label for="u">Unselected</label>
+          <select name="u" id="u">
             <option>One</option>
             <option>Two</option>
           </select>
@@ -75,8 +75,8 @@ require 'spec_helper'
         <p>
           <label for="s">Selected</label>
           <select name="s" id="s">
-            <option selected>Selected option</option>
-            <option>Unselected option</option>
+            <option value="1s" selected>Selected option</option>
+            <option value="2s">Unselected option</option>
           </select>
         </p>
         <p>
@@ -97,7 +97,7 @@ require 'spec_helper'
         class FieldGroup < Dill::FieldGroup
           root 'body'
 
-          select :deselected, 'd'
+          select :unselected, 'u'
           select :selected, 's'
           select :by_value, 'v'
           select :auto_locator
@@ -105,27 +105,27 @@ require 'spec_helper'
       end
 
       context 'when defining' do
-        Then { FieldGroup.field_names.include?(:deselected) }
+        Then { FieldGroup.field_names.include?(:unselected) }
       end
 
       context 'when querying' do
-        Then { widget(:field_group).deselected.nil? }
         Then { widget(:field_group).selected == 'Selected option' }
+        Then { widget(:field_group).selected_value == '1s' }
       end
 
       context 'when setting' do
+        When { widget(:field_group).unselected = 'Two' }
         When { widget(:field_group).selected   = 'Unselected option' }
-        When { widget(:field_group).deselected = 'One' }
         When { widget(:field_group).by_value   = 't'}
 
+        Then { widget(:field_group).unselected == 'Two' }
         Then { widget(:field_group).selected   == 'Unselected option' }
-        Then { widget(:field_group).deselected == 'One' }
         Then { widget(:field_group).by_value   == 'Two' }
       end
 
       context 'when transforming to table' do
-        Given(:headers) {['deselected', 'selected', 'by value', 'auto locator']}
-        Given(:values)  {['', 'selected option', '', '']}
+        Given(:headers) {['unselected', 'selected', 'by value', 'auto locator']}
+        Given(:values)  {['one', 'selected option', 'one', '']}
 
         When(:table)   { widget(:field_group).to_table }
 
@@ -166,7 +166,7 @@ require 'spec_helper'
       end
 
       context 'when querying' do
-        Then { widget(:field_group).empty_field.nil? }
+        Then { widget(:field_group).empty_field.empty? }
         Then { widget(:field_group).filled_field == 'Field contents' }
       end
 
