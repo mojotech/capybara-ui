@@ -147,6 +147,70 @@ DRIVERS.each do |driver|
       end
     end
 
+    describe '#double_click' do
+      GivenHTML <<-HTML
+        <span ondblclick="this.innerHTML = 'Double Clicked!'">Double Click Me!</span>
+      HTML
+
+      context 'double clicking a widget' do
+        GivenWidget do
+          class MyWidget < Dill::Widget
+            root 'span'
+          end
+        end
+
+        When { widget(:my_widget).double_click }
+
+        Then { widget(:my_widget).text == "Double Clicked!" }
+      end
+
+      context 'double clicking a child widget' do
+        GivenWidget do
+          class Container < Dill::Widget
+            root 'body'
+
+            widget :my_widget, 'span'
+          end
+        end
+
+        When { widget(:container).double_click :my_widget  }
+
+        Then { widget(:container).text == "Double Clicked!" }
+      end
+    end
+
+    describe '#right_click', if: driver == :webkit do
+      GivenHTML <<-HTML
+        <span oncontextmenu="this.innerHTML = 'Right Clicked!'">Right Click Me!</span>
+      HTML
+
+      context 'right clicking a widget' do
+        GivenWidget do
+          class MyWidget < Dill::Widget
+            root 'span'
+          end
+        end
+
+        When { widget(:my_widget).right_click }
+
+        Then { widget(:my_widget).text == "Right Clicked!" }
+      end
+
+      context 'right clicking a child widget' do
+        GivenWidget do
+          class Container < Dill::Widget
+            root 'body'
+
+            widget :my_widget, 'span'
+          end
+        end
+
+        When { widget(:container).right_click :my_widget  }
+
+        Then { widget(:container).text == "Right Clicked!" }
+      end
+    end
+
     describe 'diff' do
       GOOD_TABLE = [{'a' => '1', 'b' => '2'}, {'a' => '3', 'b' => '4'}]
 
