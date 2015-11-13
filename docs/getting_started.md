@@ -95,23 +95,26 @@ end
 
 
 ## UI Interactions
-We can simulate a user interacting with a widget.
+We can simulate a user interacting with a widget. Note not all methods will be supported by all drivers.
 
 ```ruby
 # dsl methods
 hover :todo_item
 click :todo_item
 double_click :todo_item
+right_click :todo_item
 
 # widget methods
 widget(:todo_item).click
 widget(:todo_item).hover
 widget(:todo_item).double_click
+widget(:todo_item).right_click
 
 # nested widget methods
 widget(:todo_item).click :delete_button
 widget(:todo_item).hover :delete_button
 widget(:todo_item).double_click :delete_button
+widget(:todo_item).right_click :delete_button
 ```
 
 
