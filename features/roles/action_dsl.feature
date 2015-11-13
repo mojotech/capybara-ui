@@ -134,6 +134,42 @@ Feature: Action DSL
       """
 
   @javascript
+  Scenario: Dragging a widget to another widget
+
+    `drag(:source).to(:target)` is a shortcut for `widget(:source).drag_to(:target)`.
+
+    Given the following HTML at the path "/somewhere":
+      """
+      <div id="source" draggable="true">Drag Me!</div>>
+      <div id="target" ondragover="this.innerHTML = 'Dragged To Drop Zone!'">Drop Zone!</div>
+      """
+    And the following widget definitions:
+      """
+      Source = Dill::Widget('#source')
+      Target = Dill::Widget('#target')
+      """
+    And the following role definition:
+      """
+      class Dragger < Dill::Role
+        def act
+          visit "/somewhere"
+
+          drag(:source).to(:target)
+        end
+      end
+      """
+    When we ask the role to execute the action:
+      """
+      role = DoubleClicker.new
+
+      role.act
+      """
+    Then we should see the role did so:
+      """
+      widget(:target).text #=> "Dragged To Drop Zone!""
+      """
+
+  @javascript
   Scenario: Submitting a form with some fields set
 
     `submit :form, ...` is a shortcut for `widget(:form).submit_with ...`.

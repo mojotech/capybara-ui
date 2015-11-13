@@ -211,6 +211,31 @@ DRIVERS.each do |driver|
       end
     end
 
+    describe '#drag_to' do
+      GivenHTML <<-HTML
+        <div id="dropzone" ondragover="this.innerHTML = 'Dragged To Drop Zone!'">Drop Zone!</div>
+        <div id="item" draggable="true">Drag Me!</div>
+      HTML
+
+      context 'dragging a widget' do
+        GivenWidget do
+          class DropZone < Dill::Widget
+            root '#dropzone'
+          end
+        end
+
+        GivenWidget do
+          class Item < Dill::Widget
+            root '#item'
+          end
+        end
+
+        When { widget(:item).drag_to(:drop_zone) }
+
+        Then { widget(:drop_zone).text == "Dragged To Drop Zone!" }
+      end
+    end
+
     describe 'diff' do
       GOOD_TABLE = [{'a' => '1', 'b' => '2'}, {'a' => '3', 'b' => '4'}]
 

@@ -295,6 +295,35 @@ module CapybaraUI
       end
     end
 
+    # Drags the current widget to the widget defined in *args.
+    #
+    # === Usage
+    #
+    # Given the following widget definitions:
+    #
+    #   class Target < Dill::Widget
+    #     root '#target'
+    #   end
+    #
+    #   class Source < Dill::Widget
+    #     root '#source'
+    #   end
+    #
+    # Send +drag_to+ with target widget arguments to drag a source to a target
+    #
+    #   widget(:source).drag_to(:target)
+    #
+    # This is the equivalent of doing the following using Capybara:
+    #
+    #   find('#source').drag_to(find('#target'))
+    def drag_to(*args)
+      target = widget(*args)
+
+      root.drag_to(target)
+    end
+
+    alias_method :to, :drag_to
+
     # Right clicks the current widget, or the child widget given by +name+.
     #
     # === Usage

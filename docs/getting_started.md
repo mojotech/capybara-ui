@@ -103,12 +103,14 @@ hover :todo_item
 click :todo_item
 double_click :todo_item
 right_click :todo_item
+drag(:todo_item).to :drop_zone
 
 # widget methods
 widget(:todo_item).click
 widget(:todo_item).hover
 widget(:todo_item).double_click
 widget(:todo_item).right_click
+widget(:todo_item).drag_to :drop_zone
 
 # nested widget methods
 widget(:todo_item).click :delete_button

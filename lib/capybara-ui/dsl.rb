@@ -81,6 +81,12 @@ module CapybaraUI
       eventually { document.widget(name, *args) }
     end
 
+    # allows a DSL syntax for dragging
+    # given a :source widget and a :target widget
+    #
+    # drag(:source).to(:target)
+    alias_method :drag, :widget
+
     # Returns a list of widget instances for the given name.
     #
     # @param name [String, Symbol]
