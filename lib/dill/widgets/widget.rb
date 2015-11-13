@@ -268,6 +268,33 @@ module Dill
       end
     end
 
+    # Double clicks the current widget, or the child widget given by +name+.
+    #
+    # === Usage
+    #
+    # Given the following widget definition:
+    #
+    #   class Container < Dill::Widget
+    #     root '#container'
+    #
+    #     widget :link, 'a'
+    #   end
+    #
+    # Send +double_click+ with no arguments to trigger an +ondblclick+ event on +#container+.
+    #
+    #   widget(:container).double_click
+    #
+    # This is the equivalent of doing the following using Capybara:
+    #
+    #   find('#container').double_click
+    def double_click(*args)
+      if args.empty?
+        root.double_click
+      else
+        widget(*args).double_click
+      end
+    end
+
     # Determines if the widget underlying an action exists.
     #
     # @param name the name of the action

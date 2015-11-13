@@ -101,14 +101,17 @@ We can simulate a user interacting with a widget.
 # dsl methods
 hover :todo_item
 click :todo_item
+double_click :todo_item
 
 # widget methods
-widget(:todo_item).hover
 widget(:todo_item).click
+widget(:todo_item).hover
+widget(:todo_item).double_click
 
 # nested widget methods
-widget(:todo_item).hover :delete_button
 widget(:todo_item).click :delete_button
+widget(:todo_item).hover :delete_button
+widget(:todo_item).double_click :delete_button
 ```
 
 

@@ -100,6 +100,40 @@ Feature: Action DSL
       """
 
   @javascript
+  Scenario: Double clicking a widget
+
+    `double_click :widget_name` is a shortcut for `widget(:widget_name).double_click`.
+
+    Given the following HTML at the path "/somewhere":
+      """
+      <div id="dblclickme" ondblclick="this.innerHTML = 'Double Clicked!'">Double Click Me!</a>
+      """
+    And the following widget definition:
+      """
+      DoubleClickMe = Dill::Widget('#dblclickme')
+      """
+    And the following role definition:
+      """
+      class DoubleClicker < Dill::Role
+        def act
+          visit "/somewhere"
+
+          double_click :double_click_me
+        end
+      end
+      """
+    When we ask the role to execute the action:
+      """
+      role = DoubleClicker.new
+
+      role.act
+      """
+    Then we should see the role did so:
+      """
+      widget(:double_click_me).text #=> "Double Clicked!"
+      """
+
+  @javascript
   Scenario: Submitting a form with some fields set
 
     `submit :form, ...` is a shortcut for `widget(:form).submit_with ...`.

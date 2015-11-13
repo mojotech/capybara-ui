@@ -22,6 +22,11 @@ module Dill
       widget(name, *args).hover
     end
 
+    # Double clicks the widget defined by +name+ and optional +args+.
+    def double_click(name, *args)
+      widget(name, *args).double_click
+    end
+
     # @return [Document] the current document with the class of the
     #   current object set as the widget lookup scope.
     def document
