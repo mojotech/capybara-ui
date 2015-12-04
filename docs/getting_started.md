@@ -218,13 +218,15 @@ Forms can have form-field widgets defined, as well as any regular sub-widgets. F
     # checkbox field
     check_box :receive_email, 'receive_email'
 
+    # radio button field group
+    radio_button :favorite_color, '.favorite-color-parent'
+
     # regular sub-widget
     widget :hidden_field, '.hidden-field'
-
-    # currently no built-in form support for radio buttons.
   end
 ```
 
+> Note: Radio buttons share the same name, and so must be treated differently. Define a group of radio buttons via a parent element, using standard css selectors rather than field-specific selectors.
 
 #### Defining Fields with CSS Selectors
 If you'd rather use a CSS selector, you can do that by passing the second argument as an array, with the selector as the array's first element.
@@ -260,11 +262,21 @@ For select fields, the default method returns the selected option's text. Call t
   widget(:form_with_everything).state_value # => "38"
 ```
 
+For **radio button** field groups, the default method returns the checked button's label text. Call the `<name>_value` method to return the value of the checked button.
+
+```ruby
+  # <label for="b">Blue</label>
+  # <input type="radio" id="b" value="#0033CC" checked>
+  widget(:form_with_everything).favorite_color # => Blue
+  widget(:form_with_everything).favorite_color_value # => "#0033CC"
+```
+
+
 ## Submitting a Form
 Dill will easily submit a form for you, via the UI, with either of these methods.
 
 ```ruby
-  params = { request: 'Call me', state: 'CO', receive_email: true }
+  params = { request: 'Call me', state: 'CO', receive_email: true, favorite_color: 'blue' }
 
   # the submit macro
   submit :form_with_everything, params

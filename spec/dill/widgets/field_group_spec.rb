@@ -2,11 +2,6 @@ require 'spec_helper'
 
 DRIVERS.each do |driver|
   describe "Dill::FieldGroup (#{driver})", driver: driver do
-    shared_examples_for 'a field' do
-      context 'when using an auto locator' do
-        Then { widget(:field_group).visible?(:auto_locator) }
-      end
-    end
 
     describe '.check_box' do
       GivenHTML <<-HTML
