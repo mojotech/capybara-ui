@@ -9,5 +9,11 @@ module Dill
     def root
       Capybara.current_session
     end
+
+    def body
+      xml = Nokogiri::HTML(Capybara.page.body).to_xml
+
+      Nokogiri::XML(xml, &:noblanks).to_xhtml
+    end
   end
 end
