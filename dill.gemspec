@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'chronic'
   s.add_dependency 'capybara', '~> 2.5'
+  s.add_dependency 'rspec', '~> 3.0'
 
   s.add_development_dependency 'rspec-given', '~> 3.5.0'
   s.add_development_dependency 'capybara-webkit', '~> 1.7.0'
