@@ -1,5 +1,5 @@
 require 'capybara/cucumber'
-require 'dill/matchers'
 require 'dill/rails'
+require 'dill/matchers'
 
 World(Dill::DSL)

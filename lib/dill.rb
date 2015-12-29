@@ -2,6 +2,7 @@ require 'chronic'
 require 'nokogiri'
 require 'capybara'
 
+require 'dill/optional_dependencies'
 require 'dill/conversions'
 require 'dill/instance_conversions'
 require 'dill/checkpoint'
