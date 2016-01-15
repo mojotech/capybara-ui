@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 DRIVERS.each do |driver|
-  describe ".radio_button (#{driver})", driver: driver do
+  describe "Dill::RadioButton (#{driver})", driver: driver do
     GivenHTML <<-HTML
       <p class="unchecked">
         <label for="u1">
