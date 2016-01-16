@@ -3,14 +3,14 @@
 [![Code Climate](https://codeclimate.com/github/mojotech/capybara-ui/badges/gpa.svg)](https://codeclimate.com/github/mojotech/capybara-ui)
 [![Test Coverage](https://codeclimate.com/github/mojotech/capybara-ui/badges/coverage.svg)](https://codeclimate.com/github/mojotech/capybara-ui)
 
-Docs [here](/docs/getting_started.md). Check out the wiki for more tips.
+Docs [here](/docs/getting_started.md). Check out the [wiki](https://github.com/mojotech/capybara-ui/wiki) for more ideas and tips.
 
 #Overview
-CapybaraUI (formerly called Dill)is a [Capybara](https://github.com/jnicklas/capybara) abstraction that helps to bring your testing language closer to your business language.
+CapybaraUI (formerly called Dill) is a [Capybara](https://github.com/jnicklas/capybara) abstraction that makes it easy to define reuseable DOM "widgets", aka [page objects](http://www.assertselenium.com/automation-design-practices/page-object-pattern/), and introduces the concept of "roles" to allow you to easily organize your testing methods and widgets. CapybaraUI also introduces some helpers and syntactic sugar to make your testing even easier.
 
 ### Before CapybaraUI
 ```ruby
-describe 'Admin' do
+feature 'Admin new user page' do
   it 'should be able to create a new user' do
     visit('/users/new')
 
@@ -30,7 +30,7 @@ end
 
 ### After CapybaraUI
 ```ruby
-describe 'Admin' do
+feature 'Admin new user page' do
   let(:role) { roles.admin }
 
   it 'should be able to create a new user' do
@@ -42,11 +42,7 @@ describe 'Admin' do
 end
 ```
 
-For a more in depth tour of CapybaraUI, read the [CapybaraUI walkthrough](/docs/walkthrough.md).
-
-
-## Documentation
-Learn all about how to use CapybaraUI in the [official documentation](/docs/getting_started.md) or get real-world ideas and tips from the [wiki](https://github.com/mojotech/capybara-ui/wiki).
+For a more in depth tour of CapybaraUI, read the [CapybaraUI walkthrough](/docs/walkthrough.md). You can also get more ideas and tips from the [wiki](https://github.com/mojotech/capybara-ui/wiki).
 
 
 ## Install
