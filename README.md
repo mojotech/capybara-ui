@@ -52,6 +52,11 @@ Add the following line to your gemfile
 gem 'capybara-ui'
 ```
 
+If using with Cucumber, add the following to your `support/env.rb`.
+
+```ruby
+require 'capybara-ui/cucumber'
+```
 
 ## Contributing
 We welcome pull requests. Please make sure tests accompany any PRs. Email Adam at ags@mojotech.com if you have questions.
