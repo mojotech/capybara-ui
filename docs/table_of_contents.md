@@ -3,6 +3,7 @@
   - [Widgets](widgets.md)
   - [Helpers](helpers.md)
   - [Roles](roles.md)
+  - [Configuration](configuration.md)
 
 ## To Be Continued...
 Stay tuned for more documentation of the following:
