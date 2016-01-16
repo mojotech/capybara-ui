@@ -1,6 +1,6 @@
 Feature: Finding
 
-  Use [#widget](https://github.com/mojotech/dill/blob/master/lib/dill/widgets/dsl.rb) to find a single widget in the current document.
+  Use [#widget](https://github.com/mojotech/capybara-ui/blob/master/lib/capybara-ui/widgets/dsl.rb) to find a single widget in the current document.
 
   Scenario: finding a widget with a simple selector
     Given the following HTML:
@@ -9,7 +9,7 @@ Feature: Finding
       """
     And the following widget definition:
       """
-      class MyWidget < Dill::Widget
+      class MyWidget < CapybaraUI::Widget
         root "#the-widget"
       end
       """
@@ -32,7 +32,7 @@ Feature: Finding
       """
     And the following widget definition:
       """
-      class OneItem < Dill::Widget
+      class OneItem < CapybaraUI::Widget
         root "li", :text => "One"
       end
       """
@@ -51,7 +51,7 @@ Feature: Finding
       """
     And the following widget definition:
       """
-      class ListItem < Dill::Widget
+      class ListItem < CapybaraUI::Widget
         root { |text| ["li", :text => text] }
       end
       """
@@ -78,7 +78,7 @@ Feature: Finding
       """
     And the following widget definition:
       """
-      class ListItem < Dill::Widget
+      class ListItem < CapybaraUI::Widget
         root { |text| ["li", :text => text] }
       end
       """
@@ -96,7 +96,7 @@ Feature: Finding
       """
     And the following widget definition:
       """
-      class WaitingWidget < Dill::Widget
+      class WaitingWidget < CapybaraUI::Widget
         root 'div', :text => 'My Widget'
       end
       """
@@ -114,7 +114,7 @@ Feature: Finding
       """
     And the following widget definition:
       """
-      class ParentWidget < Dill::Widget
+      class ParentWidget < CapybaraUI::Widget
         root 'div', :text => 'My Widget'
       end
       """
@@ -135,7 +135,7 @@ p      <div>Widget</div>
       """
     And the following widget definition:
       """
-      class MissingWidget < Dill::Widget
+      class MissingWidget < CapybaraUI::Widget
         root 'li'
       end
       """
@@ -143,7 +143,7 @@ p      <div>Widget</div>
       """
       widget(:missing_widget)
       """
-    Then we will get the error Dill::MissingWidget
+    Then we will get the error CapybaraUI::MissingWidget
 
   Scenario: ambiguous selector
     Given the following HTML:
@@ -153,7 +153,7 @@ p      <div>Widget</div>
       """
     And the following widget definition:
       """
-      class AmbiguousWidget < Dill::Widget
+      class AmbiguousWidget < CapybaraUI::Widget
         root 'div'
       end
       """
@@ -161,4 +161,4 @@ p      <div>Widget</div>
       """
       widget(:ambiguous_widget)
       """
-    Then we will get the error Dill::AmbiguousWidget
+    Then we will get the error CapybaraUI::AmbiguousWidget

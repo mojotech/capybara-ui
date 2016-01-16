@@ -1,7 +1,7 @@
 $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
 
 require 'rails'
-require 'dill'
+require 'capybara-ui'
 require 'pry'
 require 'rspec/given'
 require 'sinatra/base'
@@ -13,15 +13,15 @@ Dir["./spec/support/**/*.rb"].each { |file| require file }
 
 DRIVERS = [:webkit, :poltergeist]
 
-class DillApp < Sinatra::Base; end
-Capybara.app = DillApp
+class CapybaraUIApp < Sinatra::Base; end
+Capybara.app = CapybaraUIApp
 
 Capybara.javascript_driver = :webkit
 
 module WidgetSpecDSL
   def GivenAction(body_html, path)
     before :each do
-      DillApp.class_eval do
+      CapybaraUIApp.class_eval do
         get path do
           <<-HTML
           <html>
@@ -41,7 +41,7 @@ module WidgetSpecDSL
     Given(:path) { path }
     Given        { visit path }
 
-    Given(:document) { Dill::Document.new(self.class) }
+    Given(:document) { CapybaraUI::Document.new(self.class) }
   end
 
   def GivenWidget
@@ -55,7 +55,7 @@ module WidgetSpecDSL
       new_constants = Object.constants - _saved_constant_names
 
       new_constants.
-        select { |e| Object.const_get(e) < Dill::Widget }.
+        select { |e| Object.const_get(e) < CapybaraUI::Widget }.
         each { |e| Object.send :remove_const, e }
     end
   end
@@ -65,9 +65,9 @@ RSpec.configure do |config|
   config.extend WidgetSpecDSL
 
   config.include Capybara::DSL
-  config.include Dill::DSL
+  config.include CapybaraUI::DSL
 
   config.after :each do
-    DillApp.reset!
+    CapybaraUIApp.reset!
   end
 end

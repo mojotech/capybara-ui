@@ -1,5 +1,5 @@
 require 'capybara/poltergeist'
 
 Capybara.default_max_wait_time = 2
-Capybara.app = DillApp
+Capybara.app = CapybaraUIApp
 Capybara.javascript_driver = :poltergeist

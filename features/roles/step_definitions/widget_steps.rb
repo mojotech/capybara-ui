@@ -9,25 +9,25 @@ end
 When(/^we try to access the widget outside the role:$/) do |string|
   begin
     page_context.eval(string)
-  rescue Dill::Missing
-    @rescued_dill_missing = true
+  rescue CapybaraUI::Missing
+    @rescued_capybaraui_missing = true
   end
 end
 
-Then(/^we should get a Dill::Missing error$/) do
-  expect(@rescued_dill_missing).to be true
+Then(/^we should get a CapybaraUI::Missing error$/) do
+  expect(@rescued_capybaraui_missing).to be true
 end
 
 When(/^we try to define the role:$/) do |string|
   begin
     page_context.eval string
-  rescue Dill::Widget::MissingSelector
-    @rescued_dill_missing_selector = true
+  rescue CapybaraUI::Widget::MissingSelector
+    @rescued_capybaraui_missing_selector = true
   end
 end
 
-Then(/^we should get a Dill::Widget::MissingSelector error$/) do
-  expect(@rescued_dill_missing_selector).to be true
+Then(/^we should get a CapybaraUI::Widget::MissingSelector error$/) do
+  expect(@rescued_capybaraui_missing_selector).to be true
 end
 
 Then(/^we should be able to use the "see_\*" method:$/) do |string|
@@ -37,7 +37,7 @@ end
 When(/^we try to find the unknown widget:$/) do |string|
   begin
     page_context.eval string
-  rescue Dill::Missing
-    @rescued_dill_missing = true
+  rescue CapybaraUI::Missing
+    @rescued_capybaraui_missing = true
   end
 end

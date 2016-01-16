@@ -8,7 +8,7 @@ describe 'Finding a widget' do
     HTML
 
     GivenWidget do
-      class Single < Dill::Widget
+      class Single < CapybaraUI::Widget
         root '.my-widget'
       end
     end
@@ -24,7 +24,7 @@ describe 'Finding a widget' do
     HTML
 
     GivenWidget do
-      ShortForm = Dill::Widget('#my-widget')
+      ShortForm = CapybaraUI::Widget('#my-widget')
     end
 
     Then { widget(:short_form).is_a?(ShortForm) }
@@ -37,7 +37,7 @@ describe 'Finding a widget' do
     HTML
 
     GivenWidget do
-      CompositeForm = Dill::Widget('.multiple', text: 'Right')
+      CompositeForm = CapybaraUI::Widget('.multiple', text: 'Right')
     end
 
     Then { widget(:composite_form).text == 'Right' }
@@ -51,7 +51,7 @@ describe 'Finding a widget' do
     HTML
 
     GivenWidget do
-      LazyForm = Dill::Widget(->(text){ ['.multiple', text: text] })
+      LazyForm = CapybaraUI::Widget(->(text){ ['.multiple', text: text] })
     end
 
     Then { widget(:lazy_form, 'Right').text == 'Right' }

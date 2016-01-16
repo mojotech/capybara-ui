@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'spec_helper'
 
 describe 'Widget values' do
   describe 'Widgets as values' do
@@ -7,7 +8,7 @@ describe 'Widget values' do
     HTML
 
     GivenWidget do
-      Int = Dill::Widget('#my-widget') { |text| text.to_i }
+      Int = CapybaraUI::Widget('#my-widget') { |text| text.to_i }
     end
 
     Then { value(:int) == 1 }
@@ -19,7 +20,7 @@ describe 'Widget values' do
     HTML
 
     GivenWidget do
-      Str = Dill::String('#my-widget')
+      Str = CapybaraUI::String('#my-widget')
     end
 
     Then { value(:str) == 'Hello, world!' }
@@ -32,7 +33,7 @@ describe 'Widget values' do
     HTML
 
     GivenWidget do
-      class Str < Dill::Widget
+      class Str < CapybaraUI::Widget
         root { |n| "#my-widget-#{n}" }
       end
     end
@@ -47,7 +48,7 @@ describe 'Widget values' do
       HTML
 
       GivenWidget do
-        Int = Dill::Integer('#my-widget')
+        Int = CapybaraUI::Integer('#my-widget')
       end
 
       Then { value(:int) == 1 }
@@ -59,7 +60,7 @@ describe 'Widget values' do
       HTML
 
       GivenWidget do
-        Int = Dill::Integer('#my-widget')
+        Int = CapybaraUI::Integer('#my-widget')
       end
 
       When(:result) { value(:int) }
@@ -75,7 +76,7 @@ describe 'Widget values' do
     HTML
 
     GivenWidget do
-      class Single < Dill::Widget
+      class Single < CapybaraUI::Widget
         root '.my-widget'
       end
     end
@@ -92,7 +93,7 @@ describe 'Widget values' do
       HTML
 
       GivenWidget do
-        Dec = Dill::Decimal('#my-widget')
+        Dec = CapybaraUI::Decimal('#my-widget')
       end
 
       Then { value(:dec) == 1.5 }
@@ -105,7 +106,7 @@ describe 'Widget values' do
       HTML
 
       GivenWidget do
-        Dec = Dill::Decimal('#my-widget')
+        Dec = CapybaraUI::Decimal('#my-widget')
       end
 
       When(:result) { value(:dec) }

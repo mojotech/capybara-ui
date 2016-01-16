@@ -17,8 +17,8 @@ Feature: Form Fields
 
     Given the following widget definition:
       """
-      class MyForm < Dill::Form
-        field :text, 'named', Dill::TextField
+      class MyForm < CapybaraUI::Form
+        field :text, 'named', CapybaraUI::TextField
       end
       """
     Then we can see the text field widget is present using:
@@ -32,8 +32,8 @@ Feature: Form Fields
 
     Given the following widget definition:
       """
-      class MyForm < Dill::Form
-        field :text, ['.named-class'], Dill::TextField
+      class MyForm < CapybaraUI::Form
+        field :text, ['.named-class'], CapybaraUI::TextField
       end
       """
     Then we can see the text field widget is present using:

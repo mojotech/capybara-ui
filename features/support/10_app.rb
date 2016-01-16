@@ -2,7 +2,7 @@ require 'rails'
 require 'action_controller/railtie'
 require 'pry'
 
-class DillApp < Rails::Application
+class CapybaraUIApp < Rails::Application
   config.root = File.expand_path(File.join(File.dirname(__FILE__), '..', '..'))
 
   secret = '39a988a1711e621dbc7718d4c89f5e3f'
@@ -15,7 +15,7 @@ class DillApp < Rails::Application
   Rails.logger = config.logger
 end
 
-ActionDispatch.test_app = DillApp
+ActionDispatch.test_app = CapybaraUIApp
 
 class TestController < ActionController::Base
 end
@@ -40,7 +40,7 @@ module WebApp
       end
     end
 
-    DillApp.routes.draw do
+    CapybaraUIApp.routes.draw do
       get path => "test##{name}", :as => name
     end
   end

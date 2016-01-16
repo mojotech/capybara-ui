@@ -14,7 +14,7 @@ Feature: .widget macro
       """
     And the following role definition:
       """
-      class Seer < Dill::Role
+      class Seer < CapybaraUI::Role
         widget :inner, "#inner"
       end
       """
@@ -39,15 +39,15 @@ Feature: .widget macro
       """
     And the following role definition:
       """
-      class WithClass < Dill::Role
-        widget :list, "ul", Dill::List
+      class WithClass < CapybaraUI::Role
+        widget :list, "ul", CapybaraUI::List
       end
       """
     Then we should get a widget with the right class:
       """
       role = WithClass.new
 
-      role.widget(:list).is_a?(Dill::List) #=> true
+      role.widget(:list).is_a?(CapybaraUI::List) #=> true
       """
 
   Scenario: With explicit class and default selector
@@ -64,15 +64,15 @@ Feature: .widget macro
       """
     And the following role definition:
       """
-      class WithDefaultSelector < Dill::Role
-        widget :list, Dill::List
+      class WithDefaultSelector < CapybaraUI::Role
+        widget :list, CapybaraUI::List
       end
       """
     Then we should get a widget with the right class:
       """
       role = WithDefaultSelector.new
 
-      role.widget(:list).is_a?(Dill::List) #=> true
+      role.widget(:list).is_a?(CapybaraUI::List) #=> true
       """
 
   Scenario: With explicit class and missing default selector
@@ -83,11 +83,11 @@ Feature: .widget macro
       """
     When we try to define the role:
       """
-      class WithDefaultSelector < Dill::Role
-        widget :div, Dill::Widget
+      class WithDefaultSelector < CapybaraUI::Role
+        widget :div, CapybaraUI::Widget
       end
       """
-    Then we should get a Dill::Widget::MissingSelector error
+    Then we should get a CapybaraUI::Widget::MissingSelector error
 
   Scenario: With a block
 
@@ -99,7 +99,7 @@ Feature: .widget macro
       """
     And the following role definition:
       """
-      class WithBlock < Dill::Role
+      class WithBlock < CapybaraUI::Role
         widget :number, '#number' do
           def multiplied
             text.to_i * 2
@@ -122,7 +122,7 @@ Feature: .widget macro
       """
     And the following role definition:
       """
-      class Seer < Dill::Role
+      class Seer < CapybaraUI::Role
         widget :inner, "#inner"
       end
       """
@@ -130,4 +130,4 @@ Feature: .widget macro
       """
       widget(:inner)
       """
-    Then we should get a Dill::Missing error
+    Then we should get a CapybaraUI::Missing error

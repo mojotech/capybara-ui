@@ -13,7 +13,7 @@ Feature: Form Fields: Select
       """
     And the following widget definition:
       """
-      class MyForm < Dill::Form
+      class MyForm < CapybaraUI::Form
         select :my_select, 'number'
       end
       """
@@ -43,7 +43,7 @@ Feature: Form Fields: Select
       """
       widget(:my_form).my_select = "Four"
       """
-    Then we will get the error Dill::InvalidOption
+    Then we will get the error CapybaraUI::InvalidOption
 
   Scenario:
     Given the following HTML:

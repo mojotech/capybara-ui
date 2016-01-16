@@ -10,7 +10,7 @@ Feature: Form Fields: Text
       """
     And the following widget definition:
       """
-      class MyForm < Dill::Form
+      class MyForm < CapybaraUI::Form
         text_field :user_name, ['#user_name']
         text_field :password, ['#password']
       end
