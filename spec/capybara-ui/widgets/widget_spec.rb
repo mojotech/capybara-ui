@@ -213,26 +213,34 @@ DRIVERS.each do |driver|
 
     describe '#drag_to' do
       GivenHTML <<-HTML
-        <div id="dropzone" ondragover="this.innerHTML = 'Dragged To Drop Zone!'">Drop Zone!</div>
-        <div id="item" draggable="true">Drag Me!</div>
+        <div id="target" ondragover="this.innerHTML = 'Dragged To Target!'">Target!</div>
+        <div id="source" draggable="true">Drag Me!</div>
       HTML
 
       context 'dragging a widget' do
         GivenWidget do
-          class DropZone < Dill::Widget
-            root '#dropzone'
+          class Target < Dill::Widget
+            root '#target'
           end
         end
 
         GivenWidget do
-          class Item < Dill::Widget
-            root '#item'
+          class Source < Dill::Widget
+            root '#source'
           end
         end
 
-        When { widget(:item).drag_to(:drop_zone) }
+        # When(:target) { widget(:target) }
 
-        Then { widget(:drop_zone).text == "Dragged To Drop Zone!" }
+        # When { widget(:source).drag_to(target) }
+
+        When {
+          source = Capybara.find('#source')
+          target = Capybara.find('#target')
+          source.drag_to(target)
+        }
+
+        Then { widget(:target).text == "Dragged To Target!" }
       end
     end
 

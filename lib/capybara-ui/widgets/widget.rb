@@ -313,13 +313,15 @@ module CapybaraUI
     #
     #   widget(:source).drag_to(:target)
     #
+    # Or send +drag_to+ with target widget
+    #
+    #   widget(:source).drag_to( widget(:target) )
+    #
     # This is the equivalent of doing the following using Capybara:
     #
     #   find('#source').drag_to(find('#target'))
-    def drag_to(*args)
-      target = widget(*args)
-
-      root.drag_to(target)
+    def drag_to(target)
+      root.drag_to(target.root)
     end
 
     alias_method :to, :drag_to
