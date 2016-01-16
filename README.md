@@ -6,7 +6,7 @@
 Docs [here](/docs/getting_started.md). Check out the wiki for more tips.
 
 #Overview
-CapybaraUI is a [Capybara](https://github.com/jnicklas/capybara) abstraction that helps to bring your testing language closer to your business language.
+CapybaraUI (formerly called Dill)is a [Capybara](https://github.com/jnicklas/capybara) abstraction that helps to bring your testing language closer to your business language.
 
 ### Before CapybaraUI
 ```ruby
