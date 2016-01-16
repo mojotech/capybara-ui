@@ -10,11 +10,11 @@ Feature: Action DSL
       """
     And the following widget definition:
       """
-      Here = Dill::Widget('#here')
+      Here = CapybaraUI::Widget('#here')
       """
     And the following role definition:
       """
-      class Visitor < Dill::Role
+      class Visitor < CapybaraUI::Role
         def go
           visit "/somewhere"
         end
@@ -42,11 +42,11 @@ Feature: Action DSL
       """
     And the following widget definition:
       """
-      Clickme = Dill::Widget('#clickme')
+      Clickme = CapybaraUI::Widget('#clickme')
       """
     And the following role definition:
       """
-      class Clicker < Dill::Role
+      class Clicker < CapybaraUI::Role
         def go
           visit "/somewhere"
 
@@ -76,11 +76,11 @@ Feature: Action DSL
       """
     And the following widget definition:
       """
-      Hoverme = Dill::Widget('#hoverme')
+      Hoverme = CapybaraUI::Widget('#hoverme')
       """
     And the following role definition:
       """
-      class Hoverer < Dill::Role
+      class Hoverer < CapybaraUI::Role
         def act
           visit "/somewhere"
 
@@ -110,11 +110,11 @@ Feature: Action DSL
       """
     And the following widget definition:
       """
-      DoubleClickMe = Dill::Widget('#dblclickme')
+      DoubleClickMe = CapybaraUI::Widget('#dblclickme')
       """
     And the following role definition:
       """
-      class DoubleClicker < Dill::Role
+      class DoubleClicker < CapybaraUI::Role
         def act
           visit "/somewhere"
 
@@ -148,14 +148,14 @@ Feature: Action DSL
       """
     And the following widget definition:
       """
-      class MyForm < Dill::Form
+      class MyForm < CapybaraUI::Form
         text_field :first_name, 'first_name'
         text_field :last_name, 'first_name'
       end
       """
     And the following role definition:
       """
-      class Submitter < Dill::Role
+      class Submitter < CapybaraUI::Role
         def go
           visit "/somewhere"
 
@@ -187,11 +187,11 @@ Feature: Action DSL
       """
     And the following widget definition:
       """
-      class EmptyForm < Dill::Form; end
+      class EmptyForm < CapybaraUI::Form; end
       """
     And the following role definition:
       """
-      class EmptySubmitter < Dill::Role
+      class EmptySubmitter < CapybaraUI::Role
         def go
           visit "/somewhere"
 
@@ -223,13 +223,13 @@ Feature: Action DSL
       """
     And the following widget definition:
       """
-      class SetForm < Dill::Form
+      class SetForm < CapybaraUI::Form
         text_field :text_field, 'text_field'
       end
       """
     And the following role definition:
       """
-      class Setter < Dill::Role
+      class Setter < CapybaraUI::Role
         def go
           visit "/somewhere"
 

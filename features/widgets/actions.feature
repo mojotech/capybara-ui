@@ -14,7 +14,7 @@ Feature: Actions
       """
     And the following widget definition:
       """
-      class Torpedoes < Dill::Widget
+      class Torpedoes < CapybaraUI::Widget
         root '#torpedoes'
 
         action :fire
@@ -42,7 +42,7 @@ Feature: Actions
       """
     And the following widget definition:
       """
-      class Torpedoes < Dill::Widget
+      class Torpedoes < CapybaraUI::Widget
         root '#torpedoes'
 
         action :fire, 'span'

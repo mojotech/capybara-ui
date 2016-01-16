@@ -7,7 +7,7 @@ Feature: Attributes
       """
     And the following widget definition:
       """
-      class MyWidget < Dill::Widget
+      class MyWidget < CapybaraUI::Widget
         root "#the-widget"
       end
       """

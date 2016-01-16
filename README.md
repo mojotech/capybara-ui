@@ -1,14 +1,14 @@
-# Dill
-[![Travis Build Status](https://travis-ci.org/mojotech/dill.svg?branch=master)](https://travis-ci.org/mojotech/dill)
-[![Code Climate](https://codeclimate.com/github/mojotech/dill/badges/gpa.svg)](https://codeclimate.com/github/mojotech/dill)
-[![Test Coverage](https://codeclimate.com/github/mojotech/dill/badges/coverage.svg)](https://codeclimate.com/github/mojotech/dill)
+# CapybaraUI
+[![Travis Build Status](https://travis-ci.org/mojotech/capybara-ui.svg?branch=master)](https://travis-ci.org/mojotech/capybara-ui)
+[![Code Climate](https://codeclimate.com/github/mojotech/capybara-ui/badges/gpa.svg)](https://codeclimate.com/github/mojotech/capybara-ui)
+[![Test Coverage](https://codeclimate.com/github/mojotech/capybara-ui/badges/coverage.svg)](https://codeclimate.com/github/mojotech/capybara-ui)
 
 Docs [here](/docs/getting_started.md). Check out the wiki for more tips.
 
 #Overview
-Dill is a [Capybara](https://github.com/jnicklas/capybara) abstraction that helps to bring your testing language closer to your business language.
+CapybaraUI (formerly called Dill)is a [Capybara](https://github.com/jnicklas/capybara) abstraction that helps to bring your testing language closer to your business language.
 
-### Before Dill
+### Before CapybaraUI
 ```ruby
 describe 'Admin' do
   it 'should be able to create a new user' do
@@ -28,7 +28,7 @@ describe 'Admin' do
 end
 ```
 
-### After Dill
+### After CapybaraUI
 ```ruby
 describe 'Admin' do
   let(:role) { roles.admin }
@@ -42,18 +42,18 @@ describe 'Admin' do
 end
 ```
 
-For a more in depth tour of Dill, read the [Dill walkthrough](/docs/walkthrough.md).
+For a more in depth tour of CapybaraUI, read the [CapybaraUI walkthrough](/docs/walkthrough.md).
 
 
 ## Documentation
-Learn all about how to use Dill in the [official documentation](/docs/getting_started.md) or get real-world ideas and tips from the [wiki](https://github.com/mojotech/dill/wiki).
+Learn all about how to use CapybaraUI in the [official documentation](/docs/getting_started.md) or get real-world ideas and tips from the [wiki](https://github.com/mojotech/capybara-ui/wiki).
 
 
 ## Install
 Add the following line to your gemfile
 
 ```ruby
-gem 'dill', github: 'mojotech/dill'
+gem 'capybara-ui'
 ```
 
 
