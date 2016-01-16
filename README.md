@@ -3,7 +3,7 @@
 [![Code Climate](https://codeclimate.com/github/mojotech/capybara-ui/badges/gpa.svg)](https://codeclimate.com/github/mojotech/capybara-ui)
 [![Test Coverage](https://codeclimate.com/github/mojotech/capybara-ui/badges/coverage.svg)](https://codeclimate.com/github/mojotech/capybara-ui)
 
-Docs [here](/docs/getting_started.md). Check out the [wiki](https://github.com/mojotech/capybara-ui/wiki) for more ideas and tips.
+Docs [here](/docs/table_of_contents.md). Check out the [wiki](https://github.com/mojotech/capybara-ui/wiki) for more ideas and tips.
 
 #Overview
 CapybaraUI (formerly called Dill) is a [Capybara](https://github.com/jnicklas/capybara) abstraction that makes it easy to define reuseable DOM "widgets", aka [page objects](http://www.assertselenium.com/automation-design-practices/page-object-pattern/), and introduces the concept of "roles" to allow you to easily organize your testing methods and widgets. CapybaraUI also introduces some helpers and syntactic sugar to make your testing even easier.
