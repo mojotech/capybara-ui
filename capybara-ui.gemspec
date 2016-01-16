@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email         = ["dleal@mojotech.com", "ags@mojotech.com"]
   s.homepage      = "https://github.com/mojotech/capybara-ui"
   s.summary       = "A set of helpers to ease integration testing"
-  s.description   = "See https://github.com/mojotech/capybara-ui/README.md"
+  s.description   = "CapybaraUI (formerly called Dill) is a Capybara abstraction that makes it easy to define reuseable DOM \"widgets\", aka page objects, and introduces the concept of \"roles\" to allow you to easily organize your testing methods and widgets. CapybaraUI also introduces helpers and syntactic sugar to make your testing even easier."
   s.license       = "MIT"
 
   s.files         = `git ls-files app lib`.split("\n")
