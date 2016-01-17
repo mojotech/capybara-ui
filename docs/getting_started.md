@@ -1,5 +1,5 @@
-# CapybaraUI Docs
-  Brand new to CapybaraUI? Try the [CapybaraUI walkthrough](walkthrough.md).
+# Capybara UI Docs
+  Brand new to Capybara UI? Try the [Capybara UI walkthrough](walkthrough.md).
 
 ##Table of Contents
   - [Widgets](#widgets)
@@ -12,7 +12,7 @@
 See even more documentation at https://www.relishapp.com/mojotech/capybara-ui/docs.
 
 #Widgets
-A widget is the fundamental CapybaraUI element. A widget abstracts a DOM element, allowing you to call methods on that element, like checking for text or submitting a form.
+A widget is the fundamental Capybara UI element. A widget abstracts a DOM element, allowing you to call methods on that element, like checking for text or submitting a form.
 
 
 ## Widget Declaration
@@ -28,11 +28,11 @@ widget :todo_item, [:xpath, '//some/node']
 Class widget declarations define the widget with selector via the `root` method.
 
 ```ruby
-class TodoItem < CapybaraUI::Widget
+class TodoItem < Capybara UI::Widget
   root '.todo-item'
 end
 
-class TodoItem < CapybaraUI::Widget
+class TodoItem < Capybara UI::Widget
   root :xpath, '//some/node'
 end
 ```
@@ -42,7 +42,7 @@ end
 Widgets can take a Proc in addition to a CSS selector or XPath expression, allowing us to more precisely define the widget at call time.
 
 ```ruby
-class TodoManager < CapybaraUI::Role
+class TodoManager < Capybara UI::Role
   widget :todo_item, -> (text) { ['.todo-item', text: text] }
 
   def select_item(description)
@@ -60,7 +60,7 @@ widget(:todo_item, 'Buy Milk') # => returns widget object
 visible?(:todo_item, 'Buy Milk') # => true
 not_visible?(:todo_item, 'Buy Milk') # => false
 
-widget(:todo_item, 'Write a Novel') # => raises CapybaraUI::MissingWidget error
+widget(:todo_item, 'Write a Novel') # => raises Capybara UI::MissingWidget error
 visible?(:todo_item, 'Write a Novel') # => false
 not_visible?(:todo_item, 'Write a Novel') # => true
 ```
@@ -81,10 +81,10 @@ expect(roles.myrole).to see :todo_item, "Buy Milk"
 
 
 ## Widget Root
-The **root** of a widget is the Capybara element itself that CapybaraUI abstracts. When a widget is declared with the widget macro, the root declaration is implicit and equal to the element with the css class in the definition.
+The **root** of a widget is the Capybara element itself that Capybara UI abstracts. When a widget is declared with the widget macro, the root declaration is implicit and equal to the element with the css class in the definition.
 
 ```ruby
-class TodoManager < CapybaraUI::Role
+class TodoManager < Capybara UI::Role
   widget :todo_item, '.todo-item' do
     def delete
       root.find('a.delete').click
@@ -119,7 +119,7 @@ widget(:todo_item).right_click :delete_button
 
 
 ## HTML and Attributes
-You can access the id and classes of the widget as well with CapybaraUI methods. Other attributes can be accessed from the Capybara element, via the `root` method.
+You can access the id and classes of the widget as well with Capybara UI methods. Other attributes can be accessed from the Capybara element, via the `root` method.
 
 ```ruby
 # <a href="/items/1" id="todo_item" class="todo-item right-aligned">
@@ -170,7 +170,7 @@ widget(:todo_item).click :delete_button
 You can define custom methods on a widget object.
 
 ```ruby
-class TodoManager < CapybaraUI::Role
+class TodoManager < Capybara UI::Role
   # see the Forms section for more information about form widgets
   form :new_email, '#new_email' do
     text_field :email, ["[id ^= 'email_addresses_']"]
@@ -197,7 +197,7 @@ Forms inherit all the properties of widgets, and have some of their own.
 ## Form Declaration
 ```ruby
   # with explicit class
-  widget :todo_form, '.todo-form', CapybaraUI::Form
+  widget :todo_form, '.todo-form', Capybara UI::Form
 
   # with the form macro
   form :todo_form, '.todo-form'
@@ -237,7 +237,7 @@ If you'd rather use a CSS selector, you can do that by passing the second argume
 
 
 #### Form Field Values
-You can get the current value of form elements by calling their methods, automagically defined by CapybaraUI.
+You can get the current value of form elements by calling their methods, automagically defined by Capybara UI.
 
 ```ruby
   widget(:form_with_everything).state #=> 'CO'
@@ -273,7 +273,7 @@ For **radio button** field groups, the default method returns the checked button
 
 
 ## Submitting a Form
-CapybaraUI will easily submit a form for you, via the UI, with either of these methods.
+Capybara UI will easily submit a form for you, via the UI, with either of these methods.
 
 ```ruby
   params = { request: 'Call me', state: 'CO', receive_email: true, favorite_color: 'blue' }
@@ -295,7 +295,7 @@ You can also submit a form by setting the fields individually.
   end
 ```
 
-If you'd prefer to just set the fields without submitting the form, CapybaraUI can handle that, too, with the `set` macro, or the `set` method on the form widget.
+If you'd prefer to just set the fields without submitting the form, Capybara UI can handle that, too, with the `set` macro, or the `set` method on the form widget.
 ```ruby
   set :form_with_everything, params
 
@@ -309,23 +309,23 @@ A field group is like a form without a submit button. It has all the same functi
 
 ## Field Group Declaration
 ```ruby
-  widget :todo_form, '.todo-form', CapybaraUI::FieldGroup
+  widget :todo_form, '.todo-form', Capybara UI::FieldGroup
 ```
 
 
 # Lists
-A list is a collection of CapybaraUI ListItem objects, and is a good way to map a simple list format with a CapybaraUI element. (For more complicated lists, consider the [table](#tables) element.)
+A list is a collection of Capybara UI ListItem objects, and is a good way to map a simple list format with a Capybara UI element. (For more complicated lists, consider the [table](#tables) element.)
 
 
 ## List Declaration
 ```ruby
   # with explicit class
-  class TodoList < CapybaraUI::List
+  class TodoList < Capybara UI::List
     root '.todo-list'
   end
 
   # with widget macro and explicit class
-  widget :todo_list, '.todo-list', CapybaraUI::List
+  widget :todo_list, '.todo-list', Capybara UI::List
 
   # with the list macro
   list :todo_list, '.todo-list'
@@ -372,7 +372,7 @@ If you only care about the list items themselves, it might be better to define t
 
 ```ruby
   # now when you go to find your item,
-  # CapybaraUI will wait for that item to appear
+  # Capybara UI will wait for that item to appear
   widget :todo_list_item, '.todo-list-item'
 ```
 
@@ -384,29 +384,29 @@ Table widgets map tables, or table-like DOM structures that have a header and da
 ## Default vs Custom Tables
 Default Table widgets define the root as a `table` element, headers as `thead > tr`, and data rows as `tbody > tr`. Both headers and rows have a default column of `td`.
 
-Custom tables allow you to map a CapybaraUI::Table element over a table-like structure.
+Custom tables allow you to map a Capybara UI::Table element over a table-like structure.
 
 
 ## Default Table Declaration
 ```ruby
   # with explicit class
-  class TodoTable < CapybaraUI::Table
+  class TodoTable < Capybara UI::Table
   end
 
   # with widget macro and explicit class
-  widget :todo_table, CapybaraUI::Table
+  widget :todo_table, Capybara UI::Table
 ```
 
 
 ## Custom Table Declaration
 ```ruby
   # with explicit class
-  class TodoTable < CapybaraUI::Table
+  class TodoTable < Capybara UI::Table
     root '.todo-table'
   end
 
   # with widget macro and explicit class
-  widget :todo_table, '.todo-table', CapybaraUI::Table
+  widget :todo_table, '.todo-table', Capybara UI::Table
 ```
 
 
@@ -437,7 +437,7 @@ Given this HTML...
 ... You can define the headers, data_rows and their columns with CSS selectors.
 
 ```ruby
-widget :todo_table, '.todo-table', CapybaraUI::Table do
+widget :todo_table, '.todo-table', Capybara UI::Table do
   header_row '.header-row' do
     column 'span'
   end
@@ -460,7 +460,7 @@ In both default and custom tables, you can get the values in a row, or in a colu
 
 
 # Cucumber helpers
-CapybaraUI currently provides a single method to work with Cucumber tables.
+Capybara UI currently provides a single method to work with Cucumber tables.
 
 ```ruby
 Then(/^some step that takes in a cucumber table$/) do |table|
@@ -482,6 +482,6 @@ end
 
 #To Be Continued...
 Stay tuned for more documentation of the following:
-- CapybaraUI Gotchas - the most common, unexpected CapybaraUI errors and solutions
-- Addressing irregular test failures with CapybaraUI
-- CapybaraUI's rspec 'see' method
+- Capybara UI Gotchas - the most common, unexpected Capybara UI errors and solutions
+- Addressing irregular test failures with Capybara UI
+- Capybara UI's rspec 'see' method

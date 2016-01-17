@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   module CucumberMethods
     begin
       require 'cucumber/ast/table'

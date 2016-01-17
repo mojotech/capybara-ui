@@ -1,18 +1,18 @@
-module CapybaraUI
+module Capybara::UI
   module Widgets
     module DSL
       # Declares a new form widget.
       #
       # See features/role.feature.
       def form(name, *rest, &block)
-        widget name, *rest, CapybaraUI::Form, &block
+        widget name, *rest, Capybara::UI::Form, &block
       end
 
       # Declares a new list widget.
       #
       # See features/roles/list.feature.
       def list(name, *rest, &block)
-        widget name, *rest, CapybaraUI::List, &block
+        widget name, *rest, Capybara::UI::List, &block
       end
 
       # Declares a new child widget.
@@ -38,7 +38,7 @@ module CapybaraUI
 
         child = WidgetClass.new(selector, type, &block)
 
-        const_set(CapybaraUI::WidgetName.new(name).to_sym, child)
+        const_set(Capybara::UI::WidgetName.new(name).to_sym, child)
 
         child
       end

@@ -18,7 +18,7 @@ describe 'Widget attributes' do
   HTML
 
   GivenWidget do
-    class MyWidget < CapybaraUI::Widget
+    class MyWidget < Capybara::UI::Widget
       root '#container'
 
       string :name, '#name'

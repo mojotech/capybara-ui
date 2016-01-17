@@ -17,8 +17,8 @@ Feature: Form Fields
 
     Given the following widget definition:
       """
-      class MyForm < CapybaraUI::Form
-        field :text, 'named', CapybaraUI::TextField
+      class MyForm < Capybara::UI::Form
+        field :text, 'named', Capybara::UI::TextField
       end
       """
     Then we can see the text field widget is present using:
@@ -32,8 +32,8 @@ Feature: Form Fields
 
     Given the following widget definition:
       """
-      class MyForm < CapybaraUI::Form
-        field :text, ['.named-class'], CapybaraUI::TextField
+      class MyForm < Capybara::UI::Form
+        field :text, ['.named-class'], Capybara::UI::TextField
       end
       """
     Then we can see the text field widget is present using:

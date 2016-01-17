@@ -33,7 +33,7 @@ Feature: Defaults
       """
     And the following widget definition:
       """
-      class DefaultsTable < CapybaraUI::Table
+      class DefaultsTable < Capybara::UI::Table
       end
       """
 

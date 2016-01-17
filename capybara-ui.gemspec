@@ -5,7 +5,7 @@ require 'capybara-ui/version'
 
 Gem::Specification.new do |s|
   s.name          = "capybara-ui"
-  s.version       = CapybaraUI::VERSION
+  s.version       = Capybara::UI::VERSION
   s.authors       = ["David Leal", "Adam Steel"]
   s.email         = ["dleal@mojotech.com", "ags@mojotech.com"]
   s.homepage      = "https://github.com/mojotech/capybara-ui"

@@ -31,8 +31,8 @@ When(/^we try to find the widget with:$/) do |string|
   @code = string
 end
 
-Then(/^we will get the error CapybaraUI::(.+)$/) do |name|
-  expect { page_context.eval(@code) }.to raise_error CapybaraUI.const_get(name)
+Then(/^we will get the error Capybara::UI::(.+)$/) do |name|
+  expect { page_context.eval(@code) }.to raise_error Capybara::UI.const_get(name)
 end
 
 Then(/^we can get the widget with:$/) do |string|

@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   module WidgetClass
     def self.new(selector, parent = Widget, &extensions)
       klass = Class.new(parent) { root selector }

@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   # A group of form fields.
   #
   # @todo Explain how to use locators when defining fields, including what
@@ -48,7 +48,7 @@ module CapybaraUI
     #   #     <input type="checkbox" value="1" id="unchecked-box">
     #   #   </p>
     #   # </form>
-    #   class MyFieldGroup < CapybaraUI::FieldGroup
+    #   class MyFieldGroup < Capybara::UI::FieldGroup
     #     root 'form'
     #
     #     check_box :checked_box, 'checked-box'
@@ -134,7 +134,7 @@ module CapybaraUI
     #   #     </select>
     #   #   </p>
     #   # </form>
-    #   class MyFieldGroup < CapybaraUI::FieldGroup
+    #   class MyFieldGroup < Capybara::UI::FieldGroup
     #     root 'form'
     #
     #     select :selected, 'selected'
@@ -202,7 +202,7 @@ module CapybaraUI
     #   #     <input type="radio" id="unchecked_two" name="u" value="unchecked_value_two">
     #   #   </p>
     #   # </form>
-    #   class MyFieldGroup < CapybaraUI::FieldGroup
+    #   class MyFieldGroup < Capybara::UI::FieldGroup
     #     root 'form'
     #
     #     radio_button :checked, '.checked'
@@ -259,7 +259,7 @@ module CapybaraUI
     #   #     <input type="text" id="empty-field">
     #   #   </p>
     #   # </form>
-    #   class MyFieldGroup < CapybaraUI::FieldGroup
+    #   class MyFieldGroup < Capybara::UI::FieldGroup
     #     root 'form'
     #
     #     text_field :filled_field, 'text-field'

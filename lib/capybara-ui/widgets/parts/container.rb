@@ -1,7 +1,7 @@
-module CapybaraUI
+module Capybara::UI
   module WidgetParts
     module Container
-      include CapybaraUI
+      include Capybara::UI
 
       def has_widget?(name, *args)
         deprecate('has_widget? and its alias widget?', 'visible?')

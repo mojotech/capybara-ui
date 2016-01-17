@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   class Form < FieldGroup
     root 'form'
 

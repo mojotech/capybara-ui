@@ -1,6 +1,6 @@
 Feature: .form macro
 
-  Although we can use the `widget` macro to declare a form, CapybaraUI provides a slightly more convenient way to do it, using the `form` macro.
+  Although we can use the `widget` macro to declare a form, Capybara::UI provides a slightly more convenient way to do it, using the `form` macro.
 
   Scenario: Basic usage
 
@@ -14,7 +14,7 @@ Feature: .form macro
       """
     And the following role definition:
       """
-      class Seer < CapybaraUI::Role
+      class Seer < Capybara::UI::Role
         form :the_form, '#the_form' do
           text_field :the_text_field, 'the_text_field'
         end
@@ -29,7 +29,7 @@ Feature: .form macro
 
   Scenario: Using the default selector
 
-    We can also pass the widget name only, and `form` will use CapybaraUI::Form's default selector (`form`).
+    We can also pass the widget name only, and `form` will use Capybara::UI::Form's default selector (`form`).
 
     Given the following HTML:
       """
@@ -39,7 +39,7 @@ Feature: .form macro
       """
     And the following role definition:
       """
-      class Seer < CapybaraUI::Role
+      class Seer < Capybara::UI::Role
         form :the_form do
           text_field :the_text_field, 'the_text_field'
         end

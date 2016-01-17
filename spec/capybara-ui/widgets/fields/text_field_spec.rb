@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 DRIVERS.each do |driver|
-  describe "CapybaraUI::TextField (#{driver})", driver: driver do
+  describe "Capybara::UI::TextField (#{driver})", driver: driver do
     GivenHTML <<-HTML
       <p>
         <label for="t">Empty field</label>
@@ -18,7 +18,7 @@ DRIVERS.each do |driver|
     HTML
 
     GivenWidget do
-      class FieldGroup < CapybaraUI::FieldGroup
+      class FieldGroup < Capybara::UI::FieldGroup
         root 'body'
 
         text_field :empty_field, 'ef'

@@ -9,24 +9,24 @@ end
 When(/^we try to access the widget outside the role:$/) do |string|
   begin
     page_context.eval(string)
-  rescue CapybaraUI::Missing
+  rescue Capybara::UI::Missing
     @rescued_capybaraui_missing = true
   end
 end
 
-Then(/^we should get a CapybaraUI::Missing error$/) do
+Then(/^we should get a Capybara::UI::Missing error$/) do
   expect(@rescued_capybaraui_missing).to be true
 end
 
 When(/^we try to define the role:$/) do |string|
   begin
     page_context.eval string
-  rescue CapybaraUI::Widget::MissingSelector
+  rescue Capybara::UI::Widget::MissingSelector
     @rescued_capybaraui_missing_selector = true
   end
 end
 
-Then(/^we should get a CapybaraUI::Widget::MissingSelector error$/) do
+Then(/^we should get a Capybara::UI::Widget::MissingSelector error$/) do
   expect(@rescued_capybaraui_missing_selector).to be true
 end
 
@@ -37,7 +37,7 @@ end
 When(/^we try to find the unknown widget:$/) do |string|
   begin
     page_context.eval string
-  rescue CapybaraUI::Missing
+  rescue Capybara::UI::Missing
     @rescued_capybaraui_missing = true
   end
 end

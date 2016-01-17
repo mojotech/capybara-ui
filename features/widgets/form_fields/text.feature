@@ -10,7 +10,7 @@ Feature: Form Fields: Text
       """
     And the following widget definition:
       """
-      class MyForm < CapybaraUI::Form
+      class MyForm < Capybara::UI::Form
         text_field :user_name, ['#user_name']
         text_field :password, ['#password']
       end

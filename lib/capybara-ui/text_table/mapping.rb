@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   class TextTable
     class Mapping
       def initialize(settings = {})

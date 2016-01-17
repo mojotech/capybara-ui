@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   class Document
     include WidgetParts::Container
 

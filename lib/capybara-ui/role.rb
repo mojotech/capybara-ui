@@ -1,8 +1,8 @@
-module CapybaraUI
-  class Role < CapybaraUI::Rails::Role
+module Capybara::UI
+  class Role < Capybara::UI::Rails::Role
     extend Widgets::DSL
 
-    include CapybaraUI::DSL
+    include Capybara::UI::DSL
 
     def see?(name, *args)
       if respond_to?("see_#{name}?")

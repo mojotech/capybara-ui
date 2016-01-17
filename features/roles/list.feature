@@ -1,6 +1,6 @@
 Feature: .list macro
 
-  Although we can use the `widget` macro to declare a list, CapybaraUI provides a slightly more convenient way to do it, using the `list` macro.
+  Although we can use the `widget` macro to declare a list, Capybara::UI provides a slightly more convenient way to do it, using the `list` macro.
 
   Scenario: Basic usage
 
@@ -15,7 +15,7 @@ Feature: .list macro
       """
     And the following role definition:
       """
-      class Seer < CapybaraUI::Role
+      class Seer < Capybara::UI::Role
         list :the_list, '#the_list' do
           item 'li'
         end
@@ -30,7 +30,7 @@ Feature: .list macro
 
   Scenario: Using the default selector
 
-    We can also pass the widget name only, and `list` will use CapybaraUI::List's default selector (`ul`) and item selector (`li`).
+    We can also pass the widget name only, and `list` will use Capybara::UI::List's default selector (`ul`) and item selector (`li`).
 
     Given the following HTML:
       """
@@ -41,7 +41,7 @@ Feature: .list macro
       """
     And the following role definition:
       """
-      class Seer < CapybaraUI::Role
+      class Seer < Capybara::UI::Role
         list :the_list
       end
       """

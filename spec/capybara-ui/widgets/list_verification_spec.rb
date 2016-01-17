@@ -7,7 +7,7 @@ describe 'List verification' do
 
       When(:failure) { widget(:list).value }
 
-      Then { failure == Failure(CapybaraUI::MissingWidget) }
+      Then { failure == Failure(Capybara::UI::MissingWidget) }
     end
 
     context "to verify equality" do
@@ -51,7 +51,7 @@ describe 'List verification' do
 
   context 'with defaults' do
     GivenWidget do
-      class List < CapybaraUI::List
+      class List < Capybara::UI::List
       end
     end
 
@@ -62,7 +62,7 @@ describe 'List verification' do
 
   context 'given the standard list item' do
     GivenWidget do
-      class List < CapybaraUI::List
+      class List < Capybara::UI::List
         root '#skills'
         item '.skill'
       end

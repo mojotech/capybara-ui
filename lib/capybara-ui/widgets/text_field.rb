@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   # A text field.
   class TextField < Field
     # @!method get

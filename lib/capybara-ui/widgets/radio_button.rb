@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   # A radio button.
   class RadioButton < Field
     widget :checked, -> {
@@ -45,7 +45,7 @@ module CapybaraUI
     rescue
       begin
         widget(:button_by_value, str).root.set(true)
-      rescue CapybaraUI::MissingWidget => e
+      rescue Capybara::UI::MissingWidget => e
         raise InvalidRadioButton.new(e.message).
           tap { |x| x.set_backtrace e.backtrace }
       end

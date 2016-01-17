@@ -17,7 +17,7 @@ DRIVERS.each do |driver|
 
     describe "with #diff", driver: driver do
       GivenWidget do
-        class MyWidget < CapybaraUI::Form
+        class MyWidget < Capybara::UI::Form
           root 'form'
 
           text_field :name, 'name'
@@ -55,7 +55,7 @@ DRIVERS.each do |driver|
 
     describe "with #diff and ignore_case: true" do
       GivenWidget do
-        class MyWidget < CapybaraUI::Form
+        class MyWidget < Capybara::UI::Form
           root 'form'
 
           text_field :name, 'name'

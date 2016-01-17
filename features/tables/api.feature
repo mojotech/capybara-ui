@@ -31,7 +31,7 @@ Feature: API
       """
     And the following widget definition:
       """
-      class ListTable < CapybaraUI::Table
+      class ListTable < Capybara::UI::Table
         root '.table'
 
         header_row '.header-row' do

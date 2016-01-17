@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   module DSL
     attr_writer :widget_lookup_scope
 
@@ -6,7 +6,7 @@ module CapybaraUI
     #
     # Makes no distinction between links or buttons.
     #
-    #   class MyWidget < CapybaraUI::Widget
+    #   class MyWidget < Capybara::UI::Widget
     #     root { |text| ['.my-widget', text: text] }
     #   end
     #
@@ -93,7 +93,7 @@ module CapybaraUI
     end
 
     # re-run one or more assertions until either they all pass,
-    # or CapybaraUI times out, which will result in a test failure.
+    # or Capybara::UI times out, which will result in a test failure.
     def eventually(wait_time = Capybara.default_max_wait_time, &block)
       Checkpoint.wait_for wait_time, &block
     end

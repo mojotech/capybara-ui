@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   # A check box.
   class CheckBox < Field
     # @!method set(value)

@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   # The name of a widget in a format-independent representation.
   class WidgetName < String
     CAMEL_CASE_FORMAT = /\A([A-Z][a-z]*)+\Z/

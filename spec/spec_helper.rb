@@ -13,15 +13,15 @@ Dir["./spec/support/**/*.rb"].each { |file| require file }
 
 DRIVERS = [:webkit, :poltergeist]
 
-class CapybaraUIApp < Sinatra::Base; end
-Capybara.app = CapybaraUIApp
+class Capybara::UIApp < Sinatra::Base; end
+Capybara.app = Capybara::UIApp
 
 Capybara.javascript_driver = :webkit
 
 module WidgetSpecDSL
   def GivenAction(body_html, path)
     before :each do
-      CapybaraUIApp.class_eval do
+      Capybara::UIApp.class_eval do
         get path do
           <<-HTML
           <html>
@@ -41,7 +41,7 @@ module WidgetSpecDSL
     Given(:path) { path }
     Given        { visit path }
 
-    Given(:document) { CapybaraUI::Document.new(self.class) }
+    Given(:document) { Capybara::UI::Document.new(self.class) }
   end
 
   def GivenWidget
@@ -55,7 +55,7 @@ module WidgetSpecDSL
       new_constants = Object.constants - _saved_constant_names
 
       new_constants.
-        select { |e| Object.const_get(e) < CapybaraUI::Widget }.
+        select { |e| Object.const_get(e) < Capybara::UI::Widget }.
         each { |e| Object.send :remove_const, e }
     end
   end
@@ -65,9 +65,9 @@ RSpec.configure do |config|
   config.extend WidgetSpecDSL
 
   config.include Capybara::DSL
-  config.include CapybaraUI::DSL
+  config.include Capybara::UI::DSL
 
   config.after :each do
-    CapybaraUIApp.reset!
+    Capybara::UIApp.reset!
   end
 end

@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   # A form field.
   class Field < Widget
     def self.root(selector)

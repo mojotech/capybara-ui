@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   module Rails
     class Role < ActionDispatch::IntegrationTest
       def initialize

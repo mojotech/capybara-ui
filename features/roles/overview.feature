@@ -2,11 +2,11 @@ Feature: Overview
 
   Scenario: Defining a role
 
-    You declare a role by inheriting from `CapybaraUI::Role`:
+    You declare a role by inheriting from `Capybara::UI::Role`:
 
     Given the following role definition:
       """
-      class Gardener < CapybaraUI::Role; end
+      class Gardener < Capybara::UI::Role; end
       """
     Then we can use the role as we do any other Ruby object:
       """
@@ -28,11 +28,11 @@ Feature: Overview
       """
     And the following widget definition:
       """
-      WaterPlants = CapybaraUI::Widget('#plants')
+      WaterPlants = Capybara::UI::Widget('#plants')
       """
     And the following role definition:
       """
-      class Gardener < CapybaraUI::Role
+      class Gardener < Capybara::UI::Role
         def water_plants
           visit garden_path
 
