@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 DRIVERS.each do |driver|
-  describe "CapybaraUI::Select (#{driver})", driver: driver do
+  describe "Capybara::UI::Select (#{driver})", driver: driver do
     GivenHTML <<-HTML
       <p>
         <label for="u">Unselected</label>
@@ -32,7 +32,7 @@ DRIVERS.each do |driver|
     HTML
 
     GivenWidget do
-      class FieldGroup < CapybaraUI::FieldGroup
+      class FieldGroup < Capybara::UI::FieldGroup
         root 'body'
 
         select :unselected, 'u'

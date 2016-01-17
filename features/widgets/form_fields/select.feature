@@ -13,7 +13,7 @@ Feature: Form Fields: Select
       """
     And the following widget definition:
       """
-      class MyForm < CapybaraUI::Form
+      class MyForm < Capybara::UI::Form
         select :my_select, 'number'
       end
       """
@@ -43,7 +43,7 @@ Feature: Form Fields: Select
       """
       widget(:my_form).my_select = "Four"
       """
-    Then we will get the error CapybaraUI::InvalidOption
+    Then we will get the error Capybara::UI::InvalidOption
 
   Scenario:
     Given the following HTML:

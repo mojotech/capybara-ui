@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   module Assertions
     def assert_visible(role, widget_name, *args)
       eventually do

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 DRIVERS.each do |driver|
-  describe "CapybaraUI::CheckBox (#{driver})", driver: driver do
+  describe "Capybara::UI::CheckBox (#{driver})", driver: driver do
     GivenHTML <<-HTML
       <p>
         <label for="cb">Unchecked box</label>
@@ -18,7 +18,7 @@ DRIVERS.each do |driver|
     HTML
 
     GivenWidget do
-      class FieldGroup < CapybaraUI::FieldGroup
+      class FieldGroup < Capybara::UI::FieldGroup
         root 'body'
 
         check_box :unchecked_box, 'ub'

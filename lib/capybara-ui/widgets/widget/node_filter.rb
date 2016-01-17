@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   class Widget
     class NodeFilter
       attr_reader :selector

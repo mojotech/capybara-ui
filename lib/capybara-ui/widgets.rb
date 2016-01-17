@@ -3,7 +3,7 @@
 # === Parts
 #
 # Widget parts encapsulate the set of behaviours that constitute a widget.
-module CapybaraUI
+module Capybara::UI
   module Constructors
     def Widget(*selector, &block)
       if block_given?
@@ -36,7 +36,7 @@ module CapybaraUI
   extend Constructors
 end
 
-module CapybaraUI::WidgetParts; end
+module Capybara::UI::WidgetParts; end
 
 require 'capybara-ui/widgets/parts/struct'
 require 'capybara-ui/widgets/parts/container'

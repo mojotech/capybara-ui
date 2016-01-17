@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   # A select.
   class Select < Field
     def selected
@@ -39,7 +39,7 @@ module CapybaraUI
     rescue
       begin
         widget(:option_by_value, option).select
-      rescue CapybaraUI::MissingWidget => e
+      rescue Capybara::UI::MissingWidget => e
         raise InvalidOption.new(e.message).
           tap { |x| x.set_backtrace e.backtrace }
       end

@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   # A point in time where some condition, or some set of conditions, should be
   # verified.
   #
@@ -83,7 +83,7 @@ module CapybaraUI
     # exception will be raised again.
     #
     # If the block does not return a "truthy" value until +wait_time+ expires,
-    # raises a CapybaraUI::Checkpoint::ConditionNotMet error.
+    # raises a Capybara::UI::Checkpoint::ConditionNotMet error.
     #
     # Returns whatever value is returned by the block.
     def call(&condition)

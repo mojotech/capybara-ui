@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   module Conversions
     extend self
 

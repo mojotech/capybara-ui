@@ -14,7 +14,7 @@ Feature: .widget macro
       """
     And the following role definition:
       """
-      class Seer < CapybaraUI::Role
+      class Seer < Capybara::UI::Role
         widget :inner, "#inner"
       end
       """
@@ -39,15 +39,15 @@ Feature: .widget macro
       """
     And the following role definition:
       """
-      class WithClass < CapybaraUI::Role
-        widget :list, "ul", CapybaraUI::List
+      class WithClass < Capybara::UI::Role
+        widget :list, "ul", Capybara::UI::List
       end
       """
     Then we should get a widget with the right class:
       """
       role = WithClass.new
 
-      role.widget(:list).is_a?(CapybaraUI::List) #=> true
+      role.widget(:list).is_a?(Capybara::UI::List) #=> true
       """
 
   Scenario: With explicit class and default selector
@@ -64,15 +64,15 @@ Feature: .widget macro
       """
     And the following role definition:
       """
-      class WithDefaultSelector < CapybaraUI::Role
-        widget :list, CapybaraUI::List
+      class WithDefaultSelector < Capybara::UI::Role
+        widget :list, Capybara::UI::List
       end
       """
     Then we should get a widget with the right class:
       """
       role = WithDefaultSelector.new
 
-      role.widget(:list).is_a?(CapybaraUI::List) #=> true
+      role.widget(:list).is_a?(Capybara::UI::List) #=> true
       """
 
   Scenario: With explicit class and missing default selector
@@ -83,11 +83,11 @@ Feature: .widget macro
       """
     When we try to define the role:
       """
-      class WithDefaultSelector < CapybaraUI::Role
-        widget :div, CapybaraUI::Widget
+      class WithDefaultSelector < Capybara::UI::Role
+        widget :div, Capybara::UI::Widget
       end
       """
-    Then we should get a CapybaraUI::Widget::MissingSelector error
+    Then we should get a Capybara::UI::Widget::MissingSelector error
 
   Scenario: With a block
 
@@ -99,7 +99,7 @@ Feature: .widget macro
       """
     And the following role definition:
       """
-      class WithBlock < CapybaraUI::Role
+      class WithBlock < Capybara::UI::Role
         widget :number, '#number' do
           def multiplied
             text.to_i * 2
@@ -122,7 +122,7 @@ Feature: .widget macro
       """
     And the following role definition:
       """
-      class Seer < CapybaraUI::Role
+      class Seer < Capybara::UI::Role
         widget :inner, "#inner"
       end
       """
@@ -130,4 +130,4 @@ Feature: .widget macro
       """
       widget(:inner)
       """
-    Then we should get a CapybaraUI::Missing error
+    Then we should get a Capybara::UI::Missing error

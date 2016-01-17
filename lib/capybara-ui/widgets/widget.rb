@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   class Widget
     extend Forwardable
     extend Widgets::DSL
@@ -28,7 +28,7 @@ module CapybaraUI
     #   # <div id="profile">
     #   #  <a href="/profiles/1/edit" rel="edit">Edit</a>
     #   # </div>
-    #   class PirateProfile < CapybaraUI::Widget
+    #   class PirateProfile < Capybara::UI::Widget
     #     root "#profile"
     #
     #     # Declare the action
@@ -129,7 +129,7 @@ module CapybaraUI
     #
     # Most of the time, your selectors will be Strings:
     #
-    #   class MyWidget < CapybaraUI::Widget
+    #   class MyWidget < Capybara::UI::Widget
     #     root '.selector'
     #   end
     #
@@ -142,14 +142,14 @@ module CapybaraUI
     # If you're using CSS as the query language, it's useful to be able to use
     # +text: 'Some text'+ to zero in on a specific node:
     #
-    #   class MySpecificWidget < CapybaraUI::Widget
+    #   class MySpecificWidget < Capybara::UI::Widget
     #     root '.selector', text: 'Pick me!'
     #   end
     #
     # This is especially useful, e.g., when you want to create a widget
     # to match a specific error or notification:
     #
-    #   class NoFreeSpace < CapybaraUI::Widget
+    #   class NoFreeSpace < Capybara::UI::Widget
     #     root '.error', text: 'No free space left!'
     #   end
     #
@@ -170,7 +170,7 @@ module CapybaraUI
     #
     # Finally, you may want to override the query language:
     #
-    #   class MyWidgetUsesXPath < CapybaraUI::Widget
+    #   class MyWidgetUsesXPath < Capybara::UI::Widget
     #     root :xpath, '//some/node'
     #   end
     def self.root(*selector, &block)
@@ -204,7 +204,7 @@ module CapybaraUI
     #
     # Given the following widget definition:
     #
-    #   class Container < CapybaraUI::Widget
+    #   class Container < Capybara::UI::Widget
     #     root '#container'
     #
     #     widget :link, 'a'
@@ -239,7 +239,7 @@ module CapybaraUI
     #
     # Given the following widget definition:
     #
-    #   class Container < CapybaraUI::Widget
+    #   class Container < Capybara::UI::Widget
     #     root '#container'
     #
     #     widget :link, 'a'
@@ -274,7 +274,7 @@ module CapybaraUI
     #
     # Given the following widget definition:
     #
-    #   class Container < CapybaraUI::Widget
+    #   class Container < Capybara::UI::Widget
     #     root '#container'
     #
     #     widget :link, 'a'
@@ -301,7 +301,7 @@ module CapybaraUI
     #
     # Given the following widget definition:
     #
-    #   class Container < CapybaraUI::Widget
+    #   class Container < Capybara::UI::Widget
     #     root '#container'
     #
     #     widget :link, 'a'

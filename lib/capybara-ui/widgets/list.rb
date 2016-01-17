@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   # Use a List when you want to treat repeating elements as a unit.
   #
   # === Usage
@@ -13,7 +13,7 @@ module CapybaraUI
   #
   # You can then define the following widget:
   #
-  #   class Colors < CapybaraUI::List
+  #   class Colors < Capybara::UI::List
   #     root '#colors'
   #     item 'li'
   #   end
@@ -38,14 +38,14 @@ module CapybaraUI
   # item selector is +li+. So you could wrap the +<ul>+ above simply by using
   # the following:
   #
-  #   class Colors < CapybaraUI::List
+  #   class Colors < Capybara::UI::List
   #   end
   #
   # ==== Narrowing items
   #
   # You can define the root selector for your list items using the ::item macro:
   #
-  #   class PortugueseColors < CapybaraUI::List
+  #   class PortugueseColors < Capybara::UI::List
   #     root '#colors
   #     item '.pt'
   #   end
@@ -71,7 +71,7 @@ module CapybaraUI
   #
   # You can define the following widget:
   #
-  #   class NotAListColors < CapybaraUI::List
+  #   class NotAListColors < Capybara::UI::List
   #     root '#not-a-list-colors'
   #     item '.child'
   #   end
@@ -96,9 +96,9 @@ module CapybaraUI
       #   </ul>
       #
       # In its most basic form, allows you to configure the list item selector,
-      # using the default list item class (CapybaraUI::ListItem):
+      # using the default list item class (Capybara::UI::ListItem):
       #
-      #   class Numbers < CapybaraUI::List
+      #   class Numbers < Capybara::UI::List
       #     root 'ul'
       #     item 'li'
       #   end
@@ -107,11 +107,11 @@ module CapybaraUI
       #
       # You can define the list item class for the current List:
       #
-      #   class Number < CapybaraUI::Widget
+      #   class Number < Capybara::UI::Widget
       #     # ...
       #   end
       #
-      #   class Numbers < CapybaraUI::List
+      #   class Numbers < Capybara::UI::List
       #     root 'ul'
       #     item 'li', Number
       #   end
@@ -122,7 +122,7 @@ module CapybaraUI
       # when you want to add small extensions to the default list item class.
       # The extensions will apply only to list items of the current List.
       #
-      #   class Numbers < CapybaraUI::List
+      #   class Numbers < Capybara::UI::List
       #     root 'ul'
       #
       #     item 'li' do

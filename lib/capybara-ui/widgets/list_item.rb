@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   class ListItem < Widget
     # Returns this ListItem's contents formatted as a row, for comparison with a
     # Cucumber::Ast::Table. By default, it simply returns an array with a single

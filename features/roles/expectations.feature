@@ -13,11 +13,11 @@ Feature: Expectations
       """
     And the following widget definition:
       """
-      SeenOuter = CapybaraUI::Widget('#seen-outer')
+      SeenOuter = Capybara::UI::Widget('#seen-outer')
       """
     And the following role definition:
       """
-      class Seer < CapybaraUI::Role
+      class Seer < Capybara::UI::Role
         widget :seen_inner, "#seen-inner"
       end
       """
@@ -40,7 +40,7 @@ Feature: Expectations
       """
     And the following role definition:
       """
-      class Seer < CapybaraUI::Role
+      class Seer < Capybara::UI::Role
         widget :seen, -> (position) { ['.seen', :text => /#{position}/] }
       end
       """
@@ -58,7 +58,7 @@ situations, we can define a custom `see_XXX?` method in the role, which will be 
 
     Given the following role definition:
       """
-      class Seer < CapybaraUI::Role
+      class Seer < Capybara::UI::Role
         def see_vapor?
           true
         end
@@ -82,7 +82,7 @@ situations, we can define a custom `see_XXX?` method in the role, which will be 
 
     Given the following role definition:
       """
-      class Seer < CapybaraUI::Role
+      class Seer < Capybara::UI::Role
         def see_something?(arg)
           arg == "nice"
         end
@@ -99,7 +99,7 @@ situations, we can define a custom `see_XXX?` method in the role, which will be 
 
     Given the following role definition:
       """
-      class Seer < CapybaraUI::Role; end
+      class Seer < Capybara::UI::Role; end
       """
     When we try to find the unknown widget:
       """
@@ -107,4 +107,4 @@ situations, we can define a custom `see_XXX?` method in the role, which will be 
 
       expect(seer).to see :unknown, "nice"
       """
-    Then we should get a CapybaraUI::Missing error
+    Then we should get a Capybara::UI::Missing error

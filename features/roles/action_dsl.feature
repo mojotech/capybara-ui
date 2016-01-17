@@ -10,11 +10,11 @@ Feature: Action DSL
       """
     And the following widget definition:
       """
-      Here = CapybaraUI::Widget('#here')
+      Here = Capybara::UI::Widget('#here')
       """
     And the following role definition:
       """
-      class Visitor < CapybaraUI::Role
+      class Visitor < Capybara::UI::Role
         def go
           visit "/somewhere"
         end
@@ -42,11 +42,11 @@ Feature: Action DSL
       """
     And the following widget definition:
       """
-      Clickme = CapybaraUI::Widget('#clickme')
+      Clickme = Capybara::UI::Widget('#clickme')
       """
     And the following role definition:
       """
-      class Clicker < CapybaraUI::Role
+      class Clicker < Capybara::UI::Role
         def go
           visit "/somewhere"
 
@@ -76,11 +76,11 @@ Feature: Action DSL
       """
     And the following widget definition:
       """
-      Hoverme = CapybaraUI::Widget('#hoverme')
+      Hoverme = Capybara::UI::Widget('#hoverme')
       """
     And the following role definition:
       """
-      class Hoverer < CapybaraUI::Role
+      class Hoverer < Capybara::UI::Role
         def act
           visit "/somewhere"
 
@@ -110,11 +110,11 @@ Feature: Action DSL
       """
     And the following widget definition:
       """
-      DoubleClickMe = CapybaraUI::Widget('#dblclickme')
+      DoubleClickMe = Capybara::UI::Widget('#dblclickme')
       """
     And the following role definition:
       """
-      class DoubleClicker < CapybaraUI::Role
+      class DoubleClicker < Capybara::UI::Role
         def act
           visit "/somewhere"
 
@@ -148,14 +148,14 @@ Feature: Action DSL
       """
     And the following widget definition:
       """
-      class MyForm < CapybaraUI::Form
+      class MyForm < Capybara::UI::Form
         text_field :first_name, 'first_name'
         text_field :last_name, 'first_name'
       end
       """
     And the following role definition:
       """
-      class Submitter < CapybaraUI::Role
+      class Submitter < Capybara::UI::Role
         def go
           visit "/somewhere"
 
@@ -187,11 +187,11 @@ Feature: Action DSL
       """
     And the following widget definition:
       """
-      class EmptyForm < CapybaraUI::Form; end
+      class EmptyForm < Capybara::UI::Form; end
       """
     And the following role definition:
       """
-      class EmptySubmitter < CapybaraUI::Role
+      class EmptySubmitter < Capybara::UI::Role
         def go
           visit "/somewhere"
 
@@ -223,13 +223,13 @@ Feature: Action DSL
       """
     And the following widget definition:
       """
-      class SetForm < CapybaraUI::Form
+      class SetForm < Capybara::UI::Form
         text_field :text_field, 'text_field'
       end
       """
     And the following role definition:
       """
-      class Setter < CapybaraUI::Role
+      class Setter < Capybara::UI::Role
         def go
           visit "/somewhere"
 

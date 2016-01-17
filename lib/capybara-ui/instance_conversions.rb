@@ -1,7 +1,7 @@
-module CapybaraUI
+module Capybara::UI
   module InstanceConversions
     def self.included(base)
-      base.send :include, CapybaraUI::Conversions
+      base.send :include, Capybara::UI::Conversions
     end
 
     def to_boolean

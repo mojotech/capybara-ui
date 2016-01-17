@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   class StringValue < String
     def to_date(format = nil)
       format ? Date.strptime(self, format) : super()

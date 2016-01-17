@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   module WidgetParts
     module Struct
       def self.included(target)
@@ -29,7 +29,7 @@ module CapybaraUI
 
           child.class_eval <<-VALUE
             def value
-              CapybaraUI::Conversions::Boolean(text)
+              Capybara::UI::Conversions::Boolean(text)
             end
           VALUE
 
@@ -73,7 +73,7 @@ module CapybaraUI
         end
 
         def list(name, selector, options = {}, &block)
-          child = widget(name, selector, CapybaraUI::List) do
+          child = widget(name, selector, Capybara::UI::List) do
             item options[:item_selector], options[:item_class] || ListItem
           end
 

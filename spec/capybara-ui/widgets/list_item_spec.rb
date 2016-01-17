@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe CapybaraUI::ListItem do
+describe Capybara::UI::ListItem do
   GivenHTML <<-HTML
     <span id="item">Item</span>
   HTML
 
   GivenWidget do
-    class ListItem < CapybaraUI::ListItem
+    class ListItem < Capybara::UI::ListItem
       root '#item'
     end
   end

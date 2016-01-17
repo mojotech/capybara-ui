@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe CapybaraUI::Conversions do
-  include CapybaraUI::Conversions
+describe Capybara::UI::Conversions do
+  include Capybara::UI::Conversions
 
   describe 'Boolean' do
     ['yes', 'true', true].each do |val|

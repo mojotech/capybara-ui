@@ -1,8 +1,8 @@
-module CapybaraUI
-  class Table < CapybaraUI::Widget
+module Capybara::UI
+  class Table < Capybara::UI::Widget
     root 'table'
 
-    class Row < CapybaraUI::List
+    class Row < Capybara::UI::List
       def self.column(*args, &block)
         item(*args, &block)
       end

@@ -1,4 +1,4 @@
-module CapybaraUI
+module Capybara::UI
   class TextTable
     module Transformations
       def self.keyword

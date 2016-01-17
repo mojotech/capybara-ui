@@ -1,8 +1,8 @@
 require 'spec_helper'
 require 'ostruct'
 
-describe CapybaraUI::TextTable do
-  class ATable < CapybaraUI::TextTable
+describe Capybara::UI::TextTable do
+  class ATable < Capybara::UI::TextTable
     map 'passthrough'
     map 'convert header', to: :a_symbol
     map 'full' do |v|
