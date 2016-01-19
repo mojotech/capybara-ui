@@ -1,5 +1,5 @@
-# CapybaraUI Docs
-  Brand new to CapybaraUI? Try the [CapybaraUI walkthrough](walkthrough.md).
+# CapybaraUI Widgets
+Types of widgets and their methods.
 
 ##Table of Contents
   - [Widgets](#widgets)
@@ -7,16 +7,13 @@
   - [Field Groups](#field-groups)
   - [Lists](#lists)
   - [Tables](#tables)
-  - [Cucumber helpers](#cucumber-helpers)
 
-See even more documentation at https://www.relishapp.com/mojotech/capybara-ui/docs.
-
-#Widgets
+# Widgets
 A widget is the fundamental CapybaraUI element. A widget abstracts a DOM element, allowing you to call methods on that element, like checking for text or submitting a form.
 
 
 ## Widget Declaration
-A widget can be declared with the `widget` macro, or as a class.
+A basic widget can be declared with the `widget` macro, or as a class.
 
 Macro widget declarations take a CSS or XPath selector as the first argument.
 
@@ -457,31 +454,3 @@ In both default and custom tables, you can get the values in a row, or in a colu
   widget(:list_table).columns[2] #=> ['Val 1.3', 'Val 2.3']
   widget(:list_table).columns['Header Col 2'] #=> ['Val 1.2', 'Val 2.2']
 ```
-
-
-# Cucumber helpers
-CapybaraUI currently provides a single method to work with Cucumber tables.
-
-```ruby
-Then(/^some step that takes in a cucumber table$/) do |table|
-  # when the cucumber table values do not match the widget's values
-  widget(:my_widget).diff table # raises error Cucumber::Ast::Table::Different
-
-  # when the cucumber table values match the widget's values
-  widget(:my_widget).diff table # => true
- end
-```
-
-Pass `ignore_case: true`, for a case-insensitive table match.
-
-```ruby
-Then(/^some step that takes in a cucumber table$/) do |table|
-  widget(:my_widget).diff table, ignore_case: true
-end
-```
-
-#To Be Continued...
-Stay tuned for more documentation of the following:
-- CapybaraUI Gotchas - the most common, unexpected CapybaraUI errors and solutions
-- Addressing irregular test failures with CapybaraUI
-- CapybaraUI's rspec 'see' method
