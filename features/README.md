@@ -1,6 +1,6 @@
-CapybaraUI comprises a set of helpers designed to help you write "literate tests" (tests written as living documentation).
+Capybara-UI comprises a set of helpers designed to help you write "literate tests" (tests written as living documentation).
 
-Currently, CapybaraUI's main focus is end-to-end testing, but we certainly don't intend to stop here. Watch this space.
+Currently, Capybara-UI's main focus is end-to-end testing, but we certainly don't intend to stop here. Watch this space.
 
 ## Requirements
 

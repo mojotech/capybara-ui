@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe CapybaraUI::Checkpoint do
+describe Capybara::UI::Checkpoint do
   Given(:wait_time)  { 1 }
-  Given(:checkpoint) { CapybaraUI::Checkpoint.new(wait_time) }
+  Given(:checkpoint) { Capybara::UI::Checkpoint.new(wait_time) }
 
   When(:start)  { Time.now }
 
@@ -17,7 +17,7 @@ describe CapybaraUI::Checkpoint do
     context 'when condition is not met due to being falsey' do
       When(:result) { checkpoint.call { false } }
 
-      Then { result == Failure(CapybaraUI::Checkpoint::ConditionNotMet) }
+      Then { result == Failure(Capybara::UI::Checkpoint::ConditionNotMet) }
       Then { elapsed > wait_time }
     end
 

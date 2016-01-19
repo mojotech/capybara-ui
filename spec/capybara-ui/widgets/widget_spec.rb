@@ -2,11 +2,11 @@ require 'spec_helper'
 require 'cucumber'
 
 DRIVERS.each do |driver|
-  describe CapybaraUI::Widget, "using #{driver}", js: true, driver: driver do
+  describe Capybara::UI::Widget, "using #{driver}", js: true, driver: driver do
     describe '.root' do
       context 'simple selector' do
         GivenWidget do
-          class MyWidget < CapybaraUI::Widget
+          class MyWidget < Capybara::UI::Widget
             root '.selector'
           end
         end
@@ -17,7 +17,7 @@ DRIVERS.each do |driver|
       context 'composite selector' do
         context 'using splat' do
           GivenWidget do
-            class MyWidget < CapybaraUI::Widget
+            class MyWidget < Capybara::UI::Widget
               root '.selector', text: 'something'
             end
           end
@@ -27,7 +27,7 @@ DRIVERS.each do |driver|
 
         context 'using array' do
           GivenWidget do
-            class MyWidget < CapybaraUI::Widget
+            class MyWidget < Capybara::UI::Widget
               root ['.selector', text: 'something']
             end
           end
@@ -45,7 +45,7 @@ DRIVERS.each do |driver|
       HTML
 
       GivenWidget do
-        class MyWidget < CapybaraUI::Widget
+        class MyWidget < Capybara::UI::Widget
           root 'div'
 
           widget :child, '#child' do
@@ -65,7 +65,7 @@ DRIVERS.each do |driver|
 
     describe '#==' do
       GivenWidget do
-        class MyWidget < CapybaraUI::Widget
+        class MyWidget < Capybara::UI::Widget
           root '#value'
         end
       end
@@ -88,7 +88,7 @@ DRIVERS.each do |driver|
 
       context 'clicking a widget' do
         GivenWidget do
-          class Link < CapybaraUI::Widget
+          class Link < Capybara::UI::Widget
             root 'a'
           end
         end
@@ -101,7 +101,7 @@ DRIVERS.each do |driver|
 
       context 'clicking a child widget' do
         GivenWidget do
-          class Container < CapybaraUI::Widget
+          class Container < Capybara::UI::Widget
             root 'body'
 
             widget :link, 'a'
@@ -122,7 +122,7 @@ DRIVERS.each do |driver|
 
       context 'hovering over a widget' do
         GivenWidget do
-          class MyWidget < CapybaraUI::Widget
+          class MyWidget < Capybara::UI::Widget
             root 'span'
           end
         end
@@ -134,7 +134,7 @@ DRIVERS.each do |driver|
 
       context 'hovering over a child widget' do
         GivenWidget do
-          class Container < CapybaraUI::Widget
+          class Container < Capybara::UI::Widget
             root 'body'
 
             widget :my_widget, 'span'
@@ -154,7 +154,7 @@ DRIVERS.each do |driver|
 
       context 'double clicking a widget' do
         GivenWidget do
-          class MyWidget < CapybaraUI::Widget
+          class MyWidget < Capybara::UI::Widget
             root 'span'
           end
         end
@@ -166,7 +166,7 @@ DRIVERS.each do |driver|
 
       context 'double clicking a child widget' do
         GivenWidget do
-          class Container < CapybaraUI::Widget
+          class Container < Capybara::UI::Widget
             root 'body'
 
             widget :my_widget, 'span'
@@ -186,7 +186,7 @@ DRIVERS.each do |driver|
 
       context 'right clicking a widget' do
         GivenWidget do
-          class MyWidget < CapybaraUI::Widget
+          class MyWidget < Capybara::UI::Widget
             root 'span'
           end
         end
@@ -198,7 +198,7 @@ DRIVERS.each do |driver|
 
       context 'right clicking a child widget' do
         GivenWidget do
-          class Container < CapybaraUI::Widget
+          class Container < Capybara::UI::Widget
             root 'body'
 
             widget :my_widget, 'span'
@@ -222,7 +222,7 @@ DRIVERS.each do |driver|
 
       context 'successful comparison' do
         GivenWidget do
-          class MyWidget < CapybaraUI::Widget
+          class MyWidget < Capybara::UI::Widget
             root 'div'
 
             define_method(:to_table) { GOOD_TABLE }
@@ -236,7 +236,7 @@ DRIVERS.each do |driver|
 
       context 'failed comparison' do
         GivenWidget do
-          class MyWidget < CapybaraUI::Widget
+          class MyWidget < Capybara::UI::Widget
             root 'div'
 
             define_method(:to_table) { [{'a' => '5', 'b' => '6'}] }
@@ -255,7 +255,7 @@ DRIVERS.each do |driver|
       HTML
 
       GivenWidget do
-        class MyWidget < CapybaraUI::Widget
+        class MyWidget < Capybara::UI::Widget
           root 'body'
 
           action :present, '#present'
@@ -274,7 +274,7 @@ DRIVERS.each do |driver|
       context 'when the action is undefined' do
         When(:error) { widget(:my_widget).has_action?(:undefined) }
 
-        Then { error == Failure(CapybaraUI::Missing, /`undefined' action/) }
+        Then { error == Failure(Capybara::UI::Missing, /`undefined' action/) }
       end
     end
 
@@ -284,7 +284,7 @@ DRIVERS.each do |driver|
       HTML
 
       GivenWidget do
-        class MyWidget < CapybaraUI::Widget
+        class MyWidget < Capybara::UI::Widget
           root 'body'
 
           widget :present, '#present'
@@ -303,7 +303,7 @@ DRIVERS.each do |driver|
       context 'when widget is undefined' do
         When(:error) { widget(:my_widget).has_widget?(:undefined) }
 
-        Then { error == Failure(CapybaraUI::Missing, /`undefined' widget/) }
+        Then { error == Failure(Capybara::UI::Missing, /`undefined' widget/) }
       end
     end
 
@@ -313,7 +313,7 @@ DRIVERS.each do |driver|
       HTML
 
       GivenWidget do
-        class MyWidget < CapybaraUI::Widget
+        class MyWidget < Capybara::UI::Widget
           root 'body'
 
           widget :visible, '#visible'
@@ -332,7 +332,7 @@ DRIVERS.each do |driver|
       context 'when widget is undefined' do
         When(:error) { widget(:my_widget).visible?(:undefined) }
 
-        Then { error == Failure(CapybaraUI::Missing, /`undefined' widget/) }
+        Then { error == Failure(Capybara::UI::Missing, /`undefined' widget/) }
       end
     end
 
@@ -343,7 +343,7 @@ DRIVERS.each do |driver|
       HTML
 
       GivenWidget do
-        class MyWidget < CapybaraUI::Widget
+        class MyWidget < Capybara::UI::Widget
           root 'body'
 
           widget :visible, '#visible'
@@ -362,7 +362,7 @@ DRIVERS.each do |driver|
       context 'when widget is undefined' do
         When(:error) { widget(:my_widget).not_visible?(:undefined) }
 
-        Then { error == Failure(CapybaraUI::Missing, /`undefined' widget/) }
+        Then { error == Failure(Capybara::UI::Missing, /`undefined' widget/) }
       end
     end
 
@@ -372,7 +372,7 @@ DRIVERS.each do |driver|
       HTML
 
       GivenWidget do
-        class MyWidget < CapybaraUI::Widget
+        class MyWidget < Capybara::UI::Widget
           root 'span'
         end
       end
@@ -388,7 +388,7 @@ DRIVERS.each do |driver|
       HTML
 
       GivenWidget do
-        class MyWidget < CapybaraUI::Widget
+        class MyWidget < Capybara::UI::Widget
           root 'span'
         end
       end

@@ -9,7 +9,7 @@ Feature: Finding
       """
     And the following widget definition:
       """
-      class MyWidget < CapybaraUI::Widget
+      class MyWidget < Capybara::UI::Widget
         root "#the-widget"
       end
       """
@@ -32,7 +32,7 @@ Feature: Finding
       """
     And the following widget definition:
       """
-      class OneItem < CapybaraUI::Widget
+      class OneItem < Capybara::UI::Widget
         root "li", :text => "One"
       end
       """
@@ -51,7 +51,7 @@ Feature: Finding
       """
     And the following widget definition:
       """
-      class ListItem < CapybaraUI::Widget
+      class ListItem < Capybara::UI::Widget
         root { |text| ["li", :text => text] }
       end
       """
@@ -78,7 +78,7 @@ Feature: Finding
       """
     And the following widget definition:
       """
-      class ListItem < CapybaraUI::Widget
+      class ListItem < Capybara::UI::Widget
         root { |text| ["li", :text => text] }
       end
       """
@@ -96,7 +96,7 @@ Feature: Finding
       """
     And the following widget definition:
       """
-      class WaitingWidget < CapybaraUI::Widget
+      class WaitingWidget < Capybara::UI::Widget
         root 'div', :text => 'My Widget'
       end
       """
@@ -114,7 +114,7 @@ Feature: Finding
       """
     And the following widget definition:
       """
-      class ParentWidget < CapybaraUI::Widget
+      class ParentWidget < Capybara::UI::Widget
         root 'div', :text => 'My Widget'
       end
       """
@@ -135,7 +135,7 @@ p      <div>Widget</div>
       """
     And the following widget definition:
       """
-      class MissingWidget < CapybaraUI::Widget
+      class MissingWidget < Capybara::UI::Widget
         root 'li'
       end
       """
@@ -143,7 +143,7 @@ p      <div>Widget</div>
       """
       widget(:missing_widget)
       """
-    Then we will get the error CapybaraUI::MissingWidget
+    Then we will get the error Capybara::UI::MissingWidget
 
   Scenario: ambiguous selector
     Given the following HTML:
@@ -153,7 +153,7 @@ p      <div>Widget</div>
       """
     And the following widget definition:
       """
-      class AmbiguousWidget < CapybaraUI::Widget
+      class AmbiguousWidget < Capybara::UI::Widget
         root 'div'
       end
       """
@@ -161,4 +161,4 @@ p      <div>Widget</div>
       """
       widget(:ambiguous_widget)
       """
-    Then we will get the error CapybaraUI::AmbiguousWidget
+    Then we will get the error Capybara::UI::AmbiguousWidget

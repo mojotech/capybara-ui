@@ -1,26 +1,28 @@
-module CapybaraUI
-  class Form < FieldGroup
-    root 'form'
+module Capybara
+  module UI
+    class Form < FieldGroup
+      root 'form'
 
-    action :submit, '[type = submit]'
+      action :submit, '[type = submit]'
 
-    # Submit form with +attributes+.
-    #
-    # @param attributes [Hash] the form fields and their values
-    #
-    # @return the current widget
-    def submit_with(attributes)
-      set attributes
-      submit
-    end
+      # Submit form with +attributes+.
+      #
+      # @param attributes [Hash] the form fields and their values
+      #
+      # @return the current widget
+      def submit_with(attributes)
+        set attributes
+        submit
+      end
 
-    def to_table
-      info = self.
-        class.
-        field_names.
-        each_with_object({}) { |e, a| a[e.to_s] = widget(e).to_cell }
+      def to_table
+        info = self.
+          class.
+          field_names.
+          each_with_object({}) { |e, a| a[e.to_s] = widget(e).to_cell }
 
-      [info]
+        [info]
+      end
     end
   end
 end

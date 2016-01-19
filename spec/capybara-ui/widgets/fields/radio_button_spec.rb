@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 DRIVERS.each do |driver|
-  describe "CapybaraUI::RadioButton (#{driver})", driver: driver do
+  describe "Capybara::UI::RadioButton (#{driver})", driver: driver do
     GivenHTML <<-HTML
       <p class="unchecked">
         <label for="u1">
@@ -29,7 +29,7 @@ DRIVERS.each do |driver|
     HTML
 
     GivenWidget do
-      class FieldGroup < CapybaraUI::FieldGroup
+      class FieldGroup < Capybara::UI::FieldGroup
         root 'body'
 
         radio_button :unchecked, '.unchecked'

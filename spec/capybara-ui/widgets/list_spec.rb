@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CapybaraUI::List do
+describe Capybara::UI::List do
   describe 'wraps HTML' do
     context 'using defaults' do
       GivenHTML <<-HTML
@@ -12,7 +12,7 @@ describe CapybaraUI::List do
       HTML
 
       GivenWidget do
-        class List < CapybaraUI::List
+        class List < Capybara::UI::List
         end
       end
 
@@ -33,7 +33,7 @@ describe CapybaraUI::List do
       HTML
 
       GivenWidget do
-        class List < CapybaraUI::List
+        class List < Capybara::UI::List
           root '#colors'
 
           item '.color'
@@ -50,10 +50,10 @@ describe CapybaraUI::List do
 
   describe '#item' do
     context 'using the default item type' do
-      Given(:default_item_type) { CapybaraUI::ListItem }
+      Given(:default_item_type) { Capybara::UI::ListItem }
 
       GivenWidget do
-        class List < CapybaraUI::List
+        class List < Capybara::UI::List
           item '.selector' do
             def hurray!
               'hurray!'
@@ -91,9 +91,9 @@ describe CapybaraUI::List do
 
     context 'allows setting a custom item type' do
       GivenWidget do
-        class Child < CapybaraUI::Widget; end
+        class Child < Capybara::UI::Widget; end
 
-        class List < CapybaraUI::List
+        class List < Capybara::UI::List
           item '.selector', Child
         end
       end
@@ -106,7 +106,7 @@ describe CapybaraUI::List do
 
   describe '#empty?' do
     GivenWidget do
-      class List < CapybaraUI::List
+      class List < Capybara::UI::List
         root 'ul'
         item 'li'
       end
@@ -134,7 +134,7 @@ describe CapybaraUI::List do
 
   describe '#exclude?' do
     GivenWidget do
-      class List < CapybaraUI::List
+      class List < Capybara::UI::List
         root 'ul'
         item 'li'
       end
@@ -163,7 +163,7 @@ describe CapybaraUI::List do
 
   describe '#include?' do
     GivenWidget do
-      class List < CapybaraUI::List
+      class List < Capybara::UI::List
         root 'ul'
         item 'li'
       end
@@ -200,7 +200,7 @@ describe CapybaraUI::List do
     HTML
 
     GivenWidget do
-      class List < CapybaraUI::List
+      class List < Capybara::UI::List
       end
     end
 
@@ -209,7 +209,7 @@ describe CapybaraUI::List do
 
   describe '#to_table' do
     GivenWidget do
-      class List < CapybaraUI::List
+      class List < Capybara::UI::List
       end
     end
 

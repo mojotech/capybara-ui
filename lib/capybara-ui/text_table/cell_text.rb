@@ -1,7 +1,9 @@
-module CapybaraUI
-  class TextTable
-    class CellText < String
-      include InstanceConversions
+module Capybara
+  module UI
+    class TextTable
+      class CellText < String
+        include InstanceConversions
+      end
     end
   end
 end

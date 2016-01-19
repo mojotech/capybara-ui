@@ -1,11 +1,13 @@
-module CapybaraUI
-  module WidgetClass
-    def self.new(selector, parent = Widget, &extensions)
-      klass = Class.new(parent) { root selector }
+module Capybara
+  module UI
+    module WidgetClass
+      def self.new(selector, parent = Widget, &extensions)
+        klass = Class.new(parent) { root selector }
 
-      klass.class_eval(&extensions) if block_given?
+        klass.class_eval(&extensions) if block_given?
 
-      klass
+        klass
+      end
     end
   end
 end

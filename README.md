@@ -1,4 +1,4 @@
-# CapybaraUI
+# Capybara-UI
 [![Travis Build Status](https://travis-ci.org/mojotech/capybara-ui.svg?branch=master)](https://travis-ci.org/mojotech/capybara-ui)
 [![Code Climate](https://codeclimate.com/github/mojotech/capybara-ui/badges/gpa.svg)](https://codeclimate.com/github/mojotech/capybara-ui)
 [![Test Coverage](https://codeclimate.com/github/mojotech/capybara-ui/badges/coverage.svg)](https://codeclimate.com/github/mojotech/capybara-ui)
@@ -6,9 +6,9 @@
 Docs [here](/docs/table_of_contents.md). Check out the [wiki](https://github.com/mojotech/capybara-ui/wiki) for more ideas and tips.
 
 #Overview
-CapybaraUI (formerly called Dill) is a [Capybara](https://github.com/jnicklas/capybara) abstraction that makes it easy to define reuseable DOM "widgets", aka [page objects](http://www.assertselenium.com/automation-design-practices/page-object-pattern/), and introduces the concept of "roles" to allow you to easily organize your testing methods and widgets. CapybaraUI also introduces some helpers and syntactic sugar to make your testing even easier.
+Capybara-UI (formerly called Dill) is a [Capybara](https://github.com/jnicklas/capybara) abstraction that makes it easy to define reuseable DOM "widgets", aka [page objects](http://www.assertselenium.com/automation-design-practices/page-object-pattern/), and introduces the concept of "roles" to allow you to easily organize your testing methods and widgets. Capybara-UI also introduces some helpers and syntactic sugar to make your testing even easier.
 
-### Before CapybaraUI
+### Before Capybara-UI
 ```ruby
 feature 'Admin new user page' do
   it 'should be able to create a new user' do
@@ -28,7 +28,7 @@ feature 'Admin new user page' do
 end
 ```
 
-### After CapybaraUI
+### After Capybara-UI
 ```ruby
 feature 'Admin new user page' do
   let(:role) { roles.admin }
@@ -42,7 +42,7 @@ feature 'Admin new user page' do
 end
 ```
 
-For a more in depth tour of CapybaraUI, read the [CapybaraUI walkthrough](/docs/walkthrough.md). You can also get more ideas and tips from the [wiki](https://github.com/mojotech/capybara-ui/wiki).
+For a more in depth tour of Capybara-UI, read the [Capybara-UI walkthrough](/docs/walkthrough.md). You can also get more ideas and tips from the [wiki](https://github.com/mojotech/capybara-ui/wiki).
 
 
 ## Install

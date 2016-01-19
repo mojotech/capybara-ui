@@ -15,7 +15,7 @@ describe 'Clicking Widgets' do
   HTML
 
   GivenWidget do
-    class MyWidget < CapybaraUI::Widget
+    class MyWidget < Capybara::UI::Widget
       root { |text| ['.my-widget', text: text] }
     end
   end

@@ -11,7 +11,7 @@ DRIVERS.each do |driver|
       HTML
 
       GivenWidget do
-        class Container < CapybaraUI::Widget
+        class Container < Capybara::UI::Widget
           root '#container'
 
           widget :multiple, lambda { |text| ['.multiple', text: text] }

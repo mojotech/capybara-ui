@@ -3,40 +3,42 @@
 # === Parts
 #
 # Widget parts encapsulate the set of behaviours that constitute a widget.
-module CapybaraUI
-  module Constructors
-    def Widget(*selector, &block)
-      if block_given?
-        WidgetClass.new(selector.flatten) do
-          define_method :value do
-            block.call(text)
+module Capybara
+  module UI
+    module Constructors
+      def Widget(*selector, &block)
+        if block_given?
+          WidgetClass.new(selector.flatten) do
+            define_method :value do
+              block.call(text)
+            end
           end
+        else
+          WidgetClass.new(selector.flatten)
         end
-      else
-        WidgetClass.new(selector.flatten)
+      end
+
+      alias_method :String, :Widget
+
+      def Integer(*selector)
+        Widget(selector) { |text| Kernel::Integer(text) }
+      end
+
+      require 'bigdecimal'
+
+      def Decimal(*selector)
+        Widget(selector) { |text|
+          # ensure we can convert to float first
+          Float(text) && BigDecimal.new(text)
+        }
       end
     end
 
-    alias_method :String, :Widget
-
-    def Integer(*selector)
-      Widget(selector) { |text| Kernel::Integer(text) }
-    end
-
-    require 'bigdecimal'
-
-    def Decimal(*selector)
-      Widget(selector) { |text|
-        # ensure we can convert to float first
-        Float(text) && BigDecimal.new(text)
-      }
-    end
+    extend Constructors
   end
-
-  extend Constructors
 end
 
-module CapybaraUI::WidgetParts; end
+module Capybara::UI::WidgetParts; end
 
 require 'capybara-ui/widgets/parts/struct'
 require 'capybara-ui/widgets/parts/container'

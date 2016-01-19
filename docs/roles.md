@@ -1,4 +1,4 @@
-# CapybaraUI Roles
+# Capybara-UI Roles
 
 ##Table of Contents
   - [Roles Overview](#roles-overview)
@@ -11,7 +11,7 @@ Given the following role definition:
 
 ```ruby
 module Roles
-  class AdminUser < CapybaraUI::Role
+  class AdminUser < Capybara::UI::Role
     widget :todo_item, '.todo-item'
     widget :delete_button, '.todo-item .delete'
 
@@ -33,14 +33,14 @@ expect(role).not_to see :todo_item
 
 
 ## Setting up roles in Cucumber
-> First require CapybaraUI's Cucumber library according to the readme.
+> First require Capybara-UI's Cucumber library according to the readme.
 
 It's fairly straightforward to make working with multiple roles very easy.
 Given a role file in `features/support/roles/` called `admin_user.rb` that looks like this:
 
 ```ruby
   module Roles
-    class AdminUser < CapybaraUI::Role
+    class AdminUser < Capybara::UI::Role
       def speak
         "I exist!"
       end

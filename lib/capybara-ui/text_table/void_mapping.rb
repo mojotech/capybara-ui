@@ -1,7 +1,9 @@
-module CapybaraUI
-  class TextTable
-    class VoidMapping
-      def set(*)
+module Capybara
+  module UI
+    class TextTable
+      class VoidMapping
+        def set(*)
+        end
       end
     end
   end

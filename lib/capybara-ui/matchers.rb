@@ -2,9 +2,9 @@ begin
   require 'rspec/matchers'
   require 'rspec/version'
 
-  unless Gem::Version.new(RSpec::Version::STRING) >= Gem::Version.new(CapybaraUI::OptionalDependencies::RSPEC_VERSION)
+  unless Gem::Version.new(RSpec::Version::STRING) >= Gem::Version.new(Capybara::UI::OptionalDependencies::RSPEC_VERSION)
     raise LoadError,
-      "requires RSpec version #{CapybaraUI::OptionalDependencies::RSPEC_VERSION} or later. " \
+      "requires RSpec version #{Capybara::UI::OptionalDependencies::RSPEC_VERSION} or later. " \
       "You have #{RSpec::Version::STRING}."
   end
 
@@ -12,7 +12,7 @@ begin
     match do |role|
       begin
         eventually { role.see?(widget_name, *args) }
-      rescue CapybaraUI::Checkpoint::ConditionNotMet
+      rescue Capybara::UI::Checkpoint::ConditionNotMet
         false
       end
     end
@@ -20,7 +20,7 @@ begin
     match_when_negated do |role|
       begin
         eventually { !role.see?(widget_name, *args) }
-      rescue CapybaraUI::Checkpoint::ConditionNotMet
+      rescue Capybara::UI::Checkpoint::ConditionNotMet
         false
       end
     end
