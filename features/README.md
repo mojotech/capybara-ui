@@ -12,5 +12,5 @@ Currently, Capybara-UI's main focus is end-to-end testing, but we certainly don'
 Once you have Cucumber setup in your Rails project, add the following to `features/support/env.rb`, or some other file:
 
 ```
-require 'capybara-ui/cucumber'
+require 'capybara/ui/cucumber'
 ```

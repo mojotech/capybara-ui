@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 $:.unshift File.expand_path('../lib', __FILE__)
-require 'capybara-ui/version'
+require 'capybara/ui/version'
 
 Gem::Specification.new do |s|
   s.name          = "capybara-ui"
