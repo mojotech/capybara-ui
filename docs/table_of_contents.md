@@ -7,5 +7,5 @@
 
 ## To Be Continued...
 Stay tuned for more documentation of the following:
-- CapybaraUI Gotchas - the most common, unexpected CapybaraUI errors and solutions
-- Addressing irregular test failures with CapybaraUI
+- Capybara-UI Gotchas - the most common, unexpected Capybara-UI errors and solutions
+- Addressing irregular test failures with Capybara-UI

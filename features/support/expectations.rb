@@ -1,6 +1,6 @@
 module Expectations
   class SimpleContext
-    include CapybaraUI::DSL
+    include Capybara::UI::DSL
     include RSpec::Matchers
 
     attr_reader :env

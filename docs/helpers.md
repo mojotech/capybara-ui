@@ -1,4 +1,4 @@
-# CapybaraUI Helpers
+# Capybara-UI Helpers
 
 ##Table of Contents
   - [Generic helpers](#generic-helpers)
@@ -24,7 +24,7 @@ You can easily check for widgets in your RSpec steps by using the custom `see` m
 For a widget defined in the User role:
 
 ```ruby
-class User < CapybaraUI::Role
+class User < Capybara::UI::Role
   widget :todo_item, -> (text) { ['.todo-item', text: text] }
 end
 ```
@@ -38,7 +38,7 @@ expect(User.new).to see :todo_item, 'Buy Milk'
 You can `see` more complex logic by writing a method that begins with `see_` and ends with `?`:
 
 ```ruby
-class User < CapybaraUI::Role
+class User < Capybara::UI::Role
   widget :todo_item, -> (text) { ['.todo-item', text: text] }
 
   def see_custom_logic?(text)

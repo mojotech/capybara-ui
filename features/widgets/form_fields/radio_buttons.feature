@@ -19,7 +19,7 @@ Feature: Form Fields: Radio Button
       """
     And the following widget definition:
       """
-      class MyForm < CapybaraUI::Form
+      class MyForm < Capybara::UI::Form
         radio_button :my_radio_button, '.number-container'
       end
       """
@@ -41,7 +41,7 @@ Feature: Form Fields: Radio Button
       """
       widget(:my_form).my_radio_button = "Four"
       """
-    Then we will get the error CapybaraUI::InvalidRadioButton
+    Then we will get the error Capybara::UI::InvalidRadioButton
 
   Scenario:
     Given the following HTML:

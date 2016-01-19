@@ -8,7 +8,7 @@ describe 'Widget values' do
     HTML
 
     GivenWidget do
-      Int = CapybaraUI::Widget('#my-widget') { |text| text.to_i }
+      Int = Capybara::UI::Widget('#my-widget') { |text| text.to_i }
     end
 
     Then { value(:int) == 1 }
@@ -20,7 +20,7 @@ describe 'Widget values' do
     HTML
 
     GivenWidget do
-      Str = CapybaraUI::String('#my-widget')
+      Str = Capybara::UI::String('#my-widget')
     end
 
     Then { value(:str) == 'Hello, world!' }
@@ -33,7 +33,7 @@ describe 'Widget values' do
     HTML
 
     GivenWidget do
-      class Str < CapybaraUI::Widget
+      class Str < Capybara::UI::Widget
         root { |n| "#my-widget-#{n}" }
       end
     end
@@ -48,7 +48,7 @@ describe 'Widget values' do
       HTML
 
       GivenWidget do
-        Int = CapybaraUI::Integer('#my-widget')
+        Int = Capybara::UI::Integer('#my-widget')
       end
 
       Then { value(:int) == 1 }
@@ -60,7 +60,7 @@ describe 'Widget values' do
       HTML
 
       GivenWidget do
-        Int = CapybaraUI::Integer('#my-widget')
+        Int = Capybara::UI::Integer('#my-widget')
       end
 
       When(:result) { value(:int) }
@@ -76,7 +76,7 @@ describe 'Widget values' do
     HTML
 
     GivenWidget do
-      class Single < CapybaraUI::Widget
+      class Single < Capybara::UI::Widget
         root '.my-widget'
       end
     end
@@ -93,7 +93,7 @@ describe 'Widget values' do
       HTML
 
       GivenWidget do
-        Dec = CapybaraUI::Decimal('#my-widget')
+        Dec = Capybara::UI::Decimal('#my-widget')
       end
 
       Then { value(:dec) == 1.5 }
@@ -106,7 +106,7 @@ describe 'Widget values' do
       HTML
 
       GivenWidget do
-        Dec = CapybaraUI::Decimal('#my-widget')
+        Dec = Capybara::UI::Decimal('#my-widget')
       end
 
       When(:result) { value(:dec) }
