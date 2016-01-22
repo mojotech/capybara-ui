@@ -26,7 +26,7 @@ A Capybara-UI role groups tasks and elements together, and is defined as a class
 See the [setting up roles](https://github.com/mojotech/capybara-ui/wiki/Setting-Up-Roles) section in the wiki for more how-to ideas.
 
 ```ruby
-class Admin < Capybara-UI::Role
+class Admin < Capybara::UI::Role
   ...
 end
 ```
@@ -36,7 +36,7 @@ end
 A task is just a method on a role.
 
 ```ruby
-class Admin < Capybara-UI::Role
+class Admin < Capybara::UI::Role
   def navigate_to_new_user
     ...
   end
@@ -54,7 +54,7 @@ end
 Elements are where the Capybara-UI amazingness begins, as well as where the Capybara-UI confusion heats up. Elements are dom abstractions that allow for precise testing. By using dom element attributes we can easily create the most basic Capybara-UI Element, a widget.
 
 ```ruby
-class Admin < Capybara-UI::Role
+class Admin < Capybara::UI::Role
   widget :new_user_button, 'a.add-user'
 end
 ```
@@ -68,7 +68,7 @@ This widget uses css selectors to search the page for a link with the `add-user`
 Building on our example, we can now click the link.
 
 ```ruby
-class Admin < Capybara-UI::Role
+class Admin < Capybara::UI::Role
   def navigate_to_new_user
     click :new_user_button
   end
@@ -84,7 +84,7 @@ end
 Capybara-UI has a small arsenal of elements that work nicely with some of the more difficult-to-test DOM elements. Here is a **form** element, where we map the form widget to field sub-widgets, again using DOM attributes (here we're using names).
 
 ```ruby
-class Admin < Capybara-UI::Role
+class Admin < Capybara::UI::Role
   def navigate_to_new_user
     click :new_user_button
   end
@@ -105,7 +105,7 @@ end
 Finally, let's explore that Capybara-UI magic in the expect clause of our example spec. Capybara-UI's `see` expectation method, by default, will simply check for the presence of a widget by that name.
 
 ```ruby
-class Admin < Capybara-UI::Role
+class Admin < Capybara::UI::Role
   def navigate_to_new_user
     click :new_user_button
   end
