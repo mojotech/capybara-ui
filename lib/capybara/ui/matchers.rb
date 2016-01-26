@@ -1,12 +1,20 @@
+def permitted_rspec_version?
+  actual_rspec_expectations_version >= required_rspec_expectations_version
+end
+
+def actual_rspec_expectations_version
+  Gem::Version.new(RSpec::Expectations::Version::STRING)
+end
+
+def required_rspec_expectations_version
+  Gem::Version.new(Capybara::UI::OptionalDependencies::RSPEC_VERSION)
+end
+
 begin
   require 'rspec/matchers'
-  require 'rspec/version'
+  require 'rspec/expectations/version'
 
-  unless Gem::Version.new(RSpec::Version::STRING) >= Gem::Version.new(Capybara::UI::OptionalDependencies::RSPEC_VERSION)
-    raise LoadError,
-      "requires RSpec version #{Capybara::UI::OptionalDependencies::RSPEC_VERSION} or later. " \
-      "You have #{RSpec::Version::STRING}."
-  end
+  raise LoadError unless permitted_rspec_version?
 
   RSpec::Matchers.define :see do |widget_name, *args|
     match do |role|
@@ -25,4 +33,8 @@ begin
       end
     end
   end
+
+rescue LoadError
+  "RSpec Expectations version #{required_rspec_expectations_version} or later is required. " \
+  "You have #{actual_rspec_expectations_version}."
 end
