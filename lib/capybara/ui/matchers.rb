@@ -25,12 +25,20 @@ begin
       end
     end
 
+    failure_message do
+      "Could not find widget(#{widget_name}, args.join(', ')) on page."
+    end
+
     match_when_negated do |role|
       begin
         eventually { !role.see?(widget_name, *args) }
       rescue Capybara::UI::Checkpoint::ConditionNotMet
         false
       end
+    end
+
+    failure_message_when_negated do
+      "Unexpectedly found widget(#{widget_name}, args.join(', ')) on page."
     end
   end
 
