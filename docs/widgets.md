@@ -202,18 +202,20 @@ Forms inherit all the properties of widgets, and have some of their own.
 
 
 ## Form Fields
-Forms can have form-field widgets defined, as well as any regular sub-widgets. Form field widgets by default try to match their second argument with the text of a label, an input name or an input id.
+Forms allow sub-widgets to be defined on the form widget. `text_field`, `select` and `check_box` fields look for a DOM element with a name, id or label text that matches the second argument. If the second argument is nil or left blank, the name of the widget is used. `radio_button` and `widget` use regular css selectors.
+
+> Note: Radio buttons share the same name, and so must be treated differently. Define a group of radio buttons via a parent element using css selectors rather than field-level selectors like text_field or select.
 
 ```ruby
   form :form_with_everything, '.form-with-everything' do
     # text field
-    text_field :request, 'request'
+    text_field :request, 'user_request'
 
     # select field
-    select :state, 'state'
+    select :state
 
     # checkbox field
-    check_box :receive_email, 'receive_email'
+    check_box :receive_email, 'Receive email'
 
     # radio button field group
     radio_button :favorite_color, '.favorite-color-parent'
@@ -223,10 +225,8 @@ Forms can have form-field widgets defined, as well as any regular sub-widgets. F
   end
 ```
 
-> Note: Radio buttons share the same name, and so must be treated differently. Define a group of radio buttons via a parent element, using standard css selectors rather than field-specific selectors.
-
 #### Defining Fields with CSS Selectors
-If you'd rather use a CSS selector, you can do that by passing the second argument as an array, with the selector as the array's first element.
+If you'd rather use a CSS selector for a `text_field`, `select` or `check_box` widget, you can do that by passing the second argument as an array with the selector as the array's first element.
 
 ```ruby
   text_field :request, ['.request-field-class'],

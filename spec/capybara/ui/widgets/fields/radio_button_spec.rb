@@ -23,9 +23,6 @@ DRIVERS.each do |driver|
         <label for="v6">Two</label>
         <input type="radio" name="v" id="v6" value="6">
       </p>
-      <p class="auto-locator">
-        <input type="radio" name="a" id="a7" value="7">
-      </p>
     HTML
 
     GivenWidget do
@@ -35,7 +32,6 @@ DRIVERS.each do |driver|
         radio_button :unchecked, '.unchecked'
         radio_button :checked, '.checked'
         radio_button :by_value, '.by-value'
-        radio_button :auto_locator, '.auto-locator'
       end
     end
 
@@ -60,14 +56,12 @@ DRIVERS.each do |driver|
     end
 
     context 'when transforming to table' do
-      Given(:headers) {['unchecked', 'checked', 'by value', 'auto locator']}
-      Given(:values)  {['', 'checked', '', '']}
+      Given(:headers) {['unchecked', 'checked', 'by value']}
+      Given(:values)  {['', 'checked', '']}
 
       When(:table)   { widget(:field_group).to_table }
 
       Then { table == [headers, values] }
     end
-
-    it_should_behave_like 'a field'
   end
 end

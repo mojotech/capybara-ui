@@ -7,12 +7,6 @@ module Capybara
     class FieldGroup < Widget
       root 'fieldset'
 
-      def self.default_locator(type = nil, &block)
-        alias_method :name_to_locator, type if type
-
-        define_method :name_to_locator, &block if block
-      end
-
       # The names of all the fields that belong to this field group.
       #
       # Field names are automatically added to this group as long as you use
@@ -88,7 +82,7 @@ module Capybara
         field_names << name.to_sym
 
         label     = name.to_s.gsub(/_/, ' ').capitalize
-        locator ||= label
+        locator ||= name.to_s
 
         widget name, locator, type do
           define_method :label do
