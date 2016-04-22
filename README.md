@@ -58,6 +58,13 @@ If using with Cucumber, add the following to your `support/env.rb`.
 require 'capybara/ui/cucumber'
 ```
 
+If you are using with RSpec, add the following to your `spec_helper.rb` or
+`support/env.rb` file.
+
+```ruby
+require 'capybara/ui/rspec'
+```
+
 ## Contributing
 We welcome pull requests. Please make sure tests accompany any PRs. Email Adam at ags@mojotech.com if you have questions.
 
