@@ -25,8 +25,17 @@ DRIVERS.each do |driver|
         </select>
       </p>
       <p>
-        <label for="al">Auto locator</label>
-        <select name="al" id="al">
+        <label for="ll">Label locator</label>
+        <select name="ll" id="ll">
+          <option>One</option>
+          <option>Two</option>
+        </select>
+      </p>
+      <p>
+        <label for="u">Auto locator</label>
+        <select name="auto_locator" id="al">
+          <option>One</option>
+          <option>Two</option>
         </select>
       </p>
     HTML
@@ -38,6 +47,7 @@ DRIVERS.each do |driver|
         select :unselected, 'u'
         select :selected, 's'
         select :by_value, 'v'
+        select :label_locator, 'Label locator'
         select :auto_locator
       end
     end
@@ -47,23 +57,30 @@ DRIVERS.each do |driver|
     end
 
     context 'when querying' do
+      Then { widget(:field_group).unselected == 'One' }
       Then { widget(:field_group).selected == 'Selected option' }
       Then { widget(:field_group).selected_value == '1s' }
+      Then { widget(:field_group).label_locator == 'One' }
+      Then { widget(:field_group).auto_locator == 'One' }
     end
 
     context 'when setting' do
       When { widget(:field_group).unselected = 'Two' }
       When { widget(:field_group).selected   = 'Unselected option' }
       When { widget(:field_group).by_value   = 't'}
+      When { widget(:field_group).label_locator = 'Two' }
+      When { widget(:field_group).auto_locator = 'Two' }
 
       Then { widget(:field_group).unselected == 'Two' }
       Then { widget(:field_group).selected   == 'Unselected option' }
       Then { widget(:field_group).by_value   == 'Two' }
+      Then { widget(:field_group).label_locator == 'Two' }
+      Then { widget(:field_group).auto_locator == 'Two' }
     end
 
     context 'when transforming to table' do
-      Given(:headers) {['unselected', 'selected', 'by value', 'auto locator']}
-      Given(:values)  {['one', 'selected option', 'one', '']}
+      Given(:headers) {['unselected', 'selected', 'by value', 'label locator', 'auto locator']}
+      Given(:values)  {['one', 'selected option', 'one', 'one', 'one']}
 
       When(:table)   { widget(:field_group).to_table }
 
