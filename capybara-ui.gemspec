@@ -29,5 +29,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'pry-nav'
   s.add_development_dependency 'sinatra'
   s.add_development_dependency 'rails', '~> 4.2.9'
-  s.add_development_dependency 'codeclimate-test-reporter'
+  s.add_development_dependency 'simplecov'
 end

@@ -1,6 +1,12 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=9028ccc64391f650aacd79af2eb66ba6d19bc5e96d3af2916c126a9809c4ddce
 before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 language: ruby
 rvm:
   - 2.0.0
@@ -11,6 +17,5 @@ cache: bundler
 script:
   - bundle exec rspec spec
   - bundle exec cucumber
-addons:
-  code_climate:
-    repo_token: 9028ccc64391f650aacd79af2eb66ba6d19bc5e96d3af2916c126a9809c4ddce
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
