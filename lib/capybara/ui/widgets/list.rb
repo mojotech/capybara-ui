@@ -195,7 +195,9 @@ module Capybara
       end
 
       def items
-        item_filter.nodes(self).map { |node| item_for(node) }
+        Capybara.using_wait_time(0) do
+          item_filter.nodes(self).map { |node| item_for(node) }
+        end
       end
     end
   end
