@@ -5,7 +5,7 @@
 
 Docs [here](/docs/table_of_contents.md). Check out the [wiki](https://github.com/mojotech/capybara-ui/wiki) for more ideas and tips.
 
-#Overview
+# Overview
 Capybara-UI (formerly called Dill) is a [Capybara](https://github.com/jnicklas/capybara) abstraction that makes it easy to define reuseable DOM "widgets", aka [page objects](http://www.assertselenium.com/automation-design-practices/page-object-pattern/), and introduces the concept of "roles" to allow you to easily organize your testing methods and widgets. Capybara-UI also introduces some helpers and syntactic sugar to make your testing even easier.
 
 ### Before Capybara-UI
