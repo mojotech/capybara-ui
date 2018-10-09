@@ -1,4 +1,4 @@
-#A Capybara-UI Walkthrough
+# A Capybara-UI Walkthrough
 Capybara-UI might best be thought of as three layers.
 
     ROLES, that perform => TASKS, which manipulate => ELEMENTS
@@ -21,7 +21,7 @@ end
 You can start to see in the expect statement that Capybara-UI is magical, too.
 
 
-##Roles
+## Roles
 A Capybara-UI role groups tasks and elements together, and is defined as a class.
 See the [setting up roles](https://github.com/mojotech/capybara-ui/wiki/Setting-Up-Roles) section in the wiki for more how-to ideas.
 
@@ -32,7 +32,7 @@ end
 ```
 
 
-##Tasks
+## Tasks
 A task is just a method on a role.
 
 ```ruby
@@ -50,7 +50,7 @@ end
 ```
 
 
-##Elements
+## Elements
 Elements are where the Capybara-UI amazingness begins, as well as where the Capybara-UI confusion heats up. Elements are dom abstractions that allow for precise testing. By using dom element attributes we can easily create the most basic Capybara-UI Element, a widget.
 
 ```ruby
