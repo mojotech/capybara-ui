@@ -7,8 +7,9 @@ class CapybaraUIApp < Rails::Application
 
   secret = '39a988a1711e621dbc7718d4c89f5e3f'
   config.session_store :cookie_store, :key => secret
-  config.secret_token = secret
   config.secret_key_base = secret
+
+  config.action_controller.perform_caching = false
 
   log_file = File.new(File.join(config.root, 'log', 'test.log'), 'w+')
   config.logger = Logger.new(log_file)
@@ -36,12 +37,12 @@ module WebApp
 
     TestController.class_eval do
       define_method name do
-        render :text => html
+        render html: html.html_safe
       end
     end
 
     CapybaraUIApp.routes.draw do
-      get path => "test##{name}", :as => name
+      get path, to: "test##{name}", as: name
     end
   end
 end
