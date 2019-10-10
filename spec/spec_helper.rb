@@ -6,17 +6,17 @@ require 'pry'
 require 'rspec/given'
 require 'sinatra/base'
 require 'capybara/rspec'
-require 'capybara/webkit'
 require 'capybara/poltergeist'
+require 'webdrivers'
 
 Dir["./spec/support/**/*.rb"].each { |file| require file }
 
-DRIVERS = [:webkit, :poltergeist]
+DRIVERS = [:selenium_chrome_headless, :poltergeist]
 
 class CapybaraUIApp < Sinatra::Base; end
 Capybara.app = CapybaraUIApp
 
-Capybara.javascript_driver = :webkit
+Capybara.javascript_driver = :selenium_chrome_headless
 
 module WidgetSpecDSL
   def GivenAction(body_html, path)
