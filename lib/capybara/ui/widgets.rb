@@ -29,7 +29,7 @@ module Capybara
       def Decimal(*selector)
         Widget(selector) { |text|
           # ensure we can convert to float first
-          Float(text) && BigDecimal.new(text)
+          Float(text) && BigDecimal(text)
         }
       end
     end
