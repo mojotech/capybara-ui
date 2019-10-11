@@ -43,7 +43,7 @@ module WebApp
     TestController.class_eval do
       # binding.pry
       define_method name do
-        render text: html
+        render html: html
       end
     end
 
