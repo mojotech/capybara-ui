@@ -1,5 +1,5 @@
 def permitted_rspec_version?
-  actual_rspec_expectations_version >= required_rspec_expectations_version
+  defined? RSpec && actual_rspec_expectations_version >= required_rspec_expectations_version
 end
 
 def actual_rspec_expectations_version

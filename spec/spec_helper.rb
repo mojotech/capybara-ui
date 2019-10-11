@@ -6,17 +6,21 @@ require 'pry'
 require 'rspec/given'
 require 'sinatra/base'
 require 'capybara/rspec'
-require 'capybara/poltergeist'
+require "capybara/cuprite"
 require 'webdrivers'
 
 Dir["./spec/support/**/*.rb"].each { |file| require file }
 
-DRIVERS = [:selenium_chrome_headless, :poltergeist]
+DRIVERS = [:selenium_chrome_headless]
 
 class CapybaraUIApp < Sinatra::Base; end
 Capybara.app = CapybaraUIApp
 
-Capybara.javascript_driver = :selenium_chrome_headless
+Capybara.register_driver(:cuprite) do |app|
+  Capybara::Cuprite::Driver.new(app, window_size: [1200, 800], slowmo: 2, headless: false)
+end
+
+Capybara.javascript_driver = :cuprite
 
 module WidgetSpecDSL
   def GivenAction(body_html, path)

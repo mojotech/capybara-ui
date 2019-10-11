@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec-given', '~> 3.5.0'
   s.add_development_dependency 'selenium-webdriver'
   s.add_development_dependency 'webdrivers'
-  s.add_development_dependency 'poltergeist'
+  s.add_development_dependency 'cuprite'
   s.add_development_dependency 'cucumber', '~> 1.3.0'
   s.add_development_dependency 'pry'
   s.add_development_dependency 'pry-nav'
