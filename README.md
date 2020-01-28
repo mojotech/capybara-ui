@@ -66,7 +66,7 @@ require 'capybara/ui/rspec'
 ```
 
 ## Contributing
-We welcome pull requests. Please make sure tests accompany any PRs. Email Adam at ags@mojotech.com if you have questions.
+We welcome pull requests. Please make sure tests accompany any PRs.
 
 
 ---
