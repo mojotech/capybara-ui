@@ -2,7 +2,7 @@ module Capybara
   module UI
     module CucumberMethods
       begin
-        require 'cucumber/ast/table'
+        require 'cucumber/multiline_argument/data_table'
 
         # Compares this widget with the given Cucumber +table+.
         #
@@ -24,7 +24,7 @@ module Capybara
           to_table = self.to_table
 
           if ignore_case == true
-            table = downcase_table(table)
+            table = Cucumber::MultilineArgument::DataTable.from(downcase_array(table.raw))
             to_table = downcase_array(to_table)
           end
 
@@ -32,10 +32,6 @@ module Capybara
         end
 
         private
-
-        def downcase_table(table)
-          new_cucumber_table downcase_array(table.raw)
-        end
 
         def downcase_array(array)
           array.map do |item|
@@ -61,10 +57,6 @@ module Capybara
               downcase_hash(v)
             end
           end
-        end
-
-        def new_cucumber_table(table)
-          Cucumber::Ast::Table.new(table)
         end
 
       rescue LoadError

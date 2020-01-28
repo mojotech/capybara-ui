@@ -1,4 +1,4 @@
-require 'cucumber/ast/table'
+require 'cucumber'
 require 'spec_helper'
 
 DRIVERS.each do |driver|
@@ -34,7 +34,9 @@ DRIVERS.each do |driver|
         }
       }
 
-      Given(:table) { Cucumber::Ast::Table.new([fields]) }
+      Given(:table) {
+        Cucumber::MultilineArgument::DataTable.from([fields])
+      }
 
       context "same table" do
         Given(:fields) { base_fields }
@@ -49,7 +51,7 @@ DRIVERS.each do |driver|
 
         When(:result) { widget(:my_widget).diff table }
 
-        Then { result == Failure(Cucumber::Ast::Table::Different) }
+        Then { result == Failure(Cucumber::MultilineArgument::DataTable::Different) }
       end
     end
 
@@ -72,7 +74,7 @@ DRIVERS.each do |driver|
         }
       }
 
-      Given(:table) { Cucumber::Ast::Table.new([fields]) }
+      Given(:table) { Cucumber::MultilineArgument::DataTable.from([fields]) }
 
       context "similar table" do
         Given(:fields) { base_fields }
@@ -87,7 +89,7 @@ DRIVERS.each do |driver|
 
         When(:result) { widget(:my_widget).diff table, ignore_case: true }
 
-        Then { result == Failure(Cucumber::Ast::Table::Different) }
+        Then { result == Failure(Cucumber::MultilineArgument::DataTable::Different) }
       end
     end
   end

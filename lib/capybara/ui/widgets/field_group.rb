@@ -313,7 +313,7 @@ module Capybara
       end
 
       # Converts the current field group into a table suitable for diff'ing
-      # with Cucumber::Ast::Table.
+      # with Cucumber::MultilineArgument::DataTable.
       #
       # Field labels are determined by the widget name.
       #
