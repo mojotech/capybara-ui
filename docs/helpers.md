@@ -56,12 +56,12 @@ expect(User.new).to see :custom_logic, 'my text'
 ## Cucumber helpers
 
 #### widget#diff
-`widget#diff` checks the table version of a widget against a cucumber AST table.
+`widget#diff` checks the table version of a widget against a cucumber table.
 
 ```ruby
 Then(/^some step that takes in a cucumber table$/) do |table|
   # when the cucumber table values do not match the widget's values
-  widget(:my_widget).diff(table) # raises error Cucumber::Ast::Table::Different
+  widget(:my_widget).diff(table) # raises error Cucumber::MultilineArgument::DataTable::Different
 
   # when the cucumber table values match the widget's values
   widget(:my_widget).diff(table) # => true

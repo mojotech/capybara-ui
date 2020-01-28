@@ -218,7 +218,7 @@ DRIVERS.each do |driver|
         <div>Widget</div>
       HTML
 
-      Given(:table) { Cucumber::Ast::Table.new(GOOD_TABLE) }
+      Given(:table) { Cucumber::MultilineArgument::DataTable.from(GOOD_TABLE) }
 
       context 'successful comparison' do
         GivenWidget do
@@ -245,7 +245,7 @@ DRIVERS.each do |driver|
 
         When(:failure) { widget(:my_widget).diff table }
 
-        Then { failure == Failure(Cucumber::Ast::Table::Different) }
+        Then { failure == Failure(Cucumber::MultilineArgument::DataTable::Different) }
       end
     end
 
