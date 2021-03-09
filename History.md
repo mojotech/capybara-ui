@@ -1,3 +1,10 @@
+# Version 1.3.0
+
+### Changed
+
+* Update keyword argument usage in `node_filter` to resolve deprecation warnings in Ruby 2.7 and errors in Ruby 3.0.0 (Thanks, @thomasbalsloev!)
+* Add `rexml` to the gem bundle to support Ruby 3.0.0
+
 # Version 1.2.0
 
 ### Changed
