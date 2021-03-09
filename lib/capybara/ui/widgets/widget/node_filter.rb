@@ -9,19 +9,23 @@ module Capybara
         end
 
         def node(parent_widget, *args)
-          parent_widget.root.find(*capybara_selector(*args))
+          a, kw = capybara_selector(*args)
+          parent_widget.root.find(*a, **kw)
         end
 
         def node?(parent_widget, *args)
-          parent_widget.root.has_selector?(*capybara_selector(*args))
+          a, kw = capybara_selector(*args)
+          parent_widget.root.has_selector?(*a, **kw)
         end
 
         def nodeless?(parent_widget, *args)
-          parent_widget.root.has_no_selector?(*capybara_selector(*args))
+          a, kw = capybara_selector(*args)
+          parent_widget.root.has_no_selector?(*a, **kw)
         end
 
         def nodes(parent_widget, *args)
-          parent_widget.root.all(*capybara_selector(*args))
+          a, kw = capybara_selector(*args)
+          parent_widget.root.all(*a, **kw)
         end
 
         private
@@ -39,9 +43,9 @@ module Capybara
           defaults = {:wait => 0}
 
           if Hash === selector.last
-            selector + [defaults.merge(selector.pop)]
+            return selector, defaults.merge(selector.pop)
           else
-            selector + [defaults]
+            return selector, defaults
           end
         end
       end
