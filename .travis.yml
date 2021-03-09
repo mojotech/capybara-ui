@@ -12,9 +12,9 @@ before_install:
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 language: ruby
 rvm:
-  - 2.4.9
-  - 2.5.7
+  - 2.5.8
   - 2.6.5
+  - 2.7.2
 cache: bundler
 script:
   - bundle exec rspec spec
