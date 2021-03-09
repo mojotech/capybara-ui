@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'chronic'
   s.add_dependency 'capybara', '~> 3.0'
 
-  s.add_development_dependency 'rspec-given', '~> 3.5.0'
+  s.add_development_dependency 'rspec-given', '>= 3.8'
   s.add_development_dependency 'selenium-webdriver'
   s.add_development_dependency 'webdrivers'
   s.add_development_dependency 'cuprite'
