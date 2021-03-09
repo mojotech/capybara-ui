@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'chronic'
   s.add_dependency 'capybara', '~> 3.0'
+  s.add_dependency 'rexml'
 
   s.add_development_dependency 'rspec-given', '>= 3.8'
   s.add_development_dependency 'selenium-webdriver'
