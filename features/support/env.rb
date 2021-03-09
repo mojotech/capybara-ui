@@ -1,0 +1,6 @@
+require_relative './00_codeclimate'
+require_relative './10_app'
+require_relative './20_widget'
+require_relative './30_capybara'
+require_relative './99_constants'
+require_relative './expectations'
