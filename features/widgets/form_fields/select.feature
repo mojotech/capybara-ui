@@ -56,7 +56,7 @@ Feature: Form Fields: Select
         </select>
       </form>
       """
-    Then we will see no option is selected:
+    Then we will see the first enabled option is selected:
       """
-      widget(:my_form).my_select #=> nil
+      widget(:my_form).my_select #=> "Um"
       """
