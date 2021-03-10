@@ -6,7 +6,7 @@ Feature: Action DSL
 
     Given the following HTML at the path "/somewhere":
       """
-      <div id="here"></div>
+      <div id="here">.</div>
       """
     And the following widget definition:
       """
