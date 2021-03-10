@@ -30,6 +30,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'pry-nav'
   s.add_development_dependency 'puma'
   s.add_development_dependency 'sinatra'
-  s.add_development_dependency 'rails', '~> 5.2.0'
+  s.add_development_dependency 'rails', '~> 6.1.0'
   s.add_development_dependency 'simplecov'
 end
