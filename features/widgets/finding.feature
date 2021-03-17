@@ -5,7 +5,7 @@ Feature: Finding
   Scenario: finding a widget with a simple selector
     Given the following HTML:
       """
-      <div id="the-widget"></div>
+      <div id="the-widget">.</div>
       """
     And the following widget definition:
       """

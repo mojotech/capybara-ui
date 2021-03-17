@@ -2,7 +2,13 @@ module Capybara
   module UI
     class StringValue < String
       def to_date(format = nil)
-        format ? Date.strptime(self, format) : super()
+        if format
+          Date.strptime(self, format)
+        elsif defined?(super)
+          super()
+        else
+          Date.parse(self)
+        end
       end
 
       def to_key

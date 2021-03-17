@@ -20,16 +20,17 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'chronic'
   s.add_dependency 'capybara', '~> 3.0'
+  s.add_dependency 'rexml'
 
-  s.add_development_dependency 'rspec-given', '~> 3.5.0'
+  s.add_development_dependency 'rspec-given', '>= 3.8'
   s.add_development_dependency 'selenium-webdriver'
   s.add_development_dependency 'webdrivers'
   s.add_development_dependency 'cuprite'
-  s.add_development_dependency 'cucumber', '~> 2.0'
+  s.add_development_dependency 'cucumber', '>= 5.3'
   s.add_development_dependency 'pry'
   s.add_development_dependency 'pry-nav'
   s.add_development_dependency 'puma'
   s.add_development_dependency 'sinatra'
-  s.add_development_dependency 'rails', '~> 5.2.0'
+  s.add_development_dependency 'rails', '~> 6.1.0'
   s.add_development_dependency 'simplecov'
 end
