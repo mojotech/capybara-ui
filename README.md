@@ -1,5 +1,4 @@
 # Capybara-UI
-[![Travis Build Status](https://travis-ci.org/mojotech/capybara-ui.svg?branch=master)](https://travis-ci.org/mojotech/capybara-ui)
 [![Code Climate](https://codeclimate.com/github/mojotech/capybara-ui/badges/gpa.svg)](https://codeclimate.com/github/mojotech/capybara-ui)
 [![Test Coverage](https://codeclimate.com/github/mojotech/capybara-ui/badges/coverage.svg)](https://codeclimate.com/github/mojotech/capybara-ui)
 
